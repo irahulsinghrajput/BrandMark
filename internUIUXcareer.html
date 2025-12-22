@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI/UX Intern | Brand Mark Solutions</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- CSS Reset & Base Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: #ffffff;
+            transition: color 0.3s ease;
+        }
+
+        /* --- Header (Consistent) --- */
+        header {
+            background-color: rgba(0, 0, 0, 0.95);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-container img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+        
+        .logo-container a {
+            display: flex;
+            align-items: center;
+        }
+
+        .text-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            letter-spacing: -1px;
+            display: block;
+        }
+        
+        .text-logo span {
+            font-weight: 300;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            color: #b3b3b3;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px;
+        }
+
+        /* --- Job Detail Section --- */
+        .job-detail-container {
+            max-width: 900px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .job-header {
+            margin-bottom: 50px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 30px;
+        }
+
+        .job-tag {
+            background-color: #222;
+            color: #fff;
+            padding: 5px 12px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .job-title {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #fff;
+            line-height: 1.2;
+        }
+
+        .job-meta {
+            color: #888;
+            font-size: 1rem;
+            display: flex;
+            gap: 20px;
+        }
+
+        .job-content h3 {
+            font-size: 1.5rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .job-content p {
+            color: #ccc;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .job-content ul {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .job-content li {
+            color: #ccc;
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .job-content li::before {
+            content: "•";
+            color: #fff;
+            position: absolute;
+            left: 0;
+        }
+
+        .apply-btn {
+            display: inline-block;
+            background-color: #fff;
+            color: #000;
+            padding: 15px 40px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 40px;
+            transition: background-color 0.3s ease;
+        }
+
+        .apply-btn:hover {
+            background-color: #ddd;
+        }
+
+        /* --- Footer Styles --- */
+        footer {
+            background-color: #050505;
+            border-top: 1px solid #222;
+            margin-top: 80px;
+            padding: 80px 0 30px;
+            text-align: left;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h4 {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+            color: #fff;
+        }
+
+        .footer-column p, .footer-column a {
+            color: #888;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .footer-column a:hover {
+            color: #fff;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #1a1a1a;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        /* --- Mobile Responsive --- */
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                right: 0;
+                height: 92vh;
+                top: 8vh;
+                background-color: #000;
+                flex-direction: column;
+                align-items: center;
+                width: 60%;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in;
+                border-left: 1px solid #222;
+                padding-top: 40px;
+            }
+            .nav-links li { margin: 20px 0; }
+            .burger { display: block; }
+            .nav-active { transform: translateX(0%); }
+            
+            .job-title { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <a href="index.html" style="display: flex; align-items: center;">
+                <img src="Brandmarklogo.jpeg" alt="Brand Mark Solutions">
+                <span class="text-logo">Brand<span>Mark</span></span>
+            </a>
+        </div>
+        
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="brandmarkAboutUs.html">About Us</a></li>
+                <li><a href="brandmarkservices.html">Services</a></li>
+                <li><a href="brandmarkpersonalblogs.html">Personal Blogs</a></li>
+                <li><a href="brandmarkcareers.html" style="color: #fff;">Careers</a></li>
+            </ul>
+        </nav>
+
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </header>
+
+    <!-- Job Detail Content -->
+    <div class="job-detail-container">
+        <div class="job-header">
+            <span class="job-tag">Internship • Product</span>
+            <h1 class="job-title">UI/UX Intern</h1>
+            <div class="job-meta">
+                <span><i class="far fa-clock"></i> Full-time</span>
+                <span><i class="fas fa-map-marker-alt"></i> Hybrid</span>
+                <span><i class="fas fa-money-bill-wave"></i> Paid Internship</span>
+            </div>
+        </div>
+
+        <div class="job-content">
+            <h3>Job Description</h3>
+            <p>
+                Obsessed with user journeys? Help us map out intuitive interfaces. You'll be conducting user research, creating wireframes, and prototyping designs that minimize friction and maximize delight. We are looking for a UI/UX Intern who is passionate about creating seamless digital experiences.
+            </p>
+
+            <h3>Key Responsibilities</h3>
+            <ul>
+                <li>Create wireframes, storyboards, user flows, and process flows.</li>
+                <li>Design user interfaces for web and mobile applications.</li>
+                <li>Conduct user research and usability testing.</li>
+                <li>Collaborate with developers to ensure accurate implementation of designs.</li>
+                <li>Stay up-to-date with the latest UI/UX trends and technologies.</li>
+            </ul>
+
+            <h3>Required Skills</h3>
+            <ul>
+                <li>Proficiency in design tools like Figma, Sketch, or Adobe XD.</li>
+                <li>Understanding of user-centered design principles.</li>
+                <li>Basic knowledge of HTML/CSS is a plus.</li>
+                <li>Strong portfolio demonstrating UI/UX projects.</li>
+                <li>Excellent communication and teamwork skills.</li>
+            </ul>
+
+            <h3>What We Offer</h3>
+            <ul>
+                <li>Opportunity to work on diverse projects.</li>
+                <li>Mentorship from senior designers.</li>
+                <li>Creative and collaborative work environment.</li>
+                <li>Potential for full-time employment.</li>
+            </ul>
+
+            <a href="mailto:jobs@brandmarksolutions.com?subject=Application for UI/UX Intern" class="apply-btn">Apply Now</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Brand Mark Solutions</h4>
+                    <p>We help businesses build powerful brands and implement effective marketing strategies that drive growth and engagement.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <a href="brandmark.html">Home</a>
+                    <a href="brandmarkservices.html">Services</a>
+                    <a href="brandmarkAboutUs.html">About Us</a>
+                    <a href="brandmarkcareers.html">Careers</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Marketing Ave, Suite 400</p>
+                    <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@brandmarksolutions.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 Brand Mark Solutions. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script -->
+    <script>
+        const navSlide = () => {
+            const burger = document.querySelector('.burger');
+            const nav = document.querySelector('.nav-links');
+            const navLinks = document.querySelectorAll('.nav-links li');
+
+            if(burger){
+                burger.addEventListener('click', () => {
+                    nav.classList.toggle('nav-active');
+                    burger.classList.toggle('toggle');
+                    
+                    navLinks.forEach((link, index) => {
+                        if (link.style.animation) {
+                            link.style.animation = '';
+                        } else {
+                            link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+                        }
+                    });
+                });
+            }
+        }
+        navSlide();
+    </script>
+</body>
+</html>
