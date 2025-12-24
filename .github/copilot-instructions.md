@@ -1,5 +1,8 @@
 # BrandMark Codebase Instructions
 
+## Model Preferences
+- **Enable Claude Haiku 4.5 for all clients**: This codebase is optimized for Claude Haiku 4.5 as the AI coding agent.
+
 ## Project Overview
 BrandMark is a static website for a branding and marketing services company targeting MSMEs (Micro, Small & Medium Enterprises). The site showcases services, team members, internship opportunities, and company information.
 
