@@ -17,11 +17,16 @@
                 extend: {
                     colors: {
                         brand: {
-                            black: '#0a0a0a',
-                            dark: '#121212',
-                            gray: '#1f1f1f',
-                            white: '#ffffff',
-                            accent: '#3b82f6',
+                            navy: '#0B2C4D',
+                            'navy-dark': '#081F36',
+                            orange: '#F26A21',
+                            'orange-dark': '#E65C17',
+                            'bg-light': '#F4F6F8',
+                            'bg-white': '#FFFFFF',
+                            'bg-card': '#FAFAFA',
+                            'text-body': '#2E2E2E',
+                            'text-muted': '#6C757D',
+                            'border-light': '#E0E0E0',
                         }
                     },
                     fontFamily: {
@@ -32,28 +37,28 @@
         }
     </script>
 </head>
-<body class="bg-brand-black text-white font-sans antialiased selection:bg-brand-accent selection:text-white">
+<body class="bg-brand-bg-light text-brand-text-body font-sans antialiased selection:bg-brand-orange selection:text-white">
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300 bg-brand-navy shadow-lg" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo Area -->
-                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.location.href='brandmark.html'">
+                <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer no-underline">
                     <!-- Updated Logo + Text Logic -->
-                    <img src="BrandMark New Logo.png" alt="Brand Mark Logo" class="h-12 w-12 rounded-full object-cover mr-3">
+                    <img src="new logoBrandMarkupdatedone.jpeg" alt="Brand Mark Logo" class="h-12 w-12 rounded-full object-cover mr-3">
                     <span class="text-2xl font-bold tracking-tighter text-white">
-                        Brand<span class="font-light">Mark</span><span class="text-xs align-top">®</span>
+                        Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">®</span>
                     </span>
-                </div>
+                </a>
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex space-x-8 items-center">
-                    <a href="index.html" class="text-white font-medium tracking-wide">Home</a>
-                    <a href="brandmarkAboutUs.html" class="text-gray-300 hover:text-white transition-colors text-sm font-medium tracking-wide">About Us</a>
-                    <a href="brandmarkservices.html" class="text-gray-300 hover:text-white transition-colors text-sm font-medium tracking-wide">Services</a>
-                    <a href="brandmarkpersonalblogs.html" class="text-gray-300 hover:text-white transition-colors text-sm font-medium tracking-wide">Personal Blogs</a>
-                    <a href="brandmarkcareers.html" class="text-gray-300 hover:text-white transition-colors text-sm font-medium tracking-wide">Careers</a>
+                    <a href="index.html" class="text-white font-medium tracking-wide hover:text-brand-orange transition-colors">Home</a>
+                    <a href="brandmarkAboutUs.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">About Us</a>
+                    <a href="brandmarkservices.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Services</a>
+                    <a href="brandmarkpersonalblogs.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Personal Blogs</a>
+                    <a href="brandmarkcareers.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Careers</a>
                 </div>
 
                 <!-- Mobile Menu Button -->
@@ -66,13 +71,13 @@
         </div>
 
         <!-- Mobile Menu Panel -->
-        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-b border-gray-800 absolute w-full">
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-navy border-b border-brand-border-light absolute w-full">
             <div class="px-4 pt-2 pb-6 space-y-2">
-                <a href="index.html" class="block px-3 py-3 rounded-md text-base font-medium text-white bg-brand-gray">Home</a>
-                <a href="brandmarkAboutUs.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-brand-gray">About Us</a>
-                <a href="brandmarkservices.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-brand-gray">Services</a>
-                <a href="brandmarkpersonalblogs.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-brand-gray">Personal Blogs</a>
-                <a href="brandmarkcareers.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-brand-gray">Careers</a>
+                <a href="index.html" class="block px-3 py-3 rounded-md text-base font-medium text-white bg-brand-navy-dark">Home</a>
+                <a href="brandmarkAboutUs.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">About Us</a>
+                <a href="brandmarkservices.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Services</a>
+                <a href="brandmarkpersonalblogs.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Personal Blogs</a>
+                <a href="brandmarkcareers.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Careers</a>
             </div>
         </div>
     </nav>
@@ -93,10 +98,10 @@
                 Affordable, high-impact branding & marketing strategies tailored specifically for Small Businesses and MSMEs.
             </p>
             <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4 fade-in-up" style="transition-delay: 200ms;">
-                <a href="brandmarkservices.html" class="px-8 py-4 bg-white text-black rounded-full font-bold hover:bg-gray-200 transition duration-300 shadow-lg shadow-white/10">
+                <a href="brandmarkservices.html" class="px-8 py-4 bg-brand-orange text-white rounded-full font-bold hover:bg-brand-orange-dark transition duration-300 shadow-lg">
                     Explore Services
                 </a>
-                <a href="#contact" class="px-8 py-4 border border-gray-700 text-white rounded-full font-medium hover:bg-gray-800 transition duration-300">
+                <a href="#contact" class="px-8 py-4 border border-brand-navy text-brand-navy rounded-full font-medium hover:bg-brand-navy hover:text-white transition duration-300">
                     Free Consultation
                 </a>
             </div>
@@ -104,9 +109,9 @@
     </section>
 
     <!-- Brands/Trust Section -->
-    <div class="py-10 border-y border-white/5 bg-brand-dark">
+    <div class="py-10 border-y border-brand-border-light bg-brand-navy">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-gray-500 text-sm tracking-widest uppercase mb-6">Trusted by local businesses like yours</p>
+            <p class="text-gray-300 text-sm tracking-widest uppercase mb-6">Trusted by local businesses like yours</p>
             <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
                 <i class="fa-brands fa-aws text-4xl"></i>
                 <i class="fa-brands fa-google text-3xl"></i>
@@ -118,41 +123,41 @@
     </div>
 
     <!-- Services Section -->
-    <section id="services" class="py-24 bg-brand-black relative">
+    <section id="services" class="py-24 bg-brand-bg-light relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 fade-in-up">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">What We Do</h2>
-                <p class="text-gray-400 max-w-xl mx-auto">We simplify the complex world of marketing so you can focus on running your business.</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-brand-navy">What We Do</h2>
+                <p class="text-brand-text-muted max-w-xl mx-auto">We simplify the complex world of marketing so you can focus on running your business.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Service 1 -->
-                <div class="p-8 rounded-2xl bg-brand-dark border border-white/5 hover:border-white/20 transition-all duration-300 hover:-translate-y-2 group fade-in-up">
-                    <div class="w-14 h-14 bg-white/5 rounded-xl flex items-center justify-center mb-6 text-white group-hover:bg-white group-hover:text-black transition-colors">
+                <div class="p-8 rounded-2xl bg-brand-bg-white border border-brand-border-light hover:border-brand-orange hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group fade-in-up">
+                    <div class="w-14 h-14 bg-brand-bg-card rounded-xl flex items-center justify-center mb-6 text-brand-navy group-hover:bg-brand-orange group-hover:text-white transition-colors">
                         <i class="fa-solid fa-pen-nib text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Brand Identity</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
+                    <h3 class="text-xl font-bold mb-3 text-brand-navy">Brand Identity</h3>
+                    <p class="text-brand-text-muted text-sm leading-relaxed">
                         From logo design to voice and tone. We build a cohesive identity that tells your unique story to the world.
                     </p>
                 </div>
                 <!-- Service 2 -->
-                <div class="p-8 rounded-2xl bg-brand-dark border border-white/5 hover:border-white/20 transition-all duration-300 hover:-translate-y-2 group fade-in-up" style="transition-delay: 100ms;">
-                    <div class="w-14 h-14 bg-white/5 rounded-xl flex items-center justify-center mb-6 text-white group-hover:bg-white group-hover:text-black transition-colors">
+                <div class="p-8 rounded-2xl bg-brand-bg-white border border-brand-border-light hover:border-brand-orange hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group fade-in-up" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 bg-brand-bg-card rounded-xl flex items-center justify-center mb-6 text-brand-navy group-hover:bg-brand-orange group-hover:text-white transition-colors">
                         <i class="fa-solid fa-bullhorn text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Digital Marketing</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
+                    <h3 class="text-xl font-bold mb-3 text-brand-navy">Digital Marketing</h3>
+                    <p class="text-brand-text-muted text-sm leading-relaxed">
                         Data-driven campaigns on Google and Facebook that bring high-quality leads directly to your doorstep.
                     </p>
                 </div>
                 <!-- Service 3 -->
-                <div class="p-8 rounded-2xl bg-brand-dark border border-white/5 hover:border-white/20 transition-all duration-300 hover:-translate-y-2 group fade-in-up" style="transition-delay: 200ms;">
-                    <div class="w-14 h-14 bg-white/5 rounded-xl flex items-center justify-center mb-6 text-white group-hover:bg-white group-hover:text-black transition-colors">
+                <div class="p-8 rounded-2xl bg-brand-bg-white border border-brand-border-light hover:border-brand-orange hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group fade-in-up" style="transition-delay: 200ms;">
+                    <div class="w-14 h-14 bg-brand-bg-card rounded-xl flex items-center justify-center mb-6 text-brand-navy group-hover:bg-brand-orange group-hover:text-white transition-colors">
                         <i class="fa-solid fa-share-nodes text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Social Media Management</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
+                    <h3 class="text-xl font-bold mb-3 text-brand-navy">Social Media Management</h3>
+                    <p class="text-brand-text-muted text-sm leading-relaxed">
                         Engage your community with consistent, creative content across Instagram, LinkedIn, and Twitter.
                     </p>
                 </div>
@@ -161,48 +166,48 @@
     </section>
 
     <!-- Why Us Section -->
-    <section id="about" class="py-24 bg-brand-dark border-t border-white/5">
+    <section id="about" class="py-24 bg-brand-bg-white border-t border-brand-border-light">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div class="fade-in-up">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Big Agency Expertise,<br>Small Business Heart.</h2>
-                    <div class="space-y-6 text-gray-400">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 text-brand-navy">Big Agency Expertise,<br>Small Business Heart.</h2>
+                    <div class="space-y-6 text-brand-text-muted">
                         <p>
-                            At <span class="text-white font-semibold">Brand Mark</span>, we understand the challenges of running a small business. You wear many hats, and "marketing expert" shouldn't have to be one of them.
+                            At <span class="text-brand-navy font-semibold">Brand Mark</span>, we understand the challenges of running a small business. You wear many hats, and "marketing expert" shouldn't have to be one of them.
                         </p>
                     </div>
                 </div>
-                <div class="relative h-96 rounded-2xl overflow-hidden fade-in-up bg-gray-800 flex items-center justify-center" style="transition-delay: 200ms;">
+                <div class="relative h-96 rounded-2xl overflow-hidden fade-in-up bg-gray-300 flex items-center justify-center" style="transition-delay: 200ms;">
                      <div class="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-transparent z-10"></div>
-                     <img src="SmallbusniessBigHeart.jpeg" alt="Team meeting" class="w-full h-full object-cover opacity-60">
+                     <img src="SmallbusniessBigHeart.jpeg" alt="Team meeting" class="w-full h-full object-cover opacity-70">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-24 bg-brand-black relative overflow-hidden">
+    <section id="contact" class="py-24 bg-brand-bg-light relative overflow-hidden">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-12 fade-in-up">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Let's Build Your Brand</h2>
-                <p class="text-gray-400">Ready to take your business to the next level? Drop us a message.</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-brand-navy">Let's Build Your Brand</h2>
+                <p class="text-brand-text-muted">Ready to take your business to the next level? Drop us a message.</p>
             </div>
             <form class="space-y-6 fade-in-up" id="contactForm" onsubmit="handleFormSubmit(event)">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-sm font-medium text-gray-400 mb-2">Name</label>
-                        <input type="text" required class="w-full bg-brand-dark border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white transition-colors placeholder-gray-600" placeholder="John Doe">
+                        <label class="block text-sm font-medium text-brand-text-body mb-2">Name</label>
+                        <input type="text" required class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="John Doe">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-400 mb-2">Email</label>
-                        <input type="email" required class="w-full bg-brand-dark border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white transition-colors placeholder-gray-600" placeholder="john@example.com">
+                        <label class="block text-sm font-medium text-brand-text-body mb-2">Email</label>
+                        <input type="email" required class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="john@example.com">
                     </div>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-400 mb-2">Message</label>
-                    <textarea rows="4" required class="w-full bg-brand-dark border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white transition-colors placeholder-gray-600" placeholder="Tell us about your project..."></textarea>
+                    <label class="block text-sm font-medium text-brand-text-body mb-2">Message</label>
+                    <textarea rows="4" required class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="Tell us about your project..."></textarea>
                 </div>
-                <button type="submit" class="w-full bg-white text-black font-bold py-4 rounded-lg hover:bg-gray-200 transition-colors transform active:scale-95">
+                <button type="submit" class="w-full bg-brand-orange text-white font-bold py-4 rounded-lg hover:bg-brand-orange-dark transition-colors transform active:scale-95">
                     Send Message
                 </button>
             </form>
@@ -210,25 +215,25 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-brand-dark border-t border-white/5 pt-16 pb-8">
+    <footer class="bg-brand-navy-dark border-t border-brand-border-light pt-16 pb-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <div class="col-span-1 md:col-span-2">
-                    <div class="flex items-center mb-4 cursor-pointer" onclick="window.location.href='brandmark.html'">
-                        <img src="BrandMark New Logo.png" alt="Logo" class="h-8 w-8 rounded-full mr-2">
+                    <a href="index.html" class="flex items-center mb-4 cursor-pointer no-underline">
+                        <img src="new logoBrandMarkupdatedone.jpeg" alt="Logo" class="h-8 w-8 rounded-full mr-2">
                         <span id="footer-text-logo" class="text-xl font-bold">Brand<span class="font-light">Mark</span></span>
-                    </div>
-                    <p class="text-gray-500 text-sm leading-relaxed max-w-sm">
+                    </a>
+                    <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
                         Helping small businesses create lasting impressions through strategic branding and innovative marketing solutions.
                     </p>
                     <div class="flex space-x-4 mt-6">
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-white hover:text-black transition-colors">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-brand-orange hover:text-white transition-colors">
                             <i class="fa-brands fa-facebook-f"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-white hover:text-black transition-colors">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-brand-orange hover:text-white transition-colors">
                             <i class="fa-brands fa-instagram"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-white hover:text-black transition-colors">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-brand-orange hover:text-white transition-colors">
                             <i class="fa-brands fa-linkedin-in"></i>
                         </a>
                     </div>
@@ -236,17 +241,17 @@
                 
                 <div>
                     <h4 class="text-white font-bold mb-6">Quick Links</h4>
-                    <ul class="space-y-3 text-sm text-gray-500">
-                        <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
-                        <li><a href="brandmarkservices.html" class="hover:text-white transition-colors">Services</a></li>
-                        <li><a href="brandmarkAboutUs.html" class="hover:text-white transition-colors">About Us</a></li>
-                        <li><a href="brandmarkcareers.html" class="hover:text-white transition-colors">Careers</a></li>
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li><a href="index.html" class="hover:text-brand-orange transition-colors">Home</a></li>
+                        <li><a href="brandmarkservices.html" class="hover:text-brand-orange transition-colors">Services</a></li>
+                        <li><a href="brandmarkAboutUs.html" class="hover:text-brand-orange transition-colors">About Us</a></li>
+                        <li><a href="brandmarkcareers.html" class="hover:text-brand-orange transition-colors">Careers</a></li>
                     </ul>
                 </div>
 
                 <div>
                     <h4 class="text-white font-bold mb-6">Contact</h4>
-                    <ul class="space-y-3 text-sm text-gray-500">
+                    <ul class="space-y-3 text-sm text-gray-300">
                         <li class="flex items-center"><i class="fa-solid fa-envelope w-5"></i> info.aimservicesprivatelimited@gmail.com</li>
                         <li class="flex items-center"><i class="fa-solid fa-phone w-5"></i> +91 709 186 3003</li>
                         <li class="flex items-center"><i class="fa-solid fa-location-dot w-5"></i> Gangotri, Buddha colony, Patna - 800001</li>
@@ -255,7 +260,7 @@
             </div>
             
             <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-600 text-sm">© 2024 Brand Mark Solutions. All rights reserved.</p>
+                <p class="text-gray-400 text-sm">© 2024 Brand Mark Solutions. All rights reserved.</p>
             </div>
         </div>
     </footer>

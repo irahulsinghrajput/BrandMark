@@ -16,8 +16,8 @@
         }
 
         body {
-            background-color: #000000;
-            color: #ffffff;
+            background-color: #F4F6F8;
+            color: #2E2E2E;
             line-height: 1.6;
             overflow-x: hidden;
         }
@@ -30,15 +30,16 @@
 
         /* --- Header (Consistent) --- */
         header {
-            background-color: rgba(0, 0, 0, 0.95);
+            background-color: #0B2C4D;
             padding: 20px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #222;
+            border-bottom: none;
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .logo-container {
@@ -62,12 +63,13 @@
         .text-logo {
             font-size: 1.8rem;
             font-weight: bold;
-            color: white;
+            color: #FFFFFF;
             letter-spacing: -1px;
-            display: block; /* Always show */
+            display: block;
         }
         
         .text-logo span {
+            color: #F26A21;
             font-weight: 300;
         }
 
@@ -82,13 +84,14 @@
 
         .nav-links a {
             font-size: 0.85rem;
-            color: #b3b3b3;
+            color: rgba(255, 255, 255, 0.85);
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .nav-links a:hover {
-            color: #ffffff;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+        .nav-links a:hover, .nav-links a.active {
+            color: #F26A21;
         }
 
         .burger {
@@ -111,10 +114,10 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,1)), url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background: linear-gradient(rgba(11, 44, 77, 0.9), rgba(11, 44, 77, 1)), url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
             background-size: cover;
             background-position: center;
-            border-bottom: 1px solid #222;
+            border-bottom: none;
         }
 
         .services-hero h1 {
@@ -122,27 +125,29 @@
             text-transform: uppercase;
             letter-spacing: 5px;
             margin-bottom: 20px;
+            color: #FFFFFF;
         }
 
         .services-hero p {
             font-size: 1.2rem;
-            color: #ccc;
+            color: rgba(255, 255, 255, 0.85);
             max-width: 700px;
         }
 
         /* --- Service Detail Sections --- */
         .service-category {
             padding: 80px 10%;
-            border-bottom: 1px solid #111;
+            border-bottom: 1px solid #E0E0E0;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             gap: 50px;
+            background-color: #FFFFFF;
         }
 
         .service-category:nth-child(even) {
             flex-direction: row-reverse;
-            background-color: #050505;
+            background-color: #FAFAFA;
         }
 
         .service-text {
@@ -153,16 +158,16 @@
         .service-text h2 {
             font-size: 2.5rem;
             margin-bottom: 20px;
-            color: #fff;
+            color: #0B2C4D;
             text-transform: uppercase;
             letter-spacing: 2px;
-            border-left: 4px solid #fff;
+            border-left: 4px solid #F26A21;
             padding-left: 20px;
         }
 
         .service-text p {
             font-size: 1.1rem;
-            color: #aaa;
+            color: #2E2E2E;
             margin-bottom: 20px;
             text-align: justify;
         }
@@ -172,8 +177,8 @@
             flex: 1;
             min-width: 300px;
             height: 400px;
-            background-color: #1a1a1a;
-            border: 1px solid #333;
+            background-color: #FAFAFA;
+            border: 1px solid #E0E0E0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -184,6 +189,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
 
         /* Overlay to make text readable */
@@ -194,21 +200,21 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7); /* Dark overlay */
+            background: rgba(11, 44, 77, 0.7);
             z-index: 1;
             transition: background 0.3s ease;
         }
 
         /* Hover effect to lighten overlay slightly */
         .service-visual:hover::before {
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(11, 44, 77, 0.5);
         }
 
         /* Text inside visual */
         .service-visual h3 {
             position: relative;
-            z-index: 2; /* Ensures text is above overlay */
-            color: #ffffff;
+            z-index: 2;
+            color: #FFFFFF;
             font-size: 2.5rem;
             font-weight: bold;
             text-transform: uppercase;
@@ -224,19 +230,20 @@
         }
 
         .tag {
-            background: #111;
+            background: #F4F6F8;
             padding: 8px 15px;
-            border: 1px solid #333;
+            border: 1px solid #E0E0E0;
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #fff;
+            color: #0B2C4D;
+            font-weight: 500;
         }
 
         /* --- Footer Styles --- */
         footer {
-            background-color: #050505;
-            border-top: 1px solid #222;
+            background-color: #081F36;
+            border-top: none;
             margin-top: 80px;
             padding: 80px 0 30px;
             text-align: left;
@@ -260,18 +267,18 @@
             text-transform: uppercase;
             margin-bottom: 25px;
             letter-spacing: 1px;
-            color: #fff;
+            color: #FFFFFF;
         }
 
         .footer-column p, .footer-column a {
-            color: #888;
+            color: rgba(255, 255, 255, 0.75);
             font-size: 0.95rem;
             margin-bottom: 15px;
             display: block;
         }
 
         .footer-column a:hover {
-            color: #fff;
+            color: #F26A21;
         }
 
         .social-links {
@@ -282,14 +289,18 @@
 
         .social-links a {
             font-size: 1.2rem;
-            color: #fff;
+            color: #FFFFFF;
+        }
+
+        .social-links a:hover {
+            color: #F26A21;
         }
 
         .copyright {
             text-align: center;
             padding-top: 30px;
-            border-top: 1px solid #1a1a1a;
-            color: #555;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
         }
 
@@ -300,13 +311,13 @@
                 right: 0;
                 height: 92vh;
                 top: 8vh;
-                background-color: #000;
+                background-color: #0B2C4D;
                 flex-direction: column;
                 align-items: center;
                 width: 60%;
                 transform: translateX(100%);
                 transition: transform 0.5s ease-in;
-                border-left: 1px solid #222;
+                border-left: none;
                 padding-top: 40px;
             }
             .nav-links li { margin: 20px 0; }
@@ -322,8 +333,8 @@
     <!-- Header -->
     <header>
         <div class="logo-container">
-            <a href="brandmark.html">
-                <img src="BrandMark New Logo.png" alt="Brand Mark Solutions">
+            <a href="index.html">
+                <img src="new logoBrandMarkupdatedone.jpeg" alt="Brand Mark Solutions">
                 <span class="text-logo">Brand<span>Mark</span></span>
             </a>
         </div>
@@ -332,7 +343,7 @@
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="brandmarkAboutUs.html">About Us</a></li>
-                <li><a href="brandmarkservices.html" style="color: #fff;">Services</a></li>
+                <li><a href="brandmarkservices.html" style="color: #F26A21;">Services</a></li>
                 <li><a href="brandmarkpersonalblogs.html">Personal Blogs</a></li>
                 <li><a href="brandmarkcareers.html">Careers</a></li>
             </ul>

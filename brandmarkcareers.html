@@ -16,29 +16,34 @@
         }
 
         body {
-            background-color: #000000;
-            color: #ffffff;
+            background-color: #F4F6F8;
+            color: #2E2E2E;
             line-height: 1.6;
             overflow-x: hidden;
         }
 
         a {
             text-decoration: none;
-            color: #ffffff;
+            color: #0B2C4D;
             transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #F26A21;
         }
 
         /* --- Header (Consistent) --- */
         header {
-            background-color: rgba(0, 0, 0, 0.95);
+            background-color: #0B2C4D;
             padding: 20px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #222;
+            border-bottom: none;
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .logo-container {
@@ -62,12 +67,13 @@
         .text-logo {
             font-size: 1.8rem;
             font-weight: bold;
-            color: white;
+            color: #FFFFFF;
             letter-spacing: -1px;
-            display: block; /* Always show */
+            display: block;
         }
         
         .text-logo span {
+            color: #F26A21;
             font-weight: 300;
         }
 
@@ -82,13 +88,14 @@
 
         .nav-links a {
             font-size: 0.85rem;
-            color: #b3b3b3;
+            color: rgba(255, 255, 255, 0.85);
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .nav-links a:hover {
-            color: #ffffff;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+        .nav-links a:hover, .nav-links a.active {
+            color: #F26A21;
         }
 
         .burger {
@@ -111,8 +118,8 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 70%);
-            border-bottom: 1px solid #222;
+            background: radial-gradient(circle at center, #0B2C4D 0%, #081F36 70%);
+            border-bottom: none;
             padding: 0 20px;
         }
 
@@ -121,11 +128,12 @@
             text-transform: uppercase;
             letter-spacing: 5px;
             margin-bottom: 20px;
+            color: #FFFFFF;
         }
 
         .careers-hero p {
             font-size: 1.2rem;
-            color: #aaa;
+            color: rgba(255, 255, 255, 0.85);
             max-width: 600px;
         }
 
@@ -140,8 +148,8 @@
         }
 
         .job-card {
-            background-color: #0a0a0a;
-            border: 1px solid #222;
+            background-color: #FFFFFF;
+            border: 1px solid #E0E0E0;
             padding: 40px;
             transition: all 0.3s ease;
             position: relative;
@@ -149,17 +157,18 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
 
         .job-card:hover {
-            border-color: #fff;
+            border-color: #F26A21;
             transform: translateY(-5px);
-            background-color: #111;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
         }
 
         .job-tag {
-            background-color: #222;
-            color: #fff;
+            background-color: #F4F6F8;
+            color: #0B2C4D;
             padding: 5px 12px;
             font-size: 0.75rem;
             text-transform: uppercase;
@@ -167,16 +176,17 @@
             display: inline-block;
             margin-bottom: 20px;
             width: fit-content;
+            font-weight: 600;
         }
 
         .job-title {
             font-size: 1.8rem;
             margin-bottom: 15px;
-            color: #fff;
+            color: #0B2C4D;
         }
 
         .job-desc {
-            color: #999;
+            color: #6C757D;
             font-size: 1rem;
             margin-bottom: 30px;
             flex-grow: 1;
@@ -187,40 +197,40 @@
             text-align: center;
             width: 100%;
             padding: 15px 0;
-            border: 1px solid #fff;
-            color: #fff;
+            border: none;
+            background-color: #F26A21;
+            color: #FFFFFF;
             text-transform: uppercase;
             font-weight: bold;
             letter-spacing: 2px;
             transition: all 0.3s ease;
-            background: transparent;
             cursor: pointer;
         }
 
         .apply-btn:hover {
-            background-color: #fff;
-            color: #000;
+            background-color: #E65C17;
+            transform: translateY(-2px);
         }
         
         .view-details-btn {
             display: inline-block;
             margin-top: 15px;
             font-size: 0.9rem;
-            color: #fff;
-            border-bottom: 1px solid #fff;
+            color: #0B2C4D;
+            border-bottom: 1px solid #0B2C4D;
             padding-bottom: 2px;
             transition: color 0.3s ease, border-color 0.3s ease;
         }
         
         .view-details-btn:hover {
-            color: #ccc;
-            border-color: #ccc;
+            color: #F26A21;
+            border-color: #F26A21;
         }
 
         /* --- Footer Styles --- */
         footer {
-            background-color: #050505;
-            border-top: 1px solid #222;
+            background-color: #081F36;
+            border-top: none;
             margin-top: 80px;
             padding: 80px 0 30px;
             text-align: left;
@@ -244,18 +254,18 @@
             text-transform: uppercase;
             margin-bottom: 25px;
             letter-spacing: 1px;
-            color: #fff;
+            color: #FFFFFF;
         }
 
         .footer-column p, .footer-column a {
-            color: #888;
+            color: rgba(255, 255, 255, 0.75);
             font-size: 0.95rem;
             margin-bottom: 15px;
             display: block;
         }
 
         .footer-column a:hover {
-            color: #fff;
+            color: #F26A21;
         }
 
         .social-links {
@@ -266,14 +276,18 @@
 
         .social-links a {
             font-size: 1.2rem;
-            color: #fff;
+            color: #FFFFFF;
+        }
+
+        .social-links a:hover {
+            color: #F26A21;
         }
 
         .copyright {
             text-align: center;
             padding-top: 30px;
-            border-top: 1px solid #1a1a1a;
-            color: #555;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
         }
 
@@ -284,13 +298,13 @@
                 right: 0;
                 height: 92vh;
                 top: 8vh;
-                background-color: #000;
+                background-color: #0B2C4D;
                 flex-direction: column;
                 align-items: center;
                 width: 60%;
                 transform: translateX(100%);
                 transition: transform 0.5s ease-in;
-                border-left: 1px solid #222;
+                border-left: none;
                 padding-top: 40px;
             }
             .nav-links li { margin: 20px 0; }
@@ -307,9 +321,9 @@
     <!-- Header -->
     <header>
         <div class="logo-container">
-            <a href="brandmark.html" style="display: flex; align-items: center;">
+            <a href="index.html" style="display: flex; align-items: center;">
                 <!-- Updated Circular Logo + Text -->
-                <img src="Brandmarklogo.jpeg" alt="Brand Mark Solutions">
+                <img src="new logoBrandMarkupdatedone.jpeg" alt="Brand Mark Solutions">
                 <span class="text-logo">Brand<span>Mark</span></span>
             </a>
         </div>
@@ -320,7 +334,7 @@
                 <li><a href="brandmarkAboutUs.html">About Us</a></li>
                 <li><a href="brandmarkservices.html">Services</a></li>
                 <li><a href="brandmarkpersonalblogs.html">Personal Blogs</a></li>
-                <li><a href="brandmarkcareers.html" style="color: #fff;">Careers</a></li>
+                <li><a href="brandmarkcareers.html" style="color: #F26A21;">Careers</a></li>
             </ul>
         </nav>
 
@@ -381,7 +395,7 @@
             </div>
             <div>
                 <a href="internwebdesignercareers.html" class="view-details-btn">View Details</a>
-                <a href="mailto:jobs@brandmarksolutions.com?subject=Application for Intern Web Designer" class="apply-btn" style="margin-top: 20px;">Apply Now</a>
+                <a href="internwebdesignercareers.html" class="apply-btn" style="margin-top: 20px;">Apply Now</a>
             </div>
         </div>
 
@@ -396,7 +410,7 @@
             </div>
             <div>
                 <a href="internUIUXcareer.html" class="view-details-btn">View Details</a>
-                <a href="mailto:jobs@brandmarksolutions.com?subject=Application for UI/UX Intern" class="apply-btn" style="margin-top: 20px;">Apply Now</a>
+                <a href="internUIUXcareer.html" class="apply-btn" style="margin-top: 20px;">Apply Now</a>
             </div>
         </div>
 
@@ -418,15 +432,15 @@
                 </div>
                 <div class="footer-column">
                     <h4>Quick Links</h4>
-                    <a href="brandmark.html">Home</a>
+                    <a href="index.html">Home</a>
                     <a href="brandmarkservices.html">Services</a>
                     <a href="brandmarkAboutUs.html">About Us</a>
                     <a href="brandmarkcareers.html">Careers</a>
                 </div>
                 <div class="footer-column">
                     <h4>Contact Info</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> Gangotri, Buddha Colony, Patna - 800001</p>
-                    <p><i class="fas fa-phone"></i> (709) 186-3003</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Gangotri, Buddha colony, Patna - 800001</p>
+                    <p><i class="fas fa-phone"></i> (709) 816 3003</p>
                     <p><i class="fas fa-envelope"></i> info.aimservicesprivatelimited@gmail.com</p>
                 </div>
             </div>

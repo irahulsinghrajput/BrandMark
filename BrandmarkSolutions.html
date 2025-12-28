@@ -16,29 +16,34 @@
         }
 
         body {
-            background-color: #000000;
-            color: #ffffff;
+            background-color: #F4F6F8;
+            color: #2E2E2E;
             line-height: 1.6;
             overflow-x: hidden;
         }
 
         a {
             text-decoration: none;
-            color: #ffffff;
+            color: #0B2C4D;
             transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #F26A21;
         }
 
         /* --- Header (Consistent) --- */
         header {
-            background-color: rgba(0, 0, 0, 0.95);
+            background-color: #0B2C4D;
             padding: 20px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #222;
+            border-bottom: none;
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .logo-container {
@@ -62,12 +67,13 @@
         .text-logo {
             font-size: 1.8rem;
             font-weight: bold;
-            color: white;
+            color: #2E2E2E;
             letter-spacing: -1px;
             display: block;
         }
         
         .text-logo span {
+            color: #F26A21;
             font-weight: 300;
         }
 
@@ -82,13 +88,14 @@
 
         .nav-links a {
             font-size: 0.85rem;
-            color: #b3b3b3;
+            color: rgba(255, 255, 255, 0.85);
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .nav-links a:hover {
-            color: #ffffff;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+        .nav-links a:hover, .nav-links a.active {
+            color: #F26A21;
         }
 
         .burger {
@@ -111,8 +118,8 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 70%);
-            border-bottom: 1px solid #222;
+            background: radial-gradient(circle at center, #FAFAFA 0%, #F4F6F8 70%);
+            border-bottom: 1px solid #E0E0E0;
             padding: 0 20px;
         }
 
@@ -121,21 +128,21 @@
             text-transform: uppercase;
             letter-spacing: 3px;
             margin-bottom: 20px;
-            background: -webkit-linear-gradient(#fff, #888);
+            background: -webkit-linear-gradient(#FFFFFF, #6C757D);
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .service-hero p {
             font-size: 1.2rem;
-            color: #aaa;
+            color: #6C757D;
             max-width: 800px;
         }
 
         /* --- Content Sections --- */
         .content-section {
             padding: 80px 10%;
-            border-bottom: 1px solid #111;
+            border-bottom: 1px solid #E0E0E0;
         }
 
         .section-header {
@@ -145,14 +152,14 @@
 
         .section-header h2 {
             font-size: 2.5rem;
-            color: #fff;
+            color: #0B2C4D;
             margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
 
         .section-header p {
-            color: #888;
+            color: #6C757D;
             max-width: 600px;
             margin: 0 auto;
         }
@@ -164,8 +171,8 @@
         }
 
         .feature-card {
-            background: #0a0a0a;
-            border: 1px solid #222;
+            background: #FFFFFF;
+            border: 1px solid #E0E0E0;
             padding: 30px;
             transition: transform 0.3s ease;
         }
@@ -178,8 +185,8 @@
         .feature-card h3 {
             font-size: 1.3rem;
             margin-bottom: 15px;
-            color: #fff;
-            border-left: 3px solid #fff;
+            color: #0B2C4D;
+            border-left: 3px solid #FFFFFF;
             padding-left: 15px;
         }
 
@@ -189,7 +196,7 @@
         }
 
         .feature-card li {
-            color: #ccc;
+            color: #2E2E2E;
             margin-bottom: 10px;
             font-size: 0.95rem;
             position: relative;
@@ -198,7 +205,7 @@
 
         .feature-card li::before {
             content: "›";
-            color: #fff;
+            color: #0B2C4D;
             position: absolute;
             left: 0;
             font-weight: bold;
@@ -206,20 +213,20 @@
 
         /* --- War Room Special Section --- */
         .war-room-section {
-            background-color: #050505;
+            background-color: #081F36;
         }
 
         .flow-diagram {
-            background: #111;
+            background: #E0E0E0;
             padding: 40px;
-            border: 1px solid #333;
+            border: 1px solid #E0E0E0;
             margin-top: 40px;
             text-align: center;
         }
 
         .flow-diagram h3 {
             margin-bottom: 30px;
-            color: #fff;
+            color: #0B2C4D;
         }
 
         .flow-steps {
@@ -231,17 +238,17 @@
         }
 
         .flow-step {
-            background: #000;
+            background: #081F36;
             padding: 15px 20px;
             border: 1px solid #444;
-            color: #ccc;
+            color: #2E2E2E;
             font-size: 0.9rem;
             flex: 1;
             min-width: 150px;
         }
 
         .arrow {
-            color: #666;
+            color: #6C757D;
             font-size: 1.5rem;
         }
 
@@ -250,19 +257,19 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 30px;
-            background: #0a0a0a;
+            background: #FFFFFF;
         }
 
         .pricing-table th, .pricing-table td {
             padding: 15px;
             text-align: left;
-            border-bottom: 1px solid #222;
-            color: #ccc;
+            border-bottom: 1px solid #E0E0E0;
+            color: #2E2E2E;
         }
 
         .pricing-table th {
-            background-color: #111;
-            color: #fff;
+            background-color: #E65C17;
+            color: #0B2C4D;
             text-transform: uppercase;
             font-size: 0.85rem;
             letter-spacing: 1px;
@@ -270,8 +277,8 @@
 
         /* --- Footer --- */
         footer {
-            background-color: #050505;
-            border-top: 1px solid #222;
+            background-color: #081F36;
+            border-top: 1px solid #E0E0E0;
             padding: 80px 0 30px;
             text-align: left;
         }
@@ -294,18 +301,18 @@
             text-transform: uppercase;
             margin-bottom: 25px;
             letter-spacing: 1px;
-            color: #fff;
+            color: #0B2C4D;
         }
 
         .footer-column p, .footer-column a {
-            color: #888;
+            color: #6C757D;
             font-size: 0.95rem;
             margin-bottom: 15px;
             display: block;
         }
 
         .footer-column a:hover {
-            color: #fff;
+            color: #0B2C4D;
         }
 
         .social-links {
@@ -316,14 +323,14 @@
 
         .social-links a {
             font-size: 1.2rem;
-            color: #fff;
+            color: #0B2C4D;
         }
 
         .copyright {
             text-align: center;
             padding-top: 30px;
-            border-top: 1px solid #1a1a1a;
-            color: #555;
+            border-top: 1px solid #FAFAFA;
+            color: #6C757D;
             font-size: 0.9rem;
         }
 
@@ -334,13 +341,13 @@
                 right: 0;
                 height: 92vh;
                 top: 8vh;
-                background-color: #000;
+                background-color: #F4F6F8;
                 flex-direction: column;
                 align-items: center;
                 width: 60%;
                 transform: translateX(100%);
                 transition: transform 0.5s ease-in;
-                border-left: 1px solid #222;
+                border-left: 1px solid #E0E0E0;
                 padding-top: 40px;
             }
             .nav-links li { margin: 20px 0; }
@@ -370,7 +377,7 @@
                 <li><a href="brandmarkAboutUs.html">About Us</a></li>
                 <li><a href="brandmarkservices.html">Services</a></li>
                 <li><a href="brandmarkcareers.html">Careers</a></li>
-                <li><a href="#contact" style="color: #fff; border: 1px solid #fff; padding: 5px 15px;">Contact Us</a></li>
+                <li><a href="#contact" style="color: #0B2C4D; border: 1px solid #FFFFFF; padding: 5px 15px;">Contact Us</a></li>
             </ul>
         </nav>
 
@@ -523,11 +530,11 @@
         </div>
         
         <div style="margin-top: 50px; text-align: center;">
-            <h3 style="color: #fff; margin-bottom: 20px;">Digital Outreach Rates</h3>
+            <h3 style="color: #0B2C4D; margin-bottom: 20px;">Digital Outreach Rates</h3>
             <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
-                <span class="job-tag" style="background: #222; padding: 10px 20px;">Bulk SMS: ₹0.12</span>
-                <span class="job-tag" style="background: #222; padding: 10px 20px;">AI Voice Call: ₹0.80</span>
-                <span class="job-tag" style="background: #222; padding: 10px 20px;">AI Personalized Video: ₹1.50</span>
+                <span class="job-tag" style="background: #E0E0E0; padding: 10px 20px;">Bulk SMS: ₹0.12</span>
+                <span class="job-tag" style="background: #E0E0E0; padding: 10px 20px;">AI Voice Call: ₹0.80</span>
+                <span class="job-tag" style="background: #E0E0E0; padding: 10px 20px;">AI Personalized Video: ₹1.50</span>
             </div>
         </div>
     </section>
@@ -557,7 +564,7 @@
                     <h4>Contact Info</h4>
                     <p><i class="fas fa-map-marker-alt"></i> Gangotri, Buddha colony, Patna - 800001</p>
                     <p><i class="fas fa-phone"></i> (709) 186-3003</p>
-                    <p><i class="fas fa-envelope"></i> info.aimservicesprivatelimited@gmail.com</p>
+                    <p><i class="fas fa-envelope"></i></p>info.aimservicesprivatelimited@gamil.com
                 </div>
             </div>
             <div class="copyright">
@@ -591,3 +598,4 @@
     </script>
 </body>
 </html>
+
