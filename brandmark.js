@@ -1,5 +1,5 @@
 // API Configuration
-const API_URL = 'http://localhost:5001/api';
+const API_URL = 'https://brandmark-backend.onrender.com/api';
 
 // Mobile Menu Toggle
 const btn = document.getElementById('mobile-menu-btn');
