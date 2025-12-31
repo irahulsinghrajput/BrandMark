@@ -1,3 +1,6 @@
+// API Configuration
+const API_URL = 'http://localhost:5001/api';
+
 // Mobile Menu Toggle
 const btn = document.getElementById('mobile-menu-btn');
 const menu = document.getElementById('mobile-menu');
@@ -26,32 +29,105 @@ window.addEventListener('scroll', () => {
 });
 
 // Contact Form Handling
-function handleFormSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('button');
-    const originalText = btn.innerText;
-    
-    btn.innerText = 'Sending...';
-    btn.disabled = true;
-    btn.classList.add('opacity-75');
-
-    // Simulate sending
-    setTimeout(() => {
-        btn.innerText = originalText;
-        btn.disabled = false;
-        btn.classList.remove('opacity-75');
-        e.target.reset();
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
         
-        // Show toast
-        const toast = document.getElementById('toast');
-        if (toast) {
-            toast.classList.remove('translate-y-24');
-            setTimeout(() => {
-                toast.classList.add('translate-y-24');
-            }, 3000);
+        const btn = document.getElementById('contactSubmitBtn');
+        const messageDiv = document.getElementById('contactMessage');
+        const originalText = btn.innerText;
+        
+        // Get form data
+        const formData = {
+            name: contactForm.querySelector('[name="name"]').value,
+            email: contactForm.querySelector('[name="email"]').value,
+            phone: contactForm.querySelector('[name="phone"]').value,
+            subject: contactForm.querySelector('[name="subject"]').value,
+            message: contactForm.querySelector('[name="message"]').value
+        };
+        
+        // Update button state
+        btn.innerText = 'Sending...';
+        btn.disabled = true;
+        btn.classList.add('opacity-75');
+        messageDiv.classList.add('hidden');
+
+        try {
+            const response = await fetch(`${API_URL}/contact`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                // Success message
+                messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+                messageDiv.textContent = data.message || 'Thank you! We will get back to you soon.';
+                messageDiv.classList.remove('hidden');
+                contactForm.reset();
+            } else {
+                // Error message
+                messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+                messageDiv.textContent = data.message || 'Something went wrong. Please try again.';
+                messageDiv.classList.remove('hidden');
+            }
+        } catch (error) {
+            console.error('Contact form error:', error);
+            messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+            messageDiv.textContent = 'Failed to send message. Please check your connection.';
+            messageDiv.classList.remove('hidden');
+        } finally {
+            btn.innerText = originalText;
+            btn.disabled = false;
+            btn.classList.remove('opacity-75');
         }
-    }, 1500);
+    });
 }
+
+// Newsletter Form Handling
+const newsletterForms = document.querySelectorAll('.newsletter-form');
+newsletterForms.forEach(form => {
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const emailInput = form.querySelector('input[type="email"]');
+        const btn = form.querySelector('button[type="submit"]');
+        const originalText = btn.innerText;
+        
+        btn.innerText = 'Subscribing...';
+        btn.disabled = true;
+
+        try {
+            const response = await fetch(`${API_URL}/newsletter`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: emailInput.value })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                alert('✅ ' + (data.message || 'Successfully subscribed to newsletter!'));
+                form.reset();
+            } else {
+                alert('❌ ' + (data.message || 'Failed to subscribe. Please try again.'));
+            }
+        } catch (error) {
+            console.error('Newsletter error:', error);
+            alert('❌ Failed to subscribe. Please check your connection.');
+        } finally {
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    });
+});
 
 // Intersection Observer for Fade-in animations
 const observerOptions = {

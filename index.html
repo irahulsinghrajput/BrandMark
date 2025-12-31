@@ -192,24 +192,33 @@
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 text-brand-navy">Let's Build Your Brand</h2>
                 <p class="text-brand-text-muted">Ready to take your business to the next level? Drop us a message.</p>
             </div>
-            <form class="space-y-6 fade-in-up" id="contactForm" onsubmit="handleFormSubmit(event)">
+            <form class="space-y-6 fade-in-up" id="contactForm">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-sm font-medium text-brand-text-body mb-2">Name</label>
-                        <input type="text" required class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="John Doe">
+                        <input type="text" name="name" required class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="John Doe">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-brand-text-body mb-2">Email</label>
-                        <input type="email" required class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="john@example.com">
+                        <input type="email" name="email" required class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="john@example.com">
                     </div>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-brand-text-body mb-2">Message</label>
-                    <textarea rows="4" required class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="Tell us about your project..."></textarea>
+                    <label class="block text-sm font-medium text-brand-text-body mb-2">Phone (Optional)</label>
+                    <input type="tel" name="phone" class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="+91 1234567890">
                 </div>
-                <button type="submit" class="w-full bg-brand-orange text-white font-bold py-4 rounded-lg hover:bg-brand-orange-dark transition-colors transform active:scale-95">
+                <div>
+                    <label class="block text-sm font-medium text-brand-text-body mb-2">Subject (Optional)</label>
+                    <input type="text" name="subject" class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="What is this regarding?">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-brand-text-body mb-2">Message</label>
+                    <textarea name="message" rows="4" required class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="Tell us about your project..."></textarea>
+                </div>
+                <button type="submit" id="contactSubmitBtn" class="w-full bg-brand-orange text-white font-bold py-4 rounded-lg hover:bg-brand-orange-dark transition-colors transform active:scale-95">
                     Send Message
                 </button>
+                <div id="contactMessage" class="hidden text-center p-4 rounded-lg"></div>
             </form>
         </div>
     </section>
