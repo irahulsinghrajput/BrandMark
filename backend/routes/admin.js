@@ -218,4 +218,61 @@ router.get('/me', auth, async (req, res) => {
     }
 });
 
+// @route   PUT /api/admin/change-password
+// @desc    Change admin password
+// @access  Private
+router.put('/change-password',
+    auth,
+    [
+        body('currentPassword').notEmpty().withMessage('Current password is required'),
+        body('newPassword').isLength({ min: 6 }).withMessage('New password must be at least 6 characters')
+    ],
+    async (req, res) => {
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ 
+                    success: false, 
+                    errors: errors.array() 
+                });
+            }
+
+            const { currentPassword, newPassword } = req.body;
+
+            // Find admin
+            const admin = await Admin.findById(req.admin._id);
+            if (!admin) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Admin not found'
+                });
+            }
+
+            // Verify current password
+            const isMatch = await admin.comparePassword(currentPassword);
+            if (!isMatch) {
+                return res.status(401).json({
+                    success: false,
+                    message: 'Current password is incorrect'
+                });
+            }
+
+            // Update password
+            admin.password = newPassword;
+            await admin.save();
+
+            res.json({
+                success: true,
+                message: 'Password changed successfully'
+            });
+        } catch (error) {
+            console.error('Change password error:', error);
+            res.status(500).json({
+                success: false,
+                message: 'Failed to change password'
+            });
+        }
+    }
+);
+
 module.exports = router;
