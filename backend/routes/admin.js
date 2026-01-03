@@ -60,7 +60,8 @@ router.post('/register',
             console.error('Admin registration error:', error);
             res.status(500).json({
                 success: false,
-                message: 'Failed to register admin'
+                message: 'Failed to register admin',
+                error: error.message
             });
         }
     }
