@@ -640,12 +640,42 @@
     </footer>
 
     <script>
-        // Simple form submission handler
-        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+        // API Configuration
+        const API_URL = 'http://localhost:5000/api';
+        
+        // Newsletter form submission handler
+        document.querySelector('.newsletter-form').addEventListener('submit', async function(e) {
             e.preventDefault();
-            const email = this.querySelector('input').value;
-            alert(`Thank you for subscribing with ${email}! You'll receive our next marketing insight shortly.`);
-            this.reset();
+            const emailInput = this.querySelector('input');
+            const btn = this.querySelector('button');
+            const email = emailInput.value;
+            const originalText = btn.innerText;
+            
+            btn.innerText = 'Subscribing...';
+            btn.disabled = true;
+            
+            try {
+                const response = await fetch(`${API_URL}/newsletter`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert(`✅ ${data.message || 'Successfully subscribed! You will receive our next marketing insight shortly.'}`);
+                    this.reset();
+                } else {
+                    alert(`❌ ${data.message || 'Failed to subscribe. Please try again.'}`);
+                }
+            } catch (error) {
+                console.error('Newsletter error:', error);
+                alert('❌ Failed to subscribe. Please check your connection.');
+            } finally {
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
         });
         
         // Read more button functionality

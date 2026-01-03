@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: __dirname + '/.env' });
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -19,10 +19,12 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
-// CORS Configuration
+// CORS Configuration - Allow all origins in development
 app.use(cors({
-    origin: process.env.FRONTEND_URL || 'https://brandmarksolutions.site',
-    credentials: true
+    origin: true, // Allow all origins in development
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // Body Parser Middleware
@@ -33,12 +35,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads'));
 
 // Database Connection
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-.then(() => console.log('✅ MongoDB Connected'))
-.catch(err => console.error('❌ MongoDB Connection Error:', err));
+if (process.env.MONGODB_URI) {
+    mongoose.connect(process.env.MONGODB_URI)
+    .then(() => console.log('✅ MongoDB Connected'))
+    .catch(err => {
+        console.error('❌ MongoDB Connection Error:', err.message);
+        console.log('⚠️  Server will continue without database. Configure MONGODB_URI in .env file.');
+    });
+} else {
+    console.log('⚠️  MONGODB_URI not configured. Server running without database.');
+}
+
+// Prevent unhandled rejections from crashing the server
+process.on('unhandledRejection', (err) => {
+    console.error('Unhandled Rejection:', err);
+});
 
 // Routes
 app.use('/api/contact', require('./routes/contact'));

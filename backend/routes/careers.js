@@ -30,13 +30,6 @@ router.post('/',
                 });
             }
 
-            if (!req.files || !req.files.resume) {
-                return res.status(400).json({
-                    success: false,
-                    message: 'Resume is required'
-                });
-            }
-
             const { position, name, email, phone, experience, coverLetter } = req.body;
             const resumePath = req.files.resume[0].path;
             const portfolioPath = req.files.portfolio ? req.files.portfolio[0].path : null;

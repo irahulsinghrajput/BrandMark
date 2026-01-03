@@ -490,7 +490,9 @@
     </div>
 
     <script>
-        const API_URL = 'https://brandmark-backend.onrender.com/api';
+        // Use local backend for development
+        const API_URL = 'http://localhost:5000/api';
+        // For production: 'https://brandmark-backend.onrender.com/api'
         let authToken = localStorage.getItem('adminToken');
 
         // Check if already logged in
