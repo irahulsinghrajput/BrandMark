@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Disallow admin and backend access
+Disallow: /admin-dashboard.html
+Disallow: /backend/
+Disallow: /*.json$
+
+# Sitemap location
+Sitemap: https://brandmarksolutions.site/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
