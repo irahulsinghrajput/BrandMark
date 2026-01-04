@@ -170,3 +170,113 @@ document.querySelectorAll('.service-card').forEach(card => {
     });
 });
 
+// --- BACK TO TOP BUTTON ---
+const backToTopBtn = document.getElementById('backToTop');
+
+if (backToTopBtn) {
+    // Show button when scrolled down
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTopBtn.classList.add('show');
+        } else {
+            backToTopBtn.classList.remove('show');
+        }
+    });
+
+    // Scroll to top on click
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+// --- IMPROVED NOTIFICATION SYSTEM ---
+function showToast(message, type = 'success') {
+    // Remove existing toasts
+    const existingToasts = document.querySelectorAll('.toast');
+    existingToasts.forEach(toast => toast.remove());
+
+    // Create new toast
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    
+    const icon = type === 'success' ? 'fa-circle-check' : 
+                 type === 'error' ? 'fa-circle-xmark' : 
+                 'fa-circle-info';
+    
+    const iconColor = type === 'success' ? 'text-green-500' : 
+                      type === 'error' ? 'text-red-500' : 
+                      'text-blue-500';
+    
+    toast.innerHTML = `
+        <div class="flex items-center gap-3">
+            <i class="fa-solid ${icon} ${iconColor} text-xl"></i>
+            <div>
+                <p class="font-medium text-sm">${message}</p>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(toast);
+    
+    // Show toast
+    setTimeout(() => toast.classList.add('show'), 10);
+    
+    // Hide after 5 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 5000);
+}
+
+// --- IMAGE LAZY LOADING ---
+// Add loading="lazy" to all images that don't have it
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('img:not([loading])');
+    images.forEach(img => {
+        img.setAttribute('loading', 'lazy');
+    });
+});
+
+// --- FORM VALIDATION IMPROVEMENTS ---
+const forms = document.querySelectorAll('form');
+forms.forEach(form => {
+    const inputs = form.querySelectorAll('input[required], textarea[required]');
+    
+    inputs.forEach(input => {
+        // Real-time validation feedback
+        input.addEventListener('blur', () => {
+            if (input.value.trim() === '') {
+                input.classList.add('border-red-500');
+                input.classList.remove('border-green-500');
+            } else {
+                input.classList.remove('border-red-500');
+                input.classList.add('border-green-500');
+            }
+        });
+        
+        input.addEventListener('input', () => {
+            if (input.value.trim() !== '') {
+                input.classList.remove('border-red-500');
+            }
+        });
+    });
+});
+
+// --- KEYBOARD NAVIGATION IMPROVEMENTS ---
+// Add visible focus indicators for keyboard users
+let isUsingKeyboard = false;
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+        isUsingKeyboard = true;
+        document.body.classList.add('keyboard-nav');
+    }
+});
+
+document.addEventListener('mousedown', () => {
+    isUsingKeyboard = false;
+    document.body.classList.remove('keyboard-nav');
+});

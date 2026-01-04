@@ -277,6 +277,168 @@ footer {
     font-size: 0.9rem;
 }
 
+/* --- Back to Top Button --- */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--accent-orange);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 4px 12px rgba(242, 106, 33, 0.4);
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.back-to-top:hover {
+    background-color: var(--accent-orange-hover);
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(242, 106, 33, 0.6);
+}
+
+.back-to-top:focus {
+    outline: 3px solid var(--accent-orange);
+    outline-offset: 2px;
+}
+
+.back-to-top.show {
+    display: flex;
+}
+
+/* --- Skip to Content Link (Accessibility) --- */
+.skip-to-content {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--accent-orange);
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    z-index: 100;
+    transition: top 0.3s;
+}
+
+.skip-to-content:focus {
+    top: 0;
+    outline: 3px solid white;
+}
+
+/* --- Improved Focus States (Accessibility) --- */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 3px solid var(--accent-orange);
+    outline-offset: 2px;
+}
+
+/* --- Loading State --- */
+.loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 3px solid var(--accent-orange);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* --- Notification Toast --- */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    padding: 16px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    max-width: 350px;
+}
+
+.toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.toast.success {
+    border-left: 4px solid #10b981;
+}
+
+.toast.error {
+    border-left: 4px solid #ef4444;
+}
+
+.toast.info {
+    border-left: 4px solid #3b82f6;
+}
+
+/* --- Breadcrumb Navigation --- */
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 12px 0;
+    margin-bottom: 20px;
+    list-style: none;
+    font-size: 0.9rem;
+}
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: '/';
+    padding: 0 8px;
+    color: var(--text-muted);
+}
+
+.breadcrumb-item a {
+    color: var(--text-muted);
+    text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+    color: var(--accent-orange);
+}
+
+.breadcrumb-item.active {
+    color: var(--text-body);
+    font-weight: 500;
+}
+
+/* --- Improved Color Contrast (Accessibility) --- */
+.text-muted-accessible {
+    color: #495057; /* Better contrast than #6C757D */
+}
+
 /* --- Mobile Menu --- */
 .burger {
     display: none;

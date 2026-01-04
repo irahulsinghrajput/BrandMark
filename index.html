@@ -4,7 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brand Mark | Branding & Marketing for MSMEs</title>
-    <meta name="description" content="Empowering small businesses and MSMEs with impactful branding and marketing strategies.">
+    <meta name="description" content="Empowering small businesses and MSMEs with impactful branding and marketing strategies. Affordable digital marketing, brand identity design, and social media management services.">
+    <meta name="keywords" content="branding, marketing, MSMEs, small business, digital marketing, brand identity, social media management, affordable marketing">
+    <meta name="author" content="BrandMark Solutions">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://brandmarksolutions.site/">
+    <meta property="og:title" content="Brand Mark | Branding & Marketing for MSMEs">
+    <meta property="og:description" content="Empowering small businesses with impactful branding and marketing strategies. Big agency expertise, small business heart.">
+    <meta property="og:image" content="https://brandmarksolutions.site/new logoBrandMarkupdatedone.jpeg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://brandmarksolutions.site/">
+    <meta property="twitter:title" content="Brand Mark | Branding & Marketing for MSMEs">
+    <meta property="twitter:description" content="Empowering small businesses with impactful branding and marketing strategies.">
+    <meta property="twitter:image" content="https://brandmarksolutions.site/new logoBrandMarkupdatedone.jpeg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://brandmarksolutions.site/">
+    
+    <!-- Google Analytics -->
+    <!-- Replace YOUR-GA-ID with your actual Google Analytics ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR-GA-ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'YOUR-GA-ID');
+    </script>
 
     <link rel="stylesheet" href="brandmark.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -39,12 +68,15 @@
 </head>
 <body class="bg-brand-bg-light text-brand-text-body font-sans antialiased selection:bg-brand-orange selection:text-white">
 
+    <!-- Skip to Content Link (Accessibility) -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass-nav transition-all duration-300 bg-brand-navy shadow-lg" id="navbar">
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300 bg-brand-navy shadow-lg" id="navbar" role="navigation" aria-label="Main navigation">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo Area -->
-                <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer no-underline">
+                <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer no-underline" aria-label="BrandMark Home">
                     <!-- Updated Logo + Text Logic -->
                     <img src="new logoBrandMarkupdatedone.jpeg" alt="Brand Mark Logo" class="h-12 w-12 rounded-full object-cover mr-3">
                     <span class="text-2xl font-bold tracking-tighter text-white">
@@ -54,16 +86,17 @@
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex space-x-8 items-center">
-                    <a href="index.html" class="text-white font-medium tracking-wide hover:text-brand-orange transition-colors">Home</a>
+                    <a href="index.html" class="text-white font-medium tracking-wide hover:text-brand-orange transition-colors" aria-current="page">Home</a>
                     <a href="brandmarkAboutUs.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">About Us</a>
                     <a href="brandmarkservices.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Services</a>
-                    <a href="brandmarkpersonalblogs.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Personal Blogs</a>
+                    <a href="portfolio.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Portfolio</a>
+                    <a href="brandmarkpersonalblogs.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Blog</a>
                     <a href="brandmarkcareers.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Careers</a>
                 </div>
 
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mobile-menu">
                         <i class="fa-solid fa-bars text-2xl"></i>
                     </button>
                 </div>
@@ -76,7 +109,8 @@
                 <a href="index.html" class="block px-3 py-3 rounded-md text-base font-medium text-white bg-brand-navy-dark">Home</a>
                 <a href="brandmarkAboutUs.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">About Us</a>
                 <a href="brandmarkservices.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Services</a>
-                <a href="brandmarkpersonalblogs.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Personal Blogs</a>
+                <a href="portfolio.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Portfolio</a>
+                <a href="brandmarkpersonalblogs.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Blog</a>
                 <a href="brandmarkcareers.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Careers</a>
             </div>
         </div>
@@ -84,6 +118,7 @@
 
     <!-- Hero Section -->
     <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <main id="main-content">
         <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-20 pointer-events-none">
             <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-gray-700 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
             <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-gray-600 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
@@ -106,6 +141,7 @@
                 </a>
             </div>
         </div>
+        </main>
     </section>
 
     <!-- Brands/Trust Section -->
@@ -179,7 +215,113 @@
                 </div>
                 <div class="relative h-96 rounded-2xl overflow-hidden fade-in-up bg-gray-300 flex items-center justify-center" style="transition-delay: 200ms;">
                      <div class="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-transparent z-10"></div>
-                     <img src="SmallbusniessBigHeart.jpeg" alt="Team meeting" class="w-full h-full object-cover opacity-70">
+                     <img src="SmallbusniessBigHeart.jpeg" alt="Team collaboration at BrandMark - small business marketing experts" class="w-full h-full object-cover opacity-70" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-24 bg-brand-bg-light border-t border-brand-border-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-brand-navy">What Our Clients Say</h2>
+                <p class="text-brand-text-muted max-w-2xl mx-auto">Don't just take our word for it. Here's what businesses we've worked with have to say about their experience.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-brand-bg-white p-8 rounded-2xl border border-brand-border-light hover:shadow-xl transition-all duration-300 fade-in-up">
+                    <div class="flex items-center mb-6">
+                        <div class="flex text-brand-orange text-xl">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-brand-text-muted mb-6 leading-relaxed italic">
+                        "BrandMark completely transformed our online presence. Within 3 months, our social media engagement increased by 300% and we saw a significant boost in sales."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-brand-navy rounded-full flex items-center justify-center text-white font-bold mr-4">
+                            RS
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-brand-navy">Rajesh Sharma</h4>
+                            <p class="text-sm text-brand-text-muted">Founder, TechVista Solutions</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-brand-bg-white p-8 rounded-2xl border border-brand-border-light hover:shadow-xl transition-all duration-300 fade-in-up" style="transition-delay: 100ms;">
+                    <div class="flex items-center mb-6">
+                        <div class="flex text-brand-orange text-xl">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-brand-text-muted mb-6 leading-relaxed italic">
+                        "As a small business owner, I was overwhelmed with marketing. BrandMark took that burden off my shoulders and delivered results beyond my expectations."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-brand-navy rounded-full flex items-center justify-center text-white font-bold mr-4">
+                            PK
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-brand-navy">Priya Kapoor</h4>
+                            <p class="text-sm text-brand-text-muted">Owner, Artisan Bakery</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-brand-bg-white p-8 rounded-2xl border border-brand-border-light hover:shadow-xl transition-all duration-300 fade-in-up" style="transition-delay: 200ms;">
+                    <div class="flex items-center mb-6">
+                        <div class="flex text-brand-orange text-xl">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-brand-text-muted mb-6 leading-relaxed italic">
+                        "Professional, creative, and results-driven. BrandMark helped us rebrand our entire company and the response from customers has been phenomenal!"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-brand-navy rounded-full flex items-center justify-center text-white font-bold mr-4">
+                            AM
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-brand-navy">Amit Mehta</h4>
+                            <p class="text-sm text-brand-text-muted">CEO, GreenLeaf Enterprises</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trust Badges -->
+            <div class="mt-16 text-center fade-in-up">
+                <p class="text-brand-text-muted text-sm mb-6">Trusted by 50+ businesses across India</p>
+                <div class="flex flex-wrap justify-center items-center gap-8 opacity-60">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-award text-brand-orange text-2xl"></i>
+                        <span class="text-brand-text-body font-semibold">98% Client Satisfaction</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-clock text-brand-orange text-2xl"></i>
+                        <span class="text-brand-text-body font-semibold">On-Time Delivery</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-handshake text-brand-orange text-2xl"></i>
+                        <span class="text-brand-text-body font-semibold">Long-term Partnerships</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -192,33 +334,33 @@
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 text-brand-navy">Let's Build Your Brand</h2>
                 <p class="text-brand-text-muted">Ready to take your business to the next level? Drop us a message.</p>
             </div>
-            <form class="space-y-6 fade-in-up" id="contactForm">
+            <form class="space-y-6 fade-in-up" id="contactForm" aria-label="Contact form">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-sm font-medium text-brand-text-body mb-2">Name</label>
-                        <input type="text" name="name" required class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="John Doe">
+                        <label for="contact-name" class="block text-sm font-medium text-brand-text-body mb-2">Name *</label>
+                        <input type="text" id="contact-name" name="name" required class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="John Doe" aria-required="true">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-brand-text-body mb-2">Email</label>
-                        <input type="email" name="email" required class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="john@example.com">
+                        <label for="contact-email" class="block text-sm font-medium text-brand-text-body mb-2">Email *</label>
+                        <input type="email" id="contact-email" name="email" required class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="john@example.com" aria-required="true">
                     </div>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-brand-text-body mb-2">Phone (Optional)</label>
-                    <input type="tel" name="phone" class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="+91 1234567890">
+                    <label for="contact-phone" class="block text-sm font-medium text-brand-text-body mb-2">Phone (Optional)</label>
+                    <input type="tel" id="contact-phone" name="phone" class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="+91 1234567890">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-brand-text-body mb-2">Subject (Optional)</label>
-                    <input type="text" name="subject" class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="What is this regarding?">
+                    <label for="contact-subject" class="block text-sm font-medium text-brand-text-body mb-2">Subject (Optional)</label>
+                    <input type="text" id="contact-subject" name="subject" class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="What is this regarding?">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-brand-text-body mb-2">Message</label>
-                    <textarea name="message" rows="4" required class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="Tell us about your project..."></textarea>
+                    <label for="contact-message" class="block text-sm font-medium text-brand-text-body mb-2">Message *</label>
+                    <textarea id="contact-message" name="message" rows="4" required class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="Tell us about your project..." aria-required="true"></textarea>
                 </div>
-                <button type="submit" id="contactSubmitBtn" class="w-full bg-brand-orange text-white font-bold py-4 rounded-lg hover:bg-brand-orange-dark transition-colors transform active:scale-95">
+                <button type="submit" id="contactSubmitBtn" class="w-full bg-brand-orange text-white font-bold py-4 rounded-lg hover:bg-brand-orange-dark transition-colors transform active:scale-95" aria-label="Send contact message">
                     Send Message
                 </button>
-                <div id="contactMessage" class="hidden text-center p-4 rounded-lg"></div>
+                <div id="contactMessage" class="hidden text-center p-4 rounded-lg" role="alert" aria-live="polite"></div>
             </form>
         </div>
     </section>
@@ -253,8 +395,10 @@
                     <ul class="space-y-3 text-sm text-gray-300">
                         <li><a href="index.html" class="hover:text-brand-orange transition-colors">Home</a></li>
                         <li><a href="brandmarkservices.html" class="hover:text-brand-orange transition-colors">Services</a></li>
+                        <li><a href="portfolio.html" class="hover:text-brand-orange transition-colors">Portfolio</a></li>
                         <li><a href="brandmarkAboutUs.html" class="hover:text-brand-orange transition-colors">About Us</a></li>
                         <li><a href="brandmarkcareers.html" class="hover:text-brand-orange transition-colors">Careers</a></li>
+                        <li><a href="brandmarkpersonalblogs.html" class="hover:text-brand-orange transition-colors">Blog</a></li>
                     </ul>
                 </div>
 
@@ -270,6 +414,11 @@
             
             <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center">
                 <p class="text-gray-400 text-sm">© 2024 Brand Mark Solutions. All rights reserved.</p>
+                <div class="flex gap-4 mt-4 md:mt-0 text-sm text-gray-400">
+                    <a href="privacy-policy.html" class="hover:text-brand-orange transition-colors">Privacy Policy</a>
+                    <span>•</span>
+                    <a href="terms-of-service.html" class="hover:text-brand-orange transition-colors">Terms of Service</a>
+                </div>
             </div>
         </div>
     </footer>
@@ -282,6 +431,54 @@
             <p class="text-xs text-gray-600">We'll get back to you shortly.</p>
         </div>
     </div>
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "BrandMark Solutions",
+        "alternateName": "Brand Mark",
+        "description": "Branding and marketing services for MSMEs and small businesses",
+        "url": "https://brandmarksolutions.site/",
+        "logo": "https://brandmarksolutions.site/new logoBrandMarkupdatedone.jpeg",
+        "email": "info.aimservicesprivatelimited@gmail.com",
+        "telephone": "+917091863003",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Gangotri, Buddha colony",
+            "addressLocality": "Patna",
+            "postalCode": "800001",
+            "addressCountry": "IN"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "25.5941",
+            "longitude": "85.1376"
+        },
+        "sameAs": [
+            "https://www.facebook.com/brandmarksolutions",
+            "https://www.instagram.com/brandmarksolutions",
+            "https://www.linkedin.com/company/brandmarksolutions"
+        ],
+        "areaServed": {
+            "@type": "Country",
+            "name": "India"
+        },
+        "serviceType": [
+            "Brand Identity Design",
+            "Digital Marketing",
+            "Social Media Management",
+            "Website Design",
+            "Marketing Strategy"
+        ]
+    }
+    </script>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
 
     <script src="brandmark.js"></script>
 </body>

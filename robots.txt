@@ -1,0 +1,16 @@
+# BrandMark Solutions - robots.txt
+# Last Updated: January 4, 2026
+
+User-agent: *
+Allow: /
+
+# Disallow admin and backend areas
+Disallow: /admin-dashboard.html
+Disallow: /backend/
+Disallow: /uploads/
+
+# Sitemap location
+Sitemap: https://brandmarksolutions.site/sitemap.xml
+
+# Crawl delay (optional - helps with server load)
+Crawl-delay: 1
