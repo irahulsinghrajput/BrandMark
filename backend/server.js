@@ -5,6 +5,9 @@ const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
 const rateLimit = require('express-rate-limit');
+const mongoSanitize = require('express-mongo-sanitize');
+const xss = require('xss-clean');
+const hpp = require('hpp');
 
 const app = express();
 
@@ -48,6 +51,11 @@ app.use(cors({
 // Body Parser Middleware with size limits
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Additional Security Middleware
+app.use(mongoSanitize()); // Prevent MongoDB injection attacks
+app.use(xss()); // Prevent XSS attacks by sanitizing user input
+app.use(hpp()); // Prevent HTTP Parameter Pollution
 
 // Static Files for Uploads
 app.use('/uploads', express.static('uploads'));
