@@ -357,8 +357,12 @@
                     <label for="contact-message" class="block text-sm font-medium text-brand-text-body mb-2">Message *</label>
                     <textarea id="contact-message" name="message" rows="4" required class="w-full bg-brand-bg-white border border-brand-border-light rounded-lg px-4 py-3 text-brand-text-body focus:outline-none focus:border-brand-orange transition-colors placeholder-brand-text-muted" placeholder="Tell us about your project..." aria-required="true"></textarea>
                 </div>
-                <button type="submit" id="contactSubmitBtn" class="w-full bg-brand-orange text-white font-bold py-4 rounded-lg hover:bg-brand-orange-dark transition-colors transform active:scale-95" aria-label="Send contact message">
-                    Send Message
+                <button type="submit" id="contactSubmitBtn" class="w-full bg-brand-orange text-white font-bold py-4 rounded-lg hover:bg-brand-orange-dark transition-colors transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center" aria-label="Send contact message">
+                    <span id="btnText">Send Message</span>
+                    <svg id="btnSpinner" class="hidden animate-spin ml-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
                 </button>
                 <div id="contactMessage" class="hidden text-center p-4 rounded-lg" role="alert" aria-live="polite"></div>
             </form>

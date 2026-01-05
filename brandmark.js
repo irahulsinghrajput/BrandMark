@@ -38,8 +38,9 @@ if (contactForm) {
         e.preventDefault();
         
         const btn = document.getElementById('contactSubmitBtn');
+        const btnText = document.getElementById('btnText');
+        const btnSpinner = document.getElementById('btnSpinner');
         const messageDiv = document.getElementById('contactMessage');
-        const originalText = btn.innerText;
         
         // Get form data
         const formData = {
@@ -50,10 +51,10 @@ if (contactForm) {
             message: contactForm.querySelector('[name="message"]').value
         };
         
-        // Update button state
-        btn.innerText = 'Sending...';
+        // Show loading state
+        btnText.textContent = 'Sending...';
+        btnSpinner.classList.remove('hidden');
         btn.disabled = true;
-        btn.classList.add('opacity-75');
         messageDiv.classList.add('hidden');
 
         try {
@@ -85,9 +86,10 @@ if (contactForm) {
             messageDiv.textContent = 'Failed to send message. Please check your connection.';
             messageDiv.classList.remove('hidden');
         } finally {
-            btn.innerText = originalText;
+            // Reset button state
+            btnText.textContent = 'Send Message';
+            btnSpinner.classList.add('hidden');
             btn.disabled = false;
-            btn.classList.remove('opacity-75');
         }
     });
 }
