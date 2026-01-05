@@ -15,7 +15,13 @@ const auth = async (req, res, next) => {
         }
 
         // Verify token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key-change-in-production');
+        const jwtSecret = process.env.JWT_SECRET;
+        
+        if (!jwtSecret || jwtSecret === 'your-super-secret-jwt-key-change-this-in-production') {
+            console.warn('⚠️  WARNING: Using default JWT secret! Change JWT_SECRET in .env file!');
+        }
+        
+        const decoded = jwt.verify(token, jwtSecret || 'your-secret-key-change-in-production');
 
         // Find admin
         const admin = await Admin.findById(decoded.id).select('-password');

@@ -1,7 +1,8 @@
 // Career Application Form Handler
 // Production backend
-const API_URL = 'https://brandmark-solutions.onrender.com/api';
+// const API_URL = 'https://brandmark-solutions.onrender.com/api';
 // For local development: 'http://localhost:5000/api'
+const API_URL = 'http://localhost:5000/api'
 
 // Initialize career application forms
 document.addEventListener('DOMContentLoaded', () => {

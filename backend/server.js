@@ -19,17 +19,35 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
-// CORS Configuration - Allow all origins in development
+// CORS Configuration
+const allowedOrigins = [
+    'http://localhost:5500',
+    'https://brandmarksolutions.site',
+    'https://www.brandmarksolutions.site'
+];
+
 app.use(cors({
-    origin: true, // Allow all origins in development
+    origin: function(origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl)
+        if (!origin) return callback(null, true);
+        
+        if (process.env.NODE_ENV === 'development') {
+            return callback(null, true); // Allow all in development
+        }
+        
+        if (allowedOrigins.indexOf(origin) === -1) {
+            return callback(new Error('Not allowed by CORS'), false);
+        }
+        return callback(null, true);
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// Body Parser Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Body Parser Middleware with size limits
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Static Files for Uploads
 app.use('/uploads', express.static('uploads'));

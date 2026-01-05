@@ -4,11 +4,12 @@ echo Starting BrandMark Development Servers
 echo ========================================
 echo.
 
-echo [1/2] Starting Backend Server (Port 5000)...
+echo [1/2] Starting Backend Server (Port 5000) with PM2...
 cd backend
-start "BrandMark Backend" cmd /k "node server.js"
-timeout /t 3 /nobreak >nul
-echo Backend server started!
+pm2 start server.js --name brandmark-backend 2>nul || pm2 restart brandmark-backend
+cd ..
+timeout /t 2 /nobreak >nul
+echo Backend server started with PM2!
 echo.
 
 echo [2/2] Starting Frontend Server (Port 5500)...
