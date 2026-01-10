@@ -10,7 +10,7 @@
 
 require('dotenv').config({ path: __dirname + '/.env' });
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const readline = require('readline');
 
 // Create readline interface
