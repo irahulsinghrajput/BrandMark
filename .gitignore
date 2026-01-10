@@ -20,6 +20,9 @@ npm-debug.log*
 *.mongodb
 *.db
 
+# Admin credentials (NEVER commit!)
+register-admin.json
+
 # Uploads (contains user data)
 backend/uploads/*
 !backend/uploads/.gitkeep
