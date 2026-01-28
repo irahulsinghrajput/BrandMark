@@ -313,7 +313,7 @@ function createChatWidget() {
         <div id="bm-chat-window" class="bm-chat-hidden" role="dialog" aria-label="Brandmark AI chat window">
             <div class="bm-chat-header">
                 <div class="bm-chat-title">
-                    <img src="newlogoBrandMarksolutionsupdated.jpeg" alt="Brandmark logo" class="bm-chat-logo" />
+                    <img src="/newlogoBrandMarksolutionsupdated.jpeg?v=1" alt="Brandmark logo" class="bm-chat-logo" onerror="this.style.display='none'" />
                     <span>Ask Brandmark AI</span>
                 </div>
                 <button id="bm-chat-close" aria-label="Close chat">✖</button>
@@ -374,9 +374,22 @@ function createChatWidget() {
                 body: JSON.stringify({ message: userText })
             });
 
-            const data = await response.json();
+            let data = null;
+            try {
+                data = await response.json();
+            } catch (parseError) {
+                data = null;
+            }
+
             loadingMsg.remove();
-            appendMessage(data.reply || 'Sorry, I could not respond right now.', 'bm-chat-bot');
+
+            if (!response.ok) {
+                const fallbackMessage = (data && data.reply) ? data.reply : 'Service is temporarily unavailable. Please try again.';
+                appendMessage(fallbackMessage, 'bm-chat-bot');
+                return;
+            }
+
+            appendMessage((data && data.reply) ? data.reply : 'Sorry, I could not respond right now.', 'bm-chat-bot');
         } catch (error) {
             console.error('Chat error:', error);
             loadingMsg.textContent = 'Error connecting. Please try again.';
