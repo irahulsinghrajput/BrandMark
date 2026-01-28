@@ -83,6 +83,7 @@ app.use('/api/careers', require('./routes/careers'));
 app.use('/api/newsletter', require('./routes/newsletter'));
 app.use('/api/blog', require('./routes/blog'));
 app.use('/api/admin', require('./routes/admin'));
+app.use('/api/chat', require('./routes/chat'));
 
 // Health Check
 app.get('/api/health', (req, res) => {

@@ -14,6 +14,8 @@ services:
         sync: false
       - key: EMAIL_PASS
         sync: false
+      - key: GEMINI_API_KEY
+        sync: false
       - key: FRONTEND_URL
         value: https://brandmarksolutions.site
       - key: NODE_ENV

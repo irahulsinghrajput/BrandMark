@@ -297,3 +297,100 @@ document.addEventListener('mousedown', () => {
     isUsingKeyboard = false;
     document.body.classList.remove('keyboard-nav');
 });
+
+// --- BRANDMARK AI CHAT WIDGET ---
+const CHAT_API_URL = `${API_URL}/chat`;
+
+function createChatWidget() {
+    if (document.getElementById('bm-chat-widget')) return;
+
+    const widget = document.createElement('div');
+    widget.id = 'bm-chat-widget';
+    widget.innerHTML = `
+        <button id="bm-chat-toggle" aria-label="Open Brandmark AI chat">
+            <span class="bm-chat-toggle-icon">💬</span>
+        </button>
+        <div id="bm-chat-window" class="bm-chat-hidden" role="dialog" aria-label="Brandmark AI chat window">
+            <div class="bm-chat-header">
+                <span>Ask Brandmark AI</span>
+                <button id="bm-chat-close" aria-label="Close chat">✖</button>
+            </div>
+            <div id="bm-chat-messages" class="bm-chat-messages" aria-live="polite">
+                <div class="bm-chat-message bm-chat-bot">Hi! I'm Mark. How can I help grow your brand today?</div>
+            </div>
+            <div class="bm-chat-input-area">
+                <input type="text" id="bm-chat-input" placeholder="Type a message..." />
+                <button id="bm-chat-send" aria-label="Send message">➤</button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(widget);
+
+    const toggleBtn = widget.querySelector('#bm-chat-toggle');
+    const closeBtn = widget.querySelector('#bm-chat-close');
+    const chatWindow = widget.querySelector('#bm-chat-window');
+    const input = widget.querySelector('#bm-chat-input');
+    const sendBtn = widget.querySelector('#bm-chat-send');
+
+    const toggleChat = () => {
+        chatWindow.classList.toggle('bm-chat-hidden');
+        if (!chatWindow.classList.contains('bm-chat-hidden')) {
+            input.focus();
+        }
+    };
+
+    const appendMessage = (text, type) => {
+        const messages = widget.querySelector('#bm-chat-messages');
+        const msg = document.createElement('div');
+        msg.className = `bm-chat-message ${type}`;
+        msg.textContent = text;
+        messages.appendChild(msg);
+        messages.scrollTop = messages.scrollHeight;
+        return msg;
+    };
+
+    const sendMessage = async () => {
+        const userText = input.value.trim();
+        if (!userText) return;
+
+        appendMessage(userText, 'bm-chat-user');
+        input.value = '';
+        input.focus();
+
+        sendBtn.disabled = true;
+        input.disabled = true;
+
+        const loadingMsg = appendMessage('Typing...', 'bm-chat-bot');
+        loadingMsg.id = 'bm-chat-loading';
+
+        try {
+            const response = await fetch(CHAT_API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: userText })
+            });
+
+            const data = await response.json();
+            loadingMsg.remove();
+            appendMessage(data.reply || 'Sorry, I could not respond right now.', 'bm-chat-bot');
+        } catch (error) {
+            console.error('Chat error:', error);
+            loadingMsg.textContent = 'Error connecting. Please try again.';
+        } finally {
+            sendBtn.disabled = false;
+            input.disabled = false;
+        }
+    };
+
+    toggleBtn.addEventListener('click', toggleChat);
+    closeBtn.addEventListener('click', toggleChat);
+    sendBtn.addEventListener('click', sendMessage);
+    input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    createChatWidget();
+});
