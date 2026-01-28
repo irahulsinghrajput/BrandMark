@@ -324,6 +324,9 @@ footer {
 
 #bm-chat-toggle {
     background: var(--primary-navy);
+    background-image: url('/newlogoBrandMarksolutionsupdated.jpeg');
+    background-size: cover;
+    background-position: center;
     color: var(--text-light);
     border: none;
     border-radius: 50%;
@@ -339,6 +342,11 @@ footer {
 
 #bm-chat-toggle:hover {
     background: var(--secondary-navy);
+    background-image: url('/newlogoBrandMarksolutionsupdated.jpeg');
+}
+
+.bm-chat-toggle-icon {
+    display: none;
 }
 
 #bm-chat-window {
