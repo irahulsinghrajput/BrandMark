@@ -25,7 +25,8 @@ function getModel() {
     }
 
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const modelName = (process.env.GEMINI_MODEL || 'gemini-1.5-flash').trim();
+    const rawModelName = (process.env.GEMINI_MODEL || 'gemini-2.0-flash').trim();
+    const modelName = rawModelName.startsWith('models/') ? rawModelName.replace('models/', '') : rawModelName;
     model = genAI.getGenerativeModel({ model: modelName });
     return model;
 }
