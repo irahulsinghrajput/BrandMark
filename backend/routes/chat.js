@@ -25,7 +25,8 @@ function getModel() {
     }
 
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    const modelName = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
+    model = genAI.getGenerativeModel({ model: modelName });
     return model;
 }
 
@@ -48,7 +49,7 @@ router.post('/', async (req, res) => {
         const response = await result.response;
         const text = response.text();
 
-        return res.json({ reply: text });
+        return res.json({ reply: text || 'Sorry, I could not generate a response right now.' });
     } catch (error) {
         console.error('Chat error:', error);
 
