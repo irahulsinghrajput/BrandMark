@@ -313,7 +313,7 @@ function createChatWidget() {
         <div id="bm-chat-window" class="bm-chat-hidden" role="dialog" aria-label="Brandmark AI chat window">
             <div class="bm-chat-header">
                 <div class="bm-chat-title">
-                    <img src="/newlogoBrandMarksolutionsupdated.jpeg?v=1" alt="Brandmark logo" class="bm-chat-logo" onerror="this.style.display='none'" />
+                    <img src="https://www.brandmarksolutions.site/newlogoBrandMarksolutionsupdated.jpeg?v=2" alt="Brandmark logo" class="bm-chat-logo" onerror="this.onerror=null; this.src='https://www.brandmarksolutions.site/Brandmarklogo.jpeg?v=1';" />
                     <span>Ask Brandmark AI</span>
                 </div>
                 <button id="bm-chat-close" aria-label="Close chat">✖</button>
