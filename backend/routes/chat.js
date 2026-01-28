@@ -25,9 +25,36 @@ function getModel() {
     }
 
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    const modelName = (process.env.GEMINI_MODEL || 'gemini-1.5-flash').trim();
+    model = genAI.getGenerativeModel({ model: modelName });
     return model;
 }
+
+router.get('/models', async (req, res) => {
+    try {
+        if (!process.env.GEMINI_API_KEY) {
+            return res.status(503).json({ success: false, message: 'GEMINI_API_KEY is not configured' });
+        }
+
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${process.env.GEMINI_API_KEY}`);
+        const data = await response.json();
+
+        if (!response.ok) {
+            return res.status(response.status).json({ success: false, message: data?.error?.message || 'Failed to list models', data });
+        }
+
+        const models = (data.models || []).map((m) => ({
+            name: m.name,
+            displayName: m.displayName,
+            supportedGenerationMethods: m.supportedGenerationMethods
+        }));
+
+        return res.json({ success: true, models });
+    } catch (error) {
+        console.error('List models error:', error);
+        return res.status(500).json({ success: false, message: 'Failed to list models' });
+    }
+});
 
 router.post('/', async (req, res) => {
     try {
