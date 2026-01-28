@@ -369,6 +369,20 @@ footer {
     font-weight: 600;
 }
 
+.bm-chat-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bm-chat-logo {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #fff;
+}
+
 .bm-chat-header button {
     background: transparent;
     color: var(--text-light);
