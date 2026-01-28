@@ -11,6 +11,9 @@ const hpp = require('hpp');
 
 const app = express();
 
+// Trust proxy (Render/Load Balancer) so rate-limit works with X-Forwarded-For
+app.set('trust proxy', 1);
+
 // Security Middleware
 app.use(helmet());
 app.use(compression());
