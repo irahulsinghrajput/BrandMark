@@ -118,9 +118,18 @@ newsletterForms.forEach(form => {
         const emailInput = form.querySelector('input[type="email"]');
         const btn = form.querySelector('button[type="submit"]');
         const originalText = btn.innerText;
+
+        // Create or get message container
+        let msgContainer = form.nextElementSibling;
+        if (!msgContainer || !msgContainer.classList.contains('newsletter-msg')) {
+            msgContainer = document.createElement('div');
+            msgContainer.className = 'newsletter-msg mt-4 text-center p-3 rounded-lg hidden text-sm font-medium';
+            form.parentNode.insertBefore(msgContainer, form.nextSibling);
+        }
         
-        btn.innerText = 'Subscribing...';
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
         btn.disabled = true;
+        msgContainer.classList.add('hidden');
 
         try {
             const response = await fetch(`${API_URL}/newsletter`, {
@@ -133,18 +142,30 @@ newsletterForms.forEach(form => {
 
             const data = await response.json();
 
+            msgContainer.classList.remove('hidden');
             if (data.success) {
-                alert('✅ ' + (data.message || 'Successfully subscribed to newsletter!'));
+                msgContainer.className = 'newsletter-msg mt-4 text-center p-3 rounded-lg bg-green-100 text-green-800 text-sm font-medium';
+                msgContainer.innerHTML = '✅ ' + (data.message || 'Successfully subscribed! Check your inbox.');
                 form.reset();
             } else {
-                alert('❌ ' + (data.message || 'Failed to subscribe. Please try again.'));
+                msgContainer.className = 'newsletter-msg mt-4 text-center p-3 rounded-lg bg-red-100 text-red-800 text-sm font-medium';
+                msgContainer.innerHTML = '❌ ' + (data.message || 'Failed to subscribe. Please try again.');
             }
         } catch (error) {
             console.error('Newsletter error:', error);
-            alert('❌ Failed to subscribe. Please check your connection.');
+            msgContainer.classList.remove('hidden');
+            msgContainer.className = 'newsletter-msg mt-4 text-center p-3 rounded-lg bg-red-100 text-red-800 text-sm font-medium';
+            msgContainer.innerHTML = '❌ Network error. Please check your connection.';
         } finally {
             btn.innerText = originalText;
             btn.disabled = false;
+            
+            // Auto hide success message after 5 seconds
+            if (msgContainer.innerHTML.includes('✅')) {
+                setTimeout(() => {
+                    msgContainer.classList.add('hidden');
+                }, 5000);
+            }
         }
     });
 });
