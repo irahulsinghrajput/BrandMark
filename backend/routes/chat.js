@@ -2,8 +2,11 @@ const express = require('express');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const router = express.Router();
 
-// Initialize Gemini with the API Key from Environment Variables
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+// Initialize Gemini with warning if key is missing
+if (!process.env.GEMINI_API_KEY) {
+    console.error("CRITICAL ERROR: GEMINI_API_KEY is missing in environment variables.");
+}
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "YOUR_API_KEY");
 
 // SYSTEM INSTRUCTION: The personality of your bot
 const SYSTEM_INSTRUCTION = `
@@ -18,8 +21,8 @@ router.post('/', async (req, res) => {
         const { message } = req.body;
         console.log("Received message:", message); // Log for debugging
 
-        // CRITICAL FIX: Using 'gemini-pro' which is the stable, free model
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+        // Updated for 2026: Using 'gemini-2.5-flash'
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
         const prompt = SYSTEM_INSTRUCTION + "\n\nUser: " + message + "\nMark:";
         

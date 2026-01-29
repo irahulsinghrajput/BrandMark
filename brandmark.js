@@ -1,8 +1,9 @@
 // API Configuration
-// Production backend
-const API_URL = 'https://brandmark-api-2026.onrender.com/api';
-// For local development: 'http://localhost:5000/api'
-// const API_URL = 'http://localhost:5000/api'
+// Automatically detect if running on localhost or production
+const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const API_URL = isLocalhost 
+    ? 'http://localhost:5000/api'     // Local Backend
+    : 'https://brandmark-api-2026.onrender.com/api'; // Production Backend
 
 // Mobile Menu Toggle
 const btn = document.getElementById('mobile-menu-btn');
