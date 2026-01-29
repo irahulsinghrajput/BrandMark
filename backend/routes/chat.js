@@ -1,88 +1,38 @@
 const express = require('express');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
-
 const router = express.Router();
 
+// Initialize Gemini with the API Key from Environment Variables
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+// SYSTEM INSTRUCTION: The personality of your bot
 const SYSTEM_INSTRUCTION = `
-You are 'Mark', the AI Assistant for Brand Mark Solutions, a digital agency in Patna, Bihar founded by Rahul Singh Rajput.
-Your Tone: Professional, tech-savvy, yet friendly.
-Your Goal: Help MSME clients understand our services (Web Dev, Digital Marketing, Branding).
-Services:
-1. MERN Stack Web Development.
-2. Digital Marketing (SEO, Social Media).
-3. Branding (Logos, Identity).
-If asked about pricing, say: "Projects are custom. Please fill out the contact form for a quote."
-Do NOT make up facts. If you don't know, ask them to contact Rahul.
+You are 'Mark', the AI Assistant for Brand Mark Solutions.
+Your Goal: Help clients with Web Development, Digital Marketing, and Branding.
+Tone: Professional, friendly, and concise.
+If asked about pricing, say: "Please contact Rahul for a custom quote."
 `;
-
-let model = null;
-
-function getModel() {
-    if (model) return model;
-
-    if (!process.env.GEMINI_API_KEY) {
-        throw new Error('GEMINI_API_KEY is not configured');
-    }
-
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    model = genAI.getGenerativeModel({ model: 'gemini-pro' });
-    return model;
-}
-
-router.get('/models', async (req, res) => {
-    try {
-        if (!process.env.GEMINI_API_KEY) {
-            return res.status(503).json({ success: false, message: 'GEMINI_API_KEY is not configured' });
-        }
-
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${process.env.GEMINI_API_KEY}`);
-        const data = await response.json();
-
-        if (!response.ok) {
-            return res.status(response.status).json({ success: false, message: data?.error?.message || 'Failed to list models', data });
-        }
-
-        const models = (data.models || []).map((m) => ({
-            name: m.name,
-            displayName: m.displayName,
-            supportedGenerationMethods: m.supportedGenerationMethods
-        }));
-
-        return res.json({ success: true, models });
-    } catch (error) {
-        console.error('List models error:', error);
-        return res.status(500).json({ success: false, message: 'Failed to list models' });
-    }
-});
 
 router.post('/', async (req, res) => {
     try {
-        const { message } = req.body || {};
+        const { message } = req.body;
+        console.log("Received message:", message); // Log for debugging
 
-        if (!message || typeof message !== 'string' || !message.trim()) {
-            return res.status(400).json({ reply: 'Please enter a message.' });
-        }
+        // CRITICAL FIX: Using 'gemini-pro' which is the stable, free model
+        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-        if (message.length > 2000) {
-            return res.status(400).json({ reply: 'Message is too long. Please shorten it.' });
-        }
-
-        const prompt = `${SYSTEM_INSTRUCTION}\n\nUser: ${message.trim()}\nMark:`;
-
-        const aiModel = getModel();
-        const result = await aiModel.generateContent(prompt);
+        const prompt = SYSTEM_INSTRUCTION + "\n\nUser: " + message + "\nMark:";
+        
+        const result = await model.generateContent(prompt);
         const response = await result.response;
         const text = response.text();
 
-        return res.json({ reply: text || 'Sorry, I could not generate a response right now.' });
+        console.log("Gemini Replied:", text); // Log success
+        res.json({ reply: text });
+
     } catch (error) {
-        console.error('Chat error:', error);
-
-        if (error.message && error.message.includes('GEMINI_API_KEY')) {
-            return res.status(503).json({ reply: 'AI is not configured yet. Please contact us for assistance.' });
-        }
-
-        return res.status(500).json({ reply: "I'm having trouble connecting right now. Please try again." });
+        console.error("Gemini Error:", error); // Log the specific error
+        res.status(500).json({ reply: "I'm having a bit of trouble connecting right now. Please try again." });
     }
 });
 
