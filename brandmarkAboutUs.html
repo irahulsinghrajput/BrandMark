@@ -1,516 +1,349 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YRBFM2R2VW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-YRBFM2R2VW');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | Brand Mark Solutions</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        /* --- CSS Reset & Base Styles --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    <title>About Us | Brand Mark Solutions - Empowering MSMEs in US, Canada, Middle East, Patna & Bihar</title>
+    <meta name="description" content="Meet the Brand Mark team. Learn about our mission to empower MSMEs and small businesses in the US, Canada, Middle East, Patna, and Bihar. Discover our vision, values, and expertise.">
+    <meta name="keywords" content="About BrandMark, Marketing Team, Branding Experts, MSME Marketing, Brand Consultants, Marketing Agency Patna, Marketing Agency Bihar, Marketing Agency US, Marketing Agency Middle East">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://brandmarksolutions.site/brandmarkAboutUs.html">
+    <meta property="og:title" content="About Us | Brand Mark Solutions">
+    <meta property="og:description" content="Meet the BrandMark team - passionate experts helping MSMEs grow.">
+    <meta property="og:image" content="https://brandmarksolutions.site/new logoBrandMarkupdatedone.jpeg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://brandmarksolutions.site/brandmarkAboutUs.html">
+    <meta property="twitter:title" content="About Us | Brand Mark Solutions">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://brandmarksolutions.site/brandmarkAboutUs.html">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR-GA-ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'YOUR-GA-ID');
+    </script>
 
-        body {
-            background-color: #F4F6F8;
-            color: #2E2E2E;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+    <link rel="stylesheet" href="brandmark.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-        a {
-            text-decoration: none;
-            color: #0B2C4D;
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: #F26A21;
-        }
-
-        h1, h2, h3 {
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* --- Header & Navigation --- */
-        header {
-            background-color: #0B2C4D;
-            padding: 20px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: none;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-container img {
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-            margin-right: 10px;
-            object-fit: cover;
-        }
-        
-        .logo-container a {
-            display: flex;
-            align-items: center;
-        }
-
-        /* Updated Text Logo Styles */
-        .text-logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #FFFFFF;
-            letter-spacing: -1px;
-            display: block;
-        }
-        
-        .text-logo span {
-            color: #F26A21;
-            font-weight: 300;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-
-        .nav-links li {
-            margin-left: 30px;
-        }
-
-        .nav-links a {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.85);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: #F26A21;
-        }
-
-        .burger {
-            display: none;
-            cursor: pointer;
-        }
-
-        .burger div {
-            width: 25px;
-            height: 3px;
-            background-color: white;
-            margin: 5px;
-        }
-
-        /* --- Hero Section --- */
-        .hero {
-            height: 50vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-            background: radial-gradient(circle at center, #0B2C4D 0%, #081F36 70%);
-            border-bottom: none;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 15px;
-            color: #FFFFFF;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.85);
-            max-width: 600px;
-        }
-
-        /* --- General Section Styles --- */
-        .section-container {
-            padding: 100px 10%;
-            border-bottom: 1px solid #E0E0E0;
-            background-color: #FFFFFF;
-        }
-
-        /* Alternate section background */
-        .section-container:nth-child(even) {
-            background-color: #FAFAFA;
-        }
-
-        /* Fixed Section Title Centering */
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin: 0 auto 60px auto;
-            color: #0B2C4D;
-            position: relative;
-            display: table;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background: #F26A21;
-            margin: 15px auto 0;
-        }
-
-        /* --- About / Welcome Section --- */
-        .about-text-block {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .about-text-block h2 {
-            font-size: 2rem;
-            margin-bottom: 30px;
-            color: #0B2C4D;
-        }
-
-        .about-text-block p {
-            font-size: 1.1rem;
-            color: #2E2E2E;
-            margin-bottom: 20px;
-            line-height: 1.8;
-            text-align: justify;
-            text-align-last: center;
-        }
-
-        /* --- Founders Section --- */
-        .founders-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 50px;
-            margin-top: 50px;
-        }
-
-        .founder-card {
-            background: #FAFAFA;
-            border: 1px solid #E0E0E0;
-            padding: 40px 20px;
-            text-align: center;
-            transition: 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-
-        .founder-card:hover {
-            border-color: #F26A21;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .founder-img {
-            width: 150px;
-            height: 150px;
-            background-color: #F4F6F8;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            object-fit: cover;
-            border: 2px solid #E0E0E0;
-            display: block;
-        }
-
-        .founder-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-            color: #0B2C4D;
-        }
-
-        .founder-card span {
-            color: #6C757D;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* --- Customer Delight Section --- */
-        .delight-section {
-            background-color: #0B2C4D;
-            text-align: center;
-            padding: 80px 20px;
-            border-top: none;
-            border-bottom: none;
-        }
-
-        .delight-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .delight-content p {
-            font-size: 1.5rem;
-            font-weight: 300;
-            color: #FFFFFF;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        .delight-highlight {
-            color: rgba(255, 255, 255, 0.75);
-            font-size: 1rem;
-            font-style: italic;
-        }
-        
-        /* --- Detailed Footer Styles --- */
-        footer {
-            background-color: #081F36;
-            border-top: none;
-            margin-top: 80px;
-            padding: 80px 0 30px;
-            text-align: left;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 50px;
-            margin-bottom: 50px;
-        }
-
-        .footer-column h4 {
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            margin-bottom: 25px;
-            letter-spacing: 1px;
-            color: #FFFFFF;
-        }
-
-        .footer-column p, .footer-column a {
-            color: rgba(255, 255, 255, 0.75);
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .footer-column a:hover {
-            color: #F26A21;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            font-size: 1.2rem;
-            color: #FFFFFF;
-        }
-
-        .social-links a:hover {
-            color: #F26A21;
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-        }
-
-        /* --- Mobile Responsive --- */
-        @media screen and (max-width: 768px) {
-            .nav-links {
-                position: absolute;
-                right: 0;
-                height: 92vh;
-                top: 8vh;
-                background-color: #0B2C4D;
-                flex-direction: column;
-                align-items: center;
-                width: 60%;
-                transform: translateX(100%);
-                transition: transform 0.5s ease-in;
-                border-left: none;
-                padding-top: 40px;
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#0B2C4D',
+                            'navy-dark': '#081F36',
+                            orange: '#F26A21',
+                            'orange-dark': '#E65C17',
+                            'bg-light': '#F4F6F8',
+                            'bg-white': '#FFFFFF',
+                            'bg-card': '#FAFAFA',
+                            'text-body': '#2E2E2E',
+                            'text-muted': '#6C757D',
+                            'border-light': '#E0E0E0',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    }
+                }
             }
-            .nav-links li { margin: 20px 0; }
-            .burger { display: block; }
-            .nav-active { transform: translateX(0%); }
-            
-            .hero h1 { font-size: 2.5rem; }
-            .section-container { padding: 60px 5%; }
-            .delight-content p { font-size: 1.2rem; }
         }
-    </style>
+    </script>
+    <script src="https://t.contentsquare.net/uxa/c673c89abc518.js"></script>
 </head>
-<body>
+<body class="bg-brand-bg-light text-brand-text-body font-sans antialiased selection:bg-brand-orange selection:text-white">
 
-    <!-- Header -->
-    <header>
-        <div class="logo-container">
-            <a href="index.html" style="display: flex; align-items: center;">
-                <!-- Updated Logo Logic: Circular image + Text -->
-                <img src="new logoBrandMarkupdatedone.jpeg" alt="Brand Mark Solutions">
-                <span class="text-logo">Brand<span>Mark</span></span>
-            </a>
-        </div>
-        
-        <nav>
-            <ul class="nav-links">
-                <!-- Corrected link from index.html to brandmark.html -->
-                <li><a href="index.html">Home</a></li>
-                <li><a href="brandmarkAboutUs.html" style="color: #F26A21;">About Us</a></li>
-                <li><a href="brandmarkservices.html">Services</a></li>
-                <li><a href="brandmarkpersonalblogs.html">Personal Blogs</a></li>
-                <li><a href="brandmarkcareers.html">Careers</a></li>
-            </ul>
-        </nav>
+    <!-- Skip to Content Link (Accessibility) -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
 
-        <div class="burger">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300 bg-brand-navy shadow-lg" id="navbar" role="navigation" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo Area -->
+                <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer no-underline" aria-label="BrandMark Home">
+                    <img src="new logoBrandMarkupdatedone.jpeg" alt="Brand Mark Logo" class="h-12 w-12 rounded-full object-cover mr-3">
+                    <span class="text-2xl font-bold tracking-tighter text-white">
+                        Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">®</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Home</a>
+                    <a href="brandmarkAboutUs.html" class="text-brand-orange font-medium tracking-wide transition-colors text-sm" aria-current="page">About Us</a>
+                    <a href="brandmarkservices.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Services</a>
+                    <a href="portfolio.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Portfolio</a>
+                    <a href="brandmarkpersonalblogs.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Blog</a>
+                    <a href="brandmarkcareers.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Careers</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mobile-menu">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-    </header>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-navy border-b border-brand-border-light absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="index.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Home</a>
+                <a href="brandmarkAboutUs.html" class="block px-3 py-3 rounded-md text-base font-medium text-white bg-brand-navy-dark">About Us</a>
+                <a href="brandmarkservices.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Services</a>
+                <a href="portfolio.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Portfolio</a>
+                <a href="brandmarkpersonalblogs.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Blog</a>
+                <a href="brandmarkcareers.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Careers</a>
+            </div>
+        </div>
+    </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
-        <h1>Brand Mark Solutions</h1>
-        <p>Architecting Digital Ecosystems.</p>
+    <section id="home" class="relative min-h-[60vh] flex items-center justify-center pt-20 overflow-hidden bg-gradient-to-br from-brand-navy via-brand-navy-dark to-brand-navy">
+        <main id="main-content">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10 pointer-events-none">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-orange rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
+            <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-brand-orange-dark rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+        </div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 py-20">
+            <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 fade-in-up text-white">
+                Brand Mark Solutions
+            </h1>
+            <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-300 fade-in-up" style="transition-delay: 100ms;">
+                Architecting Digital Ecosystems.
+            </p>
+        </div>
+        </main>
     </section>
 
-    <!-- About / Welcome Text Section -->
-    <section id="about" class="section-container">
-        <div class="about-text-block">
-            <h2>Our Mission</h2>
-            <p>
+    <!-- About / Welcome Section -->
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-white border-b border-brand-border-light">
+        <div class="max-w-4xl mx-auto text-center fade-in-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-brand-navy mb-8 uppercase tracking-wide">
+                Our Mission
+            </h2>
+            <div class="w-16 h-1 bg-brand-orange mx-auto mb-12"></div>
+            
+            <p class="text-lg md:text-xl text-brand-text-body mb-6 leading-relaxed">
                 Welcome to Brand Mark Solutions. In a fragmented digital landscape, many businesses struggle to align their online presence with their core identity. We solve this by providing cohesive, end-to-end digital solutions.
             </p>
-            <p>
+            <p class="text-lg md:text-xl text-brand-text-body leading-relaxed">
                 We don't just build websites or run social media campaigns; we architect your entire digital ecosystem—from robust web development and compelling content creation to strategic social media management, ensuring your unique brand identity is consistent across all channels. Our focus is on delivering a unified growth strategy that drives measurable results and sustainable success for your business.
             </p>
         </div>
     </section>
 
-    <!-- Founders Section -->
-    <section id="founders" class="section-container" style="background-color: #FAFAFA;">
-        <h2 class="section-title">Leadership</h2>
-        
-        <div class="founders-grid">
-            <!-- Founder 1 -->
-            <div class="founder-card">
-                <!-- Corrected filename: removed space -->
-                <img src="Rahul picture.jpeg" 
-                     alt="Rahul Singh Rajput" 
-                     class="founder-img" 
-                     onerror="this.src='https://via.placeholder.com/150/333333/888888?text=User'">
-                
-                <h3>Rahul Singh Rajput</h3>
-                <span>Co-Founder</span>
-            </div>
+    <!-- Founders/Leadership Section -->
+    <section id="founders" class="py-20 px-4 sm:px-6 lg:px-8 bg-brand-bg-card border-b border-brand-border-light">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-brand-navy text-center mb-4 uppercase tracking-wide fade-in-up">
+                Leadership
+            </h2>
+            <div class="w-16 h-1 bg-brand-orange mx-auto mb-16"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 max-w-4xl mx-auto">
+                <!-- Founder 1 -->
+                <div class="bg-white border border-brand-border-light rounded-lg p-8 text-center transition-all duration-300 hover:border-brand-orange hover:-translate-y-2 hover:shadow-xl fade-in-up" style="transition-delay: 100ms;">
+                    <img src="Rahul picture.jpeg" 
+                        alt="Rahul Singh Rajput - Digital Marketing Lead, Brand Mark Solutions, Patna, Bihar, MSME Expert" 
+                        class="w-36 h-36 rounded-full mx-auto mb-6 object-cover border-2 border-brand-border-light"
+                        onerror="this.src='https://via.placeholder.com/150/333333/888888?text=User'">
+                    <h3 class="text-2xl font-bold text-brand-navy mb-2 uppercase tracking-wide">
+                        Rahul Singh Rajput
+                    </h3>
+                    <span class="text-brand-text-muted text-sm uppercase tracking-wider">Co-Founder</span>
+                </div>
 
-            <!-- Founder 2 -->
-            <div class="founder-card">
-                <!-- Corrected filename: lowercase extension and correct spelling based on previous requests -->
-                <img src="Rajeshree.Jpeg" 
-                     alt="Rajeshree Shekhar" 
-                     class="founder-img" 
-                     onerror="this.src='https://via.placeholder.com/150/333333/888888?text=User'">
-                     
-                <h3>Rajeshree Shekhar</h3>
-                <span>Co-Founder</span>
+                <!-- Founder 2 -->
+                <div class="bg-white border border-brand-border-light rounded-lg p-8 text-center transition-all duration-300 hover:border-brand-orange hover:-translate-y-2 hover:shadow-xl fade-in-up" style="transition-delay: 200ms;">
+                    <img src="Rajeshree.Jpeg" 
+                        alt="Rajeshree Shekhar - Branding Specialist, Brand Mark Solutions, Patna, Bihar, MSME Consultant" 
+                        class="w-36 h-36 rounded-full mx-auto mb-6 object-cover border-2 border-brand-border-light"
+                        onerror="this.src='https://via.placeholder.com/150/333333/888888?text=User'">
+                    <h3 class="text-2xl font-bold text-brand-navy mb-2 uppercase tracking-wide">
+                        Rajeshree Shekhar
+                    </h3>
+                    <span class="text-brand-text-muted text-sm uppercase tracking-wider">Co-Founder</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Customer Delight Section (Text + Gallery) -->
-    <section class="delight-section">
-        <div class="delight-content">
-            <h2 class="section-title" style="margin-bottom: 40px; font-size: 1.8rem;">Customer Delight</h2>
+    <!-- Customer Delight Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-brand-navy text-white">
+        <div class="max-w-4xl mx-auto text-center fade-in-up">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 uppercase tracking-wide">
+                Customer Delight
+            </h2>
+            <div class="w-16 h-1 bg-brand-orange mx-auto mb-12"></div>
             
-            <p>
+            <p class="text-2xl md:text-3xl font-light mb-8 leading-relaxed">
                 "We make the customers orgasm when we lay out our ideas and creatives in front of them."
             </p>
-            <p style="font-size: 1.1rem; color: #aaa;">
+            <p class="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
                 At Brand Mark Solutions, we are driven by a strong innate desire to delight the customer to an extent that they want to give us virtual hugs.
             </p>
-            <div class="delight-highlight">
-                BTW, we live for occasional fatty foods, intoxicating liquids, and jalebis (yes, we’re a bunch of nice kids!)
-            </div>
+            <p class="text-base md:text-lg text-gray-400 italic">
+                BTW, we live for occasional fatty foods, intoxicating liquids, and jalebis (yes, we're a bunch of nice kids!)
+            </p>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h4>Brand Mark Solutions</h4>
-                    <p>We help businesses build powerful brands and implement effective marketing strategies that drive growth and engagement.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+    <footer class="bg-brand-navy-dark text-gray-300 pt-16 pb-8 mt-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <h4 class="text-white font-bold mb-6">Brand Mark Solutions</h4>
+                    <p class="text-sm mb-6 leading-relaxed">
+                        We help businesses build powerful brands and implement effective marketing strategies that drive growth and engagement.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-gray-300 hover:text-brand-orange transition-colors text-xl" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-brand-orange transition-colors text-xl" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-brand-orange transition-colors text-xl" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/brandmarksolutions/" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-brand-orange transition-colors text-xl" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
                     </div>
                 </div>
-                <div class="footer-column">
-                    <h4>Quick Links</h4>
-                    <a href="index.html">Home</a>
-                    <a href="brandmarkservices.html">Services</a>
-                    <a href="brandmarkAboutUs.html">About Us</a>
-                    <a href="brandmarkcareers.html">Careers</a>
+
+                <div>
+                    <h4 class="text-white font-bold mb-6">Services</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="brandmarkservices.html" class="hover:text-brand-orange transition-colors">Brand Identity</a></li>
+                        <li><a href="brandmarkservices.html" class="hover:text-brand-orange transition-colors">Digital Marketing</a></li>
+                        <li><a href="brandmarkservices.html" class="hover:text-brand-orange transition-colors">Social Media</a></li>
+                        <li><a href="brandmarkservices.html" class="hover:text-brand-orange transition-colors">Web Development</a></li>
+                    </ul>
                 </div>
-                <div class="footer-column">
-                    <h4>Contact Info</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> Gangotri, Buddha colony, Patna - 800001</p>
-                    <p><i class="fas fa-phone"></i> (709) 816 3003</p>
-                    <p><i class="fas fa-envelope"></i> info.aimservicesprivatelimited@gmail.com</p>
+
+                <div>
+                    <h4 class="text-white font-bold mb-6">Quick Links</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="index.html" class="hover:text-brand-orange transition-colors">Home</a></li>
+                        <li><a href="brandmarkAboutUs.html" class="hover:text-brand-orange transition-colors">About Us</a></li>
+                        <li><a href="brandmarkcareers.html" class="hover:text-brand-orange transition-colors">Careers</a></li>
+                        <li><a href="brandmarkpersonalblogs.html" class="hover:text-brand-orange transition-colors">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-6">Contact</h4>
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-location-dot w-5 mt-1"></i>
+                            <span>Gangotri, Buddha colony, Patna - 800001</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-phone w-5"></i>
+                            <span>+91 709 186 3003</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa-solid fa-envelope w-5"></i>
+                            <span class="break-all">info.aimservicesprivatelimited@gmail.com</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="copyright">
-                <p>&copy; 2024 Brand Mark Solutions. All Rights Reserved.</p>
+            
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">© 2024 Brand Mark Solutions. All rights reserved.</p>
+                <div class="flex gap-4 mt-4 md:mt-0 text-sm text-gray-400">
+                    <a href="privacy-policy.html" class="hover:text-brand-orange transition-colors">Privacy Policy</a>
+                    <span>•</span>
+                    <a href="terms-of-service.html" class="hover:text-brand-orange transition-colors">Terms of Service</a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script>
-        const navSlide = () => {
-            const burger = document.querySelector('.burger');
-            const nav = document.querySelector('.nav-links');
-            const navLinks = document.querySelectorAll('.nav-links li');
-
-            burger.addEventListener('click', () => {
-                nav.classList.toggle('nav-active');
-                burger.classList.toggle('toggle');
-                
-                navLinks.forEach((link, index) => {
-                    if (link.style.animation) {
-                        link.style.animation = '';
-                    } else {
-                        link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-                    }
-                });
-            });
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "mainEntity": {
+            "@type": "Organization",
+            "name": "Brand Mark Solutions",
+            "alternateName": "BrandMark",
+            "description": "Branding and marketing services for MSMEs and small businesses",
+            "url": "https://brandmarksolutions.site/",
+            "logo": "https://brandmarksolutions.site/new logoBrandMarkupdatedone.jpeg",
+            "email": "info.aimservicesprivatelimited@gmail.com",
+            "telephone": "+917091863003",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Gangotri, Buddha colony",
+                "addressLocality": "Patna",
+                "postalCode": "800001",
+                "addressCountry": "IN"
+            },
+            "founder": [
+                {
+                    "@type": "Person",
+                    "name": "Rahul Singh Rajput",
+                    "jobTitle": "Co-Founder"
+                },
+                {
+                    "@type": "Person",
+                    "name": "Rajeshree Shekhar",
+                    "jobTitle": "Co-Founder"
+                }
+            ],
+            "sameAs": [
+                "https://www.facebook.com/brandmarksolutions",
+                "https://www.instagram.com/brandmarksolutions",
+                "https://www.linkedin.com/company/brandmarksolutions"
+            ]
         }
-        navSlide();
+    }
     </script>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/917091863003?text=Hi%20BrandMark!%20I'm%20interested%20in%20your%20services." 
+       class="whatsapp-float" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="brandmark.js"></script>
 </body>
 </html>

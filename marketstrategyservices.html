@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YRBFM2R2VW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-YRBFM2R2VW');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BrandMark Solutions - Comprehensive marketing strategy services including market research, competitor analysis, campaign planning, performance tracking, and GTM strategies.">
+    <meta name="keywords" content="marketing strategy, market research, competitor analysis, campaign planning, brand positioning, GTM strategy, performance tracking">
+    <meta name="author" content="BrandMark Solutions">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Marketing Strategy Services | BrandMark Solutions">
+    <meta property="og:description" content="Comprehensive marketing strategies tailored to your business goals. Market research, competitor analysis, and campaign planning that drives results.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://brandmarksolutions.site/marketstrategyservices.html">
+    
+    <title>Marketing Strategy Services | BrandMark Solutions</title>
+    <link rel="canonical" href="https://brandmarksolutions.site/marketstrategyservices.html">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="brandmark.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-navy': '#0B2C4D',
+                        'brand-orange': '#F26A21',
+                        'brand-bg-light': '#F4F6F8',
+                        'brand-text-muted': '#64748B',
+                        'brand-border-light': '#E2E8F0'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #0B2C4D 0%, #1a4d7a 100%);
+            min-height: 100vh;
+        }
+        
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card {
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+
+        .hero-image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(242, 106, 33, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background: #F26A21;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(242, 106, 33, 0.4);
+            z-index: 100;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            transform: scale(1.1);
+            background: #d65a1b;
+        }
+    </style>
+    <script src="https://t.contentsquare.net/uxa/c673c89abc518.js"></script>
+</head>
+<body class="antialiased min-h-screen flex flex-col bg-brand-bg-light text-brand-text-body font-sans selection:bg-brand-orange selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300 bg-brand-navy shadow-lg" id="navbar" role="navigation" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo Area -->
+                <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer no-underline" aria-label="BrandMark Home">
+                    <img src="new logoBrandMarkupdatedone.jpeg" alt="Brand Mark Logo" class="h-12 w-12 rounded-full object-cover mr-3">
+                    <span class="text-2xl font-bold tracking-tighter text-white">
+                        Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">®</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Home</a>
+                    <a href="brandmarkAboutUs.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">About Us</a>
+                    <a href="brandmarkservices.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Services</a>
+                    <a href="portfolio.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Portfolio</a>
+                    <a href="brandmarkpersonalblogs.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Blog</a>
+                    <a href="brandmarkcareers.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Careers</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mobile-menu">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-navy border-b border-brand-border-light absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="index.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Home</a>
+                <a href="brandmarkAboutUs.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">About Us</a>
+                <a href="brandmarkservices.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Services</a>
+                <a href="portfolio.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Portfolio</a>
+                <a href="brandmarkpersonalblogs.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Blog</a>
+                <a href="brandmarkcareers.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Careers</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb Navigation -->
+    <section class="bg-brand-navy pt-24 pb-4">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <nav class="flex items-center space-x-2 text-sm text-gray-300" aria-label="Breadcrumb">
+                <a href="index.html" class="hover:text-brand-orange transition-colors flex items-center">
+                    <i class="fas fa-home mr-2"></i>
+                    Home
+                </a>
+                <i class="fas fa-chevron-right text-xs text-gray-500"></i>
+                <a href="brandmarkservices.html" class="hover:text-brand-orange transition-colors">Services</a>
+                <i class="fas fa-chevron-right text-xs text-gray-500"></i>
+                <span class="text-brand-orange font-medium">Marketing Strategy</span>
+            </nav>
+        </div>
+    </section>
+
+    <header class="pt-16 pb-20 lg:pt-24 lg:pb-32 relative overflow-hidden bg-brand-navy">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Content -->
+                <div class="max-w-3xl">
+                    <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold tracking-wider mb-6 fade-in-up">
+                        <i class="fas fa-chart-line mr-2"></i> GROWTH BLUEPRINTS
+                    </div>
+                    <h1 class="text-5xl lg:text-7xl font-extrabold tracking-tight mb-8 leading-tight text-white fade-in-up" style="transition-delay: 100ms;">
+                        Strategies That <br/>
+                        Drive <span class="text-gradient-orange">Growth.</span>
+                    </h1>
+                    <p class="text-xl text-gray-300 leading-relaxed fade-in-up" style="transition-delay: 200ms;">
+                        Comprehensive marketing strategies tailored to your business goals. Market research, competitor analysis, and campaign planning that delivers measurable results.
+                    </p>
+                    <div class="mt-10 flex flex-col sm:flex-row gap-4 fade-in-up" style="transition-delay: 300ms;">
+                        <a href="#services" class="px-8 py-4 bg-brand-orange text-white rounded-full font-bold hover:bg-brand-orange-dark transition duration-300 shadow-lg text-center">
+                            Explore Services
+                        </a>
+                        <a href="#contact" class="px-8 py-4 border-2 border-white text-white rounded-full font-medium hover:bg-white hover:text-brand-navy transition duration-300 text-center">
+                            Get Strategy
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Image -->
+                <div class="relative fade-in-up" style="transition-delay: 400ms;">
+                    <div class="relative">
+                        <img src="newlogoBrandMarksolutionsupdated.jpeg" 
+                             alt="BrandMark Marketing Strategy Solutions" 
+                             class="w-full h-auto rounded-2xl shadow-2xl border-4 border-brand-orange/20 transform hover:scale-105 transition duration-500">
+                        <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-brand-orange rounded-full opacity-20 blur-2xl"></div>
+                        <div class="absolute -top-4 -left-4 w-32 h-32 bg-blue-500 rounded-full opacity-10 blur-3xl"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Background decoration -->
+        <div class="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
+            <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-brand-orange rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-bold text-brand-navy mb-4">Our Marketing Strategy Services</h2>
+                <p class="text-xl text-brand-text-muted max-w-3xl mx-auto">
+                    Data-driven strategies that position your brand for growth and dominance
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Market Research -->
+                <div class="service-card bg-white rounded-2xl p-8 shadow-lg border border-brand-border-light">
+                    <div class="w-16 h-16 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-search-dollar text-3xl text-brand-orange"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-brand-navy">Market Research</h3>
+                    <p class="text-brand-text-muted leading-relaxed mb-6">
+                        We dive deep into audience behavior, demographics, and psychographics to understand exactly who needs your product and why.
+                    </p>
+                    <ul class="space-y-3 text-sm text-brand-text-muted">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-orange mr-3 mt-1"></i>
+                            <span>Customer Personas</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-orange mr-3 mt-1"></i>
+                            <span>Trend Analysis</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-orange mr-3 mt-1"></i>
+                            <span>Focus Group Surveys</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Competitor Analysis -->
+                <div class="service-card bg-white rounded-2xl p-8 shadow-lg border border-brand-border-light">
+                    <div class="w-16 h-16 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-line text-3xl text-brand-orange"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-brand-navy">Competitor Analysis</h3>
+                    <p class="text-brand-text-muted leading-relaxed mb-6">
+                        Know your enemy. We dissect your competitors' strengths, weaknesses, and gaps to identify where you can outperform them.
+                    </p>
+                    <ul class="space-y-3 text-sm text-brand-text-muted">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-orange mr-3 mt-1"></i>
+                            <span>SWOT Analysis</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-orange mr-3 mt-1"></i>
+                            <span>Gap Identification</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-orange mr-3 mt-1"></i>
+                            <span>Pricing Strategy Review</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Campaign Planning -->
+                <div class="service-card bg-white rounded-2xl p-8 shadow-lg border border-brand-border-light">
+                    <div class="w-16 h-16 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-clipboard-check text-3xl text-brand-orange"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-brand-navy">Campaign Planning</h3>
+                    <p class="text-brand-text-muted leading-relaxed mb-6">
+                        Your roadmap to success. We structure multi-channel campaigns with clear timelines, budgets, and deliverables.
+                    </p>
+                    <ul class="space-y-3 text-sm text-brand-text-muted">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-orange mr-3 mt-1"></i>
+                            <span>Budget Allocation</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-orange mr-3 mt-1"></i>
+                            <span>Media Buying Plan</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-orange mr-3 mt-1"></i>
+                            <span>Creative Direction</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Performance Tracking -->
+                <div class="service-card bg-white rounded-2xl p-8 shadow-lg border border-brand-border-light">
+                    <div class="w-16 h-16 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-bar text-3xl text-brand-orange"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-brand-navy">Performance Tracking</h3>
+                    <p class="text-brand-text-muted leading-relaxed mb-6">
+                        We don't set it and forget it. We continuously monitor KPIs to optimize performance and ensure maximum ROI.
+                    </p>
+                    <ul class="space-y-3 text-sm text-brand-text-muted">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-orange mr-3 mt-1"></i>
+                            <span>Real-time Dashboards</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-orange mr-3 mt-1"></i>
+                            <span>ROI/ROAS Calculation</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-orange mr-3 mt-1"></i>
+                            <span>Conversion Optimization</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Brand Positioning -->
+                <div class="service-card bg-white rounded-2xl p-8 shadow-lg border border-brand-border-light">
+                    <div class="w-16 h-16 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-bullseye text-3xl text-brand-orange"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-brand-navy">Brand Positioning</h3>
+                    <p class="text-brand-text-muted leading-relaxed mb-6">
+                        Where do you fit in the market? We define your unique value proposition (UVP) to distinguish you from the noise.
+                    </p>
+                    <ul class="space-y-3 text-sm text-brand-text-muted">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-orange mr-3 mt-1"></i>
+                            <span>UVP Development</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-orange mr-3 mt-1"></i>
+                            <span>Brand Voice Definition</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-orange mr-3 mt-1"></i>
+                            <span>Market Niche Analysis</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Go-To-Market (GTM) -->
+                <div class="service-card bg-white rounded-2xl p-8 shadow-lg border border-brand-border-light">
+                    <div class="w-16 h-16 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-rocket text-3xl text-brand-orange"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-brand-navy">Go-To-Market (GTM)</h3>
+                    <p class="text-brand-text-muted leading-relaxed mb-6">
+                        Launching a new product? We build comprehensive launch strategies that generate hype and early adoption.
+                    </p>
+                    <ul class="space-y-3 text-sm text-brand-text-muted">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-orange mr-3 mt-1"></i>
+                            <span>Product Launch Timeline</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-orange mr-3 mt-1"></i>
+                            <span>Beta Testing Strategy</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-brand-orange mr-3 mt-1"></i>
+                            <span>Channel Selection</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-brand-navy to-blue-900">
+        <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+            <h2 class="text-3xl lg:text-4xl font-bold text-white mb-6">Ready to Build Your Strategy?</h2>
+            <p class="text-xl text-gray-300 mb-8">
+                Let's create a comprehensive marketing strategy that drives growth and results
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="index.html#contact" class="bg-brand-orange text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition-all font-semibold shadow-lg hover:shadow-xl">
+                    Get Strategy
+                </a>
+                <a href="brandmarkservices.html" class="bg-white/10 text-white px-8 py-3 rounded-full hover:bg-white/20 transition-all font-semibold backdrop-blur-sm border border-white/20">
+                    View All Services
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-navy text-white py-16">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Company Info -->
+                <div class="lg:col-span-2">
+                    <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark Logo" class="h-12 mb-4">
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        We don't just build brands—we build authority, attention, and digital empires.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-brand-orange transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-brand-orange transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.instagram.com/brandmarksolutions/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-brand-orange transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-brand-orange transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-brand-orange transition-colors">Home</a></li>
+                        <li><a href="brandmarkservices.html" class="text-gray-400 hover:text-brand-orange transition-colors">Services</a></li>
+                        <li><a href="portfolio.html" class="text-gray-400 hover:text-brand-orange transition-colors">Portfolio</a></li>
+                        <li><a href="brandmarkAboutUs.html" class="text-gray-400 hover:text-brand-orange transition-colors">About Us</a></li>
+                        <li><a href="brandmarkcareers.html" class="text-gray-400 hover:text-brand-orange transition-colors">Careers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Our Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="brandidentitydesignservices.html" class="text-gray-400 hover:text-brand-orange transition-colors">Brand Identity</a></li>
+                        <li><a href="DigitalMarketingservices.html" class="text-gray-400 hover:text-brand-orange transition-colors">Digital Marketing</a></li>
+                        <li><a href="SocialMediaManagementservices.html" class="text-gray-400 hover:text-brand-orange transition-colors">Social Media</a></li>
+                        <li><a href="Websitedevelopmentservice.html" class="text-gray-400 hover:text-brand-orange transition-colors">Web Development</a></li>
+                        <li><a href="contentstrategyservices.html" class="text-gray-400 hover:text-brand-orange transition-colors">Content Strategy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                    &copy; 2025 BrandMark Solutions. All rights reserved.
+                </p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="privacy-policy.html" class="text-gray-400 hover:text-brand-orange transition-colors">Privacy Policy</a>
+                    <a href="terms-of-service.html" class="text-gray-400 hover:text-brand-orange transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/yourphonenumber" target="_blank" class="whatsapp-float" aria-label="Contact us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="brandmark.js"></script>
+</body>
+</html>

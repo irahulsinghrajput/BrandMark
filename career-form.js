@@ -1,5 +1,8 @@
 // Career Application Form Handler
-const API_URL = 'http://localhost:5001/api';
+// Production backend
+const API_URL = 'https://brandmark-api-2026.onrender.com/api';
+// For local development: 'http://localhost:5000/api'
+// const API_URL = 'http://localhost:5000/api'
 
 // Initialize career application forms
 document.addEventListener('DOMContentLoaded', () => {
@@ -39,10 +42,19 @@ async function handleCareerSubmit(e) {
         formData.append('portfolio', portfolioInput.files[0]);
     }
     
-    // Update button state
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+    // Update button state with enhanced loading message
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
     submitBtn.disabled = true;
-    messageDiv.classList.add('hidden');
+    
+    // Show patience message for cold starts
+    messageDiv.className = 'application-message info';
+    messageDiv.innerHTML = `
+        <i class="fas fa-spinner fa-spin"></i>
+        <strong>Connecting to secure server...</strong>
+        <p>Please wait while we establish a secure connection and upload your files. This may take up to 30 seconds.</p>
+        <p style="font-size: 0.9em; opacity: 0.8; margin-top: 8px;">Thank you for your patience!</p>
+    `;
+    messageDiv.classList.remove('hidden');
     
     try {
         const response = await fetch(`${API_URL}/careers`, {
