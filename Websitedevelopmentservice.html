@@ -10,12 +10,14 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BrandMark builds conversion-first websites and web apps: UX research, design systems, JAMStack builds, headless commerce, and performance engineering.">
-    <meta name="keywords" content="website development, UI UX design, JAMStack, headless commerce, web performance, BrandMark Solutions">
-    <meta property="og:title" content="Website Development | BrandMark Solutions">
-    <meta property="og:description" content="High-performing websites engineered with research, design, and code under one roof.">
+    <meta name="description" content="MERN Stack website development for MSMEs: React frontends, Node.js backends, admin dashboards, and SEO optimization for conversions.">
+    <meta name="keywords" content="website development, MERN stack, React development, Node.js, admin dashboard, SEO, BrandMark Solutions">
+    <meta name="author" content="BrandMark Solutions">
+    <meta property="og:title" content="Website Development Services | BrandMark Solutions">
+    <meta property="og:description" content="Full-stack MERN development with admin dashboards, SEO optimization, and performance-first engineering for MSMEs.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://brandmarksolutions.site/Websitedevelopmentservice.html">
+
     <title>Website Development | BrandMark Solutions</title>
     <link rel="canonical" href="https://brandmarksolutions.site/Websitedevelopmentservice.html">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,72 +30,43 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Outfit', 'sans-serif'] },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
                     colors: {
                         'brand-navy': '#0B2C4D',
                         'brand-orange': '#F26A21',
-                        'brand-charcoal': '#0b1120',
-                        'brand-border': '#1f2937'
+                        'brand-bg-light': '#F4F6F8',
+                        'brand-text-muted': '#64748B',
+                        'brand-border-light': '#E2E8F0'
                     }
                 }
             }
         }
     </script>
     <style>
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .glass-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        .glass-card:hover {
-            border-color: #F26A21;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px -10px rgba(242, 106, 33, 0.3);
-        }
-
-        .text-gradient-orange {
-            background: linear-gradient(to right, #F26A21, #fb923c);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        body {
-            background-color: #050b14;
-            background-image: 
-                radial-gradient(circle at 85% 10%, rgba(11, 44, 77, 0.15) 0%, transparent 25%),
-                radial-gradient(circle at 15% 60%, rgba(242, 106, 33, 0.08) 0%, transparent 25%);
-            color: #f8fafc;
-        }
-
-        .grid-line { background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 40px 40px; }
-        .service-card { transition: border-color .25s ease, transform .25s ease; border: 1px solid rgba(255,255,255,0.08); }
-        .service-card:hover { border-color: #F26A21; transform: translateY(-6px); }
+        body { background: #0B2C4D; min-height: 100vh; }
+        .glass-nav { background: rgba(8, 31, 54, 0.9); backdrop-filter: blur(16px); }
+        .service-card { transition: all 0.25s ease; }
+        .service-card:hover { transform: translateY(-6px); box-shadow: 0 25px 60px rgba(0,0,0,0.15); }
+        .metric-pill { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); }
+        .gradient-cta { background: linear-gradient(120deg, #F26A21, #ff9a44); }
+        .gradient-cta:hover { filter: brightness(1.05); }
     </style>
     <script src="https://t.contentsquare.net/uxa/c673c89abc518.js"></script>
 </head>
-<body class="antialiased min-h-screen flex flex-col bg-brand-bg-light text-brand-text-body font-sans selection:bg-brand-orange selection:text-white">
-    <nav class="fixed w-full z-50 glass-nav transition-all duration-300 bg-brand-navy shadow-lg" id="navbar" aria-label="Main navigation">
+<body class="font-sans antialiased text-brand-text-body bg-brand-bg-light selection:bg-brand-orange selection:text-white">
+    <nav class="fixed w-full z-50 glass-nav shadow-lg" id="navbar" role="navigation" aria-label="Main navigation">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <a href="index.html" class="flex items-center text-white" aria-label="BrandMark Home">
-                    <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark" class="h-11 w-11 rounded-full mr-3 object-cover">
-                    <span class="text-2xl font-bold tracking-tight">Brand<span class="font-light text-brand-orange">Mark</span></span>
+                <a href="index.html" class="flex items-center" aria-label="BrandMark Home">
+                    <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark logo" class="h-12 w-12 rounded-full object-cover mr-3">
+                    <span class="text-2xl font-bold tracking-tighter text-white">Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs">®</span></span>
                 </a>
-                <div class="hidden md:flex space-x-8 text-sm font-semibold text-gray-200">
+                <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-200">
                     <a href="index.html" class="hover:text-brand-orange">Home</a>
                     <a href="brandmarkAboutUs.html" class="hover:text-brand-orange">About</a>
-                    <a href="brandmarkservices.html" class="text-brand-orange">Services</a>
+                    <a href="brandmarkservices.html" class="hover:text-brand-orange" aria-current="page">Services</a>
                     <a href="portfolio.html" class="hover:text-brand-orange">Portfolio</a>
                     <a href="brandmarkpersonalblogs.html" class="hover:text-brand-orange">Blog</a>
                     <a href="brandmarkcareers.html" class="hover:text-brand-orange">Careers</a>
@@ -103,13 +76,15 @@
                 </button>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-brand-navy border-b border-brand-border-light absolute w-full px-4 py-4 space-y-3 text-white">
-            <a href="index.html" class="block">Home</a>
-            <a href="brandmarkAboutUs.html" class="block">About</a>
-            <a href="brandmarkservices.html" class="block">Services</a>
-            <a href="portfolio.html" class="block">Portfolio</a>
-            <a href="brandmarkpersonalblogs.html" class="block">Blog</a>
-            <a href="brandmarkcareers.html" class="block">Careers</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-navy border-t border-white/10">
+            <div class="px-4 py-4 space-y-3 text-white">
+                <a href="index.html" class="block">Home</a>
+                <a href="brandmarkAboutUs.html" class="block">About</a>
+                <a href="brandmarkservices.html" class="block">Services</a>
+                <a href="portfolio.html" class="block">Portfolio</a>
+                <a href="brandmarkpersonalblogs.html" class="block">Blog</a>
+                <a href="brandmarkcareers.html" class="block">Careers</a>
+            </div>
         </div>
     </nav>
 
@@ -120,159 +95,138 @@
                 <i class="fas fa-chevron-right text-xs"></i>
                 <a href="brandmarkservices.html" class="hover:text-brand-orange">Services</a>
                 <i class="fas fa-chevron-right text-xs"></i>
-                <span class="text-brand-orange font-semibold">Web Development</span>
+                <span class="text-brand-orange font-semibold">Website Development</span>
             </nav>
         </div>
     </section>
 
-    <header class="pt-16 pb-20 lg:pt-24 lg:pb-32 relative overflow-hidden bg-brand-navy">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="max-w-3xl">
-                    <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold tracking-wider mb-6 fade-in-up">
-                        <i class="fas fa-laptop-code mr-2"></i> WEBSITE DEVELOPMENT
-                    </div>
-                    <h1 class="text-5xl lg:text-7xl font-extrabold tracking-tight mb-8 leading-tight text-white fade-in-up" style="transition-delay: 100ms;">
-                        FAST. MODERN. <br/>
-                        BUILT TO <span class="text-gradient-orange">CONVERT.</span>
-                    </h1>
-                    <p class="text-xl text-gray-300 leading-relaxed fade-in-up" style="transition-delay: 200ms;">
-                        Conversion-focused websites engineered with strategic UX, modern code, and performance-first delivery for ambitious MSMEs.
-                    </p>
-                    <div class="mt-10 flex flex-col sm:flex-row gap-4 fade-in-up" style="transition-delay: 300ms;">
-                        <a href="#capabilities" class="px-8 py-4 bg-brand-orange text-white rounded-full font-bold hover:bg-brand-orange-dark transition duration-300 shadow-lg text-center">
-                            Explore Services
-                        </a>
-                        <a href="index.html#contact" class="px-8 py-4 border-2 border-white text-white rounded-full font-medium hover:bg-white hover:text-brand-navy transition duration-300 text-center">
-                            Start Project
-                        </a>
-                    </div>
-                </div>
-
-                <div class="relative fade-in-up" style="transition-delay: 400ms;">
-                    <div class="relative">
-                        <img src="newlogoBrandMarksolutionsupdated.jpeg" 
-                             alt="BrandMark Website Development Solutions" 
-                             class="w-full h-auto rounded-2xl shadow-2xl border-4 border-brand-orange/20 transform hover:scale-105 transition duration-500">
-                        <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-brand-orange rounded-full opacity-20 blur-2xl"></div>
-                        <div class="absolute -top-4 -left-4 w-32 h-32 bg-blue-500 rounded-full opacity-10 blur-3xl"></div>
-                    </div>
+    <header class="bg-brand-navy text-white pt-16 pb-24 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute -right-32 top-10 w-96 h-96 bg-brand-orange rounded-full blur-3xl"></div>
+            <div class="absolute right-32 bottom-0 w-72 h-72 bg-blue-500 rounded-full blur-3xl"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="inline-flex items-center px-4 py-1 rounded-full bg-white/10 text-xs font-semibold tracking-[0.2em] mb-6">FULL-STACK ENGINEERING</span>
+                <h1 class="text-4xl lg:text-6xl font-extrabold leading-tight mb-6">Fast. Modern. Built to <span class="text-brand-orange">Convert.</span></h1>
+                <p class="text-lg text-gray-200 leading-relaxed mb-8">MERN Stack development for MSMEs—React frontends, Node.js backends, admin dashboards, and SEO optimization that compounds conversions.</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#services" class="gradient-cta text-white px-8 py-3 rounded-full font-semibold shadow-lg">Explore Services</a>
+                    <a href="index.html#contact" class="px-8 py-3 rounded-full border border-white/40 text-white font-semibold hover:bg-white hover:text-brand-navy transition">Start a Build</a>
                 </div>
             </div>
-        </div>
-        <div class="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
-            <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-brand-orange rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="metric-pill rounded-2xl p-6 text-center">
+                    <p class="text-4xl font-bold text-white">40%</p>
+                    <p class="text-xs uppercase tracking-widest text-gray-300">Faster Load Times</p>
+                </div>
+                <div class="metric-pill rounded-2xl p-6 text-center">
+                    <p class="text-4xl font-bold text-white">∞</p>
+                    <p class="text-xs uppercase tracking-widest text-gray-300">Scalability</p>
+                </div>
+                <div class="metric-pill rounded-2xl p-6 text-center">
+                    <p class="text-4xl font-bold text-white">A+</p>
+                    <p class="text-xs uppercase tracking-widest text-gray-300">Core Web Vitals</p>
+                </div>
+                <div class="metric-pill rounded-2xl p-6 text-center">
+                    <p class="text-4xl font-bold text-white">24/7</p>
+                    <p class="text-xs uppercase tracking-widest text-gray-300">Admin Access</p>
+                </div>
+            </div>
         </div>
     </header>
 
-    <section id="capabilities" class="py-20 bg-white">
+    <section id="services" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-16">
-                <p class="text-brand-orange font-semibold tracking-[0.3em] mb-4">STACK + CRAFT</p>
-                <h2 class="text-3xl lg:text-4xl font-bold text-brand-navy mb-4">Research, design, build, optimise.</h2>
-                <p class="text-brand-text-muted text-lg max-w-3xl mx-auto">Dedicated pods for strategy, product design, engineering, and optimization.</p>
+                <p class="text-brand-orange font-semibold tracking-[0.3em] mb-4">WHAT WE BUILD</p>
+                <h2 class="text-3xl lg:text-4xl font-bold text-brand-navy mb-4">Full-Stack Web Solutions</h2>
+                <p class="text-brand-text-muted text-lg max-w-3xl mx-auto">Complete MERN applications with custom dashboards, optimized for performance and conversions.</p>
             </div>
             <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                <article class="service-card rounded-2xl p-8 bg-brand-bg-light">
+                <article class="service-card bg-brand-bg-light rounded-2xl p-8 border border-brand-border-light">
                     <div class="w-16 h-16 rounded-xl bg-brand-orange/15 flex items-center justify-center mb-6">
-                        <i class="fas fa-user-magnifying-glass text-2xl text-brand-orange"></i>
+                        <i class="fas fa-code-branch text-2xl text-brand-orange"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-brand-navy mb-4">Product Discovery</h3>
-                    <p class="text-brand-text-muted mb-4">Stakeholder interviews, analytics review, and jobs-to-be-done mapping.</p>
+                    <h3 class="text-xl font-bold text-brand-navy mb-4">MERN Stack Development</h3>
+                    <p class="text-brand-text-muted mb-4">Full-stack applications using MongoDB, Express, React, and Node.js for scalable digital products.</p>
                     <ul class="space-y-2 text-sm text-brand-text-muted">
-                        <li>Customer + competitor safari</li>
-                        <li>Information architecture + sitemap</li>
-                        <li>Success metrics + instrumentation plan</li>
+                        <li class="flex items-start"><i class="fas fa-check text-brand-orange mr-2 mt-1"></i>MongoDB database architecture</li>
+                        <li class="flex items-start"><i class="fas fa-check text-brand-orange mr-2 mt-1"></i>Express APIs + microservices</li>
+                        <li class="flex items-start"><i class="fas fa-check text-brand-orange mr-2 mt-1"></i>React components + state mgmt</li>
                     </ul>
                 </article>
-                <article class="service-card rounded-2xl p-8 bg-brand-bg-light">
-                    <div class="w-16 h-16 rounded-xl bg-brand-orange/15 flex items-center justify-center mb-6"><i class="fas fa-pen-ruler text-2xl text-brand-orange"></i></div>
-                    <h3 class="text-xl font-bold text-brand-navy mb-4">UX & UI Systems</h3>
-                    <p class="text-brand-text-muted mb-4">Low-fi flows to polished design systems built in Figma.</p>
+                <article class="service-card bg-brand-bg-light rounded-2xl p-8 border border-brand-border-light">
+                    <div class="w-16 h-16 rounded-xl bg-brand-orange/15 flex items-center justify-center mb-6">
+                        <i class="fas fa-sliders text-2xl text-brand-orange"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-navy mb-4">Admin Dashboard & CMS</h3>
+                    <p class="text-brand-text-muted mb-4">Custom dashboards for content management, user control, and real-time analytics integration.</p>
                     <ul class="space-y-2 text-sm text-brand-text-muted">
-                        <li>Wireframes + prototypes</li>
-                        <li>Design tokens + component library</li>
-                        <li>Accessibility + responsive specs</li>
+                        <li class="flex items-start"><i class="fas fa-check text-brand-orange mr-2 mt-1"></i>Role-based admin panels</li>
+                        <li class="flex items-start"><i class="fas fa-check text-brand-orange mr-2 mt-1"></i>CRUD operations + workflows</li>
+                        <li class="flex items-start"><i class="fas fa-check text-brand-orange mr-2 mt-1"></i>Real-time data visualization</li>
                     </ul>
                 </article>
-                <article class="service-card rounded-2xl p-8 bg-brand-bg-light">
-                    <div class="w-16 h-16 rounded-xl bg-brand-orange/15 flex items-center justify-center mb-6"><i class="fas fa-code text-2xl text-brand-orange"></i></div>
-                    <h3 class="text-xl font-bold text-brand-navy mb-4">Modern Engineering</h3>
-                    <p class="text-brand-text-muted mb-4">JAMStack, Next.js, headless CMS, and Shopify custom builds.</p>
+                <article class="service-card bg-brand-bg-light rounded-2xl p-8 border border-brand-border-light">
+                    <div class="w-16 h-16 rounded-xl bg-brand-orange/15 flex items-center justify-center mb-6">
+                        <i class="fas fa-magnifying-glass-chart text-2xl text-brand-orange"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-navy mb-4">SEO & Performance</h3>
+                    <p class="text-brand-text-muted mb-4">Comprehensive SEO optimization, Core Web Vitals tuning, and performance engineering.</p>
                     <ul class="space-y-2 text-sm text-brand-text-muted">
-                        <li>Headless CMS (Sanity, Contentful)</li>
-                        <li>Shopify Hydrogen & custom apps</li>
-                        <li>APIs, automation, and CI/CD</li>
+                        <li class="flex items-start"><i class="fas fa-check text-brand-orange mr-2 mt-1"></i>Meta tags + structured data</li>
+                        <li class="flex items-start"><i class="fas fa-check text-brand-orange mr-2 mt-1"></i>Lighthouse score optimization</li>
+                        <li class="flex items-start"><i class="fas fa-check text-brand-orange mr-2 mt-1"></i>Analytics integration + tracking</li>
                     </ul>
                 </article>
-                <article class="service-card rounded-2xl p-8 bg-brand-bg-light">
-                    <div class="w-16 h-16 rounded-xl bg-brand-orange/15 flex items-center justify-center mb-6"><i class="fas fa-gauge-high text-2xl text-brand-orange"></i></div>
-                    <h3 class="text-xl font-bold text-brand-navy mb-4">Performance & QA</h3>
-                    <p class="text-brand-text-muted mb-4">Core Web Vitals, security, and device labs baked into every release.</p>
+                <article class="service-card bg-brand-bg-light rounded-2xl p-8 border border-brand-border-light">
+                    <div class="w-16 h-16 rounded-xl bg-brand-orange/15 flex items-center justify-center mb-6">
+                        <i class="fas fa-lock text-2xl text-brand-orange"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-navy mb-4">Security & Authentication</h3>
+                    <p class="text-brand-text-muted mb-4">JWT-based authentication, encrypted data protection, and secure API design.</p>
                     <ul class="space-y-2 text-sm text-brand-text-muted">
-                        <li>Automated Lighthouse gating</li>
-                        <li>Security & privacy compliance</li>
-                        <li>Cross-browser + device sweeps</li>
+                        <li class="flex items-start"><i class="fas fa-check text-brand-orange mr-2 mt-1"></i>JWT + OAuth2 implementation</li>
+                        <li class="flex items-start"><i class="fas fa-check text-brand-orange mr-2 mt-1"></i>Data encryption + compliance</li>
+                        <li class="flex items-start"><i class="fas fa-check text-brand-orange mr-2 mt-1"></i>Rate limiting + DDoS protection</li>
                     </ul>
                 </article>
-                <article class="service-card rounded-2xl p-8 bg-brand-bg-light">
-                    <div class="w-16 h-16 rounded-xl bg-brand-orange/15 flex items-center justify-center mb-6"><i class="fas fa-arrows-rotate text-2xl text-brand-orange"></i></div>
-                    <h3 class="text-xl font-bold text-brand-navy mb-4">Growth Optimisation</h3>
-                    <p class="text-brand-text-muted mb-4">Continuous CRO sprints once the site is live.</p>
+                <article class="service-card bg-brand-bg-light rounded-2xl p-8 border border-brand-border-light">
+                    <div class="w-16 h-16 rounded-xl bg-brand-orange/15 flex items-center justify-center mb-6">
+                        <i class="fas fa-cloud-arrow-up text-2xl text-brand-orange"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-navy mb-4">Deployment & DevOps</h3>
+                    <p class="text-brand-text-muted mb-4">Production-ready hosting, CI/CD pipelines, and continuous monitoring setup.</p>
                     <ul class="space-y-2 text-sm text-brand-text-muted">
-                        <li>Experiment backlog + A/B tests</li>
-                        <li>Analytics + heatmap analysis</li>
-                        <li>Feature roadmap co-creation</li>
+                        <li class="flex items-start"><i class="fas fa-check text-brand-orange mr-2 mt-1"></i>Vercel/Render deployment</li>
+                        <li class="flex items-start"><i class="fas fa-check text-brand-orange mr-2 mt-1"></i>Git workflow + CI/CD automation</li>
+                        <li class="flex items-start"><i class="fas fa-check text-brand-orange mr-2 mt-1"></i>Uptime monitoring + alerting</li>
                     </ul>
                 </article>
-                <article class="service-card rounded-2xl p-8 bg-brand-bg-light">
-                    <div class="w-16 h-16 rounded-xl bg-brand-orange/15 flex items-center justify-center mb-6"><i class="fas fa-cloud-arrow-up text-2xl text-brand-orange"></i></div>
-                    <h3 class="text-xl font-bold text-brand-navy mb-4">Managed DevOps</h3>
-                    <p class="text-brand-text-muted mb-4">Hosting, monitoring, and support handled by our ops crew.</p>
+                <article class="service-card bg-brand-bg-light rounded-2xl p-8 border border-brand-border-light">
+                    <div class="w-16 h-16 rounded-xl bg-brand-orange/15 flex items-center justify-center mb-6">
+                        <i class="fas fa-life-ring text-2xl text-brand-orange"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-navy mb-4">Post-Launch Support</h3>
+                    <p class="text-brand-text-muted mb-4">Ongoing maintenance, feature updates, and technical support for your application.</p>
                     <ul class="space-y-2 text-sm text-brand-text-muted">
-                        <li>Uptime + error monitoring</li>
-                        <li>Release management + backups</li>
-                        <li>Feature/bug SLA playbooks</li>
+                        <li class="flex items-start"><i class="fas fa-check text-brand-orange mr-2 mt-1"></i>Priority bug fixes + patches</li>
+                        <li class="flex items-start"><i class="fas fa-check text-brand-orange mr-2 mt-1"></i>Feature roadmap collaboration</li>
+                        <li class="flex items-start"><i class="fas fa-check text-brand-orange mr-2 mt-1"></i>24/7 emergency support</li>
                     </ul>
                 </article>
             </div>
         </div>
     </section>
 
-    <section class="bg-brand-bg-light py-20">
-        <div class="max-w-6xl mx-auto px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 gap-8">
-                <div class="bg-white rounded-3xl p-10 border border-brand-border-light shadow-sm">
-                    <h3 class="text-2xl font-bold text-brand-navy mb-6">Delivery sprints</h3>
-                    <ul class="space-y-4 text-brand-text-muted">
-                        <li><strong>Week 1-2</strong>: Discovery, IA, and UX blueprint</li>
-                        <li><strong>Week 3-4</strong>: Visual design + prototyping</li>
-                        <li><strong>Week 5-7</strong>: Development & content migration</li>
-                        <li><strong>Week 8</strong>: QA, training, and launch support</li>
-                    </ul>
-                </div>
-                <div class="bg-brand-navy text-white rounded-3xl p-10">
-                    <h3 class="text-2xl font-bold mb-6">Platforms we love</h3>
-                    <div class="grid grid-cols-2 gap-4 text-sm">
-                        <span class="bg-white/10 px-4 py-3 rounded-lg text-center">Next.js</span>
-                        <span class="bg-white/10 px-4 py-3 rounded-lg text-center">Astro</span>
-                        <span class="bg-white/10 px-4 py-3 rounded-lg text-center">Sanity CMS</span>
-                        <span class="bg-white/10 px-4 py-3 rounded-lg text-center">Shopify</span>
-                        <span class="bg-white/10 px-4 py-3 rounded-lg text-center">WordPress Headless</span>
-                        <span class="bg-white/10 px-4 py-3 rounded-lg text-center">Framer</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-20 bg-brand-navy text-white">
+    <section class="py-20 bg-brand-navy text-white">
         <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-            <h2 class="text-3xl font-bold mb-4">Need a site that stays fast, future-proof, and on-brand?</h2>
-            <p class="text-lg text-gray-300 mb-8">Share your challenges—we’ll reply with a technical blueprint.</p>
+            <h2 class="text-3xl font-bold mb-4">Ready to build your next digital product?</h2>
+            <p class="text-lg text-gray-300 mb-8">Let's discuss your technical requirements and deliver a solution that scales with your business.</p>
             <div class="flex flex-wrap justify-center gap-4">
-                <a href="index.html#contact" class="px-8 py-3 rounded-full bg-brand-orange font-semibold shadow-lg">Start a build</a>
-                <a href="portfolio.html" class="px-8 py-3 rounded-full border border-white/30 font-semibold hover:bg-white hover:text-brand-navy transition">See live demos</a>
+                <a href="index.html#contact" class="px-8 py-3 rounded-full gradient-cta font-semibold shadow-lg">Start Your Project</a>
+                <a href="portfolio.html" class="px-8 py-3 rounded-full border border-white/30 font-semibold hover:bg-white hover:text-brand-navy transition">View Our Work</a>
             </div>
         </div>
     </section>
@@ -306,7 +260,7 @@
                 <p class="text-sm text-gray-400"><a href="mailto:info.aimservicesprivatelimited@gmail.com" class="hover:text-brand-orange">info.aimservicesprivatelimited@gmail.com</a></p>
             </div>
         </div>
-        <div class="border-top border-white/10 text-center text-sm text-gray-500 mt-10">© 2026 BrandMark Solutions. All Rights Reserved.</div>
+        <div class="border-t border-white/10 text-center text-sm text-gray-500 mt-10">© 2026 BrandMark Solutions. All Rights Reserved.</div>
     </footer>
 
     <a href="https://wa.me/917091863003?text=Hi%20BrandMark!%20Need%20a%20website." class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp chat">
