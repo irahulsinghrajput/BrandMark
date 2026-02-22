@@ -6,6 +6,9 @@
 .env.local
 .env.production
 *.env
+backend/.env
+backend/.env.*
+!backend/.env.example
 
 # Node modules
 node_modules/
