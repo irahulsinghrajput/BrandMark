@@ -1,6 +1,9 @@
 // API Configuration
-// Automatically detect if running on localhost or production
-const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+// Automatically detect if running on localhost, 127.0.0.1, or file:// (opened directly)
+const isLocalhost =
+    window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1' ||
+    window.location.protocol === 'file:';
 const API_URL = isLocalhost 
     ? 'http://localhost:5000/api'     // Local Backend
     : 'https://brandmark-api-2026.onrender.com/api'; // Production Backend
