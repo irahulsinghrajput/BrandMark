@@ -100,39 +100,46 @@
         </div>
     </section>
 
-    <header class="bg-brand-navy text-white pt-16 pb-24 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute -right-32 top-10 w-96 h-96 bg-brand-orange rounded-full blur-3xl"></div>
-            <div class="absolute right-32 bottom-0 w-72 h-72 bg-blue-500 rounded-full blur-3xl"></div>
+    <header class="pt-16 pb-20 lg:pt-24 lg:pb-32 relative overflow-hidden bg-brand-navy">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Content -->
+                <div class="max-w-3xl">
+                    <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold tracking-wider mb-6 fade-in-up">
+                        <i class="fas fa-code mr-2"></i> FULL-STACK ENGINEERING
+                    </div>
+                    <h1 class="text-5xl lg:text-7xl font-extrabold tracking-tight mb-8 leading-tight text-white fade-in-up" style="transition-delay: 100ms;">
+                        Fast. Modern. <br/>
+                        Built to <span class="text-gradient-orange">Convert.</span>
+                    </h1>
+                    <p class="text-xl text-gray-300 leading-relaxed fade-in-up" style="transition-delay: 200ms;">
+                        MERN Stack applications with custom admin dashboards, SEO optimization, and performance-first engineering for ambitious MSMEs.
+                    </p>
+                    <div class="mt-10 flex flex-col sm:flex-row gap-4 fade-in-up" style="transition-delay: 300ms;">
+                        <a href="#services" class="px-8 py-4 bg-brand-orange text-white rounded-full font-bold hover:bg-brand-orange-dark transition duration-300 shadow-lg text-center">
+                            Explore Services
+                        </a>
+                        <a href="index.html#contact" class="px-8 py-4 border-2 border-white text-white rounded-full font-medium hover:bg-white hover:text-brand-navy transition duration-300 text-center">
+                            Start Project
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Image -->
+                <div class="relative fade-in-up" style="transition-delay: 400ms;">
+                    <div class="relative">
+                        <img src="newlogoBrandMarksolutionsupdated.jpeg" 
+                             alt="BrandMark Website Development Solutions" 
+                             class="w-full h-auto rounded-2xl shadow-2xl border-4 border-brand-orange/20 transform hover:scale-105 transition duration-500">
+                        <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-brand-orange rounded-full opacity-20 blur-2xl"></div>
+                        <div class="absolute -top-4 -left-4 w-32 h-32 bg-blue-500 rounded-full opacity-10 blur-3xl"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-                <span class="inline-flex items-center px-4 py-1 rounded-full bg-white/10 text-xs font-semibold tracking-[0.2em] mb-6">FULL-STACK ENGINEERING</span>
-                <h1 class="text-4xl lg:text-6xl font-extrabold leading-tight mb-6">Fast. Modern. Built to <span class="text-brand-orange">Convert.</span></h1>
-                <p class="text-lg text-gray-200 leading-relaxed mb-8">MERN Stack development for MSMEs—React frontends, Node.js backends, admin dashboards, and SEO optimization that compounds conversions.</p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="#services" class="gradient-cta text-white px-8 py-3 rounded-full font-semibold shadow-lg">Explore Services</a>
-                    <a href="index.html#contact" class="px-8 py-3 rounded-full border border-white/40 text-white font-semibold hover:bg-white hover:text-brand-navy transition">Start a Build</a>
-                </div>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="metric-pill rounded-2xl p-6 text-center">
-                    <p class="text-4xl font-bold text-white">40%</p>
-                    <p class="text-xs uppercase tracking-widest text-gray-300">Faster Load Times</p>
-                </div>
-                <div class="metric-pill rounded-2xl p-6 text-center">
-                    <p class="text-4xl font-bold text-white">∞</p>
-                    <p class="text-xs uppercase tracking-widest text-gray-300">Scalability</p>
-                </div>
-                <div class="metric-pill rounded-2xl p-6 text-center">
-                    <p class="text-4xl font-bold text-white">A+</p>
-                    <p class="text-xs uppercase tracking-widest text-gray-300">Core Web Vitals</p>
-                </div>
-                <div class="metric-pill rounded-2xl p-6 text-center">
-                    <p class="text-4xl font-bold text-white">24/7</p>
-                    <p class="text-xs uppercase tracking-widest text-gray-300">Admin Access</p>
-                </div>
-            </div>
+        <!-- Background decoration -->
+        <div class="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
+            <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-brand-orange rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
         </div>
     </header>
 
