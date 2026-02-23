@@ -174,6 +174,119 @@ if (contactForm) {
     });
 }
 
+// Free SEO Audit Form Handling
+const seoAuditForm = document.getElementById('seoAuditForm');
+if (seoAuditForm) {
+    seoAuditForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = seoAuditForm.querySelector('[name="name"]').value.trim();
+        const email = seoAuditForm.querySelector('[name="email"]').value.trim();
+        const phone = seoAuditForm.querySelector('[name="phone"]').value.trim();
+        const website = seoAuditForm.querySelector('[name="website"]').value.trim();
+        const notes = seoAuditForm.querySelector('[name="message"]').value.trim();
+
+        const messageDiv = document.getElementById('seoAuditMessage');
+        const btn = document.getElementById('seoAuditSubmitBtn');
+        const btnText = document.getElementById('seoAuditBtnText');
+        const btnSpinner = document.getElementById('seoAuditBtnSpinner');
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const urlRegex = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/.*)?$/i;
+
+        if (!name || name.length < 2) {
+            messageDiv.className = 'seo-audit-message';
+            messageDiv.textContent = 'Please enter your full name.';
+            messageDiv.style.background = '#fff3cd';
+            messageDiv.style.color = '#7a5200';
+            messageDiv.classList.remove('hidden');
+            return;
+        }
+
+        if (!emailRegex.test(email)) {
+            messageDiv.className = 'seo-audit-message';
+            messageDiv.textContent = 'Please enter a valid email address.';
+            messageDiv.style.background = '#fff3cd';
+            messageDiv.style.color = '#7a5200';
+            messageDiv.classList.remove('hidden');
+            return;
+        }
+
+        if (!urlRegex.test(website)) {
+            messageDiv.className = 'seo-audit-message';
+            messageDiv.textContent = 'Please enter a valid website URL.';
+            messageDiv.style.background = '#fff3cd';
+            messageDiv.style.color = '#7a5200';
+            messageDiv.classList.remove('hidden');
+            return;
+        }
+
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'seo_audit_request', {
+                'event_category': 'engagement',
+                'event_label': website
+            });
+        }
+
+        const formData = {
+            name,
+            email,
+            phone: phone || '',
+            subject: 'Free SEO Audit Request',
+            message: `Website: ${website}\nNotes: ${notes || 'No additional notes provided.'}`
+        };
+
+        btnText.textContent = 'Submitting...';
+        btnSpinner.classList.remove('hidden');
+        btn.disabled = true;
+
+        try {
+            const response = await fetch(`${API_URL}/contact`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'seo_audit_success', {
+                        'event_category': 'conversion',
+                        'event_label': 'free_seo_audit'
+                    });
+                }
+
+                messageDiv.className = 'seo-audit-message';
+                messageDiv.textContent = data.message || 'Request sent! We will email your audit shortly.';
+                messageDiv.style.background = '#e6f4ea';
+                messageDiv.style.color = '#1e6b3f';
+                messageDiv.classList.remove('hidden');
+                seoAuditForm.reset();
+            } else {
+                messageDiv.className = 'seo-audit-message';
+                messageDiv.textContent = data.message || 'Something went wrong. Please try again.';
+                messageDiv.style.background = '#fdecea';
+                messageDiv.style.color = '#7a1f1f';
+                messageDiv.classList.remove('hidden');
+            }
+        } catch (error) {
+            console.error('SEO audit form error:', error);
+            messageDiv.className = 'seo-audit-message';
+            messageDiv.textContent = 'Failed to send request. Please check your connection.';
+            messageDiv.style.background = '#fdecea';
+            messageDiv.style.color = '#7a1f1f';
+            messageDiv.classList.remove('hidden');
+        } finally {
+            btnText.textContent = 'Request Free Audit';
+            btnSpinner.classList.add('hidden');
+            btn.disabled = false;
+        }
+    });
+}
+
 // Newsletter Form Handling
 const newsletterForms = document.querySelectorAll('.newsletter-form');
 newsletterForms.forEach(form => {
