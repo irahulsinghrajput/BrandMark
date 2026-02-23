@@ -47,12 +47,66 @@ if (contactForm) {
         const messageDiv = document.getElementById('contactMessage');
         
         // Get form data
+        const name = contactForm.querySelector('[name="name"]').value.trim();
+        const email = contactForm.querySelector('[name="email"]').value.trim();
+        const phone = contactForm.querySelector('[name="phone"]').value.trim();
+        const subject = contactForm.querySelector('[name="subject"]').value.trim();
+        const message = contactForm.querySelector('[name="message"]').value.trim();
+        
+        // Enhanced form validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^[\d\s\-\+\(\)]{10,}$/;
+        
+        // Validate all fields
+        if (!name || name.length < 2) {
+            messageDiv.className = 'text-center p-4 rounded-lg bg-yellow-100 text-yellow-800 border border-yellow-300';
+            messageDiv.textContent = '❌ Please enter a valid name (at least 2 characters).';
+            messageDiv.classList.remove('hidden');
+            return;
+        }
+        
+        if (!emailRegex.test(email)) {
+            messageDiv.className = 'text-center p-4 rounded-lg bg-yellow-100 text-yellow-800 border border-yellow-300';
+            messageDiv.textContent = '❌ Please enter a valid email address.';
+            messageDiv.classList.remove('hidden');
+            return;
+        }
+        
+        if (phone && !phoneRegex.test(phone)) {
+            messageDiv.className = 'text-center p-4 rounded-lg bg-yellow-100 text-yellow-800 border border-yellow-300';
+            messageDiv.textContent = '❌ Please enter a valid phone number.';
+            messageDiv.classList.remove('hidden');
+            return;
+        }
+        
+        if (!subject || subject.length < 3) {
+            messageDiv.className = 'text-center p-4 rounded-lg bg-yellow-100 text-yellow-800 border border-yellow-300';
+            messageDiv.textContent = '❌ Please enter a subject (at least 3 characters).';
+            messageDiv.classList.remove('hidden');
+            return;
+        }
+        
+        if (!message || message.length < 10) {
+            messageDiv.className = 'text-center p-4 rounded-lg bg-yellow-100 text-yellow-800 border border-yellow-300';
+            messageDiv.textContent = '❌ Please enter a message (at least 10 characters).';
+            messageDiv.classList.remove('hidden');
+            return;
+        }
+        
+        // Track contact form submit in Google Analytics
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'contact_form_submit', {
+                'event_category': 'engagement',
+                'event_label': subject
+            });
+        }
+        
         const formData = {
-            name: contactForm.querySelector('[name="name"]').value,
-            email: contactForm.querySelector('[name="email"]').value,
-            phone: contactForm.querySelector('[name="phone"]').value,
-            subject: contactForm.querySelector('[name="subject"]').value,
-            message: contactForm.querySelector('[name="message"]').value
+            name,
+            email,
+            phone: phone || '',
+            subject,
+            message
         };
         
         // Show enhanced loading state with cold-start warning
@@ -87,6 +141,14 @@ if (contactForm) {
             const data = await response.json();
 
             if (data.success) {
+                // Track successful contact form submission
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'contact_form_success', {
+                        'event_category': 'conversion',
+                        'event_label': 'contact_form'
+                    });
+                }
+                
                 // Success message
                 messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
                 messageDiv.textContent = data.message || 'Thank you! We will get back to you soon.';
@@ -122,6 +184,20 @@ newsletterForms.forEach(form => {
         const btn = form.querySelector('button[type="submit"]');
         const originalText = btn.innerText;
         
+        // Basic email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailInput.value)) {
+            alert('❌ Please enter a valid email address.');
+            return;
+        }
+        
+        // Track newsletter signup attempt
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'newsletter_signup_attempt', {
+                'event_category': 'engagement'
+            });
+        }
+        
         btn.innerText = 'Subscribing...';
         btn.disabled = true;
 
@@ -137,6 +213,14 @@ newsletterForms.forEach(form => {
             const data = await response.json();
 
             if (data.success) {
+                // Track successful newsletter signup
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'newsletter_signup_success', {
+                        'event_category': 'conversion',
+                        'event_label': 'newsletter'
+                    });
+                }
+                
                 alert('✅ ' + (data.message || 'Successfully subscribed to newsletter!'));
                 form.reset();
             } else {
@@ -341,9 +425,17 @@ function createChatWidget() {
     const sendBtn = widget.querySelector('#bm-chat-send');
 
     const toggleChat = () => {
+        const isOpening = chatWindow.classList.contains('bm-chat-hidden');
         chatWindow.classList.toggle('bm-chat-hidden');
         if (!chatWindow.classList.contains('bm-chat-hidden')) {
             input.focus();
+            // Track chatbot opened
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'chatbot_opened', {
+                    'event_category': 'engagement',
+                    'event_label': 'brandmark_ai'
+                });
+            }
         }
     };
 
@@ -360,6 +452,14 @@ function createChatWidget() {
     const sendMessage = async () => {
         const userText = input.value.trim();
         if (!userText) return;
+
+        // Track chatbot message sent
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'chatbot_message_sent', {
+                'event_category': 'engagement',
+                'event_label': 'brandmark_ai'
+            });
+        }
 
         appendMessage(userText, 'bm-chat-user');
         input.value = '';
