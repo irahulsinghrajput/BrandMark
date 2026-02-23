@@ -12,7 +12,8 @@ backend/.env.*
 
 # Node modules
 node_modules/
-backend/node_modules/
+backend/
+# Exclude entire backend folder - deployed separately to Render
 
 # Logs
 logs/
