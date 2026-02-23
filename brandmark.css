@@ -135,6 +135,14 @@ header {
     transform: translateY(-2px);
 }
 
+/* Preserve CTA text contrast on hover */
+a.gradient-cta,
+a.gradient-cta:hover,
+a.bg-brand-orange,
+a.bg-brand-orange:hover {
+    color: var(--text-light);
+}
+
 .btn-secondary {
     display: inline-block;
     background-color: transparent;
