@@ -131,7 +131,7 @@ header {
 
 .btn-primary:hover {
     background-color: var(--accent-orange-hover);
-    color: var(--text-light);
+    color: var(--primary-navy);
     transform: translateY(-2px);
 }
 
@@ -142,7 +142,9 @@ a.bg-brand-orange {
 }
 
 a.gradient-cta:hover,
-a.bg-brand-orange:hover {
+a.bg-brand-orange:hover,
+button.bg-brand-orange:hover,
+.btn-primary:hover {
     color: var(--primary-navy);
 }
 
