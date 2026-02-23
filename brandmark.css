@@ -135,12 +135,15 @@ header {
     transform: translateY(-2px);
 }
 
-/* Preserve CTA text contrast on hover */
+/* CTA text color: white default, dark blue on hover */
 a.gradient-cta,
-a.gradient-cta:hover,
-a.bg-brand-orange,
-a.bg-brand-orange:hover {
+a.bg-brand-orange {
     color: var(--text-light);
+}
+
+a.gradient-cta:hover,
+a.bg-brand-orange:hover {
+    color: var(--primary-navy);
 }
 
 .btn-secondary {
