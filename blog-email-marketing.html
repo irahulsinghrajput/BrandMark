@@ -31,6 +31,10 @@
             justify-content: space-between;
             box-shadow: 0 2px 10px rgba(0,0,0,0.12);
         }
+        .blog-nav .nav-links {
+            display: flex;
+            gap: 22px;
+        }
         .blog-nav a {
             color: rgba(255,255,255,0.85);
             font-weight: 500;
@@ -47,14 +51,19 @@
         .blog-hero {
             background: linear-gradient(135deg, var(--secondary-navy), var(--primary-navy));
             color: var(--text-light);
-            padding: 70px 10% 90px;
+            padding: 48px 10% 40px;
+        }
+        .blog-hero-inner {
+            max-width: 900px;
+            margin: 0 auto;
         }
         .blog-hero h1 {
             color: var(--text-light);
             text-transform: none;
             letter-spacing: 0.2px;
-            font-size: 2.6rem;
-            margin-bottom: 10px;
+            font-size: 2.3rem;
+            line-height: 1.2;
+            margin-bottom: 12px;
         }
         .meta-row {
             display: flex;
@@ -73,20 +82,24 @@
         }
         .blog-container {
             max-width: 900px;
-            margin: -50px auto 70px;
-            padding: 0 5%;
+            margin: 0 auto 70px;
+            padding: 28px 5% 0;
         }
         .blog-card {
             background: var(--bg-section);
             border: 1px solid var(--border-color);
             border-radius: 14px;
-            padding: 36px;
+            padding: 34px;
             box-shadow: var(--shadow-card);
+        }
+        .blog-content .lead {
+            font-size: 1.1rem;
+            margin-bottom: 18px;
         }
         .blog-content h2 {
             text-transform: none;
             letter-spacing: 0.2px;
-            margin-top: 28px;
+            margin-top: 26px;
         }
         .blog-content p,
         .blog-content li {
@@ -110,10 +123,10 @@
         }
         @media (max-width: 768px) {
             .blog-hero {
-                padding: 60px 6% 80px;
+                padding: 42px 6% 34px;
             }
             .blog-hero h1 {
-                font-size: 2.1rem;
+                font-size: 2rem;
             }
             .blog-card {
                 padding: 26px;
@@ -153,17 +166,19 @@
     </nav>
 
     <header class="blog-hero">
-        <h1>Email Marketing Strategy for Small Businesses</h1>
-        <div class="meta-row">
-            <span class="meta-pill">📅 February 23, 2026</span>
-            <span class="meta-pill">⏱️ 10 min read</span>
+        <div class="blog-hero-inner">
+            <h1>Email Marketing Strategy for Small Businesses</h1>
+            <div class="meta-row">
+                <span class="meta-pill">📅 February 23, 2026</span>
+                <span class="meta-pill">⏱️ 10 min read</span>
+            </div>
         </div>
     </header>
 
     <main class="blog-container">
         <article class="blog-card">
             <section class="blog-content">
-                <p class="text-lg text-gray-300 mb-6">Email marketing remains one of the highest ROI marketing channels for small businesses. When done right, it can drive sales, build customer relationships, and create loyal brand advocates. Learn how to create an effective email marketing strategy.</p>
+                <p class="lead">Email marketing remains one of the highest ROI marketing channels for small businesses. When done right, it can drive sales, build customer relationships, and create loyal brand advocates. Learn how to create an effective email marketing strategy.</p>
 
                 <h2 class="text-2xl font-bold mt-8 mb-4">Why Email Marketing Still Works</h2>
                 <ul class="list-disc list-inside text-gray-300 space-y-2 mb-6">
