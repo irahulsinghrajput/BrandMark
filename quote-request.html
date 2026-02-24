@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instant Quote | BrandMark Solutions</title>
+    <meta name="description" content="Get an instant quote for Branding, Web Design, Marketing Strategy, Digital Ads, and Social Media services by market.">
+    <link rel="canonical" href="https://brandmarksolutions.site/quote-request.html">
+    <link rel="stylesheet" href="brandmark.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#0B2C4D',
+                            'navy-dark': '#081F36',
+                            orange: '#F26A21',
+                            'bg-light': '#F4F6F8',
+                            'text-muted': '#6C757D'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-brand-bg-light text-brand-text-body font-sans antialiased">
+    <nav class="fixed w-full z-50 glass-nav bg-brand-navy shadow-lg" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex-shrink-0 flex items-center no-underline" aria-label="BrandMark Home">
+                    <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark Solutions logo" class="h-12 w-12 rounded-full object-cover mr-3">
+                    <span class="text-2xl font-bold tracking-tighter text-white">Brand<span class="font-light text-brand-orange">Mark</span></span>
+                </a>
+                <a href="index.html" class="text-gray-200 hover:text-brand-orange text-sm font-medium">Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-28 pb-16">
+        <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10 fade-in-up">
+                <h1 class="text-4xl md:text-5xl font-bold text-brand-navy mb-4">Instant Quote Calculator</h1>
+                <p class="text-brand-text-muted max-w-2xl mx-auto">Select your service and target market to get your custom quote instantly. We’ll also email your estimate.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 bg-white border border-brand-border-light rounded-2xl shadow-sm p-6 md:p-8 fade-in-up">
+                    <form id="quoteForm" class="space-y-5" novalidate>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-brand-navy mb-1" for="serviceType">Service Type</label>
+                                <select id="serviceType" name="serviceType" class="w-full p-3 border border-brand-border-light rounded-lg" required>
+                                    <option value="">Select service</option>
+                                    <option value="branding">Branding</option>
+                                    <option value="web_design">Web Design</option>
+                                    <option value="marketing_strategy">Marketing Strategy</option>
+                                    <option value="digital_ads_setup">Digital Ads (Setup)</option>
+                                    <option value="social_media_content">Social Media / Content</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-brand-navy mb-1" for="market">Target Market</label>
+                                <select id="market" name="market" class="w-full p-3 border border-brand-border-light rounded-lg" required>
+                                    <option value="">Select market</option>
+                                    <option value="us">US</option>
+                                    <option value="europe">Europe</option>
+                                    <option value="middle_east">Middle East</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-brand-navy mb-1" for="companySize">Company Size</label>
+                                <select id="companySize" name="companySize" class="w-full p-3 border border-brand-border-light rounded-lg" required>
+                                    <option value="">Select size</option>
+                                    <option value="1-5">1-5</option>
+                                    <option value="6-20">6-20</option>
+                                    <option value="21-50">21-50</option>
+                                    <option value="51-200">51-200</option>
+                                    <option value="200+">200+</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-brand-navy mb-1" for="timeline">Timeline</label>
+                                <input id="timeline" name="timeline" type="text" class="w-full p-3 border border-brand-border-light rounded-lg" placeholder="e.g. 2-4 weeks">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-brand-navy mb-1" for="name">Full Name</label>
+                                <input id="name" name="name" type="text" class="w-full p-3 border border-brand-border-light rounded-lg" placeholder="Your name" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-brand-navy mb-1" for="email">Email</label>
+                                <input id="email" name="email" type="email" class="w-full p-3 border border-brand-border-light rounded-lg" placeholder="you@email.com" required>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-brand-navy mb-1" for="phone">Phone</label>
+                                <input id="phone" name="phone" type="tel" class="w-full p-3 border border-brand-border-light rounded-lg" placeholder="+91 00000 00000">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-brand-navy mb-1" for="budget">Budget (Optional)</label>
+                                <input id="budget" name="budget" type="text" class="w-full p-3 border border-brand-border-light rounded-lg" placeholder="e.g. $500-$1000">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-brand-navy mb-1" for="website">Website</label>
+                            <input id="website" name="website" type="url" class="w-full p-3 border border-brand-border-light rounded-lg" placeholder="https://yourwebsite.com" required>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-brand-navy mb-1" for="notes">Project Notes</label>
+                            <textarea id="notes" name="notes" rows="4" class="w-full p-3 border border-brand-border-light rounded-lg" placeholder="Tell us what you need"></textarea>
+                        </div>
+
+                        <div id="quoteMessage" class="hidden p-3 rounded-lg text-sm"></div>
+
+                        <button id="quoteSubmitBtn" type="submit" class="btn-primary inline-flex items-center gap-2">
+                            <span id="quoteBtnText">Generate My Quote</span>
+                            <span id="quoteBtnSpinner" class="seo-audit-spinner hidden" aria-hidden="true"></span>
+                        </button>
+                    </form>
+                </div>
+
+                <aside class="bg-white border border-brand-border-light rounded-2xl shadow-sm p-6 fade-in-up" style="transition-delay:100ms;">
+                    <h2 class="text-xl font-bold text-brand-navy mb-3">Your Estimated Quote</h2>
+                    <p class="text-sm text-brand-text-muted mb-4">Based on your selected service + market.</p>
+                    <div class="bg-brand-bg-light rounded-xl p-5 border border-brand-border-light">
+                        <p class="text-xs uppercase tracking-wide text-brand-text-muted mb-2">Estimated Starting Price</p>
+                        <p id="quotePreview" class="text-3xl font-bold text-brand-orange">—</p>
+                    </div>
+                    <p class="text-xs text-brand-text-muted mt-4">Final scope and pricing may vary after consultation.</p>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+        const API_URL = isLocalhost ? 'http://localhost:5000/api' : 'https://brandmark-api-2026.onrender.com/api';
+
+        const PRICE_MATRIX = {
+            branding: {
+                us: '$499',
+                europe: '€450',
+                middle_east: '$550'
+            },
+            web_design: {
+                us: '$850',
+                europe: '€750',
+                middle_east: '$900'
+            },
+            marketing_strategy: {
+                us: '$350',
+                europe: '€320',
+                middle_east: '$400'
+            },
+            digital_ads_setup: {
+                us: '$199',
+                europe: '€180',
+                middle_east: '$250'
+            },
+            social_media_content: {
+                us: '$249',
+                europe: '€220',
+                middle_east: '$300'
+            }
+        };
+
+        const serviceTypeSelect = document.getElementById('serviceType');
+        const marketSelect = document.getElementById('market');
+        const quotePreview = document.getElementById('quotePreview');
+
+        function updateQuotePreview() {
+            const serviceType = serviceTypeSelect.value;
+            const market = marketSelect.value;
+            const quote = PRICE_MATRIX[serviceType] && PRICE_MATRIX[serviceType][market];
+            quotePreview.textContent = quote || '—';
+        }
+
+        serviceTypeSelect.addEventListener('change', updateQuotePreview);
+        marketSelect.addEventListener('change', updateQuotePreview);
+
+        const quoteForm = document.getElementById('quoteForm');
+        const quoteMessage = document.getElementById('quoteMessage');
+        const quoteSubmitBtn = document.getElementById('quoteSubmitBtn');
+        const quoteBtnText = document.getElementById('quoteBtnText');
+        const quoteBtnSpinner = document.getElementById('quoteBtnSpinner');
+
+        quoteForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const payload = {
+                serviceType: document.getElementById('serviceType').value,
+                market: document.getElementById('market').value,
+                companySize: document.getElementById('companySize').value,
+                timeline: document.getElementById('timeline').value.trim(),
+                name: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                budget: document.getElementById('budget').value.trim(),
+                website: document.getElementById('website').value.trim(),
+                notes: document.getElementById('notes').value.trim()
+            };
+
+            quoteMessage.classList.add('hidden');
+            quoteSubmitBtn.disabled = true;
+            quoteBtnText.textContent = 'Generating...';
+            quoteBtnSpinner.classList.remove('hidden');
+
+            try {
+                const response = await fetch(`${API_URL}/quotes`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || !data.success) {
+                    throw new Error(data.message || 'Unable to generate quote');
+                }
+
+                quotePreview.textContent = data.data.quoteDisplay;
+
+                quoteMessage.className = 'p-3 rounded-lg text-sm';
+                quoteMessage.style.background = '#e6f4ea';
+                quoteMessage.style.color = '#1e6b3f';
+                quoteMessage.textContent = `Success! Your estimated quote is ${data.data.quoteDisplay}. A copy has been emailed to you.`;
+                quoteMessage.classList.remove('hidden');
+
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'quote_generated', {
+                        event_category: 'conversion',
+                        event_label: `${payload.serviceType}_${payload.market}`
+                    });
+                }
+            } catch (error) {
+                quoteMessage.className = 'p-3 rounded-lg text-sm';
+                quoteMessage.style.background = '#fdecea';
+                quoteMessage.style.color = '#7a1f1f';
+                quoteMessage.textContent = error.message || 'Failed to generate quote. Please try again.';
+                quoteMessage.classList.remove('hidden');
+            } finally {
+                quoteSubmitBtn.disabled = false;
+                quoteBtnText.textContent = 'Generate My Quote';
+                quoteBtnSpinner.classList.add('hidden');
+            }
+        });
+    </script>
+    <script src="brandmark.js"></script>
+</body>
+</html>
