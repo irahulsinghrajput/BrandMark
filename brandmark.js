@@ -6,7 +6,7 @@ const isLocalhost =
     window.location.protocol === 'file:';
 const API_URL = isLocalhost 
     ? 'http://localhost:5000/api'     // Local Backend
-    : 'https://brandmark-api-2026.onrender.com/api'; // Production Backend
+    : 'https://brandmark-backend.onrender.com/api'; // Production Backend
 
 // Mobile Menu Toggle
 const btn = document.getElementById('mobile-menu-btn');

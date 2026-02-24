@@ -107,25 +107,36 @@ router.post(
                 quoteDisplay: pricing.display
             });
 
-            await quote.save();
+            let quoteId = null;
+            try {
+                await quote.save();
+                quoteId = quote._id;
+            } catch (saveError) {
+                console.error('Quote save warning:', saveError.message);
+            }
 
-            await sendQuoteEmail({
-                ...quote.toObject(),
-                serviceLabel: SERVICE_LABELS[serviceType]
-            });
+            try {
+                await sendQuoteEmail({
+                    ...quote.toObject(),
+                    serviceLabel: SERVICE_LABELS[serviceType]
+                });
 
-            await sendQuoteAutoReply({
-                email,
-                name,
-                serviceLabel: SERVICE_LABELS[serviceType],
-                quoteDisplay: pricing.display,
-                market
-            });
+                await sendQuoteAutoReply({
+                    email,
+                    name,
+                    serviceLabel: SERVICE_LABELS[serviceType],
+                    quoteDisplay: pricing.display,
+                    market
+                });
+            } catch (emailError) {
+                console.error('Quote email warning:', emailError.message);
+            }
 
             return res.status(201).json({
                 success: true,
                 message: 'Quote generated successfully.',
                 data: {
+                    quoteId,
                     serviceType,
                     serviceLabel: SERVICE_LABELS[serviceType],
                     market,
