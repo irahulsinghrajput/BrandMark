@@ -405,6 +405,11 @@
                     <h3>Newsletter Subscribers</h3>
                     <div class="number" id="totalSubscribers">0</div>
                 </div>
+                <div class="stat-card">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <h3>Quote Requests</h3>
+                    <div class="number" id="totalQuotes">0</div>
+                </div>
             </div>
 
             <!-- Tabs -->
@@ -417,6 +422,9 @@
                 </button>
                 <button class="tab-btn" onclick="switchTab('newsletter')">
                     <i class="fas fa-newspaper"></i> Newsletter
+                </button>
+                <button class="tab-btn" onclick="switchTab('quotes')">
+                    <i class="fas fa-file-invoice-dollar"></i> Quotes
                 </button>
             </div>
 
@@ -495,12 +503,39 @@
                     </table>
                 </div>
             </div>
+
+            <!-- Quotes Tab -->
+            <div class="tab-content" id="quotesTab">
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Market</th>
+                                <th>Company Size</th>
+                                <th>Quote</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quotesBody">
+                            <tr>
+                                <td colspan="8" class="loading">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
         // Production backend
-        const API_URL = 'https://brandmark-api-2026.onrender.com/api';
+        const API_URL = 'https://brandmark-backend.onrender.com/api';
         // For local development: 'http://localhost:5000/api'
         // const API_URL = 'http://localhost:5000/api';
         let authToken = localStorage.getItem('adminToken');
@@ -567,7 +602,8 @@
                 loadStats(),
                 loadApplications(),
                 loadContacts(),
-                loadNewsletter()
+                loadNewsletter(),
+                loadQuotes()
             ]);
         }
 
@@ -579,9 +615,11 @@
                 const data = await response.json();
                 
                 if (data.success) {
-                    document.getElementById('totalApplications').textContent = data.data.totalApplications || 0;
-                    document.getElementById('totalContacts').textContent = data.data.totalContacts || 0;
-                    document.getElementById('totalSubscribers').textContent = data.data.totalSubscribers || 0;
+                    const stats = data.data.stats || data.data;
+                    document.getElementById('totalApplications').textContent = (stats.applications && stats.applications.total) || stats.totalApplications || 0;
+                    document.getElementById('totalContacts').textContent = (stats.contacts && stats.contacts.total) || stats.totalContacts || 0;
+                    document.getElementById('totalSubscribers').textContent = stats.subscribers || stats.totalSubscribers || 0;
+                    document.getElementById('totalQuotes').textContent = (stats.quotes && stats.quotes.total) || stats.totalQuotes || 0;
                 }
             } catch (error) {
                 console.error('Error loading stats:', error);
@@ -721,6 +759,62 @@
                 }
             } catch (error) {
                 console.error('Error loading newsletter:', error);
+            }
+        }
+
+        async function loadQuotes() {
+            try {
+                const response = await fetch(`${API_URL}/quotes`, {
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+                const data = await response.json();
+
+                const tbody = document.getElementById('quotesBody');
+                const serviceLabels = {
+                    branding: 'Branding',
+                    social_media_content: 'Social Media / Content',
+                    web_design: 'Web Design',
+                    content: 'Content',
+                    marketing_strategy: 'Marketing Strategy',
+                    digital_ads_setup: 'Digital Ads (Setup)'
+                };
+
+                const marketLabels = {
+                    us: 'US',
+                    europe: 'Europe',
+                    middle_east: 'Middle East'
+                };
+
+                if (data.success && data.data.length > 0) {
+                    tbody.innerHTML = data.data.map(quote => `
+                        <tr>
+                            <td><strong>${serviceLabels[quote.serviceType] || quote.serviceType}</strong></td>
+                            <td>${quote.name}</td>
+                            <td>${quote.email}</td>
+                            <td>${marketLabels[quote.market] || quote.market}</td>
+                            <td>${quote.companySize}</td>
+                            <td>${quote.quoteDisplay}</td>
+                            <td>
+                                <span class="badge ${quote.status === 'new' ? 'new' : 'reviewing'}">
+                                    ${quote.status}
+                                </span>
+                            </td>
+                            <td>${new Date(quote.createdAt).toLocaleDateString()}</td>
+                        </tr>
+                    `).join('');
+                } else {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="8" class="empty-state">
+                                <i class="fas fa-inbox"></i>
+                                <h3>No Quote Requests</h3>
+                                <p>Quote submissions will appear here.</p>
+                            </td>
+                        </tr>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error loading quotes:', error);
             }
         }
 

@@ -7,6 +7,7 @@ const Contact = require('../models/Contact');
 const Career = require('../models/Career');
 const Newsletter = require('../models/Newsletter');
 const Blog = require('../models/Blog');
+const Quote = require('../models/Quote');
 const auth = require('../middleware/auth');
 
 // @route   POST /api/admin/register
@@ -148,7 +149,9 @@ router.get('/dashboard', auth, async (req, res) => {
             newApplications,
             totalSubscribers,
             totalBlogs,
-            publishedBlogs
+            publishedBlogs,
+            totalQuotes,
+            newQuotes
         ] = await Promise.all([
             Contact.countDocuments(),
             Contact.countDocuments({ status: 'new' }),
@@ -156,7 +159,9 @@ router.get('/dashboard', auth, async (req, res) => {
             Career.countDocuments({ status: 'new' }),
             Newsletter.countDocuments({ isActive: true }),
             Blog.countDocuments(),
-            Blog.countDocuments({ published: true })
+            Blog.countDocuments({ published: true }),
+            Quote.countDocuments(),
+            Quote.countDocuments({ status: 'new' })
         ]);
 
         // Recent activities
@@ -177,7 +182,8 @@ router.get('/dashboard', auth, async (req, res) => {
                     contacts: { total: totalContacts, new: newContacts },
                     applications: { total: totalApplications, new: newApplications },
                     subscribers: totalSubscribers,
-                    blogs: { total: totalBlogs, published: publishedBlogs }
+                    blogs: { total: totalBlogs, published: publishedBlogs },
+                    quotes: { total: totalQuotes, new: newQuotes }
                 },
                 recentActivities: {
                     contacts: recentContacts,
