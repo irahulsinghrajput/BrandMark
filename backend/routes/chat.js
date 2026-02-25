@@ -3,10 +3,11 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 const router = express.Router();
 
 // Initialize Gemini with warning if key is missing
-if (!process.env.GEMINI_API_KEY) {
-    console.error("CRITICAL ERROR: GEMINI_API_KEY is missing in environment variables.");
+const hasGeminiKey = Boolean(process.env.GEMINI_API_KEY);
+if (!hasGeminiKey) {
+    console.error('CRITICAL ERROR: GEMINI_API_KEY is missing in environment variables.');
 }
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "YOUR_API_KEY");
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || 'YOUR_API_KEY');
 
 // SYSTEM INSTRUCTION: The personality of your bot
 const SYSTEM_INSTRUCTION = `
@@ -28,6 +29,12 @@ router.post('/', async (req, res) => {
             });
         }
 
+        if (!hasGeminiKey) {
+            return res.json({
+                reply: "Thanks for reaching out. Our team can help with branding, web design, and marketing. For pricing, please use the instant quote page: https://brandmarksolutions.site/quote-request.html. If you want a custom plan, share your goals and timeline."
+            });
+        }
+
         // Updated for 2026: Using 'gemini-2.5-flash'
         const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
@@ -42,7 +49,9 @@ router.post('/', async (req, res) => {
 
     } catch (error) {
         console.error("Gemini Error:", error); // Log the specific error
-        res.status(500).json({ reply: "I'm having a bit of trouble connecting right now. Please try again." });
+        res.json({
+            reply: "Thanks for your message. If you need pricing, please use the instant quote page: https://brandmarksolutions.site/quote-request.html. For anything else, tell us your goals and timeline and we will respond shortly."
+        });
     }
 });
 
