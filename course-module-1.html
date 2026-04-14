@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1: Digital Marketing Fundamentals | BrandMark Course</title>
+    <meta name="description" content="Learn the fundamentals of digital marketing - channels, strategies, and core concepts for building a strong online presence.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-navy': '#0B2C4D',
+                        'brand-navy-dark': '#081F36',
+                        'brand-orange': '#F26A21',
+                        'brand-orange-dark': '#E65C17'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="brandmark.css">
+    <style>
+        .lesson-content {
+            background: white;
+            color: #1f2937;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+        
+        .lesson-content h2 {
+            color: #F26A21;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .lesson-content h3 {
+            color: #1f2937;
+            margin-top: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .lesson-content ul, .lesson-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .lesson-content li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        
+        .highlight-box {
+            background: #f0f9ff;
+            border-left: 4px solid #F26A21;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        
+        .module-nav {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .module-nav a {
+            padding: 0.75rem 1.5rem;
+            background: #F26A21;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        
+        .module-nav a:hover {
+            background: #E65C17;
+        }
+        
+        .module-nav a.disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="bg-brand-navy-dark text-white font-[Outfit]">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-nav backdrop-blur-md bg-brand-navy/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark" class="h-10 w-10 rounded-full">
+                    <span class="font-bold text-xl hidden sm:inline">BrandMark</span>
+                </a>
+                
+                <button id="mobile-menu-btn" class="md:hidden text-xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <div id="mobile-menu" class="hidden md:flex md:items-center space-x-6">
+                    <a href="courses.html" class="hover:text-brand-orange transition">Courses</a>
+                    <a href="digital-marketing-course.html" class="hover:text-brand-orange transition">Back to Course</a>
+                    <a href="index.html" class="hover:text-brand-orange transition">Home</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Module Header -->
+    <section class="bg-brand-navy pt-24 pb-8 px-4 sm:px-6 lg:px-8 border-b border-gray-800">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-4">
+                <a href="digital-marketing-course.html" class="text-brand-orange hover:text-brand-orange-dark">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Course
+                </a>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Module 1: Digital Marketing Fundamentals</h1>
+            <div class="flex items-center gap-4 text-gray-100">
+                <span><i class="fas fa-clock mr-2"></i>4 hours</span>
+                <span><i class="fas fa-bookmark mr-2"></i>5 lessons</span>
+                <span class="px-3 py-1 bg-green-900 bg-opacity-30 text-green-300 rounded-full text-sm">Beginner Level</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Objectives -->
+    <section class="bg-brand-navy px-4 sm:px-6 lg:px-8 py-8">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bold mb-4">Learning Objectives</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-brand-navy-dark p-4 rounded-lg">
+                    <p class="flex items-start"><i class="fas fa-check text-green-400 mr-3 mt-1"></i> Understand digital marketing channels and strategies</p>
+                </div>
+                <div class="bg-brand-gray p-4 rounded-lg">
+                    <p class="flex items-start"><i class="fas fa-check text-green-400 mr-3 mt-1"></i> Define marketing objectives and KPIs</p>
+                </div>
+                <div class="bg-brand-gray p-4 rounded-lg">
+                    <p class="flex items-start"><i class="fas fa-check text-green-400 mr-3 mt-1"></i> Identify your target audience</p>
+                </div>
+                <div class="bg-brand-gray p-4 rounded-lg">
+                    <p class="flex items-start"><i class="fas fa-check text-green-400 mr-3 mt-1"></i> Build a basic marketing strategy</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="px-4 sm:px-6 lg:px-8 py-12">
+        <div class="max-w-4xl mx-auto">
+            <div class="lesson-content">
+                <h2>1. Digital Marketing Overview</h2>
+                <p>Digital marketing is the practice of promoting products, services, or brands using digital channels and technologies. In today's world, it's essential for any business to have a strong digital presence.</p>
+                
+                <h3>Why Digital Marketing Matters</h3>
+                <ul>
+                    <li><strong>Reach:</strong> Billions of people are online daily across different platforms</li>
+                    <li><strong>Targeting:</strong> Reach specific audiences based on interests, demographics, behaviors</li>
+                    <li><strong>Measurable:</strong> Track every interaction and measure ROI precisely</li>
+                    <li><strong>Cost-Effective:</strong> Start with small budgets and scale gradually</li>
+                    <li><strong>Speed:</strong> Launch campaigns quickly and optimize in real-time</li>
+                </ul>
+
+                <h2>2. Core Digital Marketing Channels</h2>
+                
+                <h3>Search Engine Marketing (SEM)</h3>
+                <div class="highlight-box">
+                    <p><strong>Includes: SEO & Paid Search (PPC)</strong></p>
+                    <p>Capture users actively searching for your products/services. This is high-intent traffic with excellent ROI potential.</p>
+                </div>
+                <ul>
+                    <li><strong>SEO:</strong> Optimize your website to rank organically in search results</li>
+                    <li><strong>PPC:</strong> Pay for each click with Google Ads, Bing Ads, etc.</li>
+                </ul>
+
+                <h3>Social Media Marketing</h3>
+                <div class="highlight-box">
+                    <p><strong>Platforms: Facebook, Instagram, LinkedIn, TikTok, Twitter, etc.</strong></p>
+                    <p>Build communities, engage audiences, and run targeted ad campaigns. Each platform has unique demographics and content styles.</p>
+                </div>
+
+                <h3>Content Marketing</h3>
+                <div class="highlight-box">
+                    <p><strong>Includes: Blog posts, Videos, Whitepapers, Podcasts, Infographics</strong></p>
+                    <p>Create valuable content that attracts, educates, and engages your target audience.</p>
+                </div>
+
+                <h3>Email Marketing</h3>
+                <div class="highlight-box">
+                    <p><strong>One of the highest ROI channels</strong></p>
+                    <p>Build email lists and send targeted, personalized messages to nurture leads and retain customers.</p>
+                </div>
+
+                <h3>Influencer & Affiliate Marketing</h3>
+                <div class="highlight-box">
+                    <p><strong>Leverage others to reach new audiences</strong></p>
+                    <p>Partner with influencers or affiliates who promote your products in exchange for commission.</p>
+                </div>
+
+                <h3>Display & Programmatic Advertising</h3>
+                <div class="highlight-box">
+                    <p><strong>Visual ads across the web</strong></p>
+                    <p>Show banner ads, video ads, and native ads across websites and apps using programmatic bidding.</p>
+                </div>
+
+                <h2>3. Understanding Your Audience</h2>
+                <p>Before launching any campaign, you must understand who you're trying to reach.</p>
+                
+                <h3>Create Buyer Personas</h3>
+                <ol>
+                    <li><strong>Demographics:</strong> Age, location, income, education</li>
+                    <li><strong>Psychographics:</strong> Values, interests, lifestyle, pain points</li>
+                    <li><strong>Behaviors:</strong> Where they spend time online, what they buy, how they make decisions</li>
+                    <li><strong>Goals & Challenges:</strong> What do they want to achieve? What problems do they face?</li>
+                </ol>
+
+                <h2>4. Setting Marketing Goals & KPIs</h2>
+                <p>Every campaign needs clear, measurable objectives. Use the SMART framework:</p>
+                
+                <div class="highlight-box">
+                    <p><strong>SMART Goals:</strong></p>
+                    <ul style="margin-left: 1.5rem;">
+                        <li><strong>Specific:</strong> Clear and well-defined</li>
+                        <li><strong>Measurable:</strong> Can be tracked and quantified</li>
+                        <li><strong>Achievable:</strong> Realistic within your resources</li>
+                        <li><strong>Relevant:</strong> Aligned with business objectives</li>
+                        <li><strong>Time-bound:</strong> Has a deadline</li>
+                    </ul>
+                </div>
+
+                <h3>Common Marketing KPIs</h3>
+                <ul>
+                    <li><strong>Traffic:</strong> Website visitors, impressions, clicks</li>
+                    <li><strong>Engagement:</strong> CTR, likes, shares, comments, time on page</li>
+                    <li><strong>Conversions:</strong> Sign-ups, purchases, form submissions</li>
+                    <li><strong>ROI:</strong> Return on investment, revenue per dollar spent</li>
+                    <li><strong>Customer Metrics:</strong> Customer acquisition cost (CAC), lifetime value (LTV)</li>
+                </ul>
+
+                <h2>5. The Digital Marketing Funnel</h2>
+                <p>Most customers don't buy on their first interaction. They go through stages:</p>
+                
+                <div class="highlight-box">
+                    <h4 style="margin-top: 0;">1. Awareness</h4>
+                    <p>Potential customers discover your brand through content, ads, social media, or word-of-mouth.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h4 style="margin-top: 0;">2. Consideration</h4>
+                    <p>They research your brand, compare with competitors, and evaluate your offerings.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h4 style="margin-top: 0;">3. Decision</h4>
+                    <p>They're ready to buy. Your job: remove friction and make the purchase easy.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h4 style="margin-top: 0;">4. Retention</h4>
+                    <p>Keep customers happy, encourage repeat purchases, and turn them into advocates.</p>
+                </div>
+
+                <h2>Building Your First Marketing Strategy</h2>
+                <ol>
+                    <li><strong>Define your audience:</strong> Create buyer personas</li>
+                    <li><strong>Set clear goals:</strong> Revenue, traffic, leads, engagement targets</li>
+                    <li><strong>Choose your channels:</strong> Where is your audience? Where can you add value?</li>
+                    <li><strong>Create valuable content:</strong> Address audience pain points and desires</li>
+                    <li><strong>Measure & optimize:</strong> Track performance and continuously improve</li>
+                </ol>
+
+                <h2>Key Takeaways</h2>
+                <div class="bg-blue-900 bg-opacity-20 p-4 rounded-lg">
+                    <ul>
+                        <li>Digital marketing includes multiple channels (search, social, email, content, etc.)</li>
+                        <li>Understanding your audience is foundational</li>
+                        <li>Set SMART goals and track measurable KPIs</li>
+                        <li>The marketing funnel guides customer journey strategies</li>
+                        <li>Success requires continuous measurement and optimization</li>
+                    </ul>
+                </div>
+
+                <!-- Module Navigation -->
+                <div class="module-nav">
+                    <a href="digital-marketing-course.html" class="disabled">
+                        <i class="fas fa-arrow-left mr-2"></i>Previous
+                    </a>
+                    <a href="course-module-2.html">
+                        Next Module<i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Lesson Resources -->
+            <div class="mt-8 bg-brand-navy p-6 rounded-lg border border-gray-800">
+                <h3 class="text-xl font-bold mb-4">Downloadable Resources</h3>
+                <div class="space-y-3">
+                    <a href="#" class="flex items-center p-3 bg-brand-gray rounded hover:bg-brand-accent/20 transition">
+                        <i class="fas fa-file-pdf text-red-400 mr-3"></i>
+                        <div>
+                            <p class="font-semibold">Digital Marketing Setup Checklist</p>
+                            <p class="text-sm text-gray-400">PDF - 2.4 MB</p>
+                        </div>
+                    </a>
+                    <a href="#" class="flex items-center p-3 bg-brand-gray rounded hover:bg-brand-accent/20 transition">
+                        <i class="fas fa-file-excel text-green-400 mr-3"></i>
+                        <div>
+                            <p class="font-semibold">Buyer Persona Template</p>
+                            <p class="text-sm text-gray-400">XLSX - 512 KB</p>
+                        </div>
+                    </a>
+                    <a href="#" class="flex items-center p-3 bg-brand-gray rounded hover:bg-brand-accent/20 transition">
+                        <i class="fas fa-file-powerpoint text-orange-400 mr-3"></i>
+                        <div>
+                            <p class="font-semibold">Marketing Strategy Template</p>
+                            <p class="text-sm text-gray-400">PPTX - 3.1 MB</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Module Completion Section -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h3 class="text-2xl font-bold text-brand-navy mb-4">Lesson Complete?</h3>
+                <p class="text-gray-600 mb-6">Track your progress through the course. Mark this lesson as complete to continue to the next module.</p>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button onclick="markAsComplete('module-1')" class="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold py-3 px-6 rounded-lg transition flex items-center justify-center gap-2">
+                        <i class="fas fa-check-circle"></i>Mark as Complete
+                    </button>
+                    <a href="course-module-2.html" class="flex-1 bg-brand-navy hover:bg-brand-navy-dark text-white font-semibold py-3 px-6 rounded-lg transition flex items-center justify-center gap-2 text-decoration-none">
+                        <i class="fas fa-arrow-right"></i>Next Module (2)
+                    </a>
+                </div>
+                
+                <div id="completionMessage" style="display: none;" class="mt-4 p-4 bg-green-100 text-green-700 rounded-lg flex items-center gap-2">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Great! Module 1 marked as complete. Your progress has been saved.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-navy border-t border-gray-800 py-12 px-4 sm:px-6 lg:px-8 mt-12">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div>
+                    <h4 class="font-bold mb-2">BrandMark Digital Marketing Course</h4>
+                    <p class="text-gray-400 text-sm">Learn modern digital marketing with Gen AI integration</p>
+                </div>
+                <div class="mt-4 md:mt-0 text-center text-gray-400 text-sm">
+                    <p>&copy; 2025 BrandMark Solutions. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="brandmark.js"></script>
+    <script>
+        async function markAsComplete(moduleName) {
+            try {
+                // Get enrollment ID from localStorage
+                const enrollmentId = localStorage.getItem('enrollmentId');
+                
+                if (!enrollmentId) {
+                    alert('Please enroll in the course first to track your progress.');
+                    window.location.href = 'courses.html';
+                    return;
+                }
+
+                // Show loading state
+                const btn = event.target.closest('button');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+                btn.disabled = true;
+
+                // Send progress update to backend
+                const response = await fetch('/api/courses/digital-marketing-001/progress', {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        enrollmentId: enrollmentId,
+                        courseId: 'digital-marketing-001',
+                        completedLessons: [moduleName]
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Show success message
+                    document.getElementById('completionMessage').style.display = 'flex';
+                    
+                    // Update button
+                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+                    btn.classList.add('opacity-75');
+
+                    // Scroll to message
+                    document.getElementById('completionMessage').scrollIntoView({ behavior: 'smooth' });
+
+                    console.log('Progress updated:', data.data);
+                } else {
+                    // Fall back to local storage if backend not available
+                    let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+                    if (!completedLessons.includes(moduleName)) {
+                        completedLessons.push(moduleName);
+                    }
+                    localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+                    
+                    // Show success message anyway
+                    document.getElementById('completionMessage').style.display = 'flex';
+                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+                    btn.classList.add('opacity-75');
+                }
+            } catch (error) {
+                console.error('Error marking complete:', error);
+                
+                // Fall back to local storage
+                let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+                if (!completedLessons.includes(moduleName)) {
+                    completedLessons.push(moduleName);
+                }
+                localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+                
+                // Show success message
+                document.getElementById('completionMessage').style.display = 'flex';
+                event.target.closest('button').innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+                event.target.closest('button').classList.add('opacity-75');
+            }
+        }
+    </script>
+</body>
+</html>

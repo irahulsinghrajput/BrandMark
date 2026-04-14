@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Courses | Skill Up with BrandMark</title>
+    <meta name="description" content="Explore our comprehensive courses in Digital Marketing, Web Development, and more. Learn industry skills from expert instructors.">
+    
+    <link rel="stylesheet" href="brandmark.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#0B2C4D',
+                            'navy-dark': '#081F36',
+                            orange: '#F26A21',
+                            'orange-dark': '#E65C17',
+                            'bg-light': '#F4F6F8',
+                            'bg-white': '#FFFFFF',
+                            'bg-card': '#FAFAFA',
+                            'text-body': '#2E2E2E',
+                            'text-muted': '#6C757D',
+                            'border-light': '#E0E0E0',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .course-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        
+        .course-card:hover {
+            box-shadow: 0 12px 24px rgba(242, 106, 33, 0.15);
+            transform: translateY(-4px);
+            border-color: #F26A21;
+        }
+        
+        .course-badge {
+            background: linear-gradient(135deg, #F26A21, #E65C17);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .course-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.875rem;
+            color: #6C757D;
+        }
+        
+        .course-meta i {
+            color: #F26A21;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-brand-bg-light text-brand-text-body font-sans antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300 bg-brand-navy shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer no-underline">
+                    <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark Solutions logo" class="h-12 w-12 rounded-full object-cover mr-3">
+                    <span class="text-2xl font-bold tracking-tighter text-white">
+                        Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">®</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Home</a>
+                    <a href="brandmarkAboutUs.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">About Us</a>
+                    <a href="brandmarkservices.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Services</a>
+                    <a href="courses.html" class="text-brand-orange font-medium tracking-wide transition-colors">Courses</a>
+                    <a href="portfolio.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Portfolio</a>
+                    <a href="brandmarkpersonalblogs.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Blog</a>
+                    <a href="brandmarkcareers.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Careers</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none" aria-label="Toggle mobile menu">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-navy border-b border-brand-border-light">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="index.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Home</a>
+                <a href="brandmarkAboutUs.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">About Us</a>
+                <a href="brandmarkservices.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Services</a>
+                <a href="courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-brand-orange bg-brand-navy-dark">Courses</a>
+                <a href="portfolio.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Portfolio</a>
+                <a href="brandmarkpersonalblogs.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Blog</a>
+                <a href="brandmarkcareers.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Careers</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-96 flex items-center justify-center pt-32 pb-16 overflow-hidden bg-gradient-to-r from-brand-navy to-brand-navy-dark">
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-white">
+                Level Up Your <span class="text-brand-orange">Skills</span>
+            </h1>
+            <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-300">
+                Master in-demand skills with our expert-crafted courses. From digital marketing to web development, we've got you covered.
+            </p>
+        </div>
+    </section>
+
+    <!-- Courses Grid -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-brand-bg-light">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Available Courses</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Start your learning journey and transform your career with our comprehensive, industry-focused courses.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Course 1: Digital Marketing -->
+                <div class="course-card rounded-lg overflow-hidden">
+                    <div class="h-48 bg-gray-100 flex items-center justify-center overflow-hidden">
+                        <img src="ai-brain-marketing.jpg.png" alt="AI Brain Marketing" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-3">
+                            <h3 class="text-xl font-bold text-brand-navy">Digital Marketing Mastery with Gen AI</h3>
+                            <span class="course-badge ml-2">NEW</span>
+                        </div>
+                        
+                        <p class="text-brand-text-muted text-sm mb-4">
+                            Master digital marketing fundamentals combined with cutting-edge Generative AI tools. Learn proven strategies for SEO, social media, email marketing, paid ads, and more.
+                        </p>
+
+                        <div class="course-meta mb-6">
+                            <div>
+                                <i class="fas fa-clock"></i>
+                                <span>30+ hours</span>
+                            </div>
+                            <div>
+                                <i class="fas fa-book"></i>
+                                <span>15 modules</span>
+                            </div>
+                            <div>
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Beginner to Advanced</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <p class="text-sm font-semibold text-brand-navy mb-2">What You'll Learn:</p>
+                            <ul class="text-sm text-brand-text-muted space-y-1">
+                                <li><i class="fas fa-check text-brand-orange mr-2"></i>Digital marketing core concepts</li>
+                                <li><i class="fas fa-check text-brand-orange mr-2"></i>ChatGPT & Claude for marketing</li>
+                                <li><i class="fas fa-check text-brand-orange mr-2"></i>AI image generation tools</li>
+                                <li><i class="fas fa-check text-brand-orange mr-2"></i>Analytics & performance metrics</li>
+                            </ul>
+                        </div>
+
+                        <a href="digital-marketing-course.html" class="block w-full text-center bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold py-3 rounded-lg transition-colors mb-3">
+                            Explore Course <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                        <button onclick="initiatePayment()" class="block w-full text-center bg-brand-navy hover:bg-brand-navy-dark text-white font-semibold py-3 rounded-lg transition-colors">
+                            <i class="fas fa-shopping-cart mr-2"></i>Enroll Now (₹49)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Course 2: Full Stack Developer -->
+                <div class="course-card rounded-lg overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-brand-navy to-brand-navy-dark flex items-center justify-center">
+                        <i class="fas fa-code text-brand-orange text-6xl opacity-80"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-3">
+                            <h3 class="text-xl font-bold text-brand-navy">Full Stack Web Developer</h3>
+                            <span class="course-badge" style="background: linear-gradient(135deg, #0B2C4D, #081F36);">COMING</span>
+                        </div>
+                        
+                        <p class="text-brand-text-muted text-sm mb-4">
+                            Build complete web applications from frontend to backend. Master HTML, CSS, JavaScript, React, Node.js, MongoDB, and modern development practices.
+                        </p>
+
+                        <div class="course-meta mb-6">
+                            <div>
+                                <i class="fas fa-clock"></i>
+                                <span>40+ hours</span>
+                            </div>
+                            <div>
+                                <i class="fas fa-book"></i>
+                                <span>18 modules</span>
+                            </div>
+                            <div>
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Beginner to Advanced</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <p class="text-sm font-semibold text-brand-navy mb-2">What You'll Learn:</p>
+                            <ul class="text-sm text-brand-text-muted space-y-1">
+                                <li><i class="fas fa-check text-brand-navy mr-2"></i>HTML5, CSS3 & JavaScript</li>
+                                <li><i class="fas fa-check text-brand-navy mr-2"></i>React & Modern Frontend</li>
+                                <li><i class="fas fa-check text-brand-navy mr-2"></i>Node.js & Express Backend</li>
+                                <li><i class="fas fa-check text-brand-navy mr-2"></i>MongoDB & Database Design</li>
+                            </ul>
+                        </div>
+
+                        <button disabled class="block w-full text-center bg-gray-300 text-gray-600 font-semibold py-3 rounded-lg cursor-not-allowed" title="Coming soon">
+                            Coming Soon
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Our Courses Section -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Why Choose BrandMark Courses?</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Industry expertise meets quality education</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-orange bg-opacity-10 mb-4">
+                        <i class="fas fa-star text-brand-orange text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Expert Instructors</h3>
+                    <p class="text-gray-600">Learn from industry professionals with years of real-world experience in their fields.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-navy bg-opacity-10 mb-4">
+                        <i class="fas fa-certificate text-brand-navy text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Certification</h3>
+                    <p class="text-gray-600">Earn recognized certificates upon completion to showcase your skills to employers.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-orange bg-opacity-10 mb-4">
+                        <i class="fas fa-laptop text-brand-orange text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Lifetime Access</h3>
+                    <p class="text-gray-600">Access course materials anytime, anywhere. Learn at your own pace with unlimited access.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-navy bg-opacity-10 mb-4">
+                        <i class="fas fa-users text-brand-navy text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Community Support</h3>
+                    <p class="text-gray-600">Join a community of learners and get support from instructors and peers.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-orange bg-opacity-10 mb-4">
+                        <i class="fas fa-project-diagram text-brand-orange text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Real Projects</h3>
+                    <p class="text-gray-600">Build portfolio projects that demonstrate your skills to potential employers.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-navy bg-opacity-10 mb-4">
+                        <i class="fas fa-headset text-brand-navy text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">24/7 Support</h3>
+                    <p class="text-gray-600">Get help when you need it with our dedicated student support team.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-brand-navy to-brand-navy-dark">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Get Started?</h2>
+            <p class="text-lg text-gray-300 mb-8">Invest in your future and unlock your potential with our expert-led courses.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="digital-marketing-course.html" class="inline-block bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold py-3 px-8 rounded-lg transition-colors">
+                    Start Learning Today
+                </a>
+                <a href="quote-request.html" class="inline-block border-2 border-white hover:bg-white hover:text-brand-navy text-white font-semibold py-3 px-8 rounded-lg transition-colors">
+                    Get More Info
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-navy-dark text-gray-300 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h4 class="font-bold mb-4 text-white">BrandMark</h4>
+                    <p class="text-sm">Leading digital marketing and web development solutions for growing businesses.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-white">Quick Links</h4>
+                    <ul class="text-sm space-y-2">
+                        <li><a href="index.html" class="hover:text-brand-orange transition-colors">Home</a></li>
+                        <li><a href="brandmarkservices.html" class="hover:text-brand-orange transition-colors">Services</a></li>
+                        <li><a href="courses.html" class="hover:text-brand-orange transition-colors">Courses</a></li>
+                        <li><a href="brandmarkAboutUs.html" class="hover:text-brand-orange transition-colors">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-white">Resources</h4>
+                    <ul class="text-sm space-y-2">
+                        <li><a href="brandmarkpersonalblogs.html" class="hover:text-brand-orange transition-colors">Blog</a></li>
+                        <li><a href="privacy-policy.html" class="hover:text-brand-orange transition-colors">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html" class="hover:text-brand-orange transition-colors">Terms</a></li>
+                        <li><a href="portfolio.html" class="hover:text-brand-orange transition-colors">Portfolio</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-white">Connect</h4>
+                    <ul class="text-sm space-y-2">
+                        <li><a href="#" class="hover:text-brand-orange transition-colors"><i class="fab fa-facebook mr-2"></i>Facebook</a></li>
+                        <li><a href="#" class="hover:text-brand-orange transition-colors"><i class="fab fa-linkedin mr-2"></i>LinkedIn</a></li>
+                        <li><a href="#" class="hover:text-brand-orange transition-colors"><i class="fab fa-twitter mr-2"></i>Twitter</a></li>
+                        <li><a href="#" class="hover:text-brand-orange transition-colors"><i class="fab fa-instagram mr-2"></i>Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center text-sm">
+                <p>&copy; 2025 BrandMark Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="brandmark.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        // Configuration for API endpoints - Environment aware
+        const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:5000/api'
+            : 'https://brandmark-backend.onrender.com/api';
+        
+        async function initiatePayment() {
+            try {
+                // Step 1: Get user email
+                const email = prompt('Enter your email address:', 'kumarrahul85181@gmail.com');
+                
+                if (!email) {
+                    alert('❌ Email is required to proceed');
+                    return;
+                }
+
+                // Validate email format
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    alert('❌ Please enter a valid email address');
+                    return;
+                }
+
+                console.log('📧 Email entered:', email);
+                console.log('📡 Connecting to API at:', API_BASE_URL);
+
+                // Step 2: Create order on backend
+                const orderResponse = await fetch(`${API_BASE_URL}/courses/digital-marketing-001/order`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        courseTitle: 'Digital Marketing Mastery with Gen AI',
+                        amount: 4900, // ₹49 in paise
+                        email: email
+                    })
+                });
+
+                console.log('Response status:', orderResponse.status);
+
+                if (!orderResponse.ok) {
+                    const errorData = await orderResponse.json().catch(() => ({}));
+                    console.error('Order creation failed:', errorData);
+                    
+                    throw new Error(errorData.message || `Failed to create order (Status: ${orderResponse.status})`);
+                }
+
+                const orderData = await orderResponse.json();
+                console.log('✅ Order created:', orderData);
+
+                if (!orderData.success || !orderData.data || !orderData.data.orderId) {
+                    throw new Error('⚠️ Invalid response from server. Check console for details.');
+                }
+
+                // Step 3: Open Razorpay checkout
+                const options = {
+                    key: orderData.data.keyId,
+                    amount: orderData.data.amount,
+                    currency: 'INR',
+                    name: 'BrandMark Solutions',
+                    description: 'Digital Marketing Mastery with Gen AI Course',
+                    order_id: orderData.data.orderId,
+                    handler: async function(response) {
+                        console.log('💳 Payment response:', response);
+                        
+                        // Step 4: Verify payment
+                        try {
+                            const verifyResponse = await fetch(`${API_BASE_URL}/courses/payment/verify`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    razorpay_order_id: response.razorpay_order_id,
+                                    razorpay_payment_id: response.razorpay_payment_id,
+                                    razorpay_signature: response.razorpay_signature,
+                                    courseId: 'digital-marketing-001',
+                                    email: email
+                                })
+                            });
+
+                            const verifyData = await verifyResponse.json();
+                            console.log('✅ Payment verified:', verifyData);
+
+                            if (verifyData.success) {
+                                localStorage.setItem('enrollmentId', verifyData.data.enrollmentId);
+                                localStorage.setItem('userEmail', email);
+                                alert('🎉 Payment successful! You are now enrolled.');
+                                window.location.href = 'digital-marketing-course.html';
+                            } else {
+                                alert('❌ Payment verification failed: ' + (verifyData.message || 'Unknown error'));
+                            }
+                        } catch (error) {
+                            console.error('Verification error:', error);
+                            alert('✅ Payment completed! Enrollment is being processed.');
+                        }
+                    },
+                    prefill: {
+                        email: email
+                    },
+                    theme: {
+                        color: '#F26A21'
+                    },
+                    modal: {
+                        ondismiss: function() {
+                            console.log('Checkout closed by user');
+                        }
+                    }
+                };
+
+                console.log('Opening Razorpay...');
+                const rzp = new Razorpay(options);
+                
+                rzp.on('payment.failed', function(response) {
+                    console.error('Payment failed:', response.error);
+                    alert('❌ Payment failed: ' + (response.error.description || 'Unknown error'));
+                });
+                
+                rzp.open();
+
+            } catch (error) {
+                console.error('❌ Error in initiatePayment:', error);
+                alert('❌ Error: ' + error.message + '\n\nPlease check the console (F12) for details and contact support if the issue persists.');
+            }
+        }
+    </script>
+</body>
+</html>

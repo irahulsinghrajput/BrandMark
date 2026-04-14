@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Quiz - Digital Marketing Mastery | BrandMark</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        .brand-navy { color: #0B2C4D; }
+        .brand-navy-bg { background-color: #0B2C4D; }
+        .brand-orange { color: #F26A21; }
+        .brand-orange-bg { background-color: #F26A21; }
+        
+        .quiz-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .question-card {
+            background: white;
+            border-left: 4px solid #F26A21;
+            transition: all 0.3s ease;
+        }
+        
+        .question-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+        
+        .option-input {
+            cursor: pointer;
+        }
+        
+        .option-label {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .option-input:checked + .option-label {
+            background-color: #F26A21;
+            color: white;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0B2C4D, #F26A21);
+            transition: width 0.3s ease;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #0B2C4D, #081F36);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(11, 44, 77, 0.3);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .score-badge {
+            background: linear-gradient(135deg, #0B2C4D, #081F36);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .result-message {
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .result-message.pass {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .result-message.fail {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .question-number-badge {
+            background: #F26A21;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="Brandmarklogo.jpeg" alt="BrandMark Logo" class="h-10 w-10 rounded-full object-cover">
+                <span class="text-xl font-bold brand-navy">BrandMark</span>
+            </a>
+            <a href="courses.html" class="text-gray-700 hover:text-blue-600 transition">← Back to Courses</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-12 px-4">
+        <div class="quiz-container">
+            <!-- Header Section -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold brand-navy mb-4">Course Final Quiz</h1>
+                <p class="text-gray-600 mb-8">Digital Marketing Mastery with Gen AI</p>
+                <div class="score-badge" id="scoreSection" style="display: none;">
+                    <div class="score-badge-label">Your Score</div>
+                    <div class="text-3xl font-bold mt-2"><span id="scoreValue">0</span>/15</div>
+                    <div class="mt-2">(<span id="percentValue">0</span>%)</div>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="mb-8">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-semibold text-gray-700">Progress</span>
+                    <span class="text-sm font-semibold brand-orange"><span id="answered">0</span>/15 Answered</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Quiz Form -->
+            <form id="quizForm" class="space-y-6 mb-12">
+                <!-- Question 1 -->
+                <div class="question-card p-6 rounded-lg">
+                    <div class="question-number-badge">1</div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">What is the primary goal of digital marketing?</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center">
+                            <input type="radio" name="q1" value="A" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">A) To increase brand awareness and drive customer engagement</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q1" value="B" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">B) To completely eliminate traditional marketing</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q1" value="C" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">C) To make websites look visually appealing</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q1" value="D" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">D) To only sell products online</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question-card p-6 rounded-lg">
+                    <div class="question-number-badge">2</div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Which Gen AI tool can help analyze customer sentiment in real-time?</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center">
+                            <input type="radio" name="q2" value="A" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">A) Natural Language Processing (NLP) with machine learning models</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q2" value="B" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">B) Only manual surveys</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q2" value="C" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">C) Simple Excel spreadsheets</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q2" value="D" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">D) Print media advertising</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question-card p-6 rounded-lg">
+                    <div class="question-number-badge">3</div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">What does SEO stand for?</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center">
+                            <input type="radio" name="q3" value="A" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">A) Search Engine Optimization</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q3" value="B" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">B) Sales Engagement Operations</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q3" value="C" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">C) Social Email Outreach</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q3" value="D" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">D) System Error Optimization</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question-card p-6 rounded-lg">
+                    <div class="question-number-badge">4</div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Which social media platform is best for B2B marketing?</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center">
+                            <input type="radio" name="q4" value="A" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">A) TikTok</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q4" value="B" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">B) LinkedIn</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q4" value="C" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">C) Instagram</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q4" value="D" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">D) Snapchat</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question-card p-6 rounded-lg">
+                    <div class="question-number-badge">5</div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">What is content marketing?</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center">
+                            <input type="radio" name="q5" value="A" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">A) Creating and distributing valuable content to attract an audience</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q5" value="B" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">B) Posting random thoughts on social media</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q5" value="C" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">C) Only using paid advertisements</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q5" value="D" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">D) Managing a physical store's inventory</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="question-card p-6 rounded-lg">
+                    <div class="question-number-badge">6</div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">How can AI improve email marketing campaigns?</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center">
+                            <input type="radio" name="q6" value="A" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">A) Personalizing content and optimizing send times automatically</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q6" value="B" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">B) It cannot help with email marketing</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q6" value="C" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">C) Only proofreading emails</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q6" value="D" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">D) Sending emails manually daily</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="question-card p-6 rounded-lg">
+                    <div class="question-number-badge">7</div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">What is the most important KPI for social media marketing?</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center">
+                            <input type="radio" name="q7" value="A" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">A) Number of followers only</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q7" value="B" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">B) Engagement rate and ROI</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q7" value="C" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">C) Number of posts per day</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q7" value="D" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">D) Website downtime</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="question-card p-6 rounded-lg">
+                    <div class="question-number-badge">8</div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">What does PPC stand for?</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center">
+                            <input type="radio" name="q8" value="A" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">A) Pay Per Click</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q8" value="B" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">B) Private Personal Computer</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q8" value="C" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">C) Product Price Compare</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q8" value="D" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">D) Page Performance Coding</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="question-card p-6 rounded-lg">
+                    <div class="question-number-badge">9</div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">How can Gen AI assist in creating marketing copy?</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center">
+                            <input type="radio" name="q9" value="A" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">A) Generate personalized content at scale and A/B test variations</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q9" value="B" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">B) It cannot help with copywriting</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q9" value="C" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">C) Only translate existing content</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q9" value="D" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">D) Reduce marketing budgets</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="question-card p-6 rounded-lg">
+                    <div class="question-number-badge">10</div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">What is customer segmentation?</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center">
+                            <input type="radio" name="q10" value="A" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">A) Dividing customers into groups with similar characteristics</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q10" value="B" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">B) Ignoring customer differences</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q10" value="C" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">C) Testing website speed</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q10" value="D" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">D) Creating backup databases</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 11 -->
+                <div class="question-card p-6 rounded-lg">
+                    <div class="question-number-badge">11</div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">What is the purpose of marketing automation?</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center">
+                            <input type="radio" name="q11" value="A" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">A) To save time and maintain personalization at scale</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q11" value="B" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">B) To eliminate the human marketing team</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q11" value="C" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">C) To only handle emails</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q11" value="D" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">D) To reduce marketing budgets</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 12 -->
+                <div class="question-card p-6 rounded-lg">
+                    <div class="question-number-badge">12</div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">How does retargeting work in digital marketing?</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center">
+                            <input type="radio" name="q12" value="A" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">A) Shows ads to users who visited but didn't convert</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q12" value="B" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">B) Only works for phone calls</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q12" value="C" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">C) Removes customers from all advertising</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q12" value="D" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">D) Is not recommended for conversions</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 13 -->
+                <div class="question-card p-6 rounded-lg">
+                    <div class="question-number-badge">13</div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">What is influencer marketing?</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center">
+                            <input type="radio" name="q13" value="A" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">A) Partnering with influential people to promote products/services</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q13" value="B" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">B) Creating fake social media accounts</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q13" value="C" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">C) Only for large corporations</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q13" value="D" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">D) Avoiding social media entirely</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 14 -->
+                <div class="question-card p-6 rounded-lg">
+                    <div class="question-number-badge">14</div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">What is conversion rate optimization (CRO)?</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center">
+                            <input type="radio" name="q14" value="A" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">A) Improving the percentage of visitors who take desired actions</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q14" value="B" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">B) Converting currency rates</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q14" value="C" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">C) Only relevant for e-commerce</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q14" value="D" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">D) Reducing website traffic</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 15 -->
+                <div class="question-card p-6 rounded-lg">
+                    <div class="question-number-badge">15</div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">How can businesses use predictive analytics with Gen AI?</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center">
+                            <input type="radio" name="q15" value="A" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">A) To forecast customer behavior and optimize marketing strategies</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q15" value="B" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">B) Only for weather prediction</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q15" value="C" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">C) It has no marketing applications</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q15" value="D" class="option-input mr-3">
+                            <span class="option-label px-4 py-2 rounded border border-gray-300 flex-grow">D) To completely automate all business decisions</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-8 border-t-2 border-gray-200">
+                    <button type="submit" class="submit-btn w-full">
+                        <i class="fas fa-check-circle mr-2"></i>Submit Quiz
+                    </button>
+                    <p class="text-center text-gray-600 text-sm mt-4">
+                        <strong>Note:</strong> Passing score is 80% (12+ correct answers). You'll receive a certificate upon passing.
+                    </p>
+                </div>
+            </form>
+
+            <!-- Results Section (Hidden until submit) -->
+            <div id="resultsSection" style="display: none;" class="bg-white rounded-lg shadow-lg p-8 mt-8">
+                <div id="resultMessage" class="result-message"></div>
+                
+                <div class="grid grid-cols-3 gap-4 mb-8 text-center">
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <div class="text-gray-600 text-sm font-semibold">Total Questions</div>
+                        <div class="text-2xl font-bold brand-orange">15</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <div class="text-gray-600 text-sm font-semibold">Correct Answers</div>
+                        <div class="text-2xl font-bold brand-navy"><span id="correctCount">0</span></div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <div class="text-gray-600 text-sm font-semibold">Your Score</div>
+                        <div class="text-2xl font-bold brand-orange"><span id="finalScore">0</span>%</div>
+                    </div>
+                </div>
+
+                <!-- Certificate Section (shown if passing) -->
+                <div id="certificateSection" style="display: none;" class="border-2 border-dashed border-orange-300 rounded-lg p-8 bg-orange-50 text-center">
+                    <i class="fas fa-certificate text-orange-500 text-5xl mb-4"></i>
+                    <h3 class="text-2xl font-bold brand-navy mb-2">Congratulations!</h3>
+                    <p class="text-gray-600 mb-6">You've passed the course. Your certificate is being generated and will be emailed to your address shortly.</p>
+                    <a href="courses.html" class="submit-btn">← Back to Courses</a>
+                </div>
+
+                <!-- Retake Section (shown if not passing) -->
+                <div id="retakeSection" style="display: none;" class="border-2 border-dashed border-red-300 rounded-lg p-8 bg-red-50">
+                    <h3 class="text-xl font-bold text-red-700 mb-4">Keep Learning!</h3>
+                    <p class="text-gray-700 mb-4">You need 80% (12 correct) to pass. Review the course material and try again in 24 hours.</p>
+                    <div class="space-y-2 mb-6 text-sm text-gray-700">
+                        <p><strong>Questions Missed:</strong> <span id="missedCount">0</span></p>
+                        <p><strong>Next Attempt Available:</strong> <span id="nextAttemptTime">Tomorrow</span></p>
+                    </div>
+                    <a href="digital-marketing-course.html" class="submit-btn">← Review Course Material</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white mt-16 py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center">
+                <p class="text-gray-400">&copy; 2025 BrandMark Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const quizForm = document.getElementById('quizForm');
+        const resultsSection = document.getElementById('resultsSection');
+        const scoreSection = document.getElementById('scoreSection');
+        const progressFill = document.getElementById('progressFill');
+        const answeredCount = document.getElementById('answered');
+
+        // Answer key (Correct answers for all 15 questions)
+        const answerKey = {
+            q1: 'A',
+            q2: 'A',
+            q3: 'A',
+            q4: 'B',
+            q5: 'A',
+            q6: 'A',
+            q7: 'B',
+            q8: 'A',
+            q9: 'A',
+            q10: 'A',
+            q11: 'A',
+            q12: 'A',
+            q13: 'A',
+            q14: 'A',
+            q15: 'A'
+        };
+
+        // Track answered questions
+        document.querySelectorAll('input[type="radio"]').forEach(input => {
+            input.addEventListener('change', updateProgress);
+        });
+
+        function updateProgress() {
+            const answered = document.querySelectorAll('input[type="radio"]:checked').length;
+            answeredCount.textContent = answered;
+            const percentage = (answered / 15) * 100;
+            progressFill.style.width = percentage + '%';
+        }
+
+        // Handle form submission
+        quizForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Calculate score
+            let correctAnswers = 0;
+            Object.entries(answerKey).forEach(([question, correctAnswer]) => {
+                const userAnswer = document.querySelector(`input[name="${question}"]:checked`);
+                if (userAnswer && userAnswer.value === correctAnswer) {
+                    correctAnswers++;
+                }
+            });
+
+            const score = (correctAnswers / 15) * 100;
+            const isPassing = score >= 80;
+
+            // Display results
+            displayResults(correctAnswers, score, isPassing);
+        });
+
+        function displayResults(correctAnswers, score, isPassing) {
+            // Hide form, show results
+            quizForm.style.display = 'none';
+            resultsSection.style.display = 'block';
+            scoreSection.style.display = 'block';
+
+            // Update score display
+            document.getElementById('scoreValue').textContent = correctAnswers;
+            document.getElementById('percentValue').textContent = Math.round(score);
+            document.getElementById('correctCount').textContent = correctAnswers;
+            document.getElementById('finalScore').textContent = Math.round(score);
+
+            // Show appropriate message
+            const resultMessage = document.getElementById('resultMessage');
+            if (isPassing) {
+                resultMessage.className = 'result-message pass';
+                resultMessage.innerHTML = `
+                    <i class="fas fa-check-circle text-2xl mr-3"></i>
+                    <strong>Excellent!</strong> You've passed the course with ${Math.round(score)}%!
+                `;
+                document.getElementById('certificateSection').style.display = 'block';
+                
+                // Trigger certificate generation
+                generateCertificate(correctAnswers, score);
+            } else {
+                resultMessage.className = 'result-message fail';
+                resultMessage.innerHTML = `
+                    <i class="fas fa-exclamation-circle text-2xl mr-3"></i>
+                    <strong>Not quite there yet!</strong> You scored ${Math.round(score)}%. You need 80% to pass.
+                `;
+                document.getElementById('retakeSection').style.display = 'block';
+                document.getElementById('missedCount').textContent = 15 - correctAnswers;
+                document.getElementById('nextAttemptTime').textContent = new Date(Date.now() + 24 * 60 * 60 * 1000).toLocaleDateString();
+            }
+
+            // Scroll to results
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        async function generateCertificate(correctAnswers, score) {
+            try {
+                const response = await fetch('/api/quiz/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                    },
+                    body: JSON.stringify({
+                        enrollmentId: localStorage.getItem('enrollmentId'),
+                        courseId: 'digital-marketing-001',
+                        answers: Array.from(document.querySelectorAll('input[type="radio"]:checked')).map(input => ({
+                            questionId: input.name,
+                            answer: input.value
+                        })),
+                        totalQuestions: 15,
+                        score: Math.round(score)
+                    })
+                });
+
+                const data = await response.json();
+                if (data.success && data.certificateUrl) {
+                    console.log('Certificate generated:', data.certificateUrl);
+                }
+            } catch (error) {
+                console.log('Note: Certificate generation requires authentication');
+            }
+        }
+    </script>
+</body>
+</html>

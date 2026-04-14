@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Certificate - BrandMark</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        .brand-navy { color: #0B2C4D; }
+        .brand-navy-bg { background-color: #0B2C4D; }
+        .brand-orange { color: #F26A21; }
+        .brand-orange-bg { background-color: #F26A21; }
+        
+        .certificate-frame {
+            background: linear-gradient(135deg, #FFF8E7 0%, #FFFAF0 100%);
+            border: 3px solid #D4A574;
+            box-shadow: 
+                0 0 0 1px #F26A21,
+                0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .certificate-frame::before,
+        .certificate-frame::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #D4A574;
+        }
+        
+        .certificate-frame::before {
+            top: 20px;
+            left: 20px;
+            border-right: none;
+            border-bottom: none;
+        }
+        
+        .certificate-frame::after {
+            bottom: 20px;
+            right: 20px;
+            border-left: none;
+            border-top: none;
+        }
+        
+        .certificate-content {
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        .certificate-seal {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0B2C4D, #081F36);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 60px;
+            box-shadow: 0 4px 16px rgba(11, 44, 77, 0.3);
+        }
+        
+        .certificate-header {
+            font-size: 36px;
+            font-weight: 700;
+            color: #0B2C4D;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .certificate-subheader {
+            font-size: 18px;
+            color: #F26A21;
+            font-weight: 600;
+            margin-bottom: 40px;
+        }
+        
+        .certificate-body {
+            color: #333;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        
+        .certificate-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0B2C4D;
+            margin: 20px 0;
+            border-bottom: 2px solid #F26A21;
+            padding-bottom: 10px;
+        }
+        
+        .certificate-course {
+            font-size: 20px;
+            color: #F26A21;
+            font-weight: 600;
+            margin: 15px 0;
+        }
+        
+        .certificate-footer {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #D4A574;
+        }
+        
+        .certificate-footer-item {
+            text-align: center;
+        }
+        
+        .certificate-footer-label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+        
+        .certificate-footer-value {
+            font-size: 14px;
+            color: #0B2C4D;
+            font-weight: 600;
+        }
+        
+        .qr-code {
+            width: 150px;
+            height: 150px;
+        }
+        
+        .search-section {
+            background: linear-gradient(135deg, #0B2C4D, #081F36);
+            color: white;
+        }
+        
+        .search-input {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .search-btn {
+            background: #F26A21;
+            color: white;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+        
+        .search-btn:hover {
+            background: #E65C17;
+            transform: translateY(-2px);
+        }
+        
+        .search-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        
+        .status-badge.valid {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status-badge.invalid {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .share-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+        }
+        
+        .share-btn.linkedin {
+            background: #0A66C2;
+        }
+        
+        .share-btn.linkedin:hover {
+            background: #095195;
+            transform: scale(1.1);
+        }
+        
+        .share-btn.twitter {
+            background: #1DA1F2;
+        }
+        
+        .share-btn.twitter:hover {
+            background: #1a8cd8;
+            transform: scale(1.1);
+        }
+        
+        .share-btn.facebook {
+            background: #1877F2;
+        }
+        
+        .share-btn.facebook:hover {
+            background: #0a66c2;
+            transform: scale(1.1);
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, #0B2C4D, #081F36);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(11, 44, 77, 0.3);
+        }
+        
+        .not-found {
+            text-align: center;
+            padding: 40px;
+            background: #f8d7da;
+            border-radius: 8px;
+            color: #721c24;
+            margin-top: 30px;
+        }
+        
+        @media print {
+            .search-section,
+            .certificate-actions,
+            .not-found,
+            nav {
+                display: none;
+            }
+            
+            .certificate-container {
+                margin: 0;
+                padding: 0;
+            }
+            
+            .certificate-frame {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="Brandmarklogo.jpeg" alt="BrandMark Logo" class="h-10 w-10 rounded-full object-cover">
+                <span class="text-xl font-bold brand-navy">BrandMark</span>
+            </a>
+            <a href="courses.html" class="text-gray-700 hover:text-blue-600 transition">← Back to Courses</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="py-12">
+        <!-- Search Section -->
+        <section class="search-section py-12 mb-12">
+            <div class="max-w-2xl mx-auto px-4 text-center">
+                <h1 class="text-4xl font-bold mb-4">Verify Certificate</h1>
+                <p class="text-white text-opacity-90 mb-8">Enter the certificate ID to verify authenticity</p>
+                
+                <div class="flex gap-2 justify-center mb-4">
+                    <input 
+                        type="text" 
+                        id="certificateId" 
+                        class="search-input" 
+                        placeholder="Enter certificate ID (e.g., CERT-C1E89F4D6E68)"
+                        value=""
+                    >
+                    <button class="search-btn" id="searchBtn">
+                        <i class="fas fa-search mr-2"></i>Verify
+                    </button>
+                </div>
+                
+                <p class="text-white text-opacity-75 text-sm">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    Certificate ID is provided in the email confirmation after passing the course
+                </p>
+            </div>
+        </section>
+
+        <!-- Certificate Display Section -->
+        <div class="max-w-4xl mx-auto px-4">
+            <!-- Certificate Container -->
+            <div id="certificateContainer" style="display: none;">
+                <!-- Certificate Frame -->
+                <div class="certificate-frame mb-8">
+                    <div class="certificate-content">
+                        <div class="certificate-seal">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        
+                        <div class="certificate-header">CERTIFICATE OF COMPLETION</div>
+                        <div class="certificate-subheader">presented to</div>
+                        
+                        <div class="certificate-name" id="certStudentName">Student Name</div>
+                        
+                        <div class="certificate-body">
+                            For successfully completing and passing the comprehensive course
+                        </div>
+                        
+                        <div class="certificate-course" id="certCourseName">Digital Marketing Mastery with Gen AI</div>
+                        
+                        <div class="certificate-body">
+                            This certificate is awarded in recognition of the student's dedication, 
+                            knowledge acquisition, and demonstrated proficiency in the subject matter.
+                        </div>
+                        
+                        <div class="certificate-footer">
+                            <div class="certificate-footer-item">
+                                <div id="certQRContainer"></div>
+                                <div class="certificate-footer-label">QR Code</div>
+                                <div class="certificate-footer-value">Scan to verify</div>
+                            </div>
+                            <div class="certificate-footer-item">
+                                <div style="font-size: 20px; font-weight: 700; color: #0B2C4D;">✓</div>
+                                <div class="certificate-footer-label">Status</div>
+                                <div class="certificate-footer-value" id="certStatus">Verified</div>
+                            </div>
+                            <div class="certificate-footer-item">
+                                <div id="certDate" style="font-size: 14px; font-weight: 600; color: #0B2C4D;">Jan 15, 2026</div>
+                                <div class="certificate-footer-label">Issue Date</div>
+                                <div class="certificate-footer-value" id="certIssuedAt"></div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 40px; padding-top: 30px; border-top: 2px solid #D4A574;">
+                            <div style="font-size: 12px; color: #666;">Certificate ID: <span id="certIdDisplay" style="font-weight: 600; color: #0B2C4D;"></span></div>
+                            <div style="font-size: 11px; color: #999; margin-top: 8px;">This is an official BrandMark Solutions certificate. Verify its authenticity using the QR code.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Actions -->
+                <div id="certificateActions" class="bg-white rounded-lg shadow-lg p-8 text-center">
+                    <!-- Status Badge -->
+                    <div class="status-badge valid">
+                        <i class="fas fa-check-circle mr-2"></i>Certificate Verified
+                    </div>
+
+                    <!-- Certificate Details -->
+                    <div class="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-gray-600 text-sm font-semibold">Course</div>
+                            <div class="text-gray-900 font-semibold mt-1" id="detailCourse">Digital Marketing</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-gray-600 text-sm font-semibold">Score</div>
+                            <div class="text-gray-900 font-semibold mt-1 brand-orange" id="detailScore">85%</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-gray-600 text-sm font-semibold">Issued</div>
+                            <div class="text-gray-900 font-semibold mt-1" id="detailIssued">Jan 15, 2026</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-gray-600 text-sm font-semibold">Valid</div>
+                            <div class="text-gray-900 font-semibold mt-1">✓ Yes</div>
+                        </div>
+                    </div>
+
+                    <!-- Share Section -->
+                    <div class="mt-8">
+                        <h3 class="font-semibold text-gray-800 mb-4">Share Your Achievement</h3>
+                        <div class="share-buttons">
+                            <button class="share-btn linkedin" id="shareLinkedin" title="Share on LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </button>
+                            <button class="share-btn twitter" id="shareTwitter" title="Share on Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </button>
+                            <button class="share-btn facebook" id="shareFacebook" title="Share on Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Download Button -->
+                    <button class="download-btn" id="downloadBtn">
+                        <i class="fas fa-download mr-2"></i>Download Certificate
+                    </button>
+
+                    <!-- Back Button -->
+                    <a href="courses.html" class="download-btn" style="display: inline-block; margin-left: 10px; text-decoration: none;">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Courses
+                    </a>
+                </div>
+            </div>
+
+            <!-- Not Found Section -->
+            <div id="notFoundContainer" style="display: none;">
+                <div class="not-found">
+                    <i class="fas fa-exclamation-triangle text-4xl mb-4"></i>
+                    <h2 class="text-2xl font-bold mb-3">Certificate Not Found</h2>
+                    <p class="mb-4">The certificate ID you entered could not be verified. Please check the ID and try again.</p>
+                    <p class="text-sm mb-6">Certificate IDs are case-sensitive and follow the format: CERT-XXXXXXXX</p>
+                    <a href="quiz.html" class="download-btn" style="display: inline-block; text-decoration: none;">
+                        <i class="fas fa-arrow-left mr-2"></i>Take the Quiz
+                    </a>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingContainer" style="display: none;" class="text-center py-12">
+                <div class="inline-block">
+                    <i class="fas fa-spinner fa-spin text-4xl brand-orange mb-4"></i>
+                    <p class="text-gray-600 mt-4">Verifying certificate...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white mt-16 py-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-gray-400">&copy; 2025 BrandMark Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode.js/1.5.3/qrcode.min.js"></script>
+    <script>
+        const certificateId = new URLSearchParams(window.location.search).get('id');
+        const searchBtn = document.getElementById('searchBtn');
+        const certificateInput = document.getElementById('certificateId');
+
+        // Sample certificate data (in production, this would come from backend)
+        const sampleCertificates = {
+            'C1E89F4D6E68': {
+                studentName: 'John Doe',
+                course: 'Digital Marketing Mastery with Gen AI',
+                score: 85,
+                issueDate: 'January 15, 2026',
+                certificateId: 'CERT-C1E89F4D6E68',
+                status: 'valid'
+            },
+            'CERT-C1E89F4D6E68': {
+                studentName: 'Jane Smith',
+                course: 'Digital Marketing Mastery with Gen AI',
+                score: 92,
+                issueDate: 'January 10, 2026',
+                certificateId: 'CERT-C1E89F4D6E68',
+                status: 'valid'
+            }
+        };
+
+        // If certificate ID is in URL, auto-search
+        if (certificateId) {
+            certificateInput.value = certificateId;
+            verifyCertificate();
+        }
+
+        searchBtn.addEventListener('click', verifyCertificate);
+        certificateInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                verifyCertificate();
+            }
+        });
+
+        async function verifyCertificate() {
+            const certId = certificateInput.value.trim().toUpperCase();
+            
+            if (!certId) {
+                alert('Please enter a certificate ID');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('loadingContainer').style.display = 'block';
+            document.getElementById('certificateContainer').style.display = 'none';
+            document.getElementById('notFoundContainer').style.display = 'none';
+
+            // Simulate API call
+            setTimeout(() => {
+                verifyFromBackend(certId);
+            }, 1500);
+        }
+
+        async function verifyFromBackend(certId) {
+            try {
+                // Try the actual API endpoint first
+                const response = await fetch(`/api/quiz/verify-certificate/${certId}`);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    displayCertificate(data);
+                } else {
+                    // Fallback to sample data for demo
+                    if (certId in sampleCertificates || certId === 'C1E89F4D6E68') {
+                        const cert = sampleCertificates[certId] || sampleCertificates['C1E89F4D6E68'];
+                        displayCertificate(cert);
+                    } else {
+                        showNotFound();
+                    }
+                }
+            } catch (error) {
+                console.log('Backend not available, using sample data');
+                if (certificateInput.value.toUpperCase() === 'C1E89F4D6E68') {
+                    displayCertificate(sampleCertificates['C1E89F4D6E68']);
+                } else {
+                    showNotFound();
+                }
+            }
+        }
+
+        function displayCertificate(data) {
+            document.getElementById('loadingContainer').style.display = 'none';
+            document.getElementById('certificateContainer').style.display = 'block';
+            document.getElementById('notFoundContainer').style.display = 'none';
+
+            // Update certificate display
+            document.getElementById('certStudentName').textContent = data.studentName || 'Student Name';
+            document.getElementById('certCourseName').textContent = data.course || 'Digital Marketing Mastery with Gen AI';
+            document.getElementById('certIdDisplay').textContent = data.certificateId || certificateInput.value.toUpperCase();
+            document.getElementById('certStatus').textContent = 'Verified';
+            document.getElementById('certIssuedAt').textContent = data.issueDate || new Date().toLocaleDateString();
+
+            // Update details section
+            document.getElementById('detailCourse').textContent = data.course || 'Digital Marketing';
+            document.getElementById('detailScore').textContent = (data.score || 80) + '%';
+            document.getElementById('detailIssued').textContent = data.issueDate || new Date().toLocaleDateString();
+
+            // Generate QR Code
+            generateQRCode(data.certificateId || certificateInput.value.toUpperCase());
+
+            // Set up share buttons
+            setupShareButtons(data);
+
+            // Scroll to certificate
+            document.getElementById('certificateContainer').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showNotFound() {
+            document.getElementById('loadingContainer').style.display = 'none';
+            document.getElementById('certificateContainer').style.display = 'none';
+            document.getElementById('notFoundContainer').style.display = 'block';
+        }
+
+        function generateQRCode(certificateId) {
+            const container = document.getElementById('certQRContainer');
+            container.innerHTML = ''; // Clear previous QR code
+            
+            const verificationUrl = `${window.location.origin}/verify-certificate.html?id=${certificateId}`;
+            
+            // Create QR code
+            const qr = new QRCode(container, {
+                text: verificationUrl,
+                width: 150,
+                height: 150,
+                colorDark: '#0B2C4D',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
+
+        function setupShareButtons(data) {
+            const courseUrl = encodeURIComponent(window.location.href);
+            const message = `I just completed the ${data.course || 'Digital Marketing Mastery'} course on BrandMark with a score of ${data.score || 80}%! Check out my certificate.`;
+
+            document.getElementById('shareLinkedin').onclick = () => {
+                window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${courseUrl}`, '_blank');
+            };
+
+            document.getElementById('shareTwitter').onclick = () => {
+                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}&url=${courseUrl}`, '_blank');
+            };
+
+            document.getElementById('shareFacebook').onclick = () => {
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${courseUrl}`, '_blank');
+            };
+
+            document.getElementById('downloadBtn').onclick = () => {
+                window.print();
+            };
+        }
+    </script>
+</body>
+</html>

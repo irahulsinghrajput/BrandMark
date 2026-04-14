@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 3: Analytics & Metrics | BrandMark Course</title>
+    <meta name="description" content="Master digital marketing analytics, KPIs, and metrics tracking. Learn to measure campaign performance and drive data-driven decisions.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-navy': '#0B2C4D',
+                        'brand-navy-dark': '#081F36',
+                        'brand-orange': '#F26A21',
+                        'brand-orange-dark': '#E65C17'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="brandmark.css">
+    <style>
+        .lesson-content {
+            background: white;
+            color: #1f2937;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+        
+        .lesson-content h2 {
+            color: #F26A21;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .lesson-content h3 {
+            color: #1f2937;
+            margin-top: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .lesson-content ul, .lesson-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .lesson-content li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        
+        .highlight-box {
+            background: #f0f9ff;
+            border-left: 4px solid #F26A21;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        
+        .metric-box {
+            background: #f3f4f6;
+            border: 2px solid #dbeafe;
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .module-nav {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .module-nav a {
+            padding: 0.75rem 1.5rem;
+            background: #F26A21;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        
+        .module-nav a:hover {
+            background: #E65C17;
+        }
+    </style>
+</head>
+<body class="bg-brand-black text-white font-[Outfit]">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-nav backdrop-blur-md bg-brand-black/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark" class="h-10 w-10 rounded-full">
+                    <span class="font-bold text-xl hidden sm:inline">BrandMark</span>
+                </a>
+                
+                <button id="mobile-menu-btn" class="md:hidden text-xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <div id="mobile-menu" class="hidden md:flex md:items-center space-x-6">
+                    <a href="courses.html" class="hover:text-brand-orange transition">Courses</a>
+                    <a href="digital-marketing-course.html" class="hover:text-brand-orange transition">Back to Course</a>
+                    <a href="index.html" class="hover:text-brand-orange transition">Home</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Module Header -->
+    <section class="bg-brand-dark pt-24 pb-8 px-4 sm:px-6 lg:px-8 border-b border-gray-800">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-4">
+                <a href="digital-marketing-course.html" class="text-brand-orange hover:text-brand-orange-dark">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Course
+                </a>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Module 3: Analytics & Metrics Fundamentals</h1>
+            <div class="flex items-center gap-4 text-gray-100">
+                <span><i class="fas fa-clock mr-2"></i>4 hours</span>
+                <span><i class="fas fa-bookmark mr-2"></i>5 lessons</span>
+                <span class="px-3 py-1 bg-green-900 bg-opacity-30 text-green-300 rounded-full text-sm">Beginner Level</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Objectives -->
+    <section class="bg-brand-dark px-4 sm:px-6 lg:px-8 py-8">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bold mb-4">Learning Objectives</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-brand-gray p-4 rounded-lg">
+                    <p class="flex items-start"><i class="fas fa-check text-green-400 mr-3 mt-1"></i> Understand key marketing metrics and KPIs</p>
+                </div>
+                <div class="bg-brand-gray p-4 rounded-lg">
+                    <p class="flex items-start"><i class="fas fa-check text-green-400 mr-3 mt-1"></i> Set up analytics tracking properly</p>
+                </div>
+                <div class="bg-brand-gray p-4 rounded-lg">
+                    <p class="flex items-start"><i class="fas fa-check text-green-400 mr-3 mt-1"></i> Analyze campaign performance data</p>
+                </div>
+                <div class="bg-brand-gray p-4 rounded-lg">
+                    <p class="flex items-start"><i class="fas fa-check text-green-400 mr-3 mt-1"></i> Create dashboards and reports</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="px-4 sm:px-6 lg:px-8 py-12">
+        <div class="max-w-4xl mx-auto">
+            <div class="lesson-content">
+                <h2>1. Why Marketing Analytics Matters</h2>
+                <p>Data is the foundation of modern marketing. Without analytics, you're flying blind—spending money without knowing if it's working.</p>
+                
+                <div class="highlight-box">
+                    <p><strong>The Reality:</strong> Companies that use analytics data effectively see 5-8x better ROI than those that don't. Analytics isn't optional—it's essential for competitive advantage.</p>
+                </div>
+
+                <h3>Benefits of Analytics</h3>
+                <ul>
+                    <li><strong>Accountability:</strong> Prove the value of marketing to leadership</li>
+                    <li><strong>Optimization:</strong> Identify what works and what doesn't</li>
+                    <li><strong>Efficiency:</strong> Allocate budget to high-performing channels</li>
+                    <li><strong>Predictability:</strong> Forecast future performance and growth</li>
+                    <li><strong>Strategy:</strong> Make data-driven decisions, not gut-based ones</li>
+                </ul>
+
+                <h2>2. Key Marketing Metrics Explained</h2>
+
+                <h3>Traffic & Reach Metrics</h3>
+                <div class="metric-box">
+                    <p><strong>Impressions:</strong> Number of times your content/ad is displayed (viewed by an audience)</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666;">Example: Your ad appears 10,000 times on Facebook = 10,000 impressions</p>
+                </div>
+
+                <div class="metric-box">
+                    <p><strong>Clicks/Click-Through Rate (CTR):</strong> Number of clicks on your ad or link</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666;">CTR % = (Clicks ÷ Impressions) × 100<br>Example: 500 clicks from 10,000 impressions = 5% CTR</p>
+                </div>
+
+                <div class="metric-box">
+                    <p><strong>Reach:</strong> Number of unique people who see your content</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666;">Different from impressions: one person can see multiple times, but reach counts them once</p>
+                </div>
+
+                <div class="metric-box">
+                    <p><strong>Website Traffic:</strong> Number of people visiting your website</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666;">Tracked by Google Analytics. Includes new visitors and returning visitors.</p>
+                </div>
+
+                <h3>Engagement Metrics</h3>
+                <div class="metric-box">
+                    <p><strong>Engagement Rate:</strong> Percentage of audience interacting with your content</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666;">Includes likes, comments, shares, reactions on social media</p>
+                </div>
+
+                <div class="metric-box">
+                    <p><strong>Time on Page:</strong> Average time visitors spend on your website page</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666;">Higher time = more engaged; low time = poor content match</p>
+                </div>
+
+                <div class="metric-box">
+                    <p><strong>Bounce Rate:</strong> Percentage of visitors who leave without taking action</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666;">High bounce rate indicates poor page relevance or user experience</p>
+                </div>
+
+                <h3>Conversion Metrics</h3>
+                <div class="metric-box">
+                    <p><strong>Conversions:</strong> Number of desired actions taken (purchase, sign-up, download)</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666;">Your goal defines what counts as a conversion</p>
+                </div>
+
+                <div class="metric-box">
+                    <p><strong>Conversion Rate:</strong> Percentage of visitors who convert</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666;">Conversion Rate = (Conversions ÷ Visitors) × 100<br>Example: 50 purchases from 1,000 visitors = 5% conversion rate</p>
+                </div>
+
+                <div class="metric-box">
+                    <p><strong>Lead Generation:</strong> Number of potential customers captured</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666;">Usually measured by sign-ups, email subscriptions, form submissions</p>
+                </div>
+
+                <h3>Cost & ROI Metrics</h3>
+                <div class="metric-box">
+                    <p><strong>Cost Per Click (CPC):</strong> How much you pay for each click on your ad</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666;">CPC = Total Ad Spend ÷ Total Clicks<br>Example: Spend $1,000 for 500 clicks = $2 CPC</p>
+                </div>
+
+                <div class="metric-box">
+                    <p><strong>Cost Per Acquisition (CPA):</strong> How much it costs to acquire one customer</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666;">CPA = Total Ad Spend ÷ Conversions<br>Example: Spend $5,000 for 100 customers = $50 CPA</p>
+                </div>
+
+                <div class="metric-box">
+                    <p><strong>Return on Investment (ROI):</strong> Profit gained from marketing investments</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666;">ROI % = ((Revenue - Cost) ÷ Cost) × 100<br>Example: Spend $1,000, generate $5,000 revenue = 400% ROI</p>
+                </div>
+
+                <h3>Customer Metrics</h3>
+                <div class="metric-box">
+                    <p><strong>Customer Acquisition Cost (CAC):</strong> Total cost to acquire a new customer</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666;">Includes marketing spend, sales costs, everything needed to convert</p>
+                </div>
+
+                <div class="metric-box">
+                    <p><strong>Customer Lifetime Value (CLV):</strong> Total profit from a customer over their relationship</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666;">CLV = (Average Purchase × Frequency) × Customer Lifespan</p>
+                </div>
+
+                <div class="metric-box">
+                    <p><strong>Churn Rate:</strong> Percentage of customers who stop doing business with you</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666;">Lower churn = better retention and loyalty</p>
+                </div>
+
+                <h2>3. Essential Analytics Tools</h2>
+
+                <h3>Website Analytics</h3>
+                <ul>
+                    <li><strong>Google Analytics 4:</strong> Free, comprehensive website traffic tracking (essential)</li>
+                    <li><strong>Mixpanel:</strong> Advanced user behavior and event tracking</li>
+                    <li><strong>Amplitude:</strong> Product-focused analytics for apps and websites</li>
+                </ul>
+
+                <h3>Advertising Platform Analytics</h3>
+                <ul>
+                    <li><strong>Google Ads Dashboard:</strong> Track keywords, ads, impressions, clicks, conversions</li>
+                    <li><strong>Facebook Ads Manager:</strong> Monitor social media campaign performance</li>
+                    <li><strong>LinkedIn Campaign Manager:</strong> B2B advertising analytics</li>
+                </ul>
+
+                <h3>Dashboard & Reporting Tools</h3>
+                <ul>
+                    <li><strong>Google Data Studio:</strong> Free reporting and visualization tool</li>
+                    <li><strong>Tableau:</strong> Advanced business intelligence and analytics</li>
+                    <li><strong>Meta Business Suite:</strong> Monitor all Meta platforms in one place</li>
+                </ul>
+
+                <h2>4. Setting Up Analytics Properly</h2>
+
+                <h3>Google Analytics Setup</h3>
+                <ol>
+                    <li><strong>Create a Google Analytics account</strong> (free at analytics.google.com)</li>
+                    <li><strong>Add your website</strong> - Get the tracking code</li>
+                    <li><strong>Install tracking code</strong> - Add to every page of your website</li>
+                    <li><strong>Define conversion goals</strong> - What counts as success?</li>
+                    <li><strong>Set up audiences</strong> - Segment visitors for targeted analysis</li>
+                    <li><strong>Create dashboards</strong> - Monitor key metrics daily</li>
+                </ol>
+
+                <h3>Event Tracking (Advanced)</h3>
+                <p>Track specific user actions beyond page views:</p>
+                <ul>
+                    <li>Button clicks</li>
+                    <li>Form submissions</li>
+                    <li>Video plays</li>
+                    <li>Downloads</li>
+                    <li>Sign-ups and purchases</li>
+                </ul>
+
+                <h2>5. Analyzing Your Data</h2>
+
+                <h3>Segment Your Data</h3>
+                <ul>
+                    <li><strong>By Traffic Source:</strong> Organic, paid, email, social, referral</li>
+                    <li><strong>By Device:</strong> Desktop, mobile, tablet</li>
+                    <li><strong>By Geography:</strong> Country, region, city</li>
+                    <li><strong>By User Type:</strong> New vs returning visitors</li>
+                    <li><strong>By Campaign:</strong> Performance by specific campaign</li>
+                </ul>
+
+                <h3>Ask These Questions</h3>
+                <ul>
+                    <li>Which channels drive the most traffic?</li>
+                    <li>What content drives the most conversions?</li>
+                    <li>Where are visitors dropping off?</li>
+                    <li>What's my overall ROI by channel?</li>
+                    <li>Which campaigns underperform?</li>
+                    <li>What's my customer acquisition cost vs lifetime value?</li>
+                </ul>
+
+                <h2>6. Creating Actionable Reports</h2>
+
+                <div class="highlight-box">
+                    <p><strong>Report Formula:</strong> Context + Data + Insights + Recommendations = Actionable Report</p>
+                </div>
+
+                <h3>What to Include</h3>
+                <ol>
+                    <li><strong>Summary:</strong> Top-line metrics and performance overview</li>
+                    <li><strong>Trends:</strong> What's improving? What's declining?</li>
+                    <li><strong>Comparisons:</strong> Month-over-month, year-over-year, vs. benchmarks</li>
+                    <li><strong>Insights:</strong> Why did performance change?</li>
+                    <li><strong>Recommendations:</strong> What should we do next?</li>
+                </ol>
+
+                <h2>Key Takeaways</h2>
+                <div class="bg-blue-900 bg-opacity-20 p-4 rounded-lg">
+                    <ul>
+                        <li>Analytics reveals what's working and what's not in your marketing</li>
+                        <li>Key metrics include traffic, engagement, conversions, and ROI</li>
+                        <li>Google Analytics is essential for website tracking</li>
+                        <li>Properly set up goals and event tracking from day one</li>
+                        <li>Segment data to uncover insights</li>
+                        <li>Create actionable reports that drive decision-making</li>
+                    </ul>
+                </div>
+
+                <!-- Module Navigation -->
+                <div class="module-nav">
+                    <a href="course-module-2.html">
+                        <i class="fas fa-arrow-left mr-2"></i>Previous
+                    </a>
+                    <a href="course-module-4.html">
+                        Next Module<i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Lesson Resources -->
+            <div class="mt-8 bg-brand-dark p-6 rounded-lg border border-gray-800">
+                <h3 class="text-xl font-bold mb-4">Downloads & Resources</h3>
+                <div class="space-y-3">
+                    <a href="#" class="flex items-center p-3 bg-brand-gray rounded hover:bg-brand-accent/20 transition">
+                        <i class="fas fa-file-pdf text-red-400 mr-3"></i>
+                        <div>
+                            <p class="font-semibold">Marketing Metrics & KPI Master List</p>
+                            <p class="text-sm text-gray-400">PDF - 2.8 MB</p>
+                        </div>
+                    </a>
+                    <a href="#" class="flex items-center p-3 bg-brand-gray rounded hover:bg-brand-accent/20 transition">
+                        <i class="fas fa-file-excel text-green-400 mr-3"></i>
+                        <div>
+                            <p class="font-semibold">Analytics Dashboard Template</p>
+                            <p class="text-sm text-gray-400">XLSX - 4.2 MB</p>
+                        </div>
+                    </a>
+                    <a href="#" class="flex items-center p-3 bg-brand-gray rounded hover:bg-brand-accent/20 transition">
+                        <i class="fas fa-file-word text-blue-400 mr-3"></i>
+                        <div>
+                            <p class="font-semibold">GA4 Implementation Guide</p>
+                            <p class="text-sm text-gray-400">DOCX - 3.5 MB</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Module Completion Section -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h3 class="text-2xl font-bold text-brand-navy mb-4">Lesson Complete?</h3>
+                <p class="text-gray-600 mb-6">Track your progress through the course. Mark this lesson as complete to continue to the quiz.</p>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button onclick="markAsComplete('module-3')" class="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold py-3 px-6 rounded-lg transition flex items-center justify-center gap-2">
+                        <i class="fas fa-check-circle"></i>Mark as Complete
+                    </button>
+                    <a href="quiz.html" class="flex-1 bg-brand-navy hover:bg-brand-navy-dark text-white font-semibold py-3 px-6 rounded-lg transition flex items-center justify-center gap-2 text-decoration-none">
+                        <i class="fas fa-clipboard-check"></i>Take Quiz
+                    </a>
+                </div>
+                
+                <div id="completionMessage" style="display: none;" class="mt-4 p-4 bg-green-100 text-green-700 rounded-lg flex items-center gap-2">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Great! Module 3 marked as complete. You're ready for the quiz!</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark border-t border-gray-800 py-12 px-4 sm:px-6 lg:px-8 mt-12">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div>
+                    <h4 class="font-bold mb-2">BrandMark Digital Marketing Course</h4>
+                    <p class="text-gray-400 text-sm">Master analytics and data-driven marketing</p>
+                </div>
+                <div class="mt-4 md:mt-0 text-center text-gray-400 text-sm">
+                    <p>&copy; 2025 BrandMark Solutions. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="brandmark.js"></script>
+    <script>
+        async function markAsComplete(moduleName) {
+            try {
+                const enrollmentId = localStorage.getItem('enrollmentId');
+                
+                if (!enrollmentId) {
+                    alert('Please enroll in the course first to track your progress.');
+                    window.location.href = 'courses.html';
+                    return;
+                }
+
+                const btn = event.target.closest('button');
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+                btn.disabled = true;
+
+                const response = await fetch('/api/courses/digital-marketing-001/progress', {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        enrollmentId: enrollmentId,
+                        courseId: 'digital-marketing-001',
+                        completedLessons: [moduleName]
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    document.getElementById('completionMessage').style.display = 'flex';
+                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+                    btn.classList.add('opacity-75');
+                    document.getElementById('completionMessage').scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+                    if (!completedLessons.includes(moduleName)) {
+                        completedLessons.push(moduleName);
+                    }
+                    localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+                    
+                    document.getElementById('completionMessage').style.display = 'flex';
+                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+                    btn.classList.add('opacity-75');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+                if (!completedLessons.includes(moduleName)) {
+                    completedLessons.push(moduleName);
+                }
+                localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+                
+                document.getElementById('completionMessage').style.display = 'flex';
+                event.target.closest('button').innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+                event.target.closest('button').classList.add('opacity-75');
+            }
+        }
+    </script>
+</body>
+</html>

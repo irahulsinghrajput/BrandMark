@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Marketing Course | Gen AI Mastery | BrandMark Solutions</title>
+    <meta name="description" content="Learn Digital Marketing with Gen AI integration. Comprehensive course covering strategies, tools, and AI-powered techniques for modern marketers.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-navy': '#0B2C4D',
+                        'brand-navy-dark': '#081F36',
+                        'brand-orange': '#F26A21',
+                        'brand-orange-dark': '#E65C17'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="brandmark.css">
+    <style>
+        .course-hero {
+            background: linear-gradient(135deg, #0B2C4D 0%, #081F36 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .course-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.05" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,144C960,149,1056,139,1152,128C1248,117,1344,107,1392,101.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-repeat: no-repeat;
+            background-position: bottom;
+        }
+        
+        .course-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .course-card:hover {
+            background: rgba(242, 106, 33, 0.1);
+            border-color: rgba(242, 106, 33, 0.3);
+            transform: translateY(-4px);
+        }
+        
+        .module-card {
+            background: white;
+            border-left: 4px solid #F26A21;
+            transition: all 0.3s ease;
+        }
+        
+        .module-card:hover {
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+        
+        .ai-badge {
+            background: linear-gradient(135deg, #F26A21, #E65C17);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="bg-brand-navy-dark text-white font-[Outfit]">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-nav backdrop-blur-md bg-brand-navy/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="flex items-center space-x-2">
+                    <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark" class="h-10 w-10 rounded-full">
+                    <span class="font-bold text-xl hidden sm:inline">BrandMark</span>
+                </a>
+                
+                <button id="mobile-menu-btn" class="md:hidden text-xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <div id="mobile-menu" class="hidden md:flex md:items-center space-x-6">
+                    <a href="index.html" class="hover:text-brand-orange transition">Home</a>
+                    <a href="courses.html" class="hover:text-brand-orange transition">Courses</a>
+                    <a href="brandmarkservices.html" class="hover:text-brand-orange transition">Services</a>
+                    <a href="brandmarkAboutUs.html" class="hover:text-brand-orange transition">About</a>
+                    <a href="brandmarkcareers.html" class="hover:text-brand-orange transition">Careers</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="course-hero pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-5xl mx-auto text-center">
+            <div class="mb-6">
+                <span class="ai-badge">NEW COURSE</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white">
+                Digital Marketing Mastery with <span class="text-brand-orange">Gen AI</span>
+            </h1>
+            <p class="text-lg text-gray-100 mb-8 max-w-3xl mx-auto">
+                Learn proven digital marketing strategies combined with cutting-edge Generative AI tools. Transform your campaigns, automate workflows, and drive real results.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#curriculum" class="bg-brand-orange hover:bg-brand-orange-dark text-white px-8 py-3 rounded-lg font-semibold transition">
+                    View Curriculum
+                </a>
+                <a href="#modules" class="border border-brand-orange hover:bg-brand-orange/10 text-brand-orange px-8 py-3 rounded-lg font-semibold transition">
+                    Explore Modules
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Stats -->
+    <section class="bg-brand-navy py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="text-center fade-in-up">
+                <h3 class="text-4xl font-bold text-brand-orange mb-2">15+</h3>
+                <p class="text-gray-100">Comprehensive Modules</p>
+            </div>
+            <div class="text-center fade-in-up">
+                <h3 class="text-4xl font-bold text-brand-orange mb-2">50+</h3>
+                <p class="text-gray-100">Lessons & Resources</p>
+            </div>
+            <div class="text-center fade-in-up">
+                <h3 class="text-4xl font-bold text-brand-orange mb-2">100%</h3>
+                <p class="text-gray-100">AI-Powered Strategies</p>
+            </div>
+            <div class="text-center fade-in-up">
+                <h3 class="text-4xl font-bold text-brand-orange mb-2">Expert</h3>
+                <p class="text-gray-100">Industry Training</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- What You'll Learn -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-brand-navy-dark">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-white">What You'll Master</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="course-card p-6 rounded-lg fade-in-up">
+                    <i class="fas fa-bullseye text-brand-orange text-3xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3 text-white">Digital Marketing Fundamentals</h3>
+                    <p class="text-gray-100">Master core concepts of SEO, SEM, social media, email, and content marketing strategies.</p>
+                </div>
+                <div class="course-card p-6 rounded-lg fade-in-up">
+                    <i class="fas fa-brain text-brand-orange text-3xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3 text-white">Gen AI Integration</h3>
+                    <p class="text-gray-100">Learn to leverage ChatGPT, Claude, and other GEN AI tools to boost productivity 10x.</p>
+                </div>
+                <div class="course-card p-6 rounded-lg fade-in-up">
+                    <i class="fas fa-chart-line text-brand-orange text-3xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3 text-white">Data & Analytics</h3>
+                    <p class="text-gray-100">Analyze campaign performance, understand metrics, and make data-driven decisions.</p>
+                </div>
+                <div class="course-card p-6 rounded-lg fade-in-up">
+                    <i class="fas fa-robot text-brand-orange text-3xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3 text-white">Automation & Optimization</h3>
+                    <p class="text-gray-100">Automate workflows, optimize campaigns, and scale your marketing efforts efficiently.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculum Section -->
+    <section id="curriculum" class="py-20 px-4 sm:px-6 lg:px-8 bg-brand-navy">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-white">Course Curriculum</h2>
+            
+            <!-- Module Category: Foundations -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold mb-6 text-brand-orange">
+                    <i class="fas fa-layer-group mr-3"></i>Foundation (Modules 1-3)
+                </h3>
+                <div class="space-y-4">
+                    <a href="course-module-1.html" class="module-card p-6 rounded-lg block">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-lg font-bold mb-2">Module 1: Digital Marketing Fundamentals</h4>
+                                <p class="text-gray-100">Understand the digital landscape, channels, and core strategies</p>
+                            </div>
+                            <span class="ai-badge ml-4">Beginner</span>
+                        </div>
+                    </a>
+                    <a href="course-module-2.html" class="module-card p-6 rounded-lg block">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-lg font-bold mb-2">Module 2: Introduction to Gen AI for Marketing</h4>
+                                <p class="text-gray-100">Explore AI tools, capabilities, and ethical considerations</p>
+                            </div>
+                            <span class="ai-badge ml-4">Beginner</span>
+                        </div>
+                    </a>
+                    <a href="course-module-3.html" class="module-card p-6 rounded-lg block">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-lg font-bold mb-2">Module 3: Analytics & Metrics Fundamentals</h4>
+                                <p class="text-gray-100">Learn key metrics, KPIs, and dashboard setup</p>
+                            </div>
+                            <span class="ai-badge ml-4">Beginner</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Module Category: Content & Copywriting -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold mb-6 text-brand-orange">
+                    <i class="fas fa-pen-fancy mr-3"></i>Content & Copywriting (Modules 4-6)
+                </h3>
+                <div class="space-y-4">
+                    <a href="course-module-4.html" class="module-card p-6 rounded-lg block">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-lg font-bold mb-2">Module 4: AI-Powered Content Creation</h4>
+                                <p class="text-gray-100">Use ChatGPT, Claude to create engaging blog posts, emails, and ads</p>
+                            </div>
+                            <span class="ai-badge ml-4">Intermediate</span>
+                        </div>
+                    </a>
+                    <a href="course-module-5.html" class="module-card p-6 rounded-lg block">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-lg font-bold mb-2">Module 5: SEO & AI-Enhanced Copywriting</h4>
+                                <p class="text-gray-100">Optimize content for search engines using AI tools</p>
+                            </div>
+                            <span class="ai-badge ml-4">Intermediate</span>
+                        </div>
+                    </a>
+                    <a href="course-module-6.html" class="module-card p-6 rounded-lg block">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-lg font-bold mb-2">Module 6: Email Marketing & Automation</h4>
+                                <p class="text-gray-100">Design campaigns with AI personalization and automation</p>
+                            </div>
+                            <span class="ai-badge ml-4">Intermediate</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Module Category: Paid Advertising -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold mb-6 text-brand-orange">
+                    <i class="fas fa-credit-card mr-3"></i>Paid Advertising (Modules 7-9)
+                </h3>
+                <div class="space-y-4">
+                    <a href="course-module-7.html" class="module-card p-6 rounded-lg block">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-lg font-bold mb-2">Module 7: Google Ads & AI Bidding Strategies</h4>
+                                <p class="text-gray-100">Master Google Ads with smart bidding and AI optimization</p>
+                            </div>
+                            <span class="ai-badge ml-4">Advanced</span>
+                        </div>
+                    </a>
+                    <a href="course-module-8.html" class="module-card p-6 rounded-lg block">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-lg font-bold mb-2">Module 8: Facebook & Social Ads with AI</h4>
+                                <p class="text-gray-100">Create targeted campaigns using Meta's AI tools and audience insights</p>
+                            </div>
+                            <span class="ai-badge ml-4">Advanced</span>
+                        </div>
+                    </a>
+                    <a href="course-module-9.html" class="module-card p-6 rounded-lg block">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-lg font-bold mb-2">Module 9: Performance Marketing & ROI Optimization</h4>
+                                <p class="text-gray-100">Maximize ROI, attribution, and campaign performance</p>
+                            </div>
+                            <span class="ai-badge ml-4">Advanced</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Module Category: Social & Influencer -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold mb-6 text-brand-orange">
+                    <i class="fas fa-share-nodes mr-3"></i>Social Media & Influencer (Modules 10-12)
+                </h3>
+                <div class="space-y-4">
+                    <a href="course-module-10.html" class="module-card p-6 rounded-lg block">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-lg font-bold mb-2">Module 10: Social Media Strategy with AI</h4>
+                                <p class="text-gray-100">Plan, create, and schedule content with AI assistance</p>
+                            </div>
+                            <span class="ai-badge ml-4">Intermediate</span>
+                        </div>
+                    </a>
+                    <a href="course-module-11.html" class="module-card p-6 rounded-lg block">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-lg font-bold mb-2">Module 11: Community Management & Engagement</h4>
+                                <p class="text-gray-100">Build communities using AI-powered engagement tools</p>
+                            </div>
+                            <span class="ai-badge ml-4">Intermediate</span>
+                        </div>
+                    </a>
+                    <a href="course-module-12.html" class="module-card p-6 rounded-lg block">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-lg font-bold mb-2">Module 12: Influencer Marketing Strategies</h4>
+                                <p class="text-gray-100">Find, collaborate with, and measure influencer campaigns</p>
+                            </div>
+                            <span class="ai-badge ml-4">Advanced</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Module Category: Advanced & Strategy -->
+            <div>
+                <h3 class="text-2xl font-bold mb-6 text-brand-orange">
+                    <i class="fas fa-chess mr-3"></i>Advanced Strategy (Modules 13-15)
+                </h3>
+                <div class="space-y-4">
+                    <a href="course-module-13.html" class="module-card p-6 rounded-lg block">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-lg font-bold mb-2">Module 13: AI-Powered Personalization & Dynamic Content</h4>
+                                <p class="text-gray-100">Create personalized experiences at scale with AI</p>
+                            </div>
+                            <span class="ai-badge ml-4">Advanced</span>
+                        </div>
+                    </a>
+                    <a href="course-module-14.html" class="module-card p-6 rounded-lg block">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-lg font-bold mb-2">Module 14: MarTech Stack & AI Tools Integration</h4>
+                                <p class="text-gray-100">Build and integrate your marketing tech stack with AI</p>
+                            </div>
+                            <span class="ai-badge ml-4">Advanced</span>
+                        </div>
+                    </a>
+                    <a href="course-module-15.html" class="module-card p-6 rounded-lg block">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h4 class="text-lg font-bold mb-2">Module 15: Case Studies & Real-World Applications</h4>
+                                <p class="text-gray-100">Learn from real campaigns and create your own strategy</p>
+                            </div>
+                            <span class="ai-badge ml-4">Capstone</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key AI Tools Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-brand-navy-dark">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-white">Gen AI Tools You'll Master</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-brand-navy p-6 rounded-lg border-l-4 border-brand-orange fade-in-up">
+                    <h3 class="text-xl font-bold mb-3">Content Creation</h3>
+                    <ul class="text-gray-100 space-y-2">
+                        <li><i class="fas fa-check text-brand-orange mr-2"></i>ChatGPT & OpenAI</li>
+                        <li><i class="fas fa-check text-brand-orange mr-2"></i>Claude (Anthropic)</li>
+                        <li><i class="fas fa-check text-brand-orange mr-2"></i>Jasper & Copy.ai</li>
+                    </ul>
+                </div>
+                <div class="bg-brand-navy p-6 rounded-lg border-l-4 border-brand-orange fade-in-up">
+                    <h3 class="text-xl font-bold mb-3">Images & Design</h3>
+                    <ul class="text-gray-100 space-y-2">
+                        <li><i class="fas fa-check text-brand-orange mr-2"></i>DALL-E & Midjourney</li>
+                        <li><i class="fas fa-check text-brand-orange mr-2"></i>Canva with AI</li>
+                        <li><i class="fas fa-check text-brand-orange mr-2"></i>Adobe Firefly</li>
+                    </ul>
+                </div>
+                <div class="bg-brand-navy p-6 rounded-lg border-l-4 border-brand-orange fade-in-up">
+                    <h3 class="text-xl font-bold mb-3">Analytics & Automation</h3>
+                    <ul class="text-gray-100 space-y-2">
+                        <li><i class="fas fa-check text-brand-orange mr-2"></i>Google Analytics with ML</li>
+                        <li><i class="fas fa-check text-brand-orange mr-2"></i>HubSpot AI</li>
+                        <li><i class="fas fa-check text-brand-orange mr-2"></i>Make.com Automations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-brand-navy">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">Ready to Transform Your Marketing?</h2>
+            <p class="text-lg text-gray-100 mb-8">Start learning today and unlock the power of AI-driven digital marketing strategies.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="initiatePayment()" class="bg-brand-orange hover:bg-brand-orange-dark text-white px-8 py-3 rounded-lg font-semibold transition cursor-pointer">
+                    <i class="fas fa-shopping-cart mr-2"></i>Enroll Now (₹49)
+                </button>
+                <a href="quote-request.html" class="border border-brand-orange hover:bg-brand-orange/10 text-brand-orange px-8 py-3 rounded-lg font-semibold transition">
+                    Get in Touch
+                </a>
+            </div>
+            <p class="text-gray-300 text-sm mt-4"><i class="fas fa-lock mr-1"></i>Secure payment via Razorpay</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-navy-dark border-t border-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h4 class="font-bold mb-4 text-white">BrandMark</h4>
+                    <p class="text-gray-200 text-sm">Leading digital marketing solutions for growing businesses.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-white">Quick Links</h4>
+                    <ul class="text-gray-200 text-sm space-y-2">
+                        <li><a href="index.html" class="hover:text-white transition">Home</a></li>
+                        <li><a href="brandmarkservices.html" class="hover:text-white transition">Services</a></li>
+                        <li><a href="brandmarkAboutUs.html" class="hover:text-white transition">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-white">Resources</h4>
+                    <ul class="text-gray-200 text-sm space-y-2">
+                        <li><a href="brandmarkpersonalblogs.html" class="hover:text-white transition">Blog</a></li>
+                        <li><a href="privacy-policy.html" class="hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html" class="hover:text-white transition">Terms</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4 text-white">Connect</h4>
+                    <ul class="text-gray-200 text-sm space-y-2">
+                        <li><a href="#" class="hover:text-white transition"><i class="fab fa-facebook mr-2"></i>Facebook</a></li>
+                        <li><a href="#" class="hover:text-white transition"><i class="fab fa-linkedin mr-2"></i>LinkedIn</a></li>
+                        <li><a href="#" class="hover:text-white transition"><i class="fab fa-twitter mr-2"></i>Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-300 text-sm">
+                <p>&copy; 2025 BrandMark Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="brandmark.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        // Configuration for API endpoints - Environment aware
+        const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:5000/api'
+            : 'https://brandmark-backend.onrender.com/api';
+        
+        async function initiatePayment() {
+            try {
+                // Step 1: Get user email
+                const email = prompt('Enter your email address:', 'kumarrahul85181@gmail.com');
+                
+                if (!email) {
+                    alert('❌ Email is required to proceed');
+                    return;
+                }
+
+                // Validate email format
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    alert('❌ Please enter a valid email address');
+                    return;
+                }
+
+                console.log('📧 Email entered:', email);
+                console.log('📡 Connecting to API at:', API_BASE_URL);
+
+                // Step 2: Create order on backend
+                const orderResponse = await fetch(`${API_BASE_URL}/courses/digital-marketing-001/order`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('authToken') || ''}`
+                    },
+                    body: JSON.stringify({
+                        courseTitle: 'Digital Marketing Mastery with Gen AI',
+                        amount: 4900, // ₹49 in paise
+                        email: email
+                    })
+                });
+
+                console.log('Response status:', orderResponse.status);
+
+                if (!orderResponse.ok) {
+                    const errorData = await orderResponse.json().catch(() => ({}));
+                    console.error('Order creation failed:', errorData);
+                    
+                    if (orderResponse.status === 401) {
+                        alert('⚠️ Authentication required. You may need to log in first.');
+                        return;
+                    }
+                    
+                    throw new Error(errorData.message || `Failed to create order (Status: ${orderResponse.status})`);
+                }
+
+                const orderData = await orderResponse.json();
+                console.log('✅ Order created:', orderData);
+
+                if (!orderData.success || !orderData.data || !orderData.data.orderId) {
+                    throw new Error('⚠️ Invalid response from server. Check console for details.');
+                }
+
+                // Step 3: Open Razorpay checkout
+                const options = {
+                    key: orderData.data.keyId, // Razorpay Key ID from backend
+                    amount: orderData.data.amount,
+                    currency: 'INR',
+                    name: 'BrandMark Solutions',
+                    description: 'Digital Marketing Mastery with Gen AI Course',
+                    order_id: orderData.data.orderId,
+                    handler: async function(response) {
+                        console.log('💳 Payment response:', response);
+                        
+                        // Step 4: Verify payment on backend
+                        try {
+                            const verifyResponse = await fetch(`${API_BASE_URL}/courses/payment/verify`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${localStorage.getItem('authToken') || ''}`
+                                },
+                                body: JSON.stringify({
+                                    razorpay_order_id: response.razorpay_order_id,
+                                    razorpay_payment_id: response.razorpay_payment_id,
+                                    razorpay_signature: response.razorpay_signature,
+                                    courseId: 'digital-marketing-001',
+                                    email: email
+                                })
+                            });
+
+                            const verifyData = await verifyResponse.json();
+                            console.log('✅ Payment verified:', verifyData);
+
+                            if (verifyData.success) {
+                                // Payment successful
+                                localStorage.setItem('enrollmentId', verifyData.data.enrollmentId);
+                                localStorage.setItem('userEmail', email);
+                                alert('🎉 Payment successful! You are now enrolled in the course.');
+                                window.location.href = 'digital-marketing-course.html';
+                            } else {
+                                alert('❌ Payment verification failed: ' + (verifyData.message || 'Unknown error'));
+                            }
+                        } catch (error) {
+                            console.error('Verification error:', error);
+                            alert('✅ Payment completed! Enrollment is being processed. You should receive a confirmation email shortly.');
+                        }
+                    },
+                    prefill: {
+                        email: email
+                    },
+                    theme: {
+                        color: '#F26A21'
+                    },
+                    modal: {
+                        ondismiss: function() {
+                            console.log('Checkout closed by user');
+                        }
+                    }
+                };
+
+                console.log('Razorpay options:', options);
+                const rzp = new Razorpay(options);
+                
+                rzp.on('payment.failed', function(response) {
+                    console.error('Payment failed:', response.error);
+                    alert('❌ Payment failed: ' + (response.error.description || 'Unknown error'));
+                });
+                
+                rzp.open();
+
+            } catch (error) {
+                console.error('❌ Error in initiatePayment:', error);
+                alert('❌ Error: ' + error.message + '\n\nPlease check the console (F12) for details and contact support if the issue persists.');
+            }
+        }
+    </script>
+
+                            }
+                        } catch (error) {
+                            console.error('Error verifying payment:', error);
+                            alert('Payment completed but verification failed. Please contact support.');
+                        }
+                    },
+                    prefill: {
+                        email: localStorage.getItem('userEmail') || prompt('Enter email:'),
+                        contact: prompt('Enter phone number (optional):') || ''
+                    },
+                    theme: {
+                        color: '#F26A21'
+                    },
+                    modal: {
+                        ondismiss: function() {
+                            console.log('Payment modal closed');
+                        }
+                    }
+                };
+
+                const rzp = new Razorpay(options);
+                rzp.on('payment.failed', function(response) {
+                    console.error('Payment failed:', response.error);
+                    alert('❌ Payment failed: ' + response.error.description);
+                });
+                rzp.open();
+
+            } catch (error) {
+                console.error('Error initiating payment:', error);
+                alert('Error initiating payment. Please try again. Error: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>
