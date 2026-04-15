@@ -64,5 +64,24 @@ const isSuperAdmin = (req, res, next) => {
     }
 };
 
+// Check if user/admin is admin
+const isAdmin = (req, res, next) => {
+    if (req.admin && (req.admin.role === 'admin' || req.admin.role === 'superadmin')) {
+        next();
+    } else {
+        res.status(403).json({
+            success: false,
+            message: 'Access denied. Admin privileges required.'
+        });
+    }
+};
+
+// Alias verifyToken to auth for consistency
+const verifyToken = auth;
+const authenticateToken = auth;
+
 module.exports = auth;
+module.exports.verifyToken = verifyToken;
+module.exports.authenticateToken = authenticateToken;
 module.exports.isSuperAdmin = isSuperAdmin;
+module.exports.isAdmin = isAdmin;
