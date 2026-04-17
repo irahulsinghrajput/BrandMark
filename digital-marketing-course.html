@@ -400,7 +400,7 @@
             <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">Ready to Transform Your Marketing?</h2>
             <p class="text-lg text-gray-100 mb-8">Start learning today and unlock the power of AI-driven digital marketing strategies.</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button onclick="initiatePayment()" class="bg-brand-orange hover:bg-brand-orange-dark text-white px-8 py-3 rounded-lg font-semibold transition cursor-pointer">
+                <button onclick="openEnrollmentModal()" class="bg-brand-orange hover:bg-brand-orange-dark text-white px-8 py-3 rounded-lg font-semibold transition cursor-pointer">
                     <i class="fas fa-shopping-cart mr-2"></i>Enroll Now (₹49)
                 </button>
                 <a href="quote-request.html" class="border border-brand-orange hover:bg-brand-orange/10 text-brand-orange px-8 py-3 rounded-lg font-semibold transition">
@@ -454,36 +454,48 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
         // Configuration for API endpoints - Environment aware
-        const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? 'http://localhost:5000/api'
+        const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === ''
+            ? 'http://localhost:5001/api'
             : 'https://brandmark-backend.onrender.com/api';
         
-        async function initiatePayment() {
+        function openEnrollmentModal() {
+            document.getElementById('enrollmentModal').style.display = 'flex';
+        }
+        
+        function closeEnrollmentModal() {
+            document.getElementById('enrollmentModal').style.display = 'none';
+        }
+        
+        async function proceedToPayment() {
+            const email = document.getElementById('enrollmentEmail').value.trim();
+            const name = document.getElementById('enrollmentName').value.trim();
+            
+            if (!email || !name) {
+                alert('Please enter both name and email');
+                return;
+            }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            
+            closeEnrollmentModal();
+            await initiatePayment(email, name);
+        }
+        
+        async function initiatePayment(email, name) {
             try {
-                // Step 1: Get user email
-                const email = prompt('Enter your email address:', 'kumarrahul85181@gmail.com');
-                
-                if (!email) {
-                    alert('❌ Email is required to proceed');
-                    return;
-                }
-
-                // Validate email format
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(email)) {
-                    alert('❌ Please enter a valid email address');
-                    return;
-                }
-
                 console.log('📧 Email entered:', email);
+                console.log('👤 Name entered:', name);
                 console.log('📡 Connecting to API at:', API_BASE_URL);
 
-                // Step 2: Create order on backend
+                // Step 1: Create order on backend
                 const orderResponse = await fetch(`${API_BASE_URL}/courses/digital-marketing-001/order`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('authToken') || ''}`
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
                         courseTitle: 'Digital Marketing Mastery with Gen AI',
@@ -497,12 +509,6 @@
                 if (!orderResponse.ok) {
                     const errorData = await orderResponse.json().catch(() => ({}));
                     console.error('Order creation failed:', errorData);
-                    
-                    if (orderResponse.status === 401) {
-                        alert('⚠️ Authentication required. You may need to log in first.');
-                        return;
-                    }
-                    
                     throw new Error(errorData.message || `Failed to create order (Status: ${orderResponse.status})`);
                 }
 
@@ -513,9 +519,9 @@
                     throw new Error('⚠️ Invalid response from server. Check console for details.');
                 }
 
-                // Step 3: Open Razorpay checkout
+                // Step 2: Open Razorpay checkout
                 const options = {
-                    key: orderData.data.keyId, // Razorpay Key ID from backend
+                    key: orderData.data.keyId,
                     amount: orderData.data.amount,
                     currency: 'INR',
                     name: 'BrandMark Solutions',
@@ -524,13 +530,12 @@
                     handler: async function(response) {
                         console.log('💳 Payment response:', response);
                         
-                        // Step 4: Verify payment on backend
+                        // Step 3: Verify payment
                         try {
                             const verifyResponse = await fetch(`${API_BASE_URL}/courses/payment/verify`, {
                                 method: 'POST',
                                 headers: {
-                                    'Content-Type': 'application/json',
-                                    'Authorization': `Bearer ${localStorage.getItem('authToken') || ''}`
+                                    'Content-Type': 'application/json'
                                 },
                                 body: JSON.stringify({
                                     razorpay_order_id: response.razorpay_order_id,
@@ -545,17 +550,16 @@
                             console.log('✅ Payment verified:', verifyData);
 
                             if (verifyData.success) {
-                                // Payment successful
                                 localStorage.setItem('enrollmentId', verifyData.data.enrollmentId);
                                 localStorage.setItem('userEmail', email);
-                                alert('🎉 Payment successful! You are now enrolled in the course.');
-                                window.location.href = 'digital-marketing-course.html';
+                                alert('🎉 Payment successful! You are now enrolled.');
+                                window.location.replace('course-dashboard.html');
                             } else {
                                 alert('❌ Payment verification failed: ' + (verifyData.message || 'Unknown error'));
                             }
                         } catch (error) {
                             console.error('Verification error:', error);
-                            alert('✅ Payment completed! Enrollment is being processed. You should receive a confirmation email shortly.');
+                            alert('✅ Payment completed! Enrollment is being processed.');
                         }
                     },
                     prefill: {
@@ -571,7 +575,7 @@
                     }
                 };
 
-                console.log('Razorpay options:', options);
+                console.log('Opening Razorpay...');
                 const rzp = new Razorpay(options);
                 
                 rzp.on('payment.failed', function(response) {
@@ -587,6 +591,62 @@
             }
         }
     </script>
+
+    <!-- Enrollment Modal -->
+    <div id="enrollmentModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+        <div style="background: white; border-radius: 12px; padding: 40px; max-width: 450px; width: 90%; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
+            <h2 style="color: #0B2C4D; margin-top: 0; margin-bottom: 10px; font-size: 28px; font-weight: 700;">Enroll in Course</h2>
+            <p style="color: #6C757D; margin-bottom: 30px; font-size: 14px;">Enter your details to proceed with enrollment</p>
+            
+            <form onsubmit="event.preventDefault(); proceedToPayment();">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; color: #0B2C4D; font-weight: 600; margin-bottom: 8px; font-size: 14px;">Full Name *</label>
+                    <input 
+                        type="text" 
+                        id="enrollmentName" 
+                        placeholder="Enter your full name" 
+                        required 
+                        style="width: 100%; padding: 12px; border: 2px solid #E0E0E0; border-radius: 8px; font-size: 14px; font-family: Outfit, sans-serif; box-sizing: border-box;"
+                        onfocus="this.style.borderColor='#F26A21'"
+                        onblur="this.style.borderColor='#E0E0E0'"
+                    >
+                </div>
+                
+                <div style="margin-bottom: 30px;">
+                    <label style="display: block; color: #0B2C4D; font-weight: 600; margin-bottom: 8px; font-size: 14px;">Email Address *</label>
+                    <input 
+                        type="email" 
+                        id="enrollmentEmail" 
+                        placeholder="Enter your email" 
+                        required 
+                        style="width: 100%; padding: 12px; border: 2px solid #E0E0E0; border-radius: 8px; font-size: 14px; font-family: Outfit, sans-serif; box-sizing: border-box;"
+                        onfocus="this.style.borderColor='#F26A21'"
+                        onblur="this.style.borderColor='#E0E0E0'"
+                    >
+                </div>
+                
+                <div style="display: flex; gap: 12px;">
+                    <button 
+                        type="button" 
+                        onclick="closeEnrollmentModal()" 
+                        style="flex: 1; padding: 12px; border: 2px solid #E0E0E0; background: white; color: #0B2C4D; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: Outfit, sans-serif;"
+                        onmouseover="this.style.background='#F4F6F8'"
+                        onmouseout="this.style.background='white'"
+                    >
+                        Cancel
+                    </button>
+                    <button 
+                        type="submit" 
+                        style="flex: 1; padding: 12px; border: none; background: linear-gradient(135deg, #F26A21, #E65C17); color: white; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: Outfit, sans-serif;"
+                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 20px rgba(242, 106, 33, 0.3)'"
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'"
+                    >
+                        Proceed to Payment
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
                             }
                         } catch (error) {

@@ -14,7 +14,10 @@
                         'brand-navy': '#0B2C4D',
                         'brand-navy-dark': '#081F36',
                         'brand-orange': '#F26A21',
-                        'brand-orange-dark': '#E65C17'
+                        'brand-orange-dark': '#E65C17',
+                        'brand-black': '#0a0a0a',
+                        'brand-dark': '#121212',
+                        'brand-gray': '#2a2a2a'
                     }
                 }
             }
@@ -23,49 +26,102 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="brandmark.css">
     <style>
+        * {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #f0f4f8 0%, #ffffff 100%);
+            min-height: 100vh;
+        }
+
         .lesson-content {
             background: white;
             color: #1f2937;
-            padding: 2rem;
-            border-radius: 8px;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .lesson-content:hover {
+            box-shadow: 0 12px 32px rgba(242, 106, 33, 0.1);
         }
         
         .lesson-content h2 {
-            color: #F26A21;
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
+            color: #0B2C4D;
+            margin-top: 2rem;
+            margin-bottom: 1.25rem;
+            font-size: 1.875rem;
+            font-weight: 700;
+            border-bottom: 2px solid #F26A21;
+            padding-bottom: 0.75rem;
         }
         
         .lesson-content h3 {
-            color: #1f2937;
-            margin-top: 1.25rem;
-            margin-bottom: 0.75rem;
+            color: #0B2C4D;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .lesson-content p {
+            line-height: 1.8;
+            color: #374151;
+            margin-bottom: 1rem;
         }
         
         .lesson-content ul, .lesson-content ol {
             margin-left: 1.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
         
         .lesson-content li {
-            margin-bottom: 0.5rem;
-            line-height: 1.6;
+            margin-bottom: 0.75rem;
+            line-height: 1.7;
+            color: #374151;
         }
         
         .highlight-box {
-            background: #f0f9ff;
-            border-left: 4px solid #F26A21;
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 4px;
+            background: linear-gradient(135deg, #FEF3F2, #FFF8F3);
+            border-left: 5px solid #F26A21;
+            border-right: 1px solid #FFE8DD;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(242, 106, 33, 0.1);
+        }
+        
+        .highlight-box p {
+            color: #0B2C4D;
+            font-weight: 500;
+            margin: 0;
         }
         
         .metric-box {
-            background: #f3f4f6;
-            border: 2px solid #dbeafe;
-            padding: 1.25rem;
+            background: linear-gradient(135deg, #F0F9FF, #F8FBFF);
+            border: 2px solid #BFDBFE;
+            border-left: 5px solid #F26A21;
+            padding: 1.5rem;
             border-radius: 8px;
             margin: 1rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .metric-box:hover {
+            border-color: #F26A21;
+            box-shadow: 0 6px 16px rgba(242, 106, 33, 0.1);
+            transform: translateX(4px);
+        }
+        
+        .metric-box p {
+            margin: 0;
+            color: #1f2937;
+        }
+        
+        .metric-box p:not(:last-child) {
+            margin-bottom: 0.5rem;
         }
         
         .module-nav {
@@ -73,88 +129,104 @@
             gap: 1rem;
             margin-top: 2rem;
             padding-top: 2rem;
-            border-top: 1px solid #e5e7eb;
+            border-top: 2px solid #E5E7EB;
         }
         
         .module-nav a {
-            padding: 0.75rem 1.5rem;
-            background: #F26A21;
+            padding: 0.875rem 1.75rem;
+            background: linear-gradient(135deg, #F26A21, #E65C17);
             color: white;
-            border-radius: 4px;
+            border-radius: 8px;
             text-decoration: none;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(242, 106, 33, 0.3);
+            border: none;
+            cursor: pointer;
         }
         
         .module-nav a:hover {
-            background: #E65C17;
+            background: linear-gradient(135deg, #E65C17, #D44D0F);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(242, 106, 33, 0.4);
+        }
+
+        .module-nav a:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
     </style>
 </head>
 <body class="bg-brand-black text-white font-[Outfit]">
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glass-nav backdrop-blur-md bg-brand-black/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <a href="index.html" class="flex items-center space-x-2">
-                    <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark" class="h-10 w-10 rounded-full">
-                    <span class="font-bold text-xl hidden sm:inline">BrandMark</span>
-                </a>
-                
-                <button id="mobile-menu-btn" class="md:hidden text-xl">
-                    <i class="fas fa-bars"></i>
-                </button>
-                
-                <div id="mobile-menu" class="hidden md:flex md:items-center space-x-6">
-                    <a href="courses.html" class="hover:text-brand-orange transition">Courses</a>
-                    <a href="digital-marketing-course.html" class="hover:text-brand-orange transition">Back to Course</a>
-                    <a href="index.html" class="hover:text-brand-orange transition">Home</a>
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-gradient-to-r from-brand-navy via-brand-navy to-brand-navy-dark shadow-2xl border-b-4 border-brand-orange">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-4 hover:opacity-90 transition group">
+                <div class="relative">
+                    <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark Logo" class="h-14 w-14 rounded-full object-cover shadow-lg border-2 border-brand-orange group-hover:shadow-xl transition">
+                    <div class="absolute inset-0 rounded-full bg-brand-orange opacity-0 group-hover:opacity-10 transition"></div>
                 </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Module Header -->
-    <section class="bg-brand-dark pt-24 pb-8 px-4 sm:px-6 lg:px-8 border-b border-gray-800">
-        <div class="max-w-4xl mx-auto">
-            <div class="mb-4">
-                <a href="digital-marketing-course.html" class="text-brand-orange hover:text-brand-orange-dark">
-                    <i class="fas fa-arrow-left mr-2"></i>Back to Course
+                <div class="flex flex-col">
+                    <span class="text-3xl font-extrabold text-white tracking-tight">Brand<span class="text-brand-orange font-light">Mark</span><span class="text-xs align-top">®</span></span>
+                    <span class="text-xs text-blue-200 tracking-widest font-semibold">DIGITAL MASTERY</span>
+                </div>
+            </a>
+            <div class="flex items-center gap-4">
+                <div class="hidden md:flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg backdrop-blur-sm border border-white/20">
+                    <i class="fas fa-book-open text-brand-orange"></i>
+                    <span class="text-white font-medium text-sm">Module 3</span>
+                </div>
+                <a href="resources-hub.html" class="inline-flex items-center gap-2 text-white hover:text-brand-orange transition font-bold px-6 py-3 rounded-lg hover:bg-white/15 bg-white/5 border border-white/10 hover:border-brand-orange/50">
+                    <i class="fas fa-download text-lg"></i> 
+                    <span>Resources</span>
+                </a>
+                <a href="digital-marketing-course.html" class="inline-flex items-center gap-2 text-white hover:text-brand-orange transition font-bold px-6 py-3 rounded-lg hover:bg-white/15 bg-white/5 border border-white/10 hover:border-brand-orange/50">
+                    <i class="fas fa-arrow-left text-lg"></i> 
+                    <span>Back to Course</span>
                 </a>
             </div>
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">Module 3: Analytics & Metrics Fundamentals</h1>
-            <div class="flex items-center gap-4 text-gray-100">
-                <span><i class="fas fa-clock mr-2"></i>4 hours</span>
-                <span><i class="fas fa-bookmark mr-2"></i>5 lessons</span>
-                <span class="px-3 py-1 bg-green-900 bg-opacity-30 text-green-300 rounded-full text-sm">Beginner Level</span>
-            </div>
+        </nav>
+    </header>
+
+    <!-- Module Header Section -->
+    <section class="relative min-h-[40vh] flex flex-col justify-center items-center text-center py-16 bg-brand-navy">
+        <div class="absolute inset-0 bg-gradient-to-b from-brand-navy/90 to-brand-navy/100 z-0"></div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Analytics & Metrics</h1>
+            <p class="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">Master tracking, analysis, and data-driven optimization</p>
         </div>
     </section>
 
     <!-- Learning Objectives -->
-    <section class="bg-brand-dark px-4 sm:px-6 lg:px-8 py-8">
+    <section class="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 lg:px-8 py-12">
         <div class="max-w-4xl mx-auto">
-            <h2 class="text-2xl font-bold mb-4">Learning Objectives</h2>
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-brand-navy mb-3">
+                    <i class="fas fa-bullseye text-brand-orange mr-3"></i>Learning Objectives
+                </h2>
+                <p class="text-gray-600">What you'll master in this module</p>
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-brand-gray p-4 rounded-lg">
-                    <p class="flex items-start"><i class="fas fa-check text-green-400 mr-3 mt-1"></i> Understand key marketing metrics and KPIs</p>
+                <div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md hover:shadow-lg transition">
+                    <p class="flex items-start text-brand-navy font-semibold text-lg"><i class="fas fa-check-circle text-brand-orange mr-3 mt-1 text-xl flex-shrink-0"></i> <span>Understand key marketing metrics and KPIs</span></p>
                 </div>
-                <div class="bg-brand-gray p-4 rounded-lg">
-                    <p class="flex items-start"><i class="fas fa-check text-green-400 mr-3 mt-1"></i> Set up analytics tracking properly</p>
+                <div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md hover:shadow-lg transition">
+                    <p class="flex items-start text-brand-navy font-semibold text-lg"><i class="fas fa-check-circle text-brand-orange mr-3 mt-1 text-xl flex-shrink-0"></i> <span>Set up analytics tracking properly</span></p>
                 </div>
-                <div class="bg-brand-gray p-4 rounded-lg">
-                    <p class="flex items-start"><i class="fas fa-check text-green-400 mr-3 mt-1"></i> Analyze campaign performance data</p>
+                <div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md hover:shadow-lg transition">
+                    <p class="flex items-start text-brand-navy font-semibold text-lg"><i class="fas fa-check-circle text-brand-orange mr-3 mt-1 text-xl flex-shrink-0"></i> <span>Analyze campaign performance data</span></p>
                 </div>
-                <div class="bg-brand-gray p-4 rounded-lg">
-                    <p class="flex items-start"><i class="fas fa-check text-green-400 mr-3 mt-1"></i> Create dashboards and reports</p>
+                <div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md hover:shadow-lg transition">
+                    <p class="flex items-start text-brand-navy font-semibold text-lg"><i class="fas fa-check-circle text-brand-orange mr-3 mt-1 text-xl flex-shrink-0"></i> <span>Create dashboards and reports</span></p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Main Content -->
-    <section class="px-4 sm:px-6 lg:px-8 py-12">
+    <section class="bg-gradient-to-b from-white to-gray-50 px-4 sm:px-6 lg:px-8 py-16">
         <div class="max-w-4xl mx-auto">
-            <div class="lesson-content">
+            <div class="lesson-content bg-white rounded-2xl shadow-lg border-l-4 border-brand-orange">
                 <h2>1. Why Marketing Analytics Matters</h2>
                 <p>Data is the foundation of modern marketing. Without analytics, you're flying blind—spending money without knowing if it's working.</p>
                 
@@ -356,140 +428,89 @@
                     <a href="course-module-2.html">
                         <i class="fas fa-arrow-left mr-2"></i>Previous
                     </a>
-                    <a href="course-module-4.html">
-                        Next Module<i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Lesson Resources -->
-            <div class="mt-8 bg-brand-dark p-6 rounded-lg border border-gray-800">
-                <h3 class="text-xl font-bold mb-4">Downloads & Resources</h3>
-                <div class="space-y-3">
-                    <a href="#" class="flex items-center p-3 bg-brand-gray rounded hover:bg-brand-accent/20 transition">
-                        <i class="fas fa-file-pdf text-red-400 mr-3"></i>
-                        <div>
-                            <p class="font-semibold">Marketing Metrics & KPI Master List</p>
-                            <p class="text-sm text-gray-400">PDF - 2.8 MB</p>
-                        </div>
-                    </a>
-                    <a href="#" class="flex items-center p-3 bg-brand-gray rounded hover:bg-brand-accent/20 transition">
-                        <i class="fas fa-file-excel text-green-400 mr-3"></i>
-                        <div>
-                            <p class="font-semibold">Analytics Dashboard Template</p>
-                            <p class="text-sm text-gray-400">XLSX - 4.2 MB</p>
-                        </div>
-                    </a>
-                    <a href="#" class="flex items-center p-3 bg-brand-gray rounded hover:bg-brand-accent/20 transition">
-                        <i class="fas fa-file-word text-blue-400 mr-3"></i>
-                        <div>
-                            <p class="font-semibold">GA4 Implementation Guide</p>
-                            <p class="text-sm text-gray-400">DOCX - 3.5 MB</p>
-                        </div>
+                    <a href="project-workspace.html" style="background: linear-gradient(135deg, #10B981, #059669);">
+                        Start Capstone Project<i class="fas fa-rocket ml-2"></i>
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Module Completion Section -->
-    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <!-- Resources & Completion Section -->
+    <section class="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 lg:px-8 py-16">
         <div class="max-w-4xl mx-auto">
-            <div class="bg-white rounded-lg shadow-lg p-8">
-                <h3 class="text-2xl font-bold text-brand-navy mb-4">Lesson Complete?</h3>
-                <p class="text-gray-600 mb-6">Track your progress through the course. Mark this lesson as complete to continue to the quiz.</p>
+            <!-- Resources -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8 border-t-4 border-brand-orange">
+                <h3 class="text-2xl font-bold text-brand-navy mb-2 flex items-center gap-3">
+                    <i class="fas fa-download text-brand-orange text-3xl"></i>Downloads & Resources
+                </h3>
+                <p class="text-gray-600 mb-6">Download course materials and templates for your learning</p>
+                <div class="space-y-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <a href="#" class="flex items-center p-4 bg-gradient-to-r from-red-50 to-orange-50 rounded-lg hover:shadow-lg transition border-l-4 border-red-400">
+                        <i class="fas fa-file-pdf text-red-500 mr-4 text-2xl"></i>
+                        <div>
+                            <p class="font-semibold text-brand-navy">Marketing Metrics & KPI Master List</p>
+                            <p class="text-sm text-gray-500">PDF • 2.8 MB</p>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
+                    </a>
+                    <a href="#" class="flex items-center p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg hover:shadow-lg transition border-l-4 border-green-400">
+                        <i class="fas fa-file-excel text-green-500 mr-4 text-2xl"></i>
+                        <div>
+                            <p class="font-semibold text-brand-navy">Analytics Dashboard Template</p>
+                            <p class="text-sm text-gray-500">XLSX • 4.2 MB</p>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
+                    </a>
+                    <a href="#" class="flex items-center p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg hover:shadow-lg transition border-l-4 border-blue-400 md:col-span-2">
+                        <i class="fas fa-file-word text-blue-500 mr-4 text-2xl"></i>
+                        <div>
+                            <p class="font-semibold text-brand-navy">GA4 Implementation Guide</p>
+                            <p class="text-sm text-gray-500">DOCX • 3.5 MB</p>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Completion Card -->
+            <div class="bg-gradient-to-r from-brand-navy to-brand-navy-dark rounded-2xl shadow-xl p-10 text-white">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-certificate text-brand-orange text-4xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">Congratulations! Course Complete 🎉</h3>
+                        <p class="text-blue-100">You've mastered all 3 modules! Now apply your knowledge with the Capstone Project and take the final quiz to earn your certificate.</p>
+                    </div>
+                </div>
                 
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <button onclick="markAsComplete('module-3')" class="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold py-3 px-6 rounded-lg transition flex items-center justify-center gap-2">
-                        <i class="fas fa-check-circle"></i>Mark as Complete
-                    </button>
-                    <a href="quiz.html" class="flex-1 bg-brand-navy hover:bg-brand-navy-dark text-white font-semibold py-3 px-6 rounded-lg transition flex items-center justify-center gap-2 text-decoration-none">
-                        <i class="fas fa-clipboard-check"></i>Take Quiz
+                    <a href="project-workspace.html" class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-4 px-8 rounded-lg transition transform hover:scale-105 flex-1 flex items-center justify-center gap-2 shadow-lg">
+                        <i class="fas fa-rocket"></i>
+                        Start Capstone Project
+                    </a>
+                    <a href="digital-marketing-course.html" class="bg-white/20 hover:bg-white/30 text-white font-bold py-4 px-8 rounded-lg transition border-2 border-white flex items-center justify-center gap-2">
+                        <i class="fas fa-chevron-left"></i>
+                        Back to Course
                     </a>
                 </div>
                 
-                <div id="completionMessage" style="display: none;" class="mt-4 p-4 bg-green-100 text-green-700 rounded-lg flex items-center gap-2">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Great! Module 3 marked as complete. You're ready for the quiz!</span>
-                </div>
+                <p class="text-blue-200 text-sm mt-4 flex items-center gap-2">
+                    <i class="fas fa-info-circle"></i>
+                    Complete the Capstone Project, then take the Final Quiz to earn your Digital Marketing Mastery Certificate!
+                </p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-brand-dark border-t border-gray-800 py-12 px-4 sm:px-6 lg:px-8 mt-12">
-        <div class="max-w-6xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div>
-                    <h4 class="font-bold mb-2">BrandMark Digital Marketing Course</h4>
-                    <p class="text-gray-400 text-sm">Master analytics and data-driven marketing</p>
-                </div>
-                <div class="mt-4 md:mt-0 text-center text-gray-400 text-sm">
-                    <p>&copy; 2025 BrandMark Solutions. All rights reserved.</p>
-                </div>
-            </div>
+    <footer class="bg-brand-navy text-white mt-16 py-8 border-t-4 border-brand-orange">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-gray-400">&copy; 2025 BrandMark Solutions. All rights reserved.</p>
         </div>
     </footer>
 
     <script src="brandmark.js"></script>
-    <script>
-        async function markAsComplete(moduleName) {
-            try {
-                const enrollmentId = localStorage.getItem('enrollmentId');
-                
-                if (!enrollmentId) {
-                    alert('Please enroll in the course first to track your progress.');
-                    window.location.href = 'courses.html';
-                    return;
-                }
-
-                const btn = event.target.closest('button');
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
-                btn.disabled = true;
-
-                const response = await fetch('/api/courses/digital-marketing-001/progress', {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        enrollmentId: enrollmentId,
-                        courseId: 'digital-marketing-001',
-                        completedLessons: [moduleName]
-                    })
-                });
-
-                const data = await response.json();
-
-                if (data.success) {
-                    document.getElementById('completionMessage').style.display = 'flex';
-                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
-                    btn.classList.add('opacity-75');
-                    document.getElementById('completionMessage').scrollIntoView({ behavior: 'smooth' });
-                } else {
-                    let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
-                    if (!completedLessons.includes(moduleName)) {
-                        completedLessons.push(moduleName);
-                    }
-                    localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
-                    
-                    document.getElementById('completionMessage').style.display = 'flex';
-                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
-                    btn.classList.add('opacity-75');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
-                if (!completedLessons.includes(moduleName)) {
-                    completedLessons.push(moduleName);
-                }
-                localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
-                
-                document.getElementById('completionMessage').style.display = 'flex';
-                event.target.closest('button').innerHTML = '<i class="fas fa-check-circle"></i> Completed';
-                event.target.closest('button').classList.add('opacity-75');
-            }
-        }
-    </script>
 </body>
 </html>

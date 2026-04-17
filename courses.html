@@ -163,7 +163,7 @@
                             </div>
                             <div>
                                 <i class="fas fa-book"></i>
-                                <span>15 modules</span>
+                                <span>3 modules</span>
                             </div>
                             <div>
                                 <i class="fas fa-graduation-cap"></i>
@@ -363,7 +363,7 @@
     <script>
         // Configuration for API endpoints - Environment aware
         const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === '')
-            ? 'http://localhost:5000/api'
+            ? 'http://localhost:5001/api'
             : 'https://brandmark-backend.onrender.com/api';
         
         function openEnrollmentModal() {
@@ -461,6 +461,7 @@
                             if (verifyData.success) {
                                 localStorage.setItem('enrollmentId', verifyData.data.enrollmentId);
                                 localStorage.setItem('userEmail', email);
+                                localStorage.setItem('STUDENT_NAME', name);
                                 alert('🎉 Payment successful! You are now enrolled.');
                                 window.location.href = 'course-dashboard.html';
                             } else {

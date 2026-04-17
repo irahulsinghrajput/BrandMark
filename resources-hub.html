@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources Hub - BrandMark Course</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-navy': '#0B2C4D',
+                        'brand-navy-dark': '#081F36',
+                        'brand-orange': '#F26A21',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-gradient-to-r from-brand-navy via-brand-navy to-brand-navy-dark shadow-2xl border-b-4 border-brand-orange">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
+            <a href="course-dashboard.html" class="flex items-center gap-3 hover:opacity-90 transition group">
+                <div class="relative">
+                    <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark Logo" class="h-12 w-12 rounded-full object-cover shadow-lg border-2 border-brand-orange">
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-2xl font-extrabold text-white tracking-tight">Brand<span class="text-brand-orange font-light">Mark</span></span>
+                    <span class="text-xs text-blue-200 font-semibold">RESOURCE HUB</span>
+                </div>
+            </a>
+            <a href="course-dashboard.html" class="text-white hover:text-brand-orange transition font-bold px-6 py-3 rounded-lg hover:bg-white/15 bg-white/5 border border-white/10">
+                <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+            </a>
+        </nav>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 py-12">
+        <!-- Hero Section -->
+        <div class="text-center mb-16">
+            <h1 class="text-5xl font-bold text-brand-navy mb-4">📚 Complete Resources Hub</h1>
+            <p class="text-xl text-gray-600">Access all course materials, guides, videos, and projects</p>
+        </div>
+
+        <!-- PDF Saving Guide -->
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-500 rounded-xl shadow-lg p-8 mb-12">
+            <div class="flex items-start gap-4">
+                <i class="fas fa-file-pdf text-blue-500 text-4xl flex-shrink-0 mt-2"></i>
+                <div class="flex-1">
+                    <h2 class="text-2xl font-bold text-blue-900 mb-4">📖 How to Save Pages as PDF</h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Windows -->
+                        <div>
+                            <h3 class="font-bold text-blue-900 mb-3 text-lg">🪟 Windows & Mac</h3>
+                            <ol class="text-blue-800 space-y-2 list-decimal list-inside">
+                                <li>Open any resource page or guide</li>
+                                <li>Press <kbd class="bg-blue-100 px-2 py-1 rounded text-sm font-mono">Ctrl+P</kbd> (Windows) or <kbd class="bg-blue-100 px-2 py-1 rounded text-sm font-mono">Cmd+P</kbd> (Mac)</li>
+                                <li>Select <strong>"Save as PDF"</strong> from the destination dropdown</li>
+                                <li>Choose your download location</li>
+                                <li>Click <strong>"Save"</strong></li>
+                            </ol>
+                        </div>
+
+                        <!-- Mobile -->
+                        <div>
+                            <h3 class="font-bold text-blue-900 mb-3 text-lg">📱 Mobile Devices</h3>
+                            <div class="text-blue-800 space-y-2">
+                                <p><strong>iPhone/iPad:</strong> Tap Share button → Print → Pinch to zoom in → Tap Share → Save to Files</p>
+                                <p><strong>Android:</strong> Tap menu (3 dots) → Print → Select "Save as PDF" → Save</p>
+                                <p class="text-sm italic">Or save the page directly using your browser's download feature</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 bg-blue-100 p-4 rounded-lg border border-blue-300">
+                        <p class="text-blue-900"><strong>💡 Pro Tip:</strong> All pages are print-friendly! You can customize margins, page size, and printing format before saving.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resources Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            
+            <!-- Module 1 Guides -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition border-t-4 border-blue-500">
+                <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-6 text-white">
+                    <i class="fas fa-book text-4xl mb-2"></i>
+                    <h3 class="text-2xl font-bold">Module 1 Guide</h3>
+                    <p class="text-blue-100 text-sm">Digital Marketing Fundamentals</p>
+                </div>
+                <div class="p-6">
+                    <ul class="space-y-3 text-gray-700 mb-6">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Target Audience Worksheet</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Marketing Objectives Template</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> KPI Definition Checklist</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Completion Checklist</li>
+                    </ul>
+                    <div class="flex gap-3">
+                        <a href="resources/module-1-guide.html" target="_blank" class="flex-1 bg-blue-500 text-white py-2 px-4 rounded-lg text-center font-semibold hover:bg-blue-600 transition">
+                            <i class="fas fa-external-link-alt mr-2"></i>Open
+                        </a>
+                        <button onclick="printPDF('resources/module-1-guide.html')" class="flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded-lg font-semibold hover:bg-gray-300 transition">
+                            <i class="fas fa-file-pdf mr-2"></i>Save PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 2 Guides -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition border-t-4 border-orange-500">
+                <div class="bg-gradient-to-r from-orange-500 to-orange-600 p-6 text-white">
+                    <i class="fas fa-robot text-4xl mb-2"></i>
+                    <h3 class="text-2xl font-bold">Module 2 Guide</h3>
+                    <p class="text-orange-100 text-sm">Gen AI for Marketing</p>
+                </div>
+                <div class="p-6">
+                    <ul class="space-y-3 text-gray-700 mb-6">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> AI Prompt Library Template</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Image Generation Ideas</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> AI Tools Comparison</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Ethics Checklist</li>
+                    </ul>
+                    <div class="flex gap-3">
+                        <a href="resources/module-2-guide.html" target="_blank" class="flex-1 bg-orange-500 text-white py-2 px-4 rounded-lg text-center font-semibold hover:bg-orange-600 transition">
+                            <i class="fas fa-external-link-alt mr-2"></i>Open
+                        </a>
+                        <button onclick="printPDF('resources/module-2-guide.html')" class="flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded-lg font-semibold hover:bg-gray-300 transition">
+                            <i class="fas fa-file-pdf mr-2"></i>Save PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 3 Guides -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition border-t-4 border-green-500">
+                <div class="bg-gradient-to-r from-green-500 to-green-600 p-6 text-white">
+                    <i class="fas fa-chart-bar text-4xl mb-2"></i>
+                    <h3 class="text-2xl font-bold">Module 3 Guide</h3>
+                    <p class="text-green-100 text-sm">Analytics & Metrics</p>
+                </div>
+                <div class="p-6">
+                    <ul class="space-y-3 text-gray-700 mb-6">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> KPI Tracker Template</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Campaign Analysis Worksheet</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Analytics Setup Checklist</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Metrics Definitions</li>
+                    </ul>
+                    <div class="flex gap-3">
+                        <a href="resources/module-3-guide.html" target="_blank" class="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg text-center font-semibold hover:bg-green-700 transition">
+                            <i class="fas fa-external-link-alt mr-2"></i>Open
+                        </a>
+                        <button onclick="printPDF('resources/module-3-guide.html')" class="flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded-lg font-semibold hover:bg-gray-300 transition">
+                            <i class="fas fa-file-pdf mr-2"></i>Save PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Lessons -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition border-t-4 border-purple-500">
+                <div class="bg-gradient-to-r from-purple-500 to-purple-600 p-6 text-white">
+                    <i class="fas fa-video text-4xl mb-2"></i>
+                    <h3 class="text-2xl font-bold">Video Lessons</h3>
+                    <p class="text-purple-100 text-sm">17 High-Quality Tutorials</p>
+                </div>
+                <div class="p-6">
+                    <ul class="space-y-3 text-gray-700 mb-6">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Module 1: 5 Videos (104 min)</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Module 2: 6 Videos (126 min)</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Module 3: 6 Videos (129 min)</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Downloadable Transcripts</li>
+                    </ul>
+                    <a href="course-videos.html" class="w-full bg-purple-500 text-white py-2 px-4 rounded-lg text-center font-semibold hover:bg-purple-600 transition block">
+                        <i class="fas fa-play mr-2"></i>Watch Videos
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hands-On Projects -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition border-t-4 border-red-500">
+                <div class="bg-gradient-to-r from-red-500 to-red-600 p-6 text-white">
+                    <i class="fas fa-flask text-4xl mb-2"></i>
+                    <h3 class="text-2xl font-bold">Hands-On Projects</h3>
+                    <p class="text-red-100 text-sm">Build Your Portfolio</p>
+                </div>
+                <div class="p-6">
+                    <ul class="space-y-3 text-gray-700 mb-6">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Marketing Strategy Audit</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> AI-Powered Campaign</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Analytics Dashboard</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Capstone Project</li>
+                    </ul>
+                    <a href="course-projects.html" class="w-full bg-red-500 text-white py-2 px-4 rounded-lg text-center font-semibold hover:bg-red-600 transition block">
+                        <i class="fas fa-rocket mr-2"></i>View Projects
+                    </a>
+                </div>
+            </div>
+
+            <!-- All Downloads -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition border-t-4 border-indigo-500">
+                <div class="bg-gradient-to-r from-indigo-500 to-indigo-600 p-6 text-white">
+                    <i class="fas fa-download text-4xl mb-2"></i>
+                    <h3 class="text-2xl font-bold">All Downloads</h3>
+                    <p class="text-indigo-100 text-sm">Module Guides Summary</p>
+                </div>
+                <div class="p-6">
+                    <ul class="space-y-3 text-gray-700 mb-6">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> PDF Guides for All Modules</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Printable Worksheets</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Templates & Checklists</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Quick Reference Guides</li>
+                    </ul>
+                    <a href="download-guides.html" class="w-full bg-indigo-500 text-white py-2 px-4 rounded-lg text-center font-semibold hover:bg-indigo-600 transition block">
+                        <i class="fas fa-arrow-right mr-2"></i>View All Downloads
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Quick Links -->
+        <div class="bg-gradient-to-r from-brand-navy to-brand-navy-dark rounded-xl shadow-lg p-8 text-white mb-12">
+            <h2 class="text-3xl font-bold mb-6"><i class="fas fa-link text-brand-orange mr-3"></i>Quick Links</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <a href="course-dashboard.html" class="bg-white/10 hover:bg-white/20 p-4 rounded-lg text-center transition">
+                    <i class="fas fa-home text-brand-orange text-2xl mb-2"></i>
+                    <p class="font-semibold">Dashboard</p>
+                </a>
+                <a href="course-module-1.html" class="bg-white/10 hover:bg-white/20 p-4 rounded-lg text-center transition">
+                    <i class="fas fa-book text-brand-orange text-2xl mb-2"></i>
+                    <p class="font-semibold">Module 1</p>
+                </a>
+                <a href="course-module-2.html" class="bg-white/10 hover:bg-white/20 p-4 rounded-lg text-center transition">
+                    <i class="fas fa-robot text-brand-orange text-2xl mb-2"></i>
+                    <p class="font-semibold">Module 2</p>
+                </a>
+                <a href="course-module-3.html" class="bg-white/10 hover:bg-white/20 p-4 rounded-lg text-center transition">
+                    <i class="fas fa-chart-bar text-brand-orange text-2xl mb-2"></i>
+                    <p class="font-semibold">Module 3</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- Tips Section -->
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-gradient-to-br from-yellow-50 to-orange-50 border-l-4 border-yellow-500 rounded-lg p-6">
+                <h3 class="font-bold text-yellow-900 mb-3 text-lg"><i class="fas fa-lightbulb text-yellow-500 mr-2"></i>Pro Tips</h3>
+                <ul class="text-yellow-800 text-sm space-y-2">
+                    <li>✓ Download all guides at the start of the module</li>
+                    <li>✓ Print and annotate while watching videos</li>
+                    <li>✓ Complete worksheets before starting projects</li>
+                    <li>✓ Keep PDFs organized in a folder on your computer</li>
+                </ul>
+            </div>
+
+            <div class="bg-gradient-to-br from-green-50 to-emerald-50 border-l-4 border-green-500 rounded-lg p-6">
+                <h3 class="font-bold text-green-900 mb-3 text-lg"><i class="fas fa-check-circle text-green-500 mr-2"></i>Learning Path</h3>
+                <ol class="text-green-800 text-sm space-y-2">
+                    <li>1. Download Module Guide</li>
+                    <li>2. Watch Video Lessons</li>
+                    <li>3. Complete Worksheets</li>
+                    <li>4. Start Hands-On Project</li>
+                    <li>5. Submit & Get Feedback</li>
+                </ol>
+            </div>
+
+            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 border-l-4 border-blue-500 rounded-lg p-6">
+                <h3 class="font-bold text-blue-900 mb-3 text-lg"><i class="fas fa-download text-blue-500 mr-2"></i>File Formats</h3>
+                <ul class="text-blue-800 text-sm space-y-2">
+                    <li>📄 <strong>HTML Guides:</strong> View & print online</li>
+                    <li>📥 <strong>Save as PDF:</strong> Use Ctrl+P method</li>
+                    <li>🖨️ <strong>Print Friendly:</strong> All pages optimized</li>
+                    <li>📱 <strong>Mobile Ready:</strong> Works on all devices</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-brand-navy-dark text-white py-8 px-4 sm:px-6 lg:px-8 border-t-4 border-brand-orange mt-16">
+        <div class="max-w-7xl mx-auto text-center">
+            <p class="text-gray-300 mb-2">&copy; 2025 BrandMark Solutions. All rights reserved.</p>
+            <p class="text-sm text-gray-400">Digital Marketing Course Resources</p>
+        </div>
+    </footer>
+
+    <script>
+        function printPDF(url) {
+            window.open(url, '_blank');
+            alert('✅ Guide opened in a new tab!\n\nTo save as PDF:\n1. Press Ctrl+P (Windows) or Cmd+P (Mac)\n2. Select "Save as PDF" from destination\n3. Choose where to save\n4. Click "Save"\n\nYour PDF will be saved to your downloads folder!');
+        }
+    </script>
+</body>
+</html>

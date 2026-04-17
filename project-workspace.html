@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Workspace: Premium vs. Parlor Campaign - BrandMark</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-navy': '#0B2C4D',
+                        'brand-navy-dark': '#081F36',
+                        'brand-orange': '#F26A21',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0B2C4D 0%, #081F36 100%);
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            border-bottom: 3px solid #F26A21;
+            color: #F26A21;
+        }
+        .content-section {
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .deliverable-card {
+            transition: all 0.3s ease;
+        }
+        .deliverable-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(242, 106, 33, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-white">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-brand-navy-dark/95 backdrop-blur-lg border-b border-brand-orange/30 shadow-2xl">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <a href="course-dashboard.html" class="text-white hover:text-brand-orange transition font-bold flex items-center gap-2">
+                    <i class="fas fa-arrow-left"></i>Dashboard
+                </a>
+                <div class="hidden md:block px-4 py-2 bg-white/5 rounded-lg border border-white/10">
+                    <span class="text-white font-bold text-sm">CLINIC BRANDING PROJECT</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="resources-hub.html" class="text-white hover:text-brand-orange transition font-bold px-4 py-2 rounded-lg hover:bg-white/15 bg-white/5 border border-white/10">
+                    <i class="fas fa-book mr-2"></i>Resources
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Workspace -->
+    <div class="min-h-screen py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <!-- Hero Section -->
+            <div class="text-center mb-12">
+                <h1 class="text-5xl font-bold mb-4">💼 The Premium vs. Parlor Pivot</h1>
+                <p class="text-xl text-gray-300 mb-4">Build a Medical Authority Branding Campaign for a High-End Clinic</p>
+                <div class="inline-flex gap-4 bg-white/5 px-6 py-3 rounded-full border border-white/10">
+                    <div class="text-center">
+                        <p class="text-gray-400 text-sm">Duration</p>
+                        <p class="text-brand-orange font-bold">8-10 Hours</p>
+                    </div>
+                    <div class="w-px bg-white/20"></div>
+                    <div class="text-center">
+                        <p class="text-gray-400 text-sm">Deliverables</p>
+                        <p class="text-brand-orange font-bold">3 Major Items</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scenario Overview -->
+            <div class="bg-gradient-to-r from-blue-600/20 to-blue-500/10 border border-blue-400/30 rounded-2xl p-8 mb-12">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                    <i class="fas fa-briefcase text-blue-400"></i>The Scenario
+                </h2>
+                <div class="space-y-3 text-gray-200">
+                    <p><strong>📍 Location:</strong> A premium clinic in South Delhi or Bandra (Mumbai) offering high-end HydraFacials and Laser treatments</p>
+                    <p><strong>🎯 Challenge:</strong> Local customers keep comparing prices to the "Beauty Parlor" down the street that uses cheap, uncertified machines</p>
+                    <p><strong>💡 Your Goal:</strong> Create a "Medical Authority" Branding Campaign that justifies premium pricing through safety, expertise, and medical credibility</p>
+                </div>
+            </div>
+
+            <!-- Deliverables Overview -->
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+                    <i class="fas fa-tasks text-brand-orange"></i>Three Core Deliverables
+                </h2>
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <!-- Deliverable 1 -->
+                    <div class="deliverable-card bg-white/5 border border-purple-400/30 rounded-xl p-6">
+                        <div class="text-5xl mb-3">📱</div>
+                        <h3 class="text-xl font-bold mb-2">Instagram Series</h3>
+                        <p class="text-gray-300 text-sm mb-4">3-post carousel series educating about medical-grade vs. parlor equipment</p>
+                        <button onclick="switchTab(1)" class="w-full bg-purple-500 hover:bg-purple-600 text-white py-2 px-4 rounded-lg transition font-semibold">
+                            Start Deliverable
+                        </button>
+                    </div>
+
+                    <!-- Deliverable 2 -->
+                    <div class="deliverable-card bg-white/5 border border-green-400/30 rounded-xl p-6">
+                        <div class="text-5xl mb-3">💬</div>
+                        <h3 class="text-xl font-bold mb-2">WhatsApp Script</h3>
+                        <p class="text-gray-300 text-sm mb-4">Professional welcome & consultation invite messages emphasizing safety</p>
+                        <button onclick="switchTab(2)" class="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg transition font-semibold">
+                            Start Deliverable
+                        </button>
+                    </div>
+
+                    <!-- Deliverable 3 -->
+                    <div class="deliverable-card bg-white/5 border border-orange-400/30 rounded-xl p-6">
+                        <div class="text-5xl mb-3">🌐</div>
+                        <h3 class="text-xl font-bold mb-2">Landing Page Copy</h3>
+                        <p class="text-gray-300 text-sm mb-4">"Why Us" section highlighting doctor credentials & premium value</p>
+                        <button onclick="switchTab(3)" class="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-lg transition font-semibold">
+                            Start Deliverable
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabbed Workspace -->
+            <div class="bg-white/5 border border-white/10 rounded-2xl backdrop-blur-xl overflow-hidden">
+                <!-- Tab Navigation -->
+                <div class="border-b border-white/10 flex overflow-x-auto">
+                    <button onclick="switchTab(1)" class="tab-button active flex-1 px-6 py-4 text-center font-semibold transition flex items-center justify-center gap-2 hover:bg-white/5">
+                        <i class="fas fa-instagram"></i><span class="hidden md:inline">Instagram Series</span>
+                    </button>
+                    <button onclick="switchTab(2)" class="tab-button flex-1 px-6 py-4 text-center font-semibold transition flex items-center justify-center gap-2 hover:bg-white/5">
+                        <i class="fas fa-whatsapp"></i><span class="hidden md:inline">WhatsApp Script</span>
+                    </button>
+                    <button onclick="switchTab(3)" class="tab-button flex-1 px-6 py-4 text-center font-semibold transition flex items-center justify-center gap-2 hover:bg-white/5">
+                        <i class="fas fa-globe"></i><span class="hidden md:inline">Landing Page</span>
+                    </button>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="p-8">
+                    <!-- Deliverable 1: Instagram Series -->
+                    <div id="tab-1" class="content-section">
+                        <h3 class="text-2xl font-bold mb-6">📱 Deliverable 1: Educational Instagram Carousel</h3>
+                        <div class="space-y-6">
+                            <div class="bg-gradient-to-r from-purple-600/20 to-purple-500/10 border border-purple-400/30 rounded-lg p-6">
+                                <h4 class="text-lg font-bold mb-3">The Task</h4>
+                                <p class="text-gray-300 mb-4">Design a 3-post Instagram carousel series titled <strong>"Cheap vs. Safe"</strong> that explains why medical-grade lasers (US-FDA approved) are safer than parlor equipment.</p>
+                            </div>
+
+                            <div class="grid md:grid-cols-3 gap-4 mb-8">
+                                <div class="bg-white/5 border border-purple-400/20 rounded-lg p-4">
+                                    <div class="text-sm font-semibold text-purple-300 mb-2">POST 1/3</div>
+                                    <p class="font-bold mb-2">The Problem</p>
+                                    <p class="text-sm text-gray-300">Hook: "You probably didn't know this about your skincare..."</p>
+                                </div>
+                                <div class="bg-white/5 border border-purple-400/20 rounded-lg p-4">
+                                    <div class="text-sm font-semibold text-purple-300 mb-2">POST 2/3</div>
+                                    <p class="font-bold mb-2">The Comparison</p>
+                                    <p class="text-sm text-gray-300">Compare parlor vs medical-grade equipment specs</p>
+                                </div>
+                                <div class="bg-white/5 border border-purple-400/20 rounded-lg p-4">
+                                    <div class="text-sm font-semibold text-purple-300 mb-2">POST 3/3</div>
+                                    <p class="font-bold mb-2">The Solution</p>
+                                    <p class="text-sm text-gray-300">CTA: Book consultation, emphasize safety & results</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-white/5 rounded-lg p-6 border border-purple-400/30">
+                                <h4 class="font-bold mb-4">📝 Create Your Instagram Series</h4>
+                                <textarea placeholder="Paste your Instagram carousel copy here. Include all 3 posts with hashtags and CTAs..." class="w-full bg-white/5 border border-white/20 rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none focus:border-purple-400 h-48 font-mono text-sm"></textarea>
+                                <div class="mt-4 flex gap-3">
+                                    <button onclick="downloadDeliverable(1)" class="flex-1 bg-purple-500 hover:bg-purple-600 text-white py-3 px-4 rounded-lg transition font-semibold flex items-center justify-center gap-2">
+                                        <i class="fas fa-download"></i>Download Template
+                                    </button>
+                                    <button onclick="submitDeliverable(1)" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-lg transition font-semibold flex items-center justify-center gap-2">
+                                        <i class="fas fa-check"></i>Mark Complete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Deliverable 2: WhatsApp Script -->
+                    <div id="tab-2" class="content-section hidden">
+                        <h3 class="text-2xl font-bold mb-6">💬 Deliverable 2: WhatsApp Marketing Script</h3>
+                        <div class="space-y-6">
+                            <div class="bg-gradient-to-r from-green-600/20 to-green-500/10 border border-green-400/30 rounded-lg p-6">
+                                <h4 class="text-lg font-bold mb-3">The Task</h4>
+                                <p class="text-gray-300 mb-4">Draft two professional WhatsApp messages: a <strong>"Welcome Message"</strong> for new contacts and a <strong>"Consultation Invite"</strong> that emphasize safety, doctor-led care, and medical credibility.</p>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                                <div class="bg-white/5 border border-green-400/20 rounded-lg p-4">
+                                    <p class="font-bold mb-3">📧 MESSAGE 1: Welcome</p>
+                                    <p class="text-sm text-gray-300 mb-3">First impression message emphasizing:</p>
+                                    <ul class="text-sm text-gray-400 space-y-1 list-disc list-inside">
+                                        <li>Doctor-led clinic</li>
+                                        <li>FDA-approved equipment</li>
+                                        <li>Safety first approach</li>
+                                        <li>Professional credentials</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white/5 border border-green-400/20 rounded-lg p-4">
+                                    <p class="font-bold mb-3">🗓️ MESSAGE 2: Consultation</p>
+                                    <p class="text-sm text-gray-300 mb-3">Follow-up invite emphasizing:</p>
+                                    <ul class="text-sm text-gray-400 space-y-1 list-disc list-inside">
+                                        <li>Free consultation offer</li>
+                                        <li>Personalized treatment plans</li>
+                                        <li>Doctor availability</li>
+                                        <li>Results guarantee</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div class="bg-white/5 rounded-lg p-6 border border-green-400/30">
+                                    <h4 class="font-bold mb-3">Message 1: Welcome Message</h4>
+                                    <textarea placeholder="Write your professional WhatsApp welcome message here..." class="w-full bg-white/5 border border-white/20 rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none focus:border-green-400 h-32 font-mono text-sm"></textarea>
+                                </div>
+
+                                <div class="bg-white/5 rounded-lg p-6 border border-green-400/30">
+                                    <h4 class="font-bold mb-3">Message 2: Consultation Invite</h4>
+                                    <textarea placeholder="Write your consultation invitation message here..." class="w-full bg-white/5 border border-white/20 rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none focus:border-green-400 h-32 font-mono text-sm"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-3">
+                                <button onclick="downloadDeliverable(2)" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-lg transition font-semibold flex items-center justify-center gap-2">
+                                    <i class="fas fa-download"></i>Download Template
+                                </button>
+                                <button onclick="submitDeliverable(2)" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-lg transition font-semibold flex items-center justify-center gap-2">
+                                    <i class="fas fa-check"></i>Mark Complete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Deliverable 3: Landing Page Copy -->
+                    <div id="tab-3" class="content-section hidden">
+                        <h3 class="text-2xl font-bold mb-6">🌐 Deliverable 3: Landing Page "Why Us" Copy</h3>
+                        <div class="space-y-6">
+                            <div class="bg-gradient-to-r from-orange-600/20 to-orange-500/10 border border-orange-400/30 rounded-lg p-6">
+                                <h4 class="text-lg font-bold mb-3">The Task</h4>
+                                <p class="text-gray-300 mb-4">Write a compelling <strong>"Why Us"</strong> section for the clinic's landing page that focuses on the doctor's degrees (MBBS/MD Dermatology) to justify premium pricing and position the clinic as a medical authority.</p>
+                            </div>
+
+                            <div class="grid md:grid-cols-3 gap-4 mb-8">
+                                <div class="bg-white/5 border border-orange-400/20 rounded-lg p-4">
+                                    <div class="font-bold text-brand-orange mb-2">Key Section 1</div>
+                                    <p class="text-sm text-gray-300">Doctor's Credentials & Experience</p>
+                                </div>
+                                <div class="bg-white/5 border border-orange-400/20 rounded-lg p-4">
+                                    <div class="font-bold text-brand-orange mb-2">Key Section 2</div>
+                                    <p class="text-sm text-gray-300">Medical-Grade Technology & Safety</p>
+                                </div>
+                                <div class="bg-white/5 border border-orange-400/20 rounded-lg p-4">
+                                    <div class="font-bold text-brand-orange mb-2">Key Section 3</div>
+                                    <p class="text-sm text-gray-300">Results & Patient Testimonials</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-white/5 rounded-lg p-6 border border-orange-400/30">
+                                <h4 class="font-bold mb-4">📝 Write Your "Why Us" Copy</h4>
+                                <p class="text-gray-400 text-sm mb-4">Include doctor's credentials, safety messaging, and premium value proposition (500-700 words)</p>
+                                <textarea placeholder="Write your compelling 'Why Us' section here. Make sure to highlight the doctor's MBBS/MD credentials and justify the premium pricing through medical expertise and safety..." class="w-full bg-white/5 border border-white/20 rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none focus:border-orange-400 h-56 font-mono text-sm"></textarea>
+                            </div>
+
+                            <div class="flex gap-3">
+                                <button onclick="downloadDeliverable(3)" class="flex-1 bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-lg transition font-semibold flex items-center justify-center gap-2">
+                                    <i class="fas fa-download"></i>Download Template
+                                </button>
+                                <button onclick="submitDeliverable(3)" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-lg transition font-semibold flex items-center justify-center gap-2">
+                                    <i class="fas fa-check"></i>Mark Complete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Tracker -->
+            <div class="mt-12 bg-white/5 border border-white/10 rounded-2xl p-8">
+                <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                    <i class="fas fa-chart-line text-brand-orange"></i>Your Progress
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span>Instagram Series</span>
+                            <span class="text-brand-orange" id="progress-1">0%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div id="bar-1" class="bg-purple-500 h-2 rounded-full transition-all" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span>WhatsApp Script</span>
+                            <span class="text-brand-orange" id="progress-2">0%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div id="bar-2" class="bg-green-500 h-2 rounded-full transition-all" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span>Landing Page Copy</span>
+                            <span class="text-brand-orange" id="progress-3">0%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div id="bar-3" class="bg-orange-500 h-2 rounded-full transition-all" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 p-4 bg-gradient-to-r from-green-600/20 to-green-500/10 border border-green-400/30 rounded-lg">
+                    <p class="text-green-300 text-sm">💡 <strong>Pro Tip:</strong> Complete each deliverable by writing your copy in the text areas above, then click "Mark Complete" to track your progress. Download templates to get started faster!</p>
+                </div>
+            </div>
+
+            <!-- Learning Resources -->
+            <div class="mt-12 grid md:grid-cols-2 gap-6">
+                <div class="bg-gradient-to-br from-blue-600/20 to-blue-500/10 border border-blue-400/30 rounded-xl p-6">
+                    <i class="fas fa-book-open text-4xl text-blue-400 mb-3"></i>
+                    <h4 class="font-bold text-lg mb-2">Module 1 Guide</h4>
+                    <p class="text-gray-300 text-sm mb-4">Deep dive into marketing strategy, audience analysis, and messaging frameworks</p>
+                    <a href="resources/module-1-guide.html" target="_blank" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold">
+                        Read Guide <i class="fas fa-external-link-alt text-sm"></i>
+                    </a>
+                </div>
+                <div class="bg-gradient-to-br from-orange-600/20 to-orange-500/10 border border-orange-400/30 rounded-xl p-6">
+                    <i class="fas fa-lightbulb text-4xl text-orange-400 mb-3"></i>
+                    <h4 class="font-bold text-lg mb-2">Best Practices</h4>
+                    <p class="text-gray-300 text-sm mb-4">Tips for clinic branding, medical authority positioning, and customer psychology</p>
+                    <button onclick="alert('1. Emphasize medical credentials\\n2. Use FDA/certification language\\n3. Create trust through education\\n4. Address price objections directly\\n5. Show doctor presence')" class="inline-flex items-center gap-2 text-orange-400 hover:text-orange-300 font-semibold">
+                        View Tips <i class="fas fa-lightbulb text-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 bg-brand-navy-dark/50 text-white py-8 px-4 mt-12">
+        <div class="max-w-7xl mx-auto text-center">
+            <p class="text-gray-400">&copy; 2025 BrandMark Solutions. Clinic Branding Project</p>
+            <p class="text-sm text-gray-500 mt-2">Real-world project for medical clinic marketing</p>
+        </div>
+    </footer>
+
+    <script>
+        let projectProgress = { 1: 0, 2: 0, 3: 0 };
+
+        function switchTab(tabNum) {
+            // Hide all tabs
+            document.querySelectorAll('[id^="tab-"]').forEach(el => el.classList.add('hidden'));
+            
+            // Show selected tab
+            document.getElementById(`tab-${tabNum}`).classList.remove('hidden');
+            
+            // Update active tab button
+            document.querySelectorAll('.tab-button').forEach((btn, idx) => {
+                if (idx === tabNum - 1) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        function downloadDeliverable(num) {
+            const templates = {
+                1: 'Instagram_Carousel_Template.docx',
+                2: 'WhatsApp_Script_Template.docx',
+                3: 'Landing_Page_Copy_Template.docx'
+            };
+            alert(`📥 Downloading: ${templates[num]}\n\nThis template will help you structure your ${num === 1 ? 'Instagram series' : num === 2 ? 'WhatsApp messages' : 'landing page copy'}.`);
+        }
+
+        function submitDeliverable(num) {
+            projectProgress[num] = 100;
+            updateProgress(num);
+            
+            // Check if all 3 deliverables are complete
+            const allComplete = projectProgress[1] === 100 && projectProgress[2] === 100 && projectProgress[3] === 100;
+            
+            if (allComplete) {
+                alert(`✅ Excellent! All 3 deliverables complete!\n\n🎉 You've finished the clinic branding project!\n\nYou're now ready to take the quiz and earn your certificate. Click OK to proceed.`);
+                // Redirect to quiz page after user clicks OK
+                window.location.href = 'quiz.html';
+            } else {
+                const completed = Object.values(projectProgress).filter(p => p === 100).length;
+                alert(`✅ Great work! Deliverable ${num} marked as complete!\n\n${completed}/3 deliverables done. Complete all 3 to unlock the quiz!`);
+            }
+        }
+
+        function updateProgress(num) {
+            const percent = projectProgress[num];
+            document.getElementById(`progress-${num}`).textContent = percent + '%';
+            document.getElementById(`bar-${num}`).style.width = percent + '%';
+        }
+
+        // Initialize first tab
+        switchTab(1);
+
+    </script>
+</body>
+</html>

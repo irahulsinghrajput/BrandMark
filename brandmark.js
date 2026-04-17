@@ -5,7 +5,7 @@ const isLocalhost =
     window.location.hostname === '127.0.0.1' ||
     window.location.protocol === 'file:';
 const API_URL = isLocalhost 
-    ? 'http://localhost:5000/api'     // Local Backend
+    ? 'http://localhost:5001/api'     // Local Backend
     : 'https://brandmark-backend.onrender.com/api'; // Production Backend
 
 // Mobile Menu Toggle
