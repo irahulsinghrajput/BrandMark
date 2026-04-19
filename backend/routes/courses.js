@@ -75,6 +75,86 @@ router.get('/categories', async (req, res) => {
     }
 });
 
+// IMPORTANT: POST/specific routes MUST come BEFORE generic /:slug route
+// Otherwise /:slug will match :courseId/order and cause 404 errors
+
+// @route   POST /api/courses/:courseId/order
+// @desc    Create Razorpay order for course enrollment
+// @access  Public
+router.post('/:courseId/order', async (req, res) => {
+    try {
+        const { courseId } = req.params;
+        const { email } = req.body;
+        
+        if (!email) {
+            return res.status(400).json({
+                success: false,
+                message: 'Email is required'
+            });
+        }
+
+        // Course pricing map (hardcoded for now, can be extended)
+        const coursePrices = {
+            'digital-marketing-001': {
+                title: 'Digital Marketing Mastery with Gen AI',
+                price: 4900, // ₹49 in paise
+                moduleNumber: 1
+            }
+        };
+
+        const courseInfo = coursePrices[courseId] || {
+            title: 'BrandMark Course',
+            price: 4900,
+            moduleNumber: 1
+        };
+
+        // Initialize Razorpay
+        if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+            return res.status(500).json({
+                success: false,
+                message: 'Payment system not configured'
+            });
+        }
+
+        const Razorpay = require('razorpay');
+        const razorpay = new Razorpay({
+            key_id: process.env.RAZORPAY_KEY_ID,
+            key_secret: process.env.RAZORPAY_KEY_SECRET
+        });
+
+        const options = {
+            amount: courseInfo.price * 100, // Razorpay expects amount in paise
+            currency: 'INR',
+            receipt: `receipt_${Date.now()}`,
+            notes: {
+                courseId,
+                email,
+                courseTitle: courseInfo.title
+            }
+        };
+
+        const order = await razorpay.orders.create(options);
+
+        res.status(200).json({
+            success: true,
+            message: 'Order created successfully',
+            data: {
+                orderId: order.id,
+                amount: order.amount,
+                currency: order.currency,
+                keyId: process.env.RAZORPAY_KEY_ID
+            }
+        });
+    } catch (error) {
+        console.error('Order creation error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error creating order',
+            error: error.message
+        });
+    }
+});
+
 // @route   GET /api/courses/:slug
 // @desc    Get single course by slug
 // @access  Public
@@ -369,86 +449,6 @@ router.post('/payment/verify', async (req, res) => {
         res.status(500).json({
             success: false,
             message: 'Error verifying payment',
-            error: error.message
-        });
-    }
-});
-
-// @route   POST /api/courses/:courseId/order
-// @desc    Create Razorpay order for course enrollment
-// @access  Public
-router.post('/:courseId/order', async (req, res) => {
-    try {
-        const { courseId } = req.params;
-        const { email } = req.body;
-        
-        if (!email) {
-            return res.status(400).json({
-                success: false,
-                message: 'Email is required'
-            });
-        }
-
-        // Course pricing map (hardcoded for now, can be extended)
-        const coursePrices = {
-            'digital-marketing-001': {
-                title: 'Digital Marketing Mastery with Gen AI',
-                price: 4900, // ₹49 in paise
-                moduleNumber: 1
-            }
-        };
-
-        const courseInfo = coursePrices[courseId] || {
-            title: 'BrandMark Course',
-            price: 4900,
-            moduleNumber: 1
-        };
-
-        // Initialize Razorpay
-        if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
-            return res.status(500).json({
-                success: false,
-                message: 'Payment system not configured'
-            });
-        }
-
-        const Razorpay = require('razorpay');
-        const razorpay = new Razorpay({
-            key_id: process.env.RAZORPAY_KEY_ID,
-            key_secret: process.env.RAZORPAY_KEY_SECRET
-        });
-
-        // Create Razorpay order
-        const order = await razorpay.orders.create({
-            amount: courseInfo.price,
-            currency: 'INR',
-            receipt: `${courseId}_${Date.now()}`,
-            notes: {
-                courseId: courseId,
-                email: email,
-                courseTitle: courseInfo.title
-            }
-        });
-
-        // Return order details for frontend
-        res.status(201).json({
-            success: true,
-            message: 'Order created successfully',
-            data: {
-                orderId: order.id,
-                amount: courseInfo.price,
-                currency: 'INR',
-                courseTitle: courseInfo.title,
-                email,
-                keyId: process.env.RAZORPAY_KEY_ID
-            }
-        });
-
-    } catch (error) {
-        console.error('Razorpay order error:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error creating payment order',
             error: error.message
         });
     }
