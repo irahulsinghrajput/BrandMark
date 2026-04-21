@@ -86,7 +86,10 @@ router.post('/:courseId/order', async (req, res) => {
         const { courseId } = req.params;
         const { email } = req.body;
         
+        console.log('🔵 Order request received for courseId:', courseId, 'email:', email);
+        
         if (!email) {
+            console.log('❌ Email missing');
             return res.status(400).json({
                 success: false,
                 message: 'Email is required'
@@ -108,14 +111,18 @@ router.post('/:courseId/order', async (req, res) => {
             moduleNumber: 1
         };
 
+        console.log('📚 Course info:', courseInfo);
+
         // Initialize Razorpay
         if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+            console.error('❌ Razorpay credentials missing');
             return res.status(500).json({
                 success: false,
                 message: 'Payment system not configured'
             });
         }
 
+        console.log('💳 Initializing Razorpay...');
         const Razorpay = require('razorpay');
         const razorpay = new Razorpay({
             key_id: process.env.RAZORPAY_KEY_ID,
@@ -133,9 +140,11 @@ router.post('/:courseId/order', async (req, res) => {
             }
         };
 
+        console.log('📦 Creating Razorpay order with options:', options);
         const order = await razorpay.orders.create(options);
+        console.log('✅ Order created:', order.id);
 
-        res.status(200).json({
+        const responseData = {
             success: true,
             message: 'Order created successfully',
             data: {
@@ -144,9 +153,13 @@ router.post('/:courseId/order', async (req, res) => {
                 currency: order.currency,
                 keyId: process.env.RAZORPAY_KEY_ID
             }
-        });
+        };
+        
+        console.log('📤 Sending response:', responseData);
+        res.status(200).json(responseData);
     } catch (error) {
-        console.error('Order creation error:', error);
+        console.error('❌ Order creation error:', error.message);
+        console.error('Full error:', error);
         res.status(500).json({
             success: false,
             message: 'Error creating order',
