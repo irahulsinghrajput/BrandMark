@@ -100,14 +100,14 @@ router.post('/:courseId/order', async (req, res) => {
         const coursePrices = {
             'digital-marketing-001': {
                 title: 'Digital Marketing Mastery with Gen AI',
-                price: 4900, // ₹49 in paise
+                price: 49, // ₹49 (will be converted to paise by * 100)
                 moduleNumber: 1
             }
         };
 
         const courseInfo = coursePrices[courseId] || {
             title: 'BrandMark Course',
-            price: 4900,
+            price: 49,
             moduleNumber: 1
         };
 
