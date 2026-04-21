@@ -1,4 +1,12 @@
 require('dotenv').config({ path: __dirname + '/.env' });
+
+// STARTUP LOG - Should appear immediately
+console.log('🚀 ============================================');
+console.log('🚀 BrandMark Backend Starting Up...');
+console.log('🚀 Time:', new Date().toISOString());
+console.log('🚀 Environment:', process.env.NODE_ENV || 'production');
+console.log('🚀 ============================================');
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -81,21 +89,42 @@ process.on('unhandledRejection', (err) => {
 });
 
 // Routes
+console.log('🔧 Loading routes...');
 app.use('/api/contact', require('./routes/contact'));
+console.log('✅ Contact routes loaded');
 app.use('/api/careers', require('./routes/careers'));
+console.log('✅ Careers routes loaded');
 app.use('/api/newsletter', require('./routes/newsletter'));
+console.log('✅ Newsletter routes loaded');
 app.use('/api/blog', require('./routes/blog'));
+console.log('✅ Blog routes loaded');
 app.use('/api/admin', require('./routes/admin'));
+console.log('✅ Admin routes loaded');
 app.use('/api/chat', require('./routes/chat'));
+console.log('✅ Chat routes loaded');
 app.use('/api/quotes', require('./routes/quotes'));
-app.use('/api/courses', require('./routes/courses'));
+console.log('✅ Quotes routes loaded');
+const coursesRoutes = require('./routes/courses');
+console.log('✅ Courses routes required');
+app.use('/api/courses', coursesRoutes);
+console.log('✅ Courses routes mounted');
 app.use('/api/quiz', require('./routes/quiz'));
+console.log('✅ Quiz routes loaded');
 
 // Health Check
 app.get('/api/health', (req, res) => {
     res.json({ 
         status: 'OK', 
         message: 'BrandMark API is running',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// Debug: Test order route
+app.get('/api/test-order-route', (req, res) => {
+    res.json({ 
+        status: 'OK',
+        message: 'Order route test endpoint working',
         timestamp: new Date().toISOString()
     });
 });
