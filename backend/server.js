@@ -110,6 +110,8 @@ app.use('/api/courses', coursesRoutes);
 console.log('✅ Courses routes mounted');
 app.use('/api/quiz', require('./routes/quiz'));
 console.log('✅ Quiz routes loaded');
+app.use('/api/students', require('./routes/students'));
+console.log('✅ Students routes loaded');
 
 // Health Check
 app.get('/api/health', (req, res) => {

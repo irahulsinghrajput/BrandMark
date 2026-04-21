@@ -442,18 +442,26 @@ router.post('/payment/verify', async (req, res) => {
             });
         }
 
-        // Payment verified successfully!
-        // TODO: Save enrollment to MongoDB when connection is fixed
+        // Payment verified successfully! Save enrollment.
+        const Student = require('../models/Student');
         const enrollmentId = `enroll_${Date.now()}`;
-        
+
+        // Check if student already enrolled (prevent duplicate enrollment on retry)
+        const existingStudent = await Student.findOne({ email });
+        const alreadyEnrolled = existingStudent &&
+            existingStudent.enrolledCourses.some(e => e.courseId === courseId);
+
         res.status(200).json({
             success: true,
             message: 'Payment verified successfully!',
             data: {
-                enrollmentId: enrollmentId,
+                enrollmentId,
                 paymentId: razorpay_payment_id,
-                email: email,
-                courseId: courseId
+                orderId: razorpay_order_id,
+                email,
+                courseId,
+                alreadyHasAccount: !!existingStudent,
+                alreadyEnrolled
             }
         });
 

@@ -94,6 +94,9 @@
                     <a href="portfolio.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Portfolio</a>
                     <a href="brandmarkpersonalblogs.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Blog</a>
                     <a href="brandmarkcareers.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Careers</a>
+                    <a href="student-login.html" id="navLoginBtn" class="bg-brand-orange hover:bg-brand-orange-dark text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-graduation-cap mr-1"></i><span id="navLoginText">Student Login</span>
+                    </a>
                 </div>
 
                 <!-- Mobile Menu Button -->
@@ -115,6 +118,9 @@
                 <a href="portfolio.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Portfolio</a>
                 <a href="brandmarkpersonalblogs.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Blog</a>
                 <a href="brandmarkcareers.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Careers</a>
+                <a href="student-login.html" id="mobileLoginBtn" class="block px-3 py-3 rounded-md text-base font-semibold text-white bg-brand-orange">
+                    <i class="fas fa-graduation-cap mr-2"></i><span id="mobileLoginText">Student Login</span>
+                </a>
             </div>
         </div>
     </nav>
@@ -184,7 +190,7 @@
                         <a href="digital-marketing-course.html" class="block w-full text-center bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold py-3 rounded-lg transition-colors mb-3">
                             Explore Course <i class="fas fa-arrow-right ml-2"></i>
                         </a>
-                        <button onclick="openEnrollmentModal()" class="block w-full text-center bg-brand-navy hover:bg-brand-navy-dark text-white font-semibold py-3 rounded-lg transition-colors">
+                        <button onclick="openEnrollmentModal()" id="enrollBtn" class="block w-full text-center bg-brand-navy hover:bg-brand-navy-dark text-white font-semibold py-3 rounded-lg transition-colors">
                             <i class="fas fa-shopping-cart mr-2"></i>Enroll Now (₹49)
                         </button>
                     </div>
@@ -443,9 +449,7 @@
                         try {
                             const verifyResponse = await fetch(`${API_BASE_URL}/courses/payment/verify`, {
                                 method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
+                                headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({
                                     razorpay_order_id: response.razorpay_order_id,
                                     razorpay_payment_id: response.razorpay_payment_id,
@@ -459,17 +463,25 @@
                             console.log('✅ Payment verified:', verifyData);
 
                             if (verifyData.success) {
+                                // Save basics to localStorage
                                 localStorage.setItem('enrollmentId', verifyData.data.enrollmentId);
                                 localStorage.setItem('userEmail', email);
                                 localStorage.setItem('STUDENT_NAME', name);
-                                alert('🎉 Payment successful! You are now enrolled.');
-                                window.location.href = 'course-dashboard.html';
+                                localStorage.setItem('pendingCourseId', 'digital-marketing-001');
+                                localStorage.setItem('pendingPaymentId', response.razorpay_payment_id);
+                                localStorage.setItem('pendingOrderId', response.razorpay_order_id);
+
+                                // Show set-password modal instead of redirecting
+                                document.getElementById('setPasswordModal').style.display = 'flex';
                             } else {
                                 alert('❌ Payment verification failed: ' + (verifyData.message || 'Unknown error'));
                             }
                         } catch (error) {
                             console.error('Verification error:', error);
-                            alert('✅ Payment completed! Enrollment is being processed.');
+                            // Payment went through - send to dashboard anyway
+                            localStorage.setItem('userEmail', email);
+                            localStorage.setItem('STUDENT_NAME', name);
+                            window.location.href = 'course-dashboard.html';
                         }
                     },
                     prefill: {
@@ -500,6 +512,113 @@
                 alert('❌ Error: ' + error.message + '\n\nPlease check the console (F12) for details and contact support if the issue persists.');
             }
         }
+
+        // ── Enrollment check on page load ──────────────────────────
+        async function checkEnrollmentStatus() {
+            const token = localStorage.getItem('studentToken');
+            const enrollBtn = document.getElementById('enrollBtn');
+
+            if (!token) return; // Not logged in – show normal enroll button
+
+            try {
+                const res = await fetch(`${API_BASE_URL}/students/me`, {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                const data = await res.json();
+
+                if (!data.success) {
+                    // Token invalid/expired – clear it
+                    localStorage.removeItem('studentToken');
+                    return;
+                }
+
+                const student = data.data;
+                const isEnrolled = student.enrolledCourses.some(e => e.courseId === 'digital-marketing-001');
+
+                // Update nav button to show student name + logout
+                const navLoginBtn = document.getElementById('navLoginBtn');
+                const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+                if (navLoginBtn) {
+                    navLoginBtn.href = 'course-dashboard.html';
+                    navLoginBtn.innerHTML = '<i class="fas fa-user-graduate mr-1"></i>' + student.name.split(' ')[0];
+                }
+                if (mobileLoginBtn) {
+                    mobileLoginBtn.href = 'course-dashboard.html';
+                    mobileLoginBtn.innerHTML = '<i class="fas fa-user-graduate mr-2"></i>' + student.name;
+                }
+
+                if (isEnrolled && enrollBtn) {
+                    // Replace enroll button with "Continue Course"
+                    enrollBtn.onclick = null;
+                    enrollBtn.innerHTML = '<i class="fas fa-play-circle mr-2"></i>Continue Your Course';
+                    enrollBtn.style.background = 'linear-gradient(135deg, #16a34a, #15803d)';
+                    enrollBtn.onclick = function() { window.location.href = 'course-dashboard.html'; };
+                }
+
+            } catch (e) {
+                console.log('Could not verify enrollment:', e.message);
+            }
+        }
+
+        // ── Set Password modal functions ────────────────────────────
+        function togglePwdVisibility() {
+            const input = document.getElementById('newPassword');
+            const icon = document.getElementById('pwdEyeIcon');
+            input.type = input.type === 'password' ? 'text' : 'password';
+            icon.className = input.type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+        }
+
+        async function savePasswordAndProceed() {
+            const password = document.getElementById('newPassword').value.trim();
+            const errDiv = document.getElementById('setPwdError');
+            const btnText = document.getElementById('savePwdBtnText');
+            const spinner = document.getElementById('savePwdSpinner');
+
+            if (!password || password.length < 6) {
+                errDiv.textContent = 'Password must be at least 6 characters.';
+                errDiv.style.display = 'block';
+                return;
+            }
+
+            errDiv.style.display = 'none';
+            btnText.style.display = 'none';
+            spinner.style.display = 'inline';
+
+            try {
+                const res = await fetch(`${API_BASE_URL}/students/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: localStorage.getItem('STUDENT_NAME') || 'Student',
+                        email: localStorage.getItem('userEmail'),
+                        password,
+                        courseId: localStorage.getItem('pendingCourseId') || 'digital-marketing-001',
+                        courseTitle: 'Digital Marketing Mastery with Gen AI',
+                        paymentId: localStorage.getItem('pendingPaymentId'),
+                        orderId: localStorage.getItem('pendingOrderId')
+                    })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    localStorage.setItem('studentToken', data.data.token);
+                    localStorage.setItem('studentName', data.data.name);
+                    localStorage.setItem('studentEmail', data.data.email);
+                    localStorage.setItem('enrolledCourses', JSON.stringify(data.data.enrolledCourses));
+                }
+            } catch (e) {
+                console.log('Account creation error:', e.message);
+            }
+
+            window.location.href = 'course-dashboard.html';
+        }
+
+        function skipPasswordAndProceed() {
+            window.location.href = 'course-dashboard.html';
+        }
+
+        // Run enrollment check when page loads
+        checkEnrollmentStatus();
     </script>
 
     <!-- Enrollment Modal -->
@@ -555,6 +674,40 @@
                     </button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Set Password Modal (shown after successful payment) -->
+    <div id="setPasswordModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1001; align-items:center; justify-content:center;">
+        <div style="background:white; border-radius:16px; padding:40px; max-width:440px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,0.3); text-align:center;">
+            <div style="width:64px; height:64px; background:linear-gradient(135deg,#F26A21,#E65C17); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px;">
+                <i class="fas fa-lock" style="color:white; font-size:24px;"></i>
+            </div>
+            <h2 style="color:#0B2C4D; margin:0 0 8px; font-size:24px; font-weight:700;">🎉 Payment Successful!</h2>
+            <p style="color:#6C757D; margin:0 0 24px; font-size:14px; line-height:1.6;">
+                Create a password to save your account. Next time, just login — no need to pay again!
+            </p>
+            <div style="margin-bottom:20px; text-align:left;">
+                <label style="display:block; color:#0B2C4D; font-weight:600; margin-bottom:8px; font-size:14px;">Create Password (min. 6 characters)</label>
+                <div style="position:relative;">
+                    <input type="password" id="newPassword" placeholder="Enter a password" minlength="6"
+                        style="width:100%; padding:12px 40px 12px 12px; border:2px solid #E0E0E0; border-radius:8px; font-size:14px; font-family:Outfit,sans-serif; box-sizing:border-box;"
+                        onfocus="this.style.borderColor='#F26A21'" onblur="this.style.borderColor='#E0E0E0'">
+                    <button type="button" onclick="togglePwdVisibility()" style="position:absolute; right:12px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; color:#6C757D;">
+                        <i class="fas fa-eye" id="pwdEyeIcon"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="setPwdError" style="display:none; color:#dc2626; font-size:13px; margin-bottom:12px; padding:8px; background:#fef2f2; border-radius:6px;"></div>
+            <button onclick="savePasswordAndProceed()"
+                style="width:100%; padding:14px; background:linear-gradient(135deg,#F26A21,#E65C17); color:white; border:none; border-radius:8px; font-size:16px; font-weight:700; cursor:pointer; font-family:Outfit,sans-serif; margin-bottom:12px;">
+                <span id="savePwdBtnText"><i class="fas fa-save mr-2"></i>Save Password & Access Course</span>
+                <span id="savePwdSpinner" style="display:none;"><i class="fas fa-spinner fa-spin mr-2"></i>Saving...</span>
+            </button>
+            <button onclick="skipPasswordAndProceed()"
+                style="width:100%; padding:10px; background:none; color:#6C757D; border:none; font-size:13px; cursor:pointer; font-family:Outfit,sans-serif; text-decoration:underline;">
+                Skip for now — Go to course directly
+            </button>
         </div>
     </div>
 

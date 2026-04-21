@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login - BrandMark Solutions</title>
+    <link rel="stylesheet" href="brandmark.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#0B2C4D',
+                            'navy-dark': '#081F36',
+                            orange: '#F26A21',
+                            'orange-dark': '#E65C17',
+                        }
+                    },
+                    fontFamily: { sans: ['Outfit', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <nav class="w-full z-50 bg-brand-navy shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center no-underline">
+                    <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark Solutions logo" class="h-12 w-12 rounded-full object-cover mr-3">
+                    <span class="text-2xl font-bold tracking-tighter text-white">
+                        Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">®</span>
+                    </span>
+                </a>
+                <a href="courses.html" class="text-gray-200 hover:text-brand-orange text-sm font-medium transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Courses
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <div class="flex-1 flex items-center justify-center py-16 px-4">
+        <div class="w-full max-w-md">
+
+            <!-- Card -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+
+                <!-- Header -->
+                <div class="bg-brand-navy px-8 py-8 text-center">
+                    <div class="w-16 h-16 bg-brand-orange rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-graduation-cap text-white text-2xl"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold text-white">Student Login</h1>
+                    <p class="text-gray-300 text-sm mt-2">Access your enrolled courses</p>
+                </div>
+
+                <!-- Tabs -->
+                <div class="flex border-b border-gray-200">
+                    <button id="loginTab" onclick="switchTab('login')"
+                        class="flex-1 py-3 text-sm font-semibold text-brand-navy border-b-2 border-brand-orange bg-orange-50 transition-colors">
+                        Login
+                    </button>
+                    <button id="registerTab" onclick="switchTab('register')"
+                        class="flex-1 py-3 text-sm font-semibold text-gray-500 hover:text-brand-navy border-b-2 border-transparent transition-colors">
+                        Create Account
+                    </button>
+                </div>
+
+                <div class="px-8 py-8">
+
+                    <!-- Login Form -->
+                    <form id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="mb-5">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                            <div class="relative">
+                                <i class="fas fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                <input type="email" id="loginEmail" required placeholder="your@email.com"
+                                    class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-orange focus:border-transparent text-sm">
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                            <div class="relative">
+                                <i class="fas fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                <input type="password" id="loginPassword" required placeholder="Enter your password"
+                                    class="w-full pl-10 pr-10 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-orange focus:border-transparent text-sm">
+                                <button type="button" onclick="togglePassword('loginPassword')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="loginError" class="hidden mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm"></div>
+                        <button type="submit" id="loginBtn"
+                            class="w-full bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold py-3 rounded-xl transition-colors mt-4">
+                            <span id="loginBtnText">Login to My Account</span>
+                            <span id="loginSpinner" class="hidden"><i class="fas fa-spinner fa-spin mr-2"></i>Logging in...</span>
+                        </button>
+                    </form>
+
+                    <!-- Register Form (hidden by default) -->
+                    <form id="registerForm" class="hidden" onsubmit="handleRegister(event)">
+                        <p class="text-sm text-gray-500 mb-5 bg-blue-50 border border-blue-100 rounded-lg p-3">
+                            <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+                            Already enrolled? Create an account to access your course anytime without re-purchasing.
+                        </p>
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
+                            <div class="relative">
+                                <i class="fas fa-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                <input type="text" id="regName" required placeholder="Your full name"
+                                    class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-orange focus:border-transparent text-sm">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                            <div class="relative">
+                                <i class="fas fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                <input type="email" id="regEmail" required placeholder="your@email.com"
+                                    class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-orange focus:border-transparent text-sm">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Course Enrollment ID</label>
+                            <div class="relative">
+                                <i class="fas fa-receipt absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                <input type="text" id="regCourseId" value="digital-marketing-001" readonly
+                                    class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl bg-gray-50 text-gray-500 text-sm cursor-not-allowed">
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Create Password</label>
+                            <div class="relative">
+                                <i class="fas fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                <input type="password" id="regPassword" required placeholder="Min. 6 characters" minlength="6"
+                                    class="w-full pl-10 pr-10 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-orange focus:border-transparent text-sm">
+                                <button type="button" onclick="togglePassword('regPassword')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="registerError" class="hidden mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm"></div>
+                        <button type="submit" id="registerBtn"
+                            class="w-full bg-brand-navy hover:bg-brand-navy-dark text-white font-semibold py-3 rounded-xl transition-colors mt-4">
+                            <span id="registerBtnText">Create Account</span>
+                            <span id="registerSpinner" class="hidden"><i class="fas fa-spinner fa-spin mr-2"></i>Creating...</span>
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+
+            <!-- Back to courses -->
+            <p class="text-center text-sm text-gray-500 mt-6">
+                Don't have an account yet?
+                <a href="courses.html" class="text-brand-orange font-semibold hover:underline">Enroll in a course first</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+            ? 'http://localhost:5001/api'
+            : 'https://brandmark-api-2026.onrender.com/api';
+
+        // Check if already logged in
+        const existingToken = localStorage.getItem('studentToken');
+        if (existingToken) {
+            window.location.href = 'course-dashboard.html';
+        }
+
+        // Read URL param for pre-filled email (from payment flow)
+        const urlParams = new URLSearchParams(window.location.search);
+        const prefillEmail = urlParams.get('email');
+        const prefillName = urlParams.get('name');
+        const autoTab = urlParams.get('tab');
+
+        if (prefillEmail) {
+            document.getElementById('loginEmail').value = prefillEmail;
+            document.getElementById('regEmail').value = prefillEmail;
+        }
+        if (prefillName) {
+            document.getElementById('regName').value = prefillName;
+        }
+        if (autoTab === 'register') {
+            switchTab('register');
+        }
+
+        function switchTab(tab) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const loginTab = document.getElementById('loginTab');
+            const registerTab = document.getElementById('registerTab');
+
+            if (tab === 'login') {
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+                loginTab.classList.add('text-brand-navy', 'border-brand-orange', 'bg-orange-50');
+                loginTab.classList.remove('text-gray-500', 'border-transparent');
+                registerTab.classList.remove('text-brand-navy', 'border-brand-orange', 'bg-orange-50');
+                registerTab.classList.add('text-gray-500', 'border-transparent');
+            } else {
+                registerForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
+                registerTab.classList.add('text-brand-navy', 'border-brand-orange', 'bg-orange-50');
+                registerTab.classList.remove('text-gray-500', 'border-transparent');
+                loginTab.classList.remove('text-brand-navy', 'border-brand-orange', 'bg-orange-50');
+                loginTab.classList.add('text-gray-500', 'border-transparent');
+            }
+        }
+
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const errorDiv = document.getElementById('loginError');
+            const btnText = document.getElementById('loginBtnText');
+            const spinner = document.getElementById('loginSpinner');
+
+            errorDiv.classList.add('hidden');
+            btnText.classList.add('hidden');
+            spinner.classList.remove('hidden');
+
+            try {
+                const res = await fetch(`${API_BASE_URL}/students/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
+
+                if (!data.success) {
+                    throw new Error(data.message || 'Login failed');
+                }
+
+                // Save to localStorage
+                localStorage.setItem('studentToken', data.data.token);
+                localStorage.setItem('studentName', data.data.name);
+                localStorage.setItem('studentEmail', data.data.email);
+                localStorage.setItem('enrolledCourses', JSON.stringify(data.data.enrolledCourses));
+                localStorage.setItem('STUDENT_NAME', data.data.name);
+                localStorage.setItem('userEmail', data.data.email);
+
+                window.location.href = 'course-dashboard.html';
+
+            } catch (error) {
+                errorDiv.textContent = error.message;
+                errorDiv.classList.remove('hidden');
+                btnText.classList.remove('hidden');
+                spinner.classList.add('hidden');
+            }
+        }
+
+        async function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const courseId = document.getElementById('regCourseId').value;
+            const errorDiv = document.getElementById('registerError');
+            const btnText = document.getElementById('registerBtnText');
+            const spinner = document.getElementById('registerSpinner');
+
+            errorDiv.classList.add('hidden');
+            btnText.classList.add('hidden');
+            spinner.classList.remove('hidden');
+
+            try {
+                const res = await fetch(`${API_BASE_URL}/students/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name, email, password, courseId,
+                        courseTitle: 'Digital Marketing Mastery with Gen AI'
+                    })
+                });
+                const data = await res.json();
+
+                if (!data.success) {
+                    throw new Error(data.message || 'Registration failed');
+                }
+
+                localStorage.setItem('studentToken', data.data.token);
+                localStorage.setItem('studentName', data.data.name);
+                localStorage.setItem('studentEmail', data.data.email);
+                localStorage.setItem('enrolledCourses', JSON.stringify(data.data.enrolledCourses));
+                localStorage.setItem('STUDENT_NAME', data.data.name);
+                localStorage.setItem('userEmail', data.data.email);
+
+                window.location.href = 'course-dashboard.html';
+
+            } catch (error) {
+                errorDiv.textContent = error.message;
+                errorDiv.classList.remove('hidden');
+                btnText.classList.remove('hidden');
+                spinner.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
