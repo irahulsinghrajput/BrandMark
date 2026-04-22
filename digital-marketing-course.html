@@ -648,38 +648,5 @@
         </div>
     </div>
 
-                            }
-                        } catch (error) {
-                            console.error('Error verifying payment:', error);
-                            alert('Payment completed but verification failed. Please contact support.');
-                        }
-                    },
-                    prefill: {
-                        email: localStorage.getItem('userEmail') || prompt('Enter email:'),
-                        contact: prompt('Enter phone number (optional):') || ''
-                    },
-                    theme: {
-                        color: '#F26A21'
-                    },
-                    modal: {
-                        ondismiss: function() {
-                            console.log('Payment modal closed');
-                        }
-                    }
-                };
-
-                const rzp = new Razorpay(options);
-                rzp.on('payment.failed', function(response) {
-                    console.error('Payment failed:', response.error);
-                    alert('❌ Payment failed: ' + response.error.description);
-                });
-                rzp.open();
-
-            } catch (error) {
-                console.error('Error initiating payment:', error);
-                alert('Error initiating payment. Please try again. Error: ' + error.message);
-            }
-        }
-    </script>
 </body>
 </html>
