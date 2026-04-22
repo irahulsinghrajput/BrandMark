@@ -158,6 +158,9 @@
                 <a href="portfolio.html" class="text-white hover:text-brand-orange transition font-semibold">Portfolio</a>
                 <a href="brandmarkpersonalblogs.html" class="text-white hover:text-brand-orange transition font-semibold">Blog</a>
                 <a href="brandmarkcareers.html" class="text-white hover:text-brand-orange transition font-semibold">Careers</a>
+                <button onclick="logout()" class="ml-4 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-full font-semibold text-sm transition flex items-center gap-2">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
             </div>
         </nav>
     </header>
@@ -306,7 +309,12 @@
             if (confirm('Are you sure you want to logout?')) {
                 localStorage.removeItem('enrollmentId');
                 localStorage.removeItem('userEmail');
-                window.location.href = 'courses.html';
+                localStorage.removeItem('studentToken');
+                localStorage.removeItem('studentName');
+                localStorage.removeItem('studentEmail');
+                localStorage.removeItem('enrolledCourses');
+                localStorage.removeItem('STUDENT_NAME');
+                window.location.href = 'student-login.html';
             }
         }
 
