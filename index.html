@@ -605,5 +605,31 @@
     </a>
 
     <script src="brandmark.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js"></script>
+    <script>
+      VapiWidget.init({
+        apiKey: "28589150-3565-41df-b341-660e7b6cca0e",
+        assistantId: "877a4d12-a5f3-45bc-a660-85a7e7c92c19",
+        config: {
+          position: "bottom-right",
+          offset: "40px",
+          width: "50px",
+          height: "50px",
+          idle: {
+            color: "#1e3a8a",
+            type: "pill",
+            text: "Talk to Mark",
+            icon: "https://vapi.ai/favicon.ico",
+          },
+          active: {
+            color: "#d32f2f",
+            type: "pill",
+            text: "Mark is listening...",
+            icon: "https://vapi.ai/favicon.ico",
+          }
+        },
+      });
+    </script>
 </body>
 </html>
