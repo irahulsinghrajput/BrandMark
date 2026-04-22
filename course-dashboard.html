@@ -294,15 +294,19 @@
         function checkEnrollment() {
             const enrollmentId = localStorage.getItem('enrollmentId');
             const userEmail = localStorage.getItem('userEmail');
-            
-            if (!enrollmentId || !userEmail) {
+            const studentToken = localStorage.getItem('studentToken');
+            const studentEmail = localStorage.getItem('studentEmail');
+
+            // Accept either: old enrollmentId flow OR new studentToken login flow
+            const isEnrolled = (enrollmentId && userEmail) || (studentToken && (studentEmail || userEmail));
+
+            if (!isEnrolled) {
                 alert('⚠️ You are not enrolled in this course. Please enroll first.');
                 window.location.href = 'courses.html';
                 return;
             }
-            
-            console.log('✅ Student enrolled:', userEmail);
-            console.log('📚 Enrollment ID:', enrollmentId);
+
+            console.log('✅ Student authenticated:', studentEmail || userEmail);
         }
 
         function logout() {
