@@ -649,7 +649,7 @@
           });
           // Hide the floating widget — triggered via hero button instead
           var style = document.createElement('style');
-          style.textContent = '.vapi-btn { display: none !important; }';
+          style.textContent = '.vapi-btn, [class*="vapi-"] { display: none !important; visibility: hidden !important; pointer-events: none !important; }';
           document.head.appendChild(style);
         };
       })(document, "script");
