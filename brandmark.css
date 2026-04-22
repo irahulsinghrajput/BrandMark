@@ -329,8 +329,8 @@ footer {
 /* --- BRANDMARK AI CHAT WIDGET --- */
 #bm-chat-widget {
     position: fixed;
-    bottom: 90px;
-    right: 20px;
+    bottom: 30px;
+    right: 30px;
     z-index: 1100;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
