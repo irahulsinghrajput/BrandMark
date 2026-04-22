@@ -152,7 +152,7 @@
                 <a href="brandmarkservices.html" class="px-8 py-4 bg-brand-orange text-white rounded-full font-bold hover:bg-brand-orange-dark transition duration-300 shadow-lg">
                     Explore Services
                 </a>
-                <button onclick="document.querySelector('.vapi-btn')?.click()" class="px-8 py-4 border border-brand-navy text-brand-navy rounded-full font-medium hover:bg-brand-navy hover:text-white transition duration-300 flex items-center gap-2">
+                <button onclick="window.vapiInstance ? window.vapiInstance.start('877a4d12-a5f3-45bc-a660-85a7e7c92c19') : alert('Voice assistant is loading, please try again.')" class="px-8 py-4 border border-brand-navy text-brand-navy rounded-full font-medium hover:bg-brand-navy hover:text-white transition duration-300 flex items-center gap-2">
                     <i class="fas fa-microphone"></i> Talk to Mark &amp; Book a Strategy Call
                 </button>
             </div>
@@ -616,37 +616,41 @@
         s.parentNode.insertBefore(g, s);
 
         g.onload = function () {
-          window.vapiSDK.run({
+          window.vapiInstance = window.vapiSDK.run({
             apiKey: "28589150-3565-41df-b341-660e7b6cca0e",
             assistant: "877a4d12-a5f3-45bc-a660-85a7e7c92c19",
             config: {
               position: "bottom-right",
-              offset: "40px",
-              width: "50px",
-              height: "50px",
+              offset: "-9999px",
+              width: "1px",
+              height: "1px",
               idle: {
                 color: "#1e3a8a",
-                type: "pill",
+                type: "round",
                 title: "Talk to Mark",
                 subtitle: "AI Voice Assistant",
                 icon: "https://unpkg.com/lucide-static@0.321.0/icons/phone.svg",
               },
               loading: {
                 color: "#3b82f6",
-                type: "pill",
+                type: "round",
                 title: "Connecting...",
                 subtitle: "Please wait",
                 icon: "https://unpkg.com/lucide-static@0.321.0/icons/loader-2.svg",
               },
               active: {
                 color: "#d32f2f",
-                type: "pill",
+                type: "round",
                 title: "Mark is listening...",
                 subtitle: "Tap to end call",
                 icon: "https://unpkg.com/lucide-static@0.321.0/icons/phone-off.svg",
               }
             }
           });
+          // Hide the floating widget — triggered via hero button instead
+          var style = document.createElement('style');
+          style.textContent = '.vapi-btn { display: none !important; }';
+          document.head.appendChild(style);
         };
       })(document, "script");
     </script>
