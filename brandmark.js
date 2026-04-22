@@ -507,6 +507,7 @@ function createChatWidget() {
 
     const widget = document.createElement('div');
     widget.id = 'bm-chat-widget';
+    widget.style.cssText = 'position:fixed !important; bottom:30px !important; right:30px !important; z-index:1100 !important;';
     widget.innerHTML = `
         <button id="bm-chat-toggle" aria-label="Open Brandmark AI chat">
             <img src="Brandmarkchatbot.PNG" alt="Chat with Brandmark" class="bm-chat-toggle-icon" onerror="this.src='💬'">
