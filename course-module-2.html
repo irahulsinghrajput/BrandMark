@@ -198,8 +198,19 @@
 <body class="bg-brand-black text-white font-[Outfit]">
     <!-- Navigation Header -->
     <header class="sticky top-0 z-50 bg-gradient-to-r from-brand-navy via-brand-navy to-brand-navy-dark shadow-2xl border-b-4 border-brand-orange">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-3 items-center">
-            <!-- Left: Buttons -->
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
+            <!-- Left: Logo -->
+            <a href="index.html" class="flex items-center gap-4 hover:opacity-90 transition group">
+                <div class="relative">
+                    <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark Logo" class="h-14 w-14 rounded-full object-cover shadow-lg border-2 border-brand-orange group-hover:shadow-xl transition">
+                    <div class="absolute inset-0 rounded-full bg-brand-orange opacity-0 group-hover:opacity-10 transition"></div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-3xl font-extrabold text-white tracking-tight">Brand<span class="text-brand-orange font-light">Mark</span><span class="text-xs align-top">®</span></span>
+                    <span class="text-xs text-blue-200 tracking-widest font-semibold">DIGITAL MASTERY</span>
+                </div>
+            </a>
+            <!-- Right: Buttons -->
             <div class="flex items-center gap-4">
                 <a href="resources-hub.html" class="inline-flex items-center gap-2 text-white hover:text-brand-orange transition font-bold px-6 py-3 rounded-lg hover:bg-white/15 bg-white/5 border border-white/10 hover:border-brand-orange/50">
                     <i class="fas fa-download text-lg"></i> 
@@ -210,21 +221,6 @@
                     <span>Back to Course</span>
                 </a>
             </div>
-            <!-- Center: Logo -->
-            <div class="flex justify-center">
-                <a href="index.html" class="flex items-center gap-4 hover:opacity-90 transition group">
-                    <div class="relative">
-                        <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark Logo" class="h-14 w-14 rounded-full object-cover shadow-lg border-2 border-brand-orange group-hover:shadow-xl transition">
-                        <div class="absolute inset-0 rounded-full bg-brand-orange opacity-0 group-hover:opacity-10 transition"></div>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-3xl font-extrabold text-white tracking-tight">Brand<span class="text-brand-orange font-light">Mark</span><span class="text-xs align-top">®</span></span>
-                        <span class="text-xs text-blue-200 tracking-widest font-semibold">DIGITAL MASTERY</span>
-                    </div>
-                </a>
-            </div>
-            <!-- Right: empty -->
-            <div></div>
         </nav>
     </header>
 
