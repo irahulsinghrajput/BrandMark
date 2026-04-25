@@ -18,7 +18,7 @@ const courseSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ['Foundation', 'Content & Copywriting', 'Paid Advertising', 'Social Media & Influencer', 'Advanced Strategy'],
+        enum: ['Foundation', 'Content & Copywriting', 'Paid Advertising', 'Social Media & Influencer', 'Advanced Strategy', 'Capstone'],
         required: true
     },
     level: {

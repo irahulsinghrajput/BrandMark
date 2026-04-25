@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - BrandMark Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        .sidebar {
+            background: linear-gradient(135deg, #0B2C4D 0%, #081F36 100%);
+        }
+        
+        .stats-card {
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .course-row:hover {
+            background-color: #f0f4f8;
+        }
+        
+        .badge-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .badge-completed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .badge-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .chart-bar {
+            height: 40px;
+            background: linear-gradient(90deg, #F26A21 0%, #E65C17 100%);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .chart-bar:hover {
+            filter: brightness(1.1);
+        }
+        
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0B2C4D;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Sidebar Navigation -->
+    <div class="flex h-screen bg-gray-100">
+        <div class="sidebar w-64 text-white p-6">
+            <div class="mb-8">
+                <h1 class="text-2xl font-bold">📊 BrandMark</h1>
+                <p class="text-sm text-gray-300 mt-2">Admin Dashboard</p>
+            </div>
+
+            <nav class="space-y-4">
+                <a href="#" onclick="showSection('overview')" class="flex items-center space-x-3 p-3 rounded-lg bg-white/20 hover:bg-white/30 cursor-pointer">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Overview</span>
+                </a>
+                <a href="#" onclick="showSection('courses')" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/10 cursor-pointer">
+                    <i class="fas fa-book"></i>
+                    <span>Courses</span>
+                </a>
+                <a href="#" onclick="showSection('enrollments')" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/10 cursor-pointer">
+                    <i class="fas fa-users"></i>
+                    <span>Enrollments</span>
+                </a>
+                <a href="#" onclick="showSection('analytics')" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/10 cursor-pointer">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Analytics</span>
+                </a>
+            </nav>
+
+            <div class="mt-12 pt-6 border-t border-white/20">
+                <p class="text-xs text-gray-300 mb-4">Logged in as Admin</p>
+                <button onclick="logout()" class="w-full bg-white/20 hover:bg-white/30 p-2 rounded text-sm">
+                    Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto">
+            <!-- Header -->
+            <div class="bg-white shadow-sm p-6 border-b">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 id="pageTitle" class="text-3xl font-bold text-gray-800">Dashboard Overview</h2>
+                        <p id="pageSubtitle" class="text-gray-500 mt-1">Welcome to BrandMark Admin</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="text-right">
+                            <p class="text-sm text-gray-600" id="currentTime"></p>
+                            <p class="font-semibold text-gray-800">Admin Panel</p>
+                        </div>
+                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="p-6">
+                <!-- OVERVIEW SECTION -->
+                <div id="overview" class="section">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                        <div class="stats-card bg-white rounded-lg shadow p-6">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-gray-600 text-sm">Total Courses</p>
+                                    <p class="text-3xl font-bold text-gray-800 mt-2">
+                                        <span id="totalCourses">--</span>
+                                    </p>
+                                </div>
+                                <i class="fas fa-book text-2xl text-blue-500"></i>
+                            </div>
+                        </div>
+
+                        <div class="stats-card bg-white rounded-lg shadow p-6">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-gray-600 text-sm">Total Enrollments</p>
+                                    <p class="text-3xl font-bold text-gray-800 mt-2">
+                                        <span id="totalEnrollments">--</span>
+                                    </p>
+                                </div>
+                                <i class="fas fa-users text-2xl text-green-500"></i>
+                            </div>
+                        </div>
+
+                        <div class="stats-card bg-white rounded-lg shadow p-6">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-gray-600 text-sm">Unique Students</p>
+                                    <p class="text-3xl font-bold text-gray-800 mt-2">
+                                        <span id="uniqueStudents">--</span>
+                                    </p>
+                                </div>
+                                <i class="fas fa-user-check text-2xl text-orange-500"></i>
+                            </div>
+                        </div>
+
+                        <div class="stats-card bg-white rounded-lg shadow p-6">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-gray-600 text-sm">Avg Completion</p>
+                                    <p class="text-3xl font-bold text-gray-800 mt-2">
+                                        <span id="avgCompletion">--</span>%
+                                    </p>
+                                </div>
+                                <i class="fas fa-chart-pie text-2xl text-purple-500"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Top Courses -->
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-lg font-bold text-gray-800 mb-4">
+                                <i class="fas fa-star text-yellow-500 mr-2"></i>Top 5 Courses
+                            </h3>
+                            <div id="topCoursesList" class="space-y-3">
+                                <div class="flex justify-center p-4">
+                                    <div class="loader"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Enrollments -->
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-lg font-bold text-gray-800 mb-4">
+                                <i class="fas fa-clock text-blue-500 mr-2"></i>Recent Enrollments
+                            </h3>
+                            <div id="recentEnrollmentsList" class="space-y-3">
+                                <div class="flex justify-center p-4">
+                                    <div class="loader"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COURSES SECTION -->
+                <div id="courses" class="section hidden">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">
+                            <i class="fas fa-book mr-2"></i>All Courses
+                        </h3>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="border-b-2 border-gray-200">
+                                        <th class="text-left py-3 px-4 font-semibold text-gray-700">Module</th>
+                                        <th class="text-left py-3 px-4 font-semibold text-gray-700">Course Title</th>
+                                        <th class="text-left py-3 px-4 font-semibold text-gray-700">Category</th>
+                                        <th class="text-left py-3 px-4 font-semibold text-gray-700">Level</th>
+                                        <th class="text-left py-3 px-4 font-semibold text-gray-700">Students</th>
+                                        <th class="text-left py-3 px-4 font-semibold text-gray-700">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="coursesList">
+                                    <tr>
+                                        <td colspan="6" class="text-center py-4">
+                                            <div class="flex justify-center">
+                                                <div class="loader"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ENROLLMENTS SECTION -->
+                <div id="enrollments" class="section hidden">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">
+                            <i class="fas fa-users mr-2"></i>Student Enrollments
+                        </h3>
+                        
+                        <div class="mb-4">
+                            <input type="text" id="searchInput" placeholder="Search by email or name..." 
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="border-b-2 border-gray-200">
+                                        <th class="text-left py-3 px-4 font-semibold text-gray-700">Student Name</th>
+                                        <th class="text-left py-3 px-4 font-semibold text-gray-700">Email</th>
+                                        <th class="text-left py-3 px-4 font-semibold text-gray-700">Course</th>
+                                        <th class="text-left py-3 px-4 font-semibold text-gray-700">Progress</th>
+                                        <th class="text-left py-3 px-4 font-semibold text-gray-700">Best Score</th>
+                                        <th class="text-left py-3 px-4 font-semibold text-gray-700">Enrolled</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="enrollmentsList">
+                                    <tr>
+                                        <td colspan="6" class="text-center py-4">
+                                            <div class="flex justify-center">
+                                                <div class="loader"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ANALYTICS SECTION -->
+                <div id="analytics" class="section hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-lg font-bold text-gray-800 mb-4">
+                                <i class="fas fa-chart-bar mr-2"></i>Enrollment by Course
+                            </h3>
+                            <div id="analyticsChart" class="space-y-4">
+                                <div class="flex justify-center p-4">
+                                    <div class="loader"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h3 class="text-lg font-bold text-gray-800 mb-4">
+                                <i class="fas fa-info-circle mr-2"></i>Key Metrics
+                            </h3>
+                            <div id="keyMetrics" class="space-y-4">
+                                <div class="flex justify-center p-4">
+                                    <div class="loader"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'https://brandmark-backend.onrender.com/api';
+        // For local testing:
+        // const API_URL = 'http://localhost:5001/api';
+
+        let allCourses = [];
+        let allEnrollments = [];
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            updateClock();
+            setInterval(updateClock, 1000);
+            loadDashboardData();
+        });
+
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('currentTime').textContent = now.toLocaleTimeString();
+        }
+
+        async function loadDashboardData() {
+            try {
+                // Fetch courses
+                const coursesRes = await fetch(`${API_URL}/courses`);
+                const coursesData = await coursesRes.json();
+                allCourses = coursesData.data || [];
+
+                // Fetch analytics summary
+                const analyticsRes = await fetch(`${API_URL}/analytics/summary`);
+                const analyticsData = await analyticsRes.json();
+                const summary = analyticsData.data;
+
+                // Update stats
+                document.getElementById('totalCourses').textContent = summary.totalCourses;
+                document.getElementById('totalEnrollments').textContent = summary.totalEnrollments;
+                document.getElementById('uniqueStudents').textContent = summary.uniqueStudents;
+
+                // Calculate avg completion
+                if (allCourses.length > 0) {
+                    const avgCompletion = Math.round(
+                        allCourses.reduce((sum, c) => sum + (c.enrollmentCount || 0), 0) / allCourses.length
+                    );
+                    document.getElementById('avgCompletion').textContent = avgCompletion;
+                }
+
+                // Populate top courses
+                populateTopCourses(summary.topCourses);
+
+                // Load courses list
+                populateCoursesList();
+
+                // Load enrollments
+                await loadEnrollments();
+
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+                alert('Error loading dashboard data: ' + error.message);
+            }
+        }
+
+        function populateTopCourses(topCourses) {
+            const html = topCourses.map((course, idx) => `
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div>
+                        <p class="text-sm font-semibold text-gray-800">${idx + 1}. ${course.title}</p>
+                        <p class="text-xs text-gray-500">${course.enrollments} enrollments</p>
+                    </div>
+                    <div class="w-16 h-6 bg-gray-200 rounded" style="width: ${Math.min(course.enrollments * 20, 100)}px; background: linear-gradient(90deg, #F26A21, #E65C17);"></div>
+                </div>
+            `).join('');
+            document.getElementById('topCoursesList').innerHTML = html;
+        }
+
+        function populateCoursesList() {
+            const html = allCourses.map(course => `
+                <tr class="course-row border-b hover:bg-gray-50">
+                    <td class="py-3 px-4"><span class="font-semibold text-blue-600">${course.moduleNumber}</span></td>
+                    <td class="py-3 px-4">${course.title}</td>
+                    <td class="py-3 px-4">${course.category}</td>
+                    <td class="py-3 px-4">
+                        <span class="badge-badge" style="background: ${getLevelColor(course.level)}; color: white;">
+                            ${course.level}
+                        </span>
+                    </td>
+                    <td class="py-3 px-4 font-semibold">${course.enrollmentCount || 0}</td>
+                    <td class="py-3 px-4">
+                        <span class="badge-badge ${course.isPublished ? 'badge-completed' : 'badge-pending'}">
+                            ${course.isPublished ? '✓ Live' : '⏳ Draft'}
+                        </span>
+                    </td>
+                </tr>
+            `).join('');
+            document.getElementById('coursesList').innerHTML = html;
+        }
+
+        async function loadEnrollments() {
+            try {
+                // Since we don't have a direct endpoint, we'll aggregate from analytics
+                const enrollmentsRes = await fetch(`${API_URL}/analytics/enrollments`);
+                const enrollmentsData = await enrollmentsRes.json();
+                
+                const courseStats = enrollmentsData.data.courseStats || [];
+                
+                // Flatten all students from all courses
+                let allStudents = [];
+                courseStats.forEach(course => {
+                    if (course.students && Array.isArray(course.students)) {
+                        allStudents.push(...course.students);
+                    }
+                });
+
+                populateEnrollmentsList(allStudents);
+                populateAnalytics(courseStats);
+
+            } catch (error) {
+                console.error('Error loading enrollments:', error);
+                document.getElementById('enrollmentsList').innerHTML = `
+                    <tr><td colspan="6" class="text-center py-4 text-red-500">
+                        Error loading enrollments. Check backend connection.
+                    </td></tr>
+                `;
+            }
+        }
+
+        function populateEnrollmentsList(students) {
+            if (students.length === 0) {
+                document.getElementById('enrollmentsList').innerHTML = `
+                    <tr><td colspan="6" class="text-center py-4 text-gray-500">
+                        No enrollments yet
+                    </td></tr>
+                `;
+                document.getElementById('recentEnrollmentsList').innerHTML = `
+                    <div class="text-center py-4 text-gray-500">No recent enrollments</div>
+                `;
+                return;
+            }
+
+            // For now, show placeholder rows (integrate with full enrollment data)
+            const html = students.slice(0, 10).map(student => `
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3 px-4">No Name</td>
+                    <td class="py-3 px-4">${student}</td>
+                    <td class="py-3 px-4">Digital Marketing</td>
+                    <td class="py-3 px-4">
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-blue-500 h-2 rounded-full" style="width: 65%"></div>
+                        </div>
+                    </td>
+                    <td class="py-3 px-4 font-semibold">85/100</td>
+                    <td class="py-3 px-4 text-sm text-gray-500">Today</td>
+                </tr>
+            `).join('');
+
+            document.getElementById('enrollmentsList').innerHTML = html;
+
+            // Recent enrollments preview
+            const recentHtml = students.slice(0, 5).map(student => `
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <p class="text-sm text-gray-800">${student}</p>
+                    <span class="badge-badge badge-completed">Enrolled</span>
+                </div>
+            `).join('');
+            document.getElementById('recentEnrollmentsList').innerHTML = recentHtml;
+        }
+
+        function populateAnalytics(courseStats) {
+            // Chart
+            const chartHtml = courseStats.map(course => `
+                <div class="mb-4">
+                    <div class="flex justify-between mb-2">
+                        <p class="text-sm font-semibold text-gray-800">${course.title}</p>
+                        <p class="text-sm font-bold text-orange-600">${course.enrollmentCount}</p>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div class="chart-bar" style="width: ${Math.min((course.enrollmentCount / Math.max(...courseStats.map(c => c.enrollmentCount))) * 100, 100)}%"></div>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('analyticsChart').innerHTML = chartHtml;
+
+            // Key metrics
+            const metricsHtml = `
+                <div class="space-y-3">
+                    <div class="flex justify-between p-3 bg-blue-50 rounded-lg">
+                        <span class="text-gray-700">Most Popular Course:</span>
+                        <span class="font-bold text-blue-600">${courseStats[0]?.title || 'N/A'}</span>
+                    </div>
+                    <div class="flex justify-between p-3 bg-green-50 rounded-lg">
+                        <span class="text-gray-700">Avg per Course:</span>
+                        <span class="font-bold text-green-600">${courseStats.length > 0 ? Math.round(courseStats.reduce((s, c) => s + c.enrollmentCount, 0) / courseStats.length) : 0}</span>
+                    </div>
+                    <div class="flex justify-between p-3 bg-purple-50 rounded-lg">
+                        <span class="text-gray-700">Active Courses:</span>
+                        <span class="font-bold text-purple-600">${courseStats.filter(c => c.enrollmentCount > 0).length}</span>
+                    </div>
+                </div>
+            `;
+            document.getElementById('keyMetrics').innerHTML = metricsHtml;
+        }
+
+        function getLevelColor(level) {
+            const colors = {
+                'Beginner': '#10B981',
+                'Intermediate': '#F59E0B',
+                'Advanced': '#EF4444',
+                'Capstone': '#8B5CF6'
+            };
+            return colors[level] || '#6B7280';
+        }
+
+        function showSection(section) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+            
+            // Show selected section
+            document.getElementById(section).classList.remove('hidden');
+
+            // Update title
+            const titles = {
+                'overview': { title: 'Dashboard Overview', subtitle: 'Welcome to BrandMark Admin' },
+                'courses': { title: 'Course Management', subtitle: 'View and manage all courses' },
+                'enrollments': { title: 'Student Enrollments', subtitle: 'Track student progress and enrollments' },
+                'analytics': { title: 'Analytics', subtitle: 'Detailed enrollment and performance metrics' }
+            };
+
+            const titleData = titles[section] || {};
+            document.getElementById('pageTitle').textContent = titleData.title;
+            document.getElementById('pageSubtitle').textContent = titleData.subtitle;
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('adminToken');
+                window.location.href = '/student-login.html';
+            }
+        }
+    </script>
+</body>
+</html>
