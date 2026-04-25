@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 5: SEO & AI-Enhanced Copywriting | BrandMark Course</title>
+    <meta name="description" content="Master SEO fundamentals and write optimized copy with AI. Learn keyword research, on-page SEO, and AI copywriting techniques.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-navy': '#0B2C4D',
+                        'brand-navy-dark': '#081F36',
+                        'brand-orange': '#F26A21',
+                        'brand-orange-dark': '#E65C17'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="brandmark.css">
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+        body { background: linear-gradient(to bottom, #f0f4f8 0%, #ffffff 100%); min-height: 100vh; }
+        .lesson-content { background: white; color: #1f2937; padding: 3rem; border-radius: 16px; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08); }
+        .lesson-content h2 { color: #0B2C4D; margin-top: 2rem; margin-bottom: 1.25rem; font-size: 1.875rem; font-weight: 700; border-bottom: 2px solid #F26A21; padding-bottom: 0.75rem; }
+        .lesson-content h3 { color: #0B2C4D; margin-top: 1.5rem; margin-bottom: 1rem; font-size: 1.25rem; font-weight: 600; }
+        .lesson-content p { line-height: 1.8; color: #374151; margin-bottom: 1rem; }
+        .lesson-content ul, .lesson-content ol { margin-left: 1.5rem; margin-bottom: 1.5rem; }
+        .lesson-content li { margin-bottom: 0.75rem; line-height: 1.7; color: #374151; }
+        .highlight-box { background: linear-gradient(135deg, #FEF3F2, #FFF8F3); border-left: 5px solid #F26A21; padding: 1.5rem; margin: 1.5rem 0; border-radius: 8px; }
+        .audio-player { background: linear-gradient(135deg, #0B2C4D 0%, #081F36 100%); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; color: white; box-shadow: 0 4px 15px rgba(11, 44, 77, 0.3); }
+        .audio-controls { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+        .play-btn { background: linear-gradient(135deg, #F26A21, #E65C17); border: none; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem; }
+        .play-btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(242, 106, 33, 0.4); }
+        .progress-bar { flex: 1; min-width: 200px; height: 6px; background: rgba(255, 255, 255, 0.2); border-radius: 3px; cursor: pointer; }
+        .progress-fill { height: 100%; background: #F26A21; border-radius: 3px; width: 0%; }
+        .speed-btn { background: rgba(255, 255, 255, 0.2); border: 2px solid rgba(255, 255, 255, 0.3); color: white; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.875rem; font-weight: 600; transition: all 0.3s ease; }
+        .speed-btn.active { background: #F26A21; border-color: #F26A21; }
+        .module-nav { display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #E5E7EB; }
+        .module-nav a { padding: 0.875rem 1.75rem; background: linear-gradient(135deg, #F26A21, #E65C17); color: white; border-radius: 8px; text-decoration: none; transition: all 0.3s ease; font-weight: 600; box-shadow: 0 4px 12px rgba(242, 106, 33, 0.3); border: none; cursor: pointer; }
+        .module-nav a:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(242, 106, 33, 0.4); }
+    </style>
+</head>
+<body class="bg-brand-black text-white font-[Outfit]">
+    <header class="sticky top-0 z-50 bg-gradient-to-r from-brand-navy via-brand-navy to-brand-navy-dark shadow-2xl border-b-4 border-brand-orange">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-4 hover:opacity-90 transition group">
+                <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark Logo" class="h-14 w-14 rounded-full object-cover shadow-lg border-2 border-brand-orange">
+                <div class="flex flex-col">
+                    <span class="text-3xl font-extrabold text-white tracking-tight">Brand<span class="text-brand-orange font-light">Mark</span></span>
+                </div>
+            </a>
+        </nav>
+    </header>
+
+    <section class="relative min-h-[40vh] flex flex-col justify-center items-center text-center py-16 bg-brand-navy">
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">SEO & AI-Enhanced Copywriting</h1>
+            <p class="text-lg md:text-xl text-gray-200">Master SEO techniques and use AI to write optimized, high-converting copy</p>
+        </div>
+    </section>
+
+    <section class="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 lg:px-8 py-12">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-brand-navy mb-3"><i class="fas fa-bullseye text-brand-orange mr-3"></i>Learning Objectives</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md">
+                    <p class="flex items-start text-brand-navy font-semibold"><i class="fas fa-check-circle text-brand-orange mr-3 flex-shrink-0"></i> Understand SEO fundamentals and ranking factors</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md">
+                    <p class="flex items-start text-brand-navy font-semibold"><i class="fas fa-check-circle text-brand-orange mr-3 flex-shrink-0"></i> Perform keyword research like a pro</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md">
+                    <p class="flex items-start text-brand-navy font-semibold"><i class="fas fa-check-circle text-brand-orange mr-3 flex-shrink-0"></i> Optimize on-page SEO elements</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md">
+                    <p class="flex items-start text-brand-navy font-semibold"><i class="fas fa-check-circle text-brand-orange mr-3 flex-shrink-0"></i> Write SEO-optimized copy with AI</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white px-4 sm:px-6 lg:px-8 py-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="audio-player">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold flex items-center gap-2 text-white"><i class="fas fa-headphones text-brand-orange"></i>Listen to This Module</h3>
+                    <span class="text-sm text-white">Click play to listen</span>
+                </div>
+                <div class="audio-controls">
+                    <button id="audioPlayBtn" class="play-btn" onclick="toggleAudio()"><i class="fas fa-play"></i><span id="playBtnText">Play</span></button>
+                    <div class="progress-bar" onclick="seekAudio(event)"><div class="progress-fill" id="progressFill"></div></div>
+                    <span id="audioTime" class="text-sm">0:00</span>
+                    <div class="speed-control" style="display: flex; gap: 0.5rem;">
+                        <span class="text-sm">Speed:</span>
+                        <button class="speed-btn active" onclick="setAudioSpeed(1)">1x</button>
+                        <button class="speed-btn" onclick="setAudioSpeed(1.5)">1.5x</button>
+                        <button class="speed-btn" onclick="setAudioSpeed(2)">2x</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gradient-to-b from-white to-gray-50 px-4 sm:px-6 lg:px-8 py-16">
+        <div class="max-w-4xl mx-auto">
+            <div class="lesson-content">
+                <h2>1. SEO Fundamentals</h2>
+                <p>Search Engine Optimization (SEO) is the practice of optimizing your website and content to rank higher in search engine results. Unlike paid advertising, SEO is an organic, long-term strategy that builds sustainable traffic.</p>
+                
+                <h3>Why SEO Matters</h3>
+                <ul>
+                    <li><strong>Long-term Traffic:</strong> Organic traffic compounds over time</li>
+                    <li><strong>Credibility:</strong> Users trust organic results more than ads</li>
+                    <li><strong>Lower Cost:</strong> No per-click fees after initial optimization</li>
+                    <li><strong>Competitive Advantage:</strong> Rank above competitors</li>
+                    <li><strong>Data Insights:</strong> Learn what your audience searches for</li>
+                </ul>
+
+                <h2>2. How Search Engines Work</h2>
+                <p>Search engines use complex algorithms to determine which pages best answer a user's query.</p>
+                
+                <div class="highlight-box">
+                    <p><strong>The 3 Main Processes:</strong></p>
+                    <p><strong>1. Crawling:</strong> Search bots discover new/updated pages</p>
+                    <p><strong>2. Indexing:</strong> Pages are analyzed and stored in the index</p>
+                    <p><strong>3. Ranking:</strong> Results are ranked based on relevance and authority</p>
+                </div>
+
+                <h2>3. Keyword Research</h2>
+                <p>Keywords are the foundation of SEO. You need to know what your audience is searching for.</p>
+                
+                <h3>Types of Keywords</h3>
+                <ul>
+                    <li><strong>Head Keywords:</strong> Short, high-volume ("digital marketing")</li>
+                    <li><strong>Long-tail Keywords:</strong> Specific phrases, lower volume, higher intent ("best digital marketing course for beginners")</li>
+                    <li><strong>Local Keywords:</strong> Include location ("digital marketing agency near me")</li>
+                    <li><strong>LSI Keywords:</strong> Semantically related terms</li>
+                </ul>
+
+                <h3>Keyword Research Tools</h3>
+                <ul>
+                    <li><strong>Google Keyword Planner:</strong> Free, official Google tool</li>
+                    <li><strong>Ahrefs:</strong> Comprehensive SEO platform</li>
+                    <li><strong>SEMrush:</strong> Competitor analysis and keywords</li>
+                    <li><strong>Ubersuggest:</strong> Affordable keyword and content research</li>
+                </ul>
+
+                <h2>4. On-Page SEO</h2>
+                <p>On-page SEO refers to optimizing elements on your web pages for search engines.</p>
+                
+                <h3>Critical On-Page Elements</h3>
+                <ul>
+                    <li><strong>Title Tag:</strong> 50-60 characters, include main keyword, compelling</li>
+                    <li><strong>Meta Description:</strong> 155-160 characters, summarize content, include CTA</li>
+                    <li><strong>Heading Tags (H1, H2, H3):</strong> Organize content hierarchy, include keywords naturally</li>
+                    <li><strong>URL Structure:</strong> Short, descriptive, keyword-rich</li>
+                    <li><strong>Internal Links:</strong> Link to other relevant pages on your site</li>
+                    <li><strong>Image Alt Text:</strong> Describe images for accessibility and SEO</li>
+                    <li><strong>Page Speed:</strong> Faster pages rank better</li>
+                </ul>
+
+                <h2>5. Content Optimization</h2>
+                <p>Content must be written for both users and search engines.</p>
+                
+                <h3>Best Practices</h3>
+                <ul>
+                    <li>Include target keyword in first 100 words</li>
+                    <li>Use keyword variations naturally throughout</li>
+                    <li>Write comprehensive content (2000+ words for competitive topics)</li>
+                    <li>Use subheadings to break up content</li>
+                    <li>Include related topics (LSI keywords)</li>
+                    <li>Write for readability (short sentences, bullet points)</li>
+                </ul>
+
+                <h2>6. AI for SEO Copywriting</h2>
+                <p>Use AI to create SEO-optimized content at scale.</p>
+                
+                <h3>AI SEO Prompt Example</h3>
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <p style="color: #1f2937;"><strong>"Write an SEO-optimized blog post about 'digital marketing for small businesses'. Include the keywords 'digital marketing,' 'small business marketing,' and 'online marketing strategies' naturally. The post should be 2000 words, have 5 H2 subheadings, 15 H3 subheadings, include practical tips, and be written for small business owners."</strong></p>
+                </div>
+
+                <h2>7. Technical SEO</h2>
+                <ul>
+                    <li><strong>Mobile-Friendly:</strong> Responsive design essential</li>
+                    <li><strong>SSL Certificate:</strong> HTTPS is a ranking factor</li>
+                    <li><strong>XML Sitemap:</strong> Help search engines discover pages</li>
+                    <li><strong>Robots.txt:</strong> Control which pages get crawled</li>
+                    <li><strong>Structured Data:</strong> Use schema markup for rich snippets</li>
+                </ul>
+
+                <h2>Key Takeaways</h2>
+                <div class="bg-blue-900 bg-opacity-20 p-4 rounded-lg text-white">
+                    <ul>
+                        <li>SEO is a long-term strategy that builds sustainable traffic</li>
+                        <li>Keyword research is the foundation of any SEO strategy</li>
+                        <li>Optimize both on-page elements and content for search engines</li>
+                        <li>AI can help you create SEO-optimized content faster</li>
+                        <li>Technical SEO ensures search engines can crawl and index your site</li>
+                    </ul>
+                </div>
+
+    <!-- Resources & Completion Section -->
+    <section class="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 lg:px-8 py-16">
+        <div class="max-w-4xl mx-auto">
+            <!-- Resources -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8 border-t-4 border-brand-orange">
+                <h3 class="text-2xl font-bold text-brand-navy mb-2 flex items-center gap-3">
+                    <i class="fas fa-download text-brand-orange text-3xl"></i>Downloads & Resources
+                </h3>
+                <p class="text-gray-600 mb-6">Download course materials and templates for your learning</p>
+                <div class="space-y-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <a href="#" class="flex items-center p-4 bg-gradient-to-r from-red-50 to-orange-50 rounded-lg hover:shadow-lg transition border-l-4 border-red-400">
+                        <i class="fas fa-file-pdf text-red-500 mr-4 text-2xl"></i>
+                        <div>
+                            <p class="font-semibold text-brand-navy">Digital Marketing Setup Checklist</p>
+                            <p class="text-sm text-gray-500">PDF • 2.4 MB</p>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
+                    </a>
+                    <a href="#" class="flex items-center p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg hover:shadow-lg transition border-l-4 border-green-400">
+                        <i class="fas fa-file-excel text-green-500 mr-4 text-2xl"></i>
+                        <div>
+                            <p class="font-semibold text-brand-navy">Buyer Persona Template</p>
+                            <p class="text-sm text-gray-500">XLSX • 512 KB</p>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
+                    </a>
+                    <a href="#" class="flex items-center p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg hover:shadow-lg transition border-l-4 border-blue-400 md:col-span-2">
+                        <i class="fas fa-file-word text-blue-500 mr-4 text-2xl"></i>
+                        <div>
+                            <p class="font-semibold text-brand-navy">Marketing Strategy Template</p>
+                            <p class="text-sm text-gray-500">DOCX • 3.1 MB</p>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Completion Card -->
+            <div class="bg-gradient-to-r from-brand-navy to-brand-navy-dark rounded-2xl shadow-xl p-10 text-white">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-check-circle text-brand-orange text-4xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2 text-white" style="color: #ffffff !important; text-transform: none;">Module 5 Complete!</h3>
+                        <p class="text-lg text-white" style="color: #ffffff !important;">You've mastered data analytics. Move on to Module 6 to learn about SEO Fundamentals & Best Practices!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Module Navigation -->
+    <section class="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 lg:px-8 py-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="module-nav">
+                    <a href="course-module-4.html"><i class="fas fa-arrow-left mr-2"></i>Previous</a>
+                    <a href="course-module-6.html">Next Module<i class="fas fa-arrow-right ml-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-navy text-white mt-16 py-8 border-t-4 border-brand-orange">
+        <div class="max-w-7xl mx-auto px-4 text-center"><p class="text-gray-400">&copy; 2025 BrandMark Solutions. All rights reserved.</p></div>
+    </footer>
+
+    <script src="brandmark.js"></script>
+    <script>
+        let utterance = null, isSpeaking = false, currentSpeed = 1;
+        function initAudio() {
+            const content = document.querySelector('.lesson-content').innerText;
+            utterance = new SpeechSynthesisUtterance(content);
+            utterance.rate = currentSpeed;
+            utterance.onend = () => { isSpeaking = false; updatePlayButton(); };
+        }
+        function toggleAudio() {
+            if (!utterance) initAudio();
+            if (isSpeaking) { speechSynthesis.pause(); isSpeaking = false; } 
+            else { 
+                if (speechSynthesis.paused) { speechSynthesis.resume(); } 
+                else { speechSynthesis.cancel(); initAudio(); speechSynthesis.speak(utterance); }
+                isSpeaking = true;
+            }
+            updatePlayButton();
+        }
+        function setAudioSpeed(speed) {
+            currentSpeed = speed;
+            document.querySelectorAll('.speed-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            if (utterance) { utterance.rate = speed; if (isSpeaking) { speechSynthesis.cancel(); initAudio(); speechSynthesis.speak(utterance); } }
+        }
+        function updatePlayButton() {
+            const btn = document.getElementById('audioPlayBtn');
+            const text = document.getElementById('playBtnText');
+            btn.innerHTML = isSpeaking ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+            text.textContent = isSpeaking ? 'Pause' : 'Play';
+        }
+    </script>
+</body>
+</html>

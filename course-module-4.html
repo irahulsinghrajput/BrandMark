@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Module 1: Digital Marketing Fundamentals | BrandMark Course</title>
-    <meta name="description" content="Learn the fundamentals of digital marketing - channels, strategies, and core concepts for building a strong online presence.">
+    <title>Module 4: AI-Powered Content Creation | BrandMark Course</title>
+    <meta name="description" content="Master AI tools like ChatGPT and Claude for creating engaging blog posts, emails, and ads. Learn content strategy and copywriting with AI.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -98,63 +98,6 @@
             font-weight: 500;
             margin: 0;
         }
-        
-        .metric-box {
-            background: linear-gradient(135deg, #F0F9FF, #F8FBFF);
-            border: 2px solid #BFDBFE;
-            border-left: 5px solid #F26A21;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-            transition: all 0.3s ease;
-        }
-        
-        .metric-box:hover {
-            border-color: #F26A21;
-            box-shadow: 0 6px 16px rgba(242, 106, 33, 0.1);
-            transform: translateX(4px);
-        }
-        
-        .metric-box p {
-            margin: 0;
-            color: #1f2937;
-        }
-        
-        .metric-box p:not(:last-child) {
-            margin-bottom: 0.5rem;
-        }
-        
-        .module-nav {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 2px solid #E5E7EB;
-        }
-        
-        .module-nav a {
-            padding: 0.875rem 1.75rem;
-            background: linear-gradient(135deg, #F26A21, #E65C17);
-            color: white;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(242, 106, 33, 0.3);
-            border: none;
-            cursor: pointer;
-        }
-        
-        .module-nav a:hover {
-            background: linear-gradient(135deg, #E65C17, #D44D0F);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(242, 106, 33, 0.4);
-        }
-
-        .module-nav a:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
 
         .audio-player {
             background: linear-gradient(135deg, #0B2C4D 0%, #081F36 100%);
@@ -191,6 +134,34 @@
             box-shadow: 0 6px 20px rgba(242, 106, 33, 0.4);
         }
 
+        .play-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .progress-bar {
+            flex: 1;
+            min-width: 200px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #F26A21;
+            border-radius: 3px;
+            transition: width 0.1s linear;
+        }
+
+        .speed-control {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
         .speed-btn {
             background: rgba(255, 255, 255, 0.2);
             border: 2px solid rgba(255, 255, 255, 0.3);
@@ -207,13 +178,48 @@
             background: #F26A21;
             border-color: #F26A21;
         }
+
+        .speed-btn:hover {
+            border-color: #F26A21;
+        }
+
+        .module-nav {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #E5E7EB;
+        }
+        
+        .module-nav a {
+            padding: 0.875rem 1.75rem;
+            background: linear-gradient(135deg, #F26A21, #E65C17);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(242, 106, 33, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .module-nav a:hover {
+            background: linear-gradient(135deg, #E65C17, #D44D0F);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(242, 106, 33, 0.4);
+        }
+
+        .module-nav a:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body class="bg-brand-black text-white font-[Outfit]">
     <!-- Navigation Header -->
     <header class="sticky top-0 z-50 bg-gradient-to-r from-brand-navy via-brand-navy to-brand-navy-dark shadow-2xl border-b-4 border-brand-orange">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
-            <!-- Left: Logo -->
             <a href="index.html" class="flex items-center gap-4 hover:opacity-90 transition group">
                 <div class="relative">
                     <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark Logo" class="h-14 w-14 rounded-full object-cover shadow-lg border-2 border-brand-orange group-hover:shadow-xl transition">
@@ -231,8 +237,8 @@
     <section class="relative min-h-[40vh] flex flex-col justify-center items-center text-center py-16 bg-brand-navy">
         <div class="absolute inset-0 bg-gradient-to-b from-brand-navy/90 to-brand-navy/100 z-0"></div>
         <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Digital Marketing Fundamentals</h1>
-            <p class="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">Master channels, strategies, and core concepts for digital success</p>
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">AI-Powered Content Creation</h1>
+            <p class="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">Use ChatGPT, Claude and other AI tools to create engaging blog posts, emails, and ad copy</p>
         </div>
     </section>
 
@@ -247,16 +253,16 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md hover:shadow-lg transition">
-                    <p class="flex items-start text-brand-navy font-semibold text-lg"><i class="fas fa-check-circle text-brand-orange mr-3 mt-1 text-xl flex-shrink-0"></i> <span>Understand digital marketing channels and strategies</span></p>
+                    <p class="flex items-start text-brand-navy font-semibold text-lg"><i class="fas fa-check-circle text-brand-orange mr-3 mt-1 text-xl flex-shrink-0"></i> <span>Master ChatGPT and Claude for marketing</span></p>
                 </div>
                 <div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md hover:shadow-lg transition">
-                    <p class="flex items-start text-brand-navy font-semibold text-lg"><i class="fas fa-check-circle text-brand-orange mr-3 mt-1 text-xl flex-shrink-0"></i> <span>Define marketing objectives and KPIs</span></p>
+                    <p class="flex items-start text-brand-navy font-semibold text-lg"><i class="fas fa-check-circle text-brand-orange mr-3 mt-1 text-xl flex-shrink-0"></i> <span>Create high-converting email copy</span></p>
                 </div>
                 <div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md hover:shadow-lg transition">
-                    <p class="flex items-start text-brand-navy font-semibold text-lg"><i class="fas fa-check-circle text-brand-orange mr-3 mt-1 text-xl flex-shrink-0"></i> <span>Identify your target audience</span></p>
+                    <p class="flex items-start text-brand-navy font-semibold text-lg"><i class="fas fa-check-circle text-brand-orange mr-3 mt-1 text-xl flex-shrink-0"></i> <span>Write blog posts with AI assistance</span></p>
                 </div>
                 <div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md hover:shadow-lg transition">
-                    <p class="flex items-start text-brand-navy font-semibold text-lg"><i class="fas fa-check-circle text-brand-orange mr-3 mt-1 text-xl flex-shrink-0"></i> <span>Build a basic marketing strategy</span></p>
+                    <p class="flex items-start text-brand-navy font-semibold text-lg"><i class="fas fa-check-circle text-brand-orange mr-3 mt-1 text-xl flex-shrink-0"></i> <span>Use AI prompts effectively for better results</span></p>
                 </div>
             </div>
         </div>
@@ -277,8 +283,11 @@
                         <i class="fas fa-play"></i>
                         <span id="playBtnText">Play</span>
                     </button>
-                    <span id="audioTime" class="text-sm whitespace-nowrap">Audio Ready</span>
-                    <div class="speed-control" style="display: flex; gap: 0.5rem; align-items: center;">
+                    <div class="progress-bar" onclick="seekAudio(event)">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span id="audioTime" class="text-sm whitespace-nowrap">0:00 / --:--</span>
+                    <div class="speed-control">
                         <span class="text-sm">Speed:</span>
                         <button class="speed-btn active" onclick="setAudioSpeed(1)">1x</button>
                         <button class="speed-btn" onclick="setAudioSpeed(1.5)">1.5x</button>
@@ -293,149 +302,123 @@
     <section class="bg-gradient-to-b from-white to-gray-50 px-4 sm:px-6 lg:px-8 py-16">
         <div class="max-w-4xl mx-auto">
             <div class="lesson-content bg-white rounded-2xl shadow-lg border-l-4 border-brand-orange">
-                <h2>1. Digital Marketing Overview</h2>
-                <p>Digital marketing is the practice of promoting products, services, or brands using digital channels and technologies. In today's world, it's essential for any business to have a strong digital presence.</p>
+                <h2>1. Introduction to AI Content Creation</h2>
+                <p>AI-powered content creation has revolutionized how marketers produce high-quality content at scale. Tools like ChatGPT, Claude, and others can generate blog posts, email campaigns, ad copy, and social media content in seconds.</p>
                 
-                <h3>Why Digital Marketing Matters</h3>
+                <h3>Benefits of AI Content Creation</h3>
                 <ul>
-                    <li><strong>Reach:</strong> Billions of people are online daily across different platforms</li>
-                    <li><strong>Targeting:</strong> Reach specific audiences based on interests, demographics, behaviors</li>
-                    <li><strong>Measurable:</strong> Track every interaction and measure ROI precisely</li>
-                    <li><strong>Cost-Effective:</strong> Start with small budgets and scale gradually</li>
-                    <li><strong>Speed:</strong> Launch campaigns quickly and optimize in real-time</li>
+                    <li><strong>Speed:</strong> Generate content 10x faster than manual writing</li>
+                    <li><strong>Scalability:</strong> Create multiple variations and versions easily</li>
+                    <li><strong>Consistency:</strong> Maintain brand voice across all channels</li>
+                    <li><strong>Cost-Effective:</strong> Reduce content creation costs significantly</li>
+                    <li><strong>Personalization:</strong> Create tailored content for different segments</li>
                 </ul>
 
-                <h2>2. Core Digital Marketing Channels</h2>
+                <h2>2. Key AI Tools for Content Marketing</h2>
                 
-                <h3>Search Engine Marketing (SEM)</h3>
+                <h3>ChatGPT (OpenAI)</h3>
                 <div class="highlight-box">
-                    <p><strong>Includes: SEO & Paid Search (PPC)</strong></p>
-                    <p>Capture users actively searching for your products/services. This is high-intent traffic with excellent ROI potential.</p>
+                    <p><strong>Best for: Blog posts, social media, email drafts, brainstorming</strong></p>
+                    <p>ChatGPT is a versatile AI model that can generate high-quality written content. It understands context and can maintain consistent tone and style.</p>
                 </div>
                 <ul>
-                    <li><strong>SEO:</strong> Optimize your website to rank organically in search results</li>
-                    <li><strong>PPC:</strong> Pay for each click with Google Ads, Bing Ads, etc.</li>
+                    <li>Excellent at creative writing and brainstorming ideas</li>
+                    <li>Can write in multiple styles and formats</li>
+                    <li>Available for free and premium versions</li>
+                    <li>Supports role-based prompting for specific outputs</li>
                 </ul>
 
-                <h3>Social Media Marketing</h3>
+                <h3>Claude (Anthropic)</h3>
                 <div class="highlight-box">
-                    <p><strong>Platforms: Facebook, Instagram, LinkedIn, TikTok, Twitter, etc.</strong></p>
-                    <p>Build communities, engage audiences, and run targeted ad campaigns. Each platform has unique demographics and content styles.</p>
+                    <p><strong>Best for: Long-form content, analysis, complex writing</strong></p>
+                    <p>Claude excels at understanding nuance, maintaining consistency, and creating detailed content. It's known for being more thoughtful and careful.</p>
                 </div>
 
-                <h3>Content Marketing</h3>
-                <div class="highlight-box">
-                    <p><strong>Includes: Blog posts, Videos, Whitepapers, Podcasts, Infographics</strong></p>
-                    <p>Create valuable content that attracts, educates, and engages your target audience.</p>
-                </div>
+                <h3>Other Popular Tools</h3>
+                <ul>
+                    <li><strong>Jasper:</strong> Specialized for marketing copy and brand voice</li>
+                    <li><strong>Copy.ai:</strong> Quick sales pages and landing page copy</li>
+                    <li><strong>Writesonic:</strong> Blog posts, ads, product descriptions</li>
+                    <li><strong>Surfer SEO:</strong> SEO-optimized content generation</li>
+                </ul>
 
-                <h3>Email Marketing</h3>
-                <div class="highlight-box">
-                    <p><strong>One of the highest ROI channels</strong></p>
-                    <p>Build email lists and send targeted, personalized messages to nurture leads and retain customers.</p>
-                </div>
-
-                <h3>Influencer & Affiliate Marketing</h3>
-                <div class="highlight-box">
-                    <p><strong>Leverage others to reach new audiences</strong></p>
-                    <p>Partner with influencers or affiliates who promote your products in exchange for commission.</p>
-                </div>
-
-                <h3>Display & Programmatic Advertising</h3>
-                <div class="highlight-box">
-                    <p><strong>Visual ads across the web</strong></p>
-                    <p>Show banner ads, video ads, and native ads across websites and apps using programmatic bidding.</p>
-                </div>
-
-                <h2>3. Understanding Your Audience</h2>
-                <p>Before launching any campaign, you must understand who you're trying to reach.</p>
+                <h2>3. Crafting Effective AI Prompts</h2>
+                <p>The quality of AI output depends heavily on the quality of your prompts. Here's how to write prompts that get great results:</p>
                 
-                <h3>Create Buyer Personas</h3>
+                <div class="highlight-box">
+                    <p><strong>The Formula for Great Prompts:</strong></p>
+                    <p>ROLE + CONTEXT + TASK + FORMAT + TONE + CONSTRAINTS</p>
+                </div>
+
+                <h3>Example Prompt Breakdown</h3>
+                <div class="bg-gray-100 p-6 rounded-lg mb-6">
+                    <p style="margin: 0; color: #1f2937;"><strong>Prompt:</strong> "You are an expert email marketer specializing in SaaS. Write a cold email to a startup CEO about our project management software. The email should be under 150 words, have a hook in the first line, and use a professional but friendly tone. Include a clear call-to-action."</p>
+                </div>
+
+                <h2>4. Creating Blog Posts with AI</h2>
+                
+                <h3>The Blog Writing Process</h3>
                 <ol>
-                    <li><strong>Demographics:</strong> Age, location, income, education</li>
-                    <li><strong>Psychographics:</strong> Values, interests, lifestyle, pain points</li>
-                    <li><strong>Behaviors:</strong> Where they spend time online, what they buy, how they make decisions</li>
-                    <li><strong>Goals & Challenges:</strong> What do they want to achieve? What problems do they face?</li>
+                    <li><strong>Keyword Research:</strong> Identify target keywords and topics</li>
+                    <li><strong>Outline Generation:</strong> Use AI to create a detailed outline</li>
+                    <li><strong>Content Draft:</strong> Ask AI to write each section with specific prompts</li>
+                    <li><strong>Editing:</strong> Refine, personalize, and add your expertise</li>
+                    <li><strong>Optimization:</strong> Ensure SEO best practices and readability</li>
+                    <li><strong>Publication:</strong> Format and publish on your blog</li>
                 </ol>
 
-                <h2>4. Setting Marketing Goals & KPIs</h2>
-                <p>Every campaign needs clear, measurable objectives. Use the SMART framework:</p>
-                
-                <div class="highlight-box">
-                    <p><strong>SMART Goals:</strong></p>
-                    <ul style="margin-left: 1.5rem;">
-                        <li><strong>Specific:</strong> Clear and well-defined</li>
-                        <li><strong>Measurable:</strong> Can be tracked and quantified</li>
-                        <li><strong>Achievable:</strong> Realistic within your resources</li>
-                        <li><strong>Relevant:</strong> Aligned with business objectives</li>
-                        <li><strong>Time-bound:</strong> Has a deadline</li>
-                    </ul>
+                <h3>Sample Blog Prompt</h3>
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <p style="color: #1f2937;"><strong>Example:</strong> "Write a comprehensive blog post about '5 Email Marketing Strategies for E-commerce Brands' targeting small business owners. Include practical tips, statistics, and examples. Write in a conversational but authoritative tone. The post should be approximately 2000 words."</p>
                 </div>
 
-                <h3>Common Marketing KPIs</h3>
+                <h2>5. Email Copy with AI</h2>
+                
+                <h3>Types of Emails to Create</h3>
                 <ul>
-                    <li><strong>Traffic:</strong> Website visitors, impressions, clicks</li>
-                    <li><strong>Engagement:</strong> CTR, likes, shares, comments, time on page</li>
-                    <li><strong>Conversions:</strong> Sign-ups, purchases, form submissions</li>
-                    <li><strong>ROI:</strong> Return on investment, revenue per dollar spent</li>
-                    <li><strong>Customer Metrics:</strong> Customer acquisition cost (CAC), lifetime value (LTV)</li>
+                    <li><strong>Welcome Series:</strong> Introduce new subscribers to your brand</li>
+                    <li><strong>Educational Emails:</strong> Provide value and build authority</li>
+                    <li><strong>Promotional Emails:</strong> Drive conversions with compelling copy</li>
+                    <li><strong>Cart Abandonment:</strong> Recover lost sales</li>
+                    <li><strong>Re-engagement Campaigns:</strong> Win back inactive subscribers</li>
                 </ul>
 
-                <h2>5. The Digital Marketing Funnel</h2>
-                <p>Most customers don't buy on their first interaction. They go through stages:</p>
+                <h3>Email Template Prompt</h3>
+                <div class="bg-green-50 p-6 rounded-lg">
+                    <p style="color: #1f2937;"><strong>Example:</strong> "Write an email for a fashion brand announcing a 20% off sale. The subject line should be attention-grabbing. The body should include product benefits, urgency (sale ends Friday), and a clear call-to-action button. Keep it under 200 words and use a tone that's friendly and hip."</p>
+                </div>
+
+                <h2>6. Ad Copy Generation</h2>
                 
-                <div class="highlight-box">
-                    <h4 style="margin-top: 0;">1. Awareness</h4>
-                    <p>Potential customers discover your brand through content, ads, social media, or word-of-mouth.</p>
+                <p>AI can generate multiple variations of ad copy for A/B testing. This helps you find what resonates with your audience.</p>
+                
+                <h3>Multi-Variation Prompt</h3>
+                <div class="bg-purple-50 p-6 rounded-lg mb-6">
+                    <p style="color: #1f2937;"><strong>Example:</strong> "Generate 5 different versions of Google Ads copy for a fitness app targeting weight loss. Each version should have a different angle (e.g., motivation, results, community, science, affordability). Keep each under 30 characters for the headline."</p>
                 </div>
 
-                <div class="highlight-box">
-                    <h4 style="margin-top: 0;">2. Consideration</h4>
-                    <p>They research your brand, compare with competitors, and evaluate your offerings.</p>
-                </div>
-
-                <div class="highlight-box">
-                    <h4 style="margin-top: 0;">3. Decision</h4>
-                    <p>They're ready to buy. Your job: remove friction and make the purchase easy.</p>
-                </div>
-
-                <div class="highlight-box">
-                    <h4 style="margin-top: 0;">4. Retention</h4>
-                    <p>Keep customers happy, encourage repeat purchases, and turn them into advocates.</p>
-                </div>
-
-                <h2>Building Your First Marketing Strategy</h2>
-                <ol>
-                    <li><strong>Define your audience:</strong> Create buyer personas</li>
-                    <li><strong>Set clear goals:</strong> Revenue, traffic, leads, engagement targets</li>
-                    <li><strong>Choose your channels:</strong> Where is your audience? Where can you add value?</li>
-                    <li><strong>Create valuable content:</strong> Address audience pain points and desires</li>
-                    <li><strong>Measure & optimize:</strong> Track performance and continuously improve</li>
-                </ol>
+                <h2>7. Best Practices for AI Content</h2>
+                
+                <h3>Always Remember</h3>
+                <ul>
+                    <li><strong>Edit and Verify:</strong> AI can make mistakes. Always review and fact-check</li>
+                    <li><strong>Add Your Voice:</strong> Personalize AI content with your unique perspective</li>
+                    <li><strong>Include Data:</strong> Support claims with real statistics and examples</li>
+                    <li><strong>Optimize for SEO:</strong> Ensure content includes target keywords naturally</li>
+                    <li><strong>Test and Learn:</strong> Track what works and iterate</li>
+                    <li><strong>Ethical Use:</strong> Disclose AI usage where appropriate</li>
+                </ul>
 
                 <h2>Key Takeaways</h2>
                 <div class="bg-blue-900 bg-opacity-20 p-4 rounded-lg text-white">
                     <ul>
-                        <li>Digital marketing includes multiple channels (search, social, email, content, etc.)</li>
-                        <li>Understanding your audience is foundational</li>
-                        <li>Set SMART goals and track measurable KPIs</li>
-                        <li>The marketing funnel guides customer journey strategies</li>
-                        <li>Success requires continuous measurement and optimization</li>
+                        <li>AI tools like ChatGPT and Claude can generate high-quality marketing content quickly</li>
+                        <li>Well-crafted prompts produce significantly better results than generic requests</li>
+                        <li>Combine AI generation with human editing for best results</li>
+                        <li>Use AI for multiple variations to test what works best</li>
+                        <li>Always verify accuracy and maintain brand consistency</li>
                     </ul>
                 </div>
-
-                <!-- Module Navigation -->
-                <div class="module-nav">
-                    <a href="digital-marketing-course.html" disabled>
-                        <i class="fas fa-arrow-left mr-2"></i>Previous
-                    </a>
-                    <a href="course-module-2.html">
-                        Next Module<i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Resources & Completion Section -->
     <section class="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 lg:px-8 py-16">
@@ -481,11 +464,41 @@
                         <i class="fas fa-check-circle text-brand-orange text-4xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-2xl font-bold mb-2 text-white" style="color: #ffffff !important; text-transform: none;">Ready to Continue?</h3>
-                        <p class="text-lg text-white" style="color: #ffffff !important;">You've completed all the course material for this module. Move on to Module 2 to learn about Generative AI for Marketing!</p>
+                        <h3 class="text-2xl font-bold mb-2 text-white" style="color: #ffffff !important; text-transform: none;">Module 4 Complete!</h3>
+                        <p class="text-lg text-white" style="color: #ffffff !important;">You've mastered AI-powered content creation. Move on to Module 5 to learn about Data Analytics & Performance Metrics!</p>
                     </div>
                 </div>
-                
+            </div>
+        </div>
+    </section>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Module Navigation -->
+    <section class="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 lg:px-8 py-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="module-nav">
+                    <a href="course-module-3.html">
+                        <i class="fas fa-arrow-left mr-2"></i>Previous
+                    </a>
+                    <a href="course-module-5.html">
+                        Next Module<i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-navy text-white mt-16 py-8 border-t-4 border-brand-orange">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-gray-400">&copy; 2025 BrandMark Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="brandmark.js"></script>
     <script>
         let utterance = null;
         let isSpeaking = false;
@@ -547,32 +560,5 @@
             }
         }
     </script>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="course-module-2.html" class="bg-gradient-to-r from-brand-orange to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-4 px-8 rounded-lg transition transform hover:scale-105 flex-1 flex items-center justify-center gap-2 shadow-lg">
-                        <i class="fas fa-arrow-right"></i>
-                        Next Module
-                    </a>
-                    <a href="digital-marketing-course.html" class="bg-white/20 hover:bg-white/30 text-white font-bold py-4 px-8 rounded-lg transition border-2 border-white flex items-center justify-center gap-2">
-                        <i class="fas fa-chevron-left"></i>
-                        Back to Course
-                    </a>
-                </div>
-                
-                <p class="text-gray-300 text-sm mt-4 flex items-center gap-2">
-                    <i class="fas fa-info-circle"></i>
-                    This is Module 1 of 15. Complete all modules to earn your digital marketing certificate!
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-brand-navy text-white mt-16 py-8 border-t-4 border-brand-orange">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-gray-400">&copy; 2025 BrandMark Solutions. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="brandmark.js"></script>
 </body>
 </html>

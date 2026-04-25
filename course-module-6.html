@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 6: Email Marketing & Automation | BrandMark Course</title>
+    <meta name="description" content="Design high-converting email campaigns with AI personalization and automation workflows.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 'brand-navy': '#0B2C4D', 'brand-navy-dark': '#081F36', 'brand-orange': '#F26A21', 'brand-orange-dark': '#E65C17' }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="brandmark.css">
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+        body { background: linear-gradient(to bottom, #f0f4f8 0%, #ffffff 100%); min-height: 100vh; }
+        .lesson-content { background: white; color: #1f2937; padding: 3rem; border-radius: 16px; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08); }
+        .lesson-content h2 { color: #0B2C4D; margin-top: 2rem; margin-bottom: 1.25rem; font-size: 1.875rem; font-weight: 700; border-bottom: 2px solid #F26A21; padding-bottom: 0.75rem; }
+        .lesson-content h3 { color: #0B2C4D; margin-top: 1.5rem; margin-bottom: 1rem; font-size: 1.25rem; font-weight: 600; }
+        .lesson-content p, .lesson-content ul, .lesson-content ol { line-height: 1.8; color: #374151; margin-bottom: 1rem; margin-left: 1.5rem; }
+        .lesson-content li { margin-bottom: 0.75rem; }
+        .highlight-box { background: linear-gradient(135deg, #FEF3F2, #FFF8F3); border-left: 5px solid #F26A21; padding: 1.5rem; margin: 1.5rem 0; border-radius: 8px; }
+        .audio-player { background: linear-gradient(135deg, #0B2C4D 0%, #081F36 100%); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; color: white; }
+        .audio-controls { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+        .play-btn { background: linear-gradient(135deg, #F26A21, #E65C17); border: none; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+        .play-btn:hover { transform: scale(1.05); }
+        .progress-bar { flex: 1; min-width: 200px; height: 6px; background: rgba(255, 255, 255, 0.2); border-radius: 3px; }
+        .progress-fill { height: 100%; background: #F26A21; border-radius: 3px; width: 0%; }
+        .speed-btn { background: rgba(255, 255, 255, 0.2); border: 2px solid rgba(255, 255, 255, 0.3); color: white; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.875rem; font-weight: 600; }
+        .speed-btn.active { background: #F26A21; border-color: #F26A21; }
+        .module-nav { display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #E5E7EB; }
+        .module-nav a { padding: 0.875rem 1.75rem; background: linear-gradient(135deg, #F26A21, #E65C17); color: white; border-radius: 8px; text-decoration: none; font-weight: 600; }
+    </style>
+</head>
+<body class="bg-brand-black text-white font-[Outfit]">
+    <header class="sticky top-0 z-50 bg-gradient-to-r from-brand-navy via-brand-navy to-brand-navy-dark shadow-2xl border-b-4 border-brand-orange">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-4 hover:opacity-90 transition"><img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark" class="h-14 w-14 rounded-full border-2 border-brand-orange"><span class="text-3xl font-extrabold text-white">Brand<span class="text-brand-orange">Mark</span></span></a>
+        </nav>
+    </header>
+
+    <section class="relative min-h-[40vh] flex flex-col justify-center items-center text-center py-16 bg-brand-navy">
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Email Marketing & Automation</h1>
+            <p class="text-lg md:text-xl text-gray-200">Design automated campaigns with AI personalization and proven conversion strategies</p>
+        </div>
+    </section>
+
+    <section class="bg-white px-4 sm:px-6 lg:px-8 py-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="audio-player">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-white"><i class="fas fa-headphones text-brand-orange mr-2"></i>Listen to This Module</h3>
+                </div>
+                <div class="audio-controls">
+                    <button id="audioPlayBtn" class="play-btn" onclick="toggleAudio()"><i class="fas fa-play"></i><span id="playBtnText">Play</span></button>
+                    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+                    <div style="display: flex; gap: 0.5rem;"><button class="speed-btn active" onclick="setAudioSpeed(1)">1x</button><button class="speed-btn" onclick="setAudioSpeed(1.5)">1.5x</button><button class="speed-btn" onclick="setAudioSpeed(2)">2x</button></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gradient-to-b from-gray-50 px-4 sm:px-6 lg:px-8 py-16">
+        <div class="max-w-4xl mx-auto">
+            <div class="lesson-content">
+                <h2>1. Email Marketing Fundamentals</h2>
+                <p>Email remains one of the highest ROI marketing channels. With proper strategy, personalization, and automation, emails can drive significant revenue for your business.</p>
+                
+                <h3>Why Email Marketing Works</h3>
+                <ul style="margin-left: 0;">
+                    <li><strong>High ROI:</strong> Average ROI is $42 per $1 spent</li>
+                    <li><strong>Direct Access:</strong> Emails reach subscribers directly in their inbox</li>
+                    <li><strong>Measurable:</strong> Track opens, clicks, conversions precisely</li>
+                    <li><strong>Personalization:</strong> Segment and tailor messages to individual subscribers</li>
+                    <li><strong>Automation:</strong> Set up workflows that run 24/7</li>
+                </ul>
+
+                <h2>2. Building Your Email List</h2>
+                <p>Your email list is your most valuable asset. Build it strategically with quality subscribers.</p>
+                
+                <h3>List Building Strategies</h3>
+                <ul style="margin-left: 0;">
+                    <li><strong>Lead Magnets:</strong> Offer valuable content in exchange for email addresses</li>
+                    <li><strong>Website Forms:</strong> Pop-ups, exit intents, scroll-triggered forms</li>
+                    <li><strong>Landing Pages:</strong> Dedicated pages for specific offers</li>
+                    <li><strong>Social Media:</strong> Cross-promote email signup</li>
+                    <li><strong>Events:</strong> Capture emails at webinars, workshops, conferences</li>
+                </ul>
+
+                <h2>3. Email Segmentation</h2>
+                <p>Don't send the same email to everyone. Segment your list for better results.</p>
+                
+                <div class="highlight-box">
+                    <p><strong>Segmentation Types:</strong> Demographic, behavioral, purchase history, engagement level, interests, location</p>
+                </div>
+
+                <h2>4. Email Automation Workflows</h2>
+                <p>Automation allows you to send timely, relevant messages without manual work.</p>
+                
+                <h3>Common Workflows</h3>
+                <ul style="margin-left: 0;">
+                    <li><strong>Welcome Series:</strong> Sent automatically when someone joins your list (5-7 emails over 2 weeks)</li>
+                    <li><strong>Abandoned Cart:</strong> Recover lost sales with reminder emails</li>
+                    <li><strong>Post-Purchase:</strong> Thank you email, tips to use product, upsell</li>
+                    <li><strong>Re-engagement:</strong> Win back inactive subscribers</li>
+                    <li><strong>Lead Nurture:</strong> Educate prospects until they're ready to buy</li>
+                </ul>
+
+                <h2>5. AI and Email Personalization</h2>
+                <p>Use AI to personalize emails at scale. Subscribers receive content tailored to them specifically.</p>
+                
+                <h3>Personalization Tactics</h3>
+                <ul style="margin-left: 0;">
+                    <li>Use subscriber's name in subject line and body</li>
+                    <li>Recommend products based on past purchases</li>
+                    <li>Send emails based on subscriber behavior and preferences</li>
+                    <li>Use AI to determine optimal send times for each subscriber</li>
+                    <li>A/B test subject lines, send times, content</li>
+                </ul>
+
+                <h2>6. Email Copy Tips</h2>
+                <ul style="margin-left: 0;">
+                    <li><strong>Subject Lines:</strong> 50 characters, create curiosity, personalize</li>
+                    <li><strong>Preview Text:</strong> Complement subject line to increase opens</li>
+                    <li><strong>Body Copy:</strong> Scannable, short paragraphs, clear CTA</li>
+                    <li><strong>CTA Buttons:</strong> Action-oriented, stands out visually</li>
+                    <li><strong>Mobile-Friendly:</strong> Most emails opened on mobile</li>
+                </ul>
+
+                <h2>7. Email Metrics & Analytics</h2>
+                <ul style="margin-left: 0;">
+                    <li><strong>Open Rate:</strong> % of emails opened (target: 20-30%)</li>
+                    <li><strong>Click-Through Rate:</strong> % who clicked a link (target: 2-5%)</li>
+                    <li><strong>Conversion Rate:</strong> % who completed desired action</li>
+                    <li><strong>Unsubscribe Rate:</strong> Should be below 0.5%</li>
+                    <li><strong>ROI:</strong> Revenue generated per email</li>
+                </ul>
+
+                <h2>Key Takeaways</h2>
+                <div class="bg-blue-900 bg-opacity-20 p-4 rounded-lg text-white">
+                    <ul style="margin-left: 0;">
+                        <li>Email marketing delivers exceptional ROI compared to other channels</li>
+                        <li>Segment your list and personalize messages for better results</li>
+                        <li>Automation workflows save time and increase conversions</li>
+                        <li>Use AI for dynamic personalization and optimal send times</li>
+                        <li>Test and optimize based on metrics</li>
+                    </ul>
+                </div>
+
+    <!-- Resources & Completion Section -->
+    <section class="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 lg:px-8 py-16">
+        <div class="max-w-4xl mx-auto">
+            <!-- Resources -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8 border-t-4 border-brand-orange">
+                <h3 class="text-2xl font-bold text-brand-navy mb-2 flex items-center gap-3">
+                    <i class="fas fa-download text-brand-orange text-3xl"></i>Downloads & Resources
+                </h3>
+                <p class="text-gray-600 mb-6">Download course materials and templates for your learning</p>
+                <div class="space-y-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <a href="#" class="flex items-center p-4 bg-gradient-to-r from-red-50 to-orange-50 rounded-lg hover:shadow-lg transition border-l-4 border-red-400">
+                        <i class="fas fa-file-pdf text-red-500 mr-4 text-2xl"></i>
+                        <div>
+                            <p class="font-semibold text-brand-navy">Digital Marketing Setup Checklist</p>
+                            <p class="text-sm text-gray-500">PDF • 2.4 MB</p>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
+                    </a>
+                    <a href="#" class="flex items-center p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg hover:shadow-lg transition border-l-4 border-green-400">
+                        <i class="fas fa-file-excel text-green-500 mr-4 text-2xl"></i>
+                        <div>
+                            <p class="font-semibold text-brand-navy">Buyer Persona Template</p>
+                            <p class="text-sm text-gray-500">XLSX • 512 KB</p>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
+                    </a>
+                    <a href="#" class="flex items-center p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg hover:shadow-lg transition border-l-4 border-blue-400 md:col-span-2">
+                        <i class="fas fa-file-word text-blue-500 mr-4 text-2xl"></i>
+                        <div>
+                            <p class="font-semibold text-brand-navy">Marketing Strategy Template</p>
+                            <p class="text-sm text-gray-500">DOCX • 3.1 MB</p>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Completion Card -->
+            <div class="bg-gradient-to-r from-brand-navy to-brand-navy-dark rounded-2xl shadow-xl p-10 text-white">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-check-circle text-brand-orange text-4xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2 text-white" style="color: #ffffff !important; text-transform: none;">Module 6 Complete!</h3>
+                        <p class="text-lg text-white" style="color: #ffffff !important;">You've mastered SEO fundamentals. Move on to Module 7 to learn about Paid Advertising Mastery!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Module Navigation -->
+    <section class="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 lg:px-8 py-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="module-nav">
+                    <a href="course-module-5.html"><i class="fas fa-arrow-left mr-2"></i>Previous</a>
+                    <a href="course-module-7.html">Next<i class="fas fa-arrow-right ml-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-navy text-white mt-16 py-8 border-t-4 border-brand-orange">
+        <div class="max-w-7xl mx-auto px-4 text-center"><p class="text-gray-400">&copy; 2025 BrandMark Solutions.</p></div>
+    </footer>
+
+    <script src="brandmark.js"></script>
+    <script>
+        let utterance = null, isSpeaking = false, currentSpeed = 1;
+        function initAudio() { const content = document.querySelector('.lesson-content').innerText; utterance = new SpeechSynthesisUtterance(content); utterance.rate = currentSpeed; utterance.onend = () => { isSpeaking = false; updatePlayButton(); }; }
+        function toggleAudio() { if (!utterance) initAudio(); if (isSpeaking) { speechSynthesis.pause(); isSpeaking = false; } else { if (speechSynthesis.paused) { speechSynthesis.resume(); } else { speechSynthesis.cancel(); initAudio(); speechSynthesis.speak(utterance); } isSpeaking = true; } updatePlayButton(); }
+        function setAudioSpeed(speed) { currentSpeed = speed; document.querySelectorAll('.speed-btn').forEach(btn => btn.classList.remove('active')); event.target.classList.add('active'); if (utterance) { utterance.rate = speed; if (isSpeaking) { speechSynthesis.cancel(); initAudio(); speechSynthesis.speak(utterance); } } }
+        function updatePlayButton() { const btn = document.getElementById('audioPlayBtn'); const text = document.getElementById('playBtnText'); btn.innerHTML = isSpeaking ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>'; text.textContent = isSpeaking ? 'Pause' : 'Play'; }
+    </script>
+</body>
+</html>

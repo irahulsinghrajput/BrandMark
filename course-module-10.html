@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 10: Social Media Strategy with AI | BrandMark Course</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { 'brand-navy': '#0B2C4D', 'brand-navy-dark': '#081F36', 'brand-orange': '#F26A21' } } } }</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="brandmark.css">
+    <style>
+        * { font-family: 'Outfit', sans-serif; } body { background: linear-gradient(to bottom, #f0f4f8 0%, #ffffff 100%); }
+        .lesson-content { background: white; padding: 3rem; border-radius: 16px; }
+        .lesson-content h2, .lesson-content h3 { color: #0B2C4D; border-bottom: 2px solid #F26A21; padding-bottom: 0.5rem; margin-top: 1.5rem; }
+        .lesson-content p, .lesson-content ul { color: #374151; margin-bottom: 1rem; line-height: 1.8; }
+        .lesson-content li { margin-bottom: 0.5rem; }
+        .highlight-box { background: linear-gradient(135deg, #FEF3F2, #FFF8F3); border-left: 5px solid #F26A21; padding: 1.5rem; margin: 1rem 0; border-radius: 8px; }
+        .audio-player { background: linear-gradient(135deg, #0B2C4D, #081F36); padding: 1.5rem; border-radius: 12px; color: white; margin: 2rem 0; }
+        .play-btn { background: linear-gradient(135deg, #F26A21, #E65C17); border: none; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+        .speed-btn { background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.3); color: white; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+        .speed-btn.active { background: #F26A21; }
+        .module-nav { display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #E5E7EB; }
+        .module-nav a { padding: 0.875rem 1.75rem; background: linear-gradient(135deg, #F26A21, #E65C17); color: white; border-radius: 8px; text-decoration: none; font-weight: 600; }
+    </style>
+</head>
+<body class="text-white">
+    <header class="sticky top-0 z-50 bg-gradient-to-r from-brand-navy to-brand-navy-dark border-b-4 border-brand-orange">
+        <nav class="max-w-7xl mx-auto px-4 py-6 flex justify-between relative"><a href="index.html" class="flex items-center gap-2"><img src="new logoBrandMarkupdatedone.jpeg" class="h-12 w-12 rounded-full border-2 border-brand-orange"><span class="font-bold text-white">Brand<span class="text-brand-orange">Mark</span></span></a></nav>
+    </header>
+
+    <section class="min-h-[40vh] flex justify-center items-center text-center bg-brand-navy py-16"><div class="max-w-4xl"><h1 class="text-5xl font-bold mb-4 text-white">Social Media Strategy with AI</h1><p class="text-xl text-gray-200">Plan, create, schedule content with AI assistance</p></div></section>
+
+    <section class="bg-white px-4 py-8"><div class="max-w-4xl mx-auto"><div class="audio-player"><div class="flex justify-between mb-4"><h3 class="text-xl font-bold text-white"><i class="fas fa-headphones text-brand-orange mr-2"></i>Listen to This Module</h3></div><div style="display: flex; gap: 1rem; flex-wrap: wrap;"><button class="play-btn" onclick="toggleAudio()"><i class="fas fa-play"></i>Play</button><div style="flex: 1; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px;"></div><div style="display: flex; gap: 0.5rem;"><button class="speed-btn active" onclick="setAudioSpeed(1)">1x</button><button class="speed-btn" onclick="setAudioSpeed(1.5)">1.5x</button><button class="speed-btn" onclick="setAudioSpeed(2)">2x</button></div></div></div></div></section>
+
+    <section class="bg-gray-50 px-4 py-16"><div class="max-w-4xl mx-auto"><div class="lesson-content">
+        <h2>1. Social Media Marketing Overview</h2>
+        <p>Social media is where your audience spends their time. Platforms like Instagram, TikTok, LinkedIn, and Twitter are essential for brand building and customer engagement.</p>
+
+        <h3>Platform Selection</h3>
+        <ul><li><strong>Instagram:</strong> Visual content, younger demographics, e-commerce</li><li><strong>LinkedIn:</strong> B2B, professional content, thought leadership</li><li><strong>TikTok:</strong> Short video, viral content, Gen Z</li><li><strong>Twitter:</strong> News, real-time engagement, industry discussions</li><li><strong>YouTube:</strong> Long-form video, tutorials, entertainment</li></ul>
+
+        <h2>2. Content Strategy</h2>
+        <p>Plan your content around your audience and business goals.</p>
+        
+        <div class="highlight-box">
+            <p><strong>Content Pillars:</strong> Educational, Entertaining, Inspirational, Promotional (ratio: 40%, 30%, 20%, 10%)</p>
+        </div>
+
+        <h3>Content Calendar</h3>
+        <ul><li>Plan 30-90 days in advance</li><li>Mix content types</li><li>Schedule posts for optimal times</li><li>Plan for trending topics</li></ul>
+
+        <h2>3. AI Content Creation Tools</h2>
+        <ul><li>Generate caption ideas with ChatGPT</li><li>Create images with DALL-E, Midjourney</li><li>Schedule posts with Buffer, Later</li><li>Analyze trending content with AI analytics</li></ul>
+
+        <h2>4. Engagement and Community Management</h2>
+        <ul><li>Respond to comments and DMs quickly</li><li>Use polls and questions to encourage interaction</li><li>Host Q&A sessions and live streams</li><li>Build genuine relationships with followers</li></ul>
+
+        <h2>5. Analytics and Optimization</h2>
+        <ul><li><strong>Track Metrics:</strong> Reach, engagement, clicks, conversions</li><li><strong>Identify Top Content:</strong> See what resonates</li><li><strong>Test and Learn:</strong> A/B test different content types</li><li><strong>Optimize Posting Times:</strong> Post when audience is most active</li></ul>
+
+        <h2>Key Takeaways</h2>
+        <div class="bg-blue-900 bg-opacity-20 p-4 rounded-lg text-white">
+            <ul><li>Choose platforms where your audience spends time</li><li>Create diverse content using the 40-30-20-10 rule</li><li>Use AI to generate and schedule content efficiently</li><li>Engage authentically with your community</li><li>Track metrics and optimize based on performance</li></ul>
+        </div>
+
+        
+    <!-- Resources & Completion Section -->
+    <section class="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 lg:px-8 py-16">
+        <div class="max-w-4xl mx-auto">
+            <!-- Resources -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8 border-t-4 border-brand-orange">
+                <h3 class="text-2xl font-bold text-brand-navy mb-2 flex items-center gap-3">
+                    <i class="fas fa-download text-brand-orange text-3xl"></i>Downloads & Resources
+                </h3>
+                <p class="text-gray-600 mb-6">Download course materials and templates for your learning</p>
+                <div class="space-y-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <a href="#" class="flex items-center p-4 bg-gradient-to-r from-red-50 to-orange-50 rounded-lg hover:shadow-lg transition border-l-4 border-red-400">
+                        <i class="fas fa-file-pdf text-red-500 mr-4 text-2xl"></i>
+                        <div>
+                            <p class="font-semibold text-brand-navy">Digital Marketing Setup Checklist</p>
+                            <p class="text-sm text-gray-500">PDF � 2.4 MB</p>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
+                    </a>
+                    <a href="#" class="flex items-center p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg hover:shadow-lg transition border-l-4 border-green-400">
+                        <i class="fas fa-file-excel text-green-500 mr-4 text-2xl"></i>
+                        <div>
+                            <p class="font-semibold text-brand-navy">Buyer Persona Template</p>
+                            <p class="text-sm text-gray-500">XLSX � 512 KB</p>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
+                    </a>
+                    <a href="#" class="flex items-center p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg hover:shadow-lg transition border-l-4 border-blue-400 md:col-span-2">
+                        <i class="fas fa-file-word text-blue-500 mr-4 text-2xl"></i>
+                        <div>
+                            <p class="font-semibold text-brand-navy">Marketing Strategy Template</p>
+                            <p class="text-sm text-gray-500">DOCX � 3.1 MB</p>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Completion Card -->
+            <div class="bg-gradient-to-r from-brand-navy to-brand-navy-dark rounded-2xl shadow-xl p-10 text-white">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-check-circle text-brand-orange text-4xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2 text-white" style="color: #ffffff !important; text-transform: none;">Module 10 Complete!</h3>
+                        <p class="text-lg text-white" style="color: #ffffff !important;">You've mastered marketing automation. Move on to Module 11 to learn about Advanced Analytics & Reporting!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="module-nav">
+            <a href="course-module-9.html"><i class="fas fa-arrow-left mr-2"></i>Previous</a>
+            <a href="course-module-11.html">Next<i class="fas fa-arrow-right ml-2"></i></a>
+        </div>
+    </div></div></section>
+
+    <footer class="bg-brand-navy text-white py-8 border-t-4 border-brand-orange"><div class="text-center"><p class="text-gray-400">&copy; 2025 BrandMark Solutions.</p></div></footer>
+    <script src="brandmark.js"></script>
+    <script>let u = null, s = false, sp = 1; function init() { const c = document.querySelector('.lesson-content').innerText; u = new SpeechSynthesisUtterance(c); u.rate = sp; u.onend = () => { s = false; }; } function toggleAudio() { if (!u) init(); s ? speechSynthesis.pause() : (speechSynthesis.paused ? speechSynthesis.resume() : (speechSynthesis.cancel(), init(), speechSynthesis.speak(u))); s = !s; } function setAudioSpeed(speed) { sp = speed; document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active')); event.target.classList.add('active'); if (u) u.rate = speed; }</script>
+</body>
+</html>
+

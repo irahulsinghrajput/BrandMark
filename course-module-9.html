@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 9: Performance Marketing & ROI | BrandMark Course</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { 'brand-navy': '#0B2C4D', 'brand-navy-dark': '#081F36', 'brand-orange': '#F26A21' } } } }</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="brandmark.css">
+    <style>
+        * { font-family: 'Outfit', sans-serif; } body { background: linear-gradient(to bottom, #f0f4f8 0%, #ffffff 100%); }
+        .lesson-content { background: white; padding: 3rem; border-radius: 16px; }
+        .lesson-content h2, .lesson-content h3 { color: #0B2C4D; border-bottom: 2px solid #F26A21; padding-bottom: 0.5rem; margin-top: 1.5rem; }
+        .lesson-content p, .lesson-content ul { color: #374151; margin-bottom: 1rem; line-height: 1.8; }
+        .lesson-content li { margin-bottom: 0.5rem; }
+        .highlight-box { background: linear-gradient(135deg, #FEF3F2, #FFF8F3); border-left: 5px solid #F26A21; padding: 1.5rem; margin: 1rem 0; border-radius: 8px; }
+        .audio-player { background: linear-gradient(135deg, #0B2C4D, #081F36); padding: 1.5rem; border-radius: 12px; color: white; margin: 2rem 0; }
+        .play-btn { background: linear-gradient(135deg, #F26A21, #E65C17); border: none; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+        .speed-btn { background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.3); color: white; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+        .speed-btn.active { background: #F26A21; border-color: #F26A21; }
+        .module-nav { display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #E5E7EB; }
+        .module-nav a { padding: 0.875rem 1.75rem; background: linear-gradient(135deg, #F26A21, #E65C17); color: white; border-radius: 8px; text-decoration: none; font-weight: 600; }
+    </style>
+</head>
+<body class="text-white">
+    <header class="sticky top-0 z-50 bg-gradient-to-r from-brand-navy to-brand-navy-dark border-b-4 border-brand-orange">
+        <nav class="max-w-7xl mx-auto px-4 py-6 flex justify-between relative"><a href="index.html" class="flex items-center gap-2"><img src="new logoBrandMarkupdatedone.jpeg" class="h-12 w-12 rounded-full border-2 border-brand-orange"><span class="font-bold text-2xl text-white">Brand<span class="text-brand-orange">Mark</span></span></a></nav>
+    </header>
+
+    <section class="min-h-[40vh] flex justify-center items-center text-center bg-brand-navy py-16"><div class="max-w-4xl"><h1 class="text-5xl font-bold mb-4 text-white">Performance Marketing & ROI Optimization</h1><p class="text-xl text-gray-200">Maximize ROI, attribution, and campaign performance</p></div></section>
+
+    <section class="bg-white px-4 py-8"><div class="max-w-4xl mx-auto">
+        <div class="audio-player">
+            <div class="flex justify-between mb-4"><h3 class="text-xl font-bold text-white"><i class="fas fa-headphones text-brand-orange mr-2"></i>Listen to This Module</h3></div>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;"><button class="play-btn" onclick="toggleAudio()"><i class="fas fa-play"></i>Play</button><div style="flex: 1; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px;"></div><div style="display: flex; gap: 0.5rem;"><button class="speed-btn active" onclick="setAudioSpeed(1)">1x</button><button class="speed-btn" onclick="setAudioSpeed(1.5)">1.5x</button><button class="speed-btn" onclick="setAudioSpeed(2)">2x</button></div></div>
+        </div>
+    </div></section>
+
+    <section class="bg-gray-50 px-4 py-16"><div class="max-w-4xl mx-auto"><div class="lesson-content">
+        <h2>1. Performance Marketing Fundamentals</h2>
+        <p>Performance marketing is about paying only for desired results. You pay per click, impression, conversion, or other measurable action.</p>
+
+        <h3>Key Advantages</h3>
+        <ul style="margin-left: 2rem;"><li>Pay only for results</li><li>Easily track ROI</li><li>Scale what works</li><li>Flexible budgeting</li><li>Data-driven optimization</li></ul>
+
+        <h2>2. Attribution Models</h2>
+        <p>Attribution determines which touchpoint receives credit for a conversion.</p>
+        
+        <div class="highlight-box">
+            <p><strong>Common Models:</strong><br>First-Touch (credits first interaction), Last-Touch (credits final interaction), Linear (equal credit to all), Time-Decay (more weight to recent interactions), Position-Based (40% first, 40% last, 20% middle)</p>
+        </div>
+
+        <h2>3. Key Performance Metrics</h2>
+        <ul style="margin-left: 2rem;">
+            <li><strong>Click-Through Rate (CTR):</strong> % of impressions that get clicked</li>
+            <li><strong>Cost Per Click (CPC):</strong> Average cost per click</li>
+            <li><strong>Cost Per Acquisition (CPA):</strong> Average cost to acquire one customer</li>
+            <li><strong>Return on Ad Spend (ROAS):</strong> Revenue per dollar spent</li>
+            <li><strong>Customer Lifetime Value (CLV):</strong> Total revenue per customer</li>
+        </ul>
+
+        <h2>4. Conversion Tracking Setup</h2>
+        <p>Proper tracking is essential for optimization. Set up conversion pixels to measure:</p>
+        <ul style="margin-left: 2rem;"><li>Website purchases</li><li>Form submissions</li><li>App installs</li><li>Phone calls</li><li>Add to cart actions</li></ul>
+
+        <h2>5. Campaign Optimization Strategies</h2>
+        
+        <h3>Testing</h3>
+        <ul style="margin-left: 2rem;"><li>A/B test headlines, images, calls-to-action</li><li>Test landing pages</li><li>Test audience segments</li><li>Test bid strategies</li></ul>
+
+        <h3>Audience Refinement</h3>
+        <ul style="margin-left: 2rem;"><li>Remove underperforming segments</li><li>Double down on high-converting audiences</li><li>Create lookalike audiences</li><li>Use retargeting for warm leads</li></ul>
+
+        <h2>6. Budget Allocation</h2>
+        <p>Allocate budget based on performance. Invest more in channels and campaigns that deliver the best ROI.</p>
+
+        <h2>7. AI and Machine Learning in Performance Marketing</h2>
+        <ul style="margin-left: 2rem;"><li>Predictive analytics forecast likely converters</li><li>Automated bidding optimizes for conversions</li><li>Dynamic creative optimization tests variations</li><li>Smart audience targeting finds similar customers</li></ul>
+
+        <h2>Key Takeaways</h2>
+        <div class="bg-blue-900 bg-opacity-20 p-4 rounded-lg text-white">
+            <ul style="margin-left: 1.5rem;"><li>Performance marketing focuses on measurable results</li><li>Proper attribution tracking is critical</li><li>Continuous testing drives improvement</li><li>AI helps optimize bids and targeting automatically</li><li>Monitor metrics and adjust budget allocation based on ROI</li></ul>
+        </div>
+
+        
+    <!-- Resources & Completion Section -->
+    <section class="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 lg:px-8 py-16">
+        <div class="max-w-4xl mx-auto">
+            <!-- Resources -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8 border-t-4 border-brand-orange">
+                <h3 class="text-2xl font-bold text-brand-navy mb-2 flex items-center gap-3">
+                    <i class="fas fa-download text-brand-orange text-3xl"></i>Downloads & Resources
+                </h3>
+                <p class="text-gray-600 mb-6">Download course materials and templates for your learning</p>
+                <div class="space-y-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <a href="#" class="flex items-center p-4 bg-gradient-to-r from-red-50 to-orange-50 rounded-lg hover:shadow-lg transition border-l-4 border-red-400">
+                        <i class="fas fa-file-pdf text-red-500 mr-4 text-2xl"></i>
+                        <div>
+                            <p class="font-semibold text-brand-navy">Digital Marketing Setup Checklist</p>
+                            <p class="text-sm text-gray-500">PDF � 2.4 MB</p>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
+                    </a>
+                    <a href="#" class="flex items-center p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg hover:shadow-lg transition border-l-4 border-green-400">
+                        <i class="fas fa-file-excel text-green-500 mr-4 text-2xl"></i>
+                        <div>
+                            <p class="font-semibold text-brand-navy">Buyer Persona Template</p>
+                            <p class="text-sm text-gray-500">XLSX � 512 KB</p>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
+                    </a>
+                    <a href="#" class="flex items-center p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg hover:shadow-lg transition border-l-4 border-blue-400 md:col-span-2">
+                        <i class="fas fa-file-word text-blue-500 mr-4 text-2xl"></i>
+                        <div>
+                            <p class="font-semibold text-brand-navy">Marketing Strategy Template</p>
+                            <p class="text-sm text-gray-500">DOCX � 3.1 MB</p>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Completion Card -->
+            <div class="bg-gradient-to-r from-brand-navy to-brand-navy-dark rounded-2xl shadow-xl p-10 text-white">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-check-circle text-brand-orange text-4xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2 text-white" style="color: #ffffff !important; text-transform: none;">Module 9 Complete!</h3>
+                        <p class="text-lg text-white" style="color: #ffffff !important;">You've mastered email marketing. Move on to Module 10 to learn about Marketing Automation Platforms!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="module-nav">
+            <a href="course-module-8.html"><i class="fas fa-arrow-left mr-2"></i>Previous</a>
+            <a href="course-module-10.html">Next<i class="fas fa-arrow-right ml-2"></i></a>
+        </div>
+    </div></div></section>
+
+    <footer class="bg-brand-navy text-white py-8 border-t-4 border-brand-orange"><div class="text-center"><p class="text-gray-400">&copy; 2025 BrandMark Solutions.</p></div></footer>
+
+    <script src="brandmark.js"></script>
+    <script>let u = null, s = false, sp = 1; function init() { const c = document.querySelector('.lesson-content').innerText; u = new SpeechSynthesisUtterance(c); u.rate = sp; u.onend = () => { s = false; }; } function toggleAudio() { if (!u) init(); s ? speechSynthesis.pause() : (speechSynthesis.paused ? speechSynthesis.resume() : (speechSynthesis.cancel(), init(), speechSynthesis.speak(u))); s = !s; } function setAudioSpeed(speed) { sp = speed; document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active')); event.target.classList.add('active'); if (u) u.rate = speed; }</script>
+</body>
+</html>
+

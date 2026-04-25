@@ -155,6 +155,58 @@
             opacity: 0.5;
             cursor: not-allowed;
         }
+
+        .audio-player {
+            background: linear-gradient(135deg, #0B2C4D 0%, #081F36 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            color: white;
+            box-shadow: 0 4px 15px rgba(11, 44, 77, 0.3);
+        }
+
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .play-btn {
+            background: linear-gradient(135deg, #F26A21, #E65C17);
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(242, 106, 33, 0.4);
+        }
+
+        .speed-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .speed-btn.active {
+            background: #F26A21;
+            border-color: #F26A21;
+        }
     </style>
 </head>
 <body class="bg-brand-black text-white font-[Outfit]">
@@ -169,20 +221,9 @@
                 </div>
                 <div class="flex flex-col">
                     <span class="text-3xl font-extrabold text-white tracking-tight">Brand<span class="text-brand-orange font-light">Mark</span><span class="text-xs align-top">®</span></span>
-                    <span class="text-xs text-blue-200 tracking-widest font-semibold">DIGITAL MASTERY</span>
+                    <span class="text-xs text-gray-300 tracking-widest font-semibold">DIGITAL MASTERY</span>
                 </div>
             </a>
-            <!-- Right: Buttons -->
-            <div class="flex items-center gap-4">
-                <a href="resources-hub.html" class="inline-flex items-center gap-2 text-white hover:text-brand-orange transition font-bold px-6 py-3 rounded-lg hover:bg-white/15 bg-white/5 border border-white/10 hover:border-brand-orange/50">
-                    <i class="fas fa-download text-lg"></i> 
-                    <span>Resources</span>
-                </a>
-                <a href="digital-marketing-course.html" class="inline-flex items-center gap-2 text-white hover:text-brand-orange transition font-bold px-6 py-3 rounded-lg hover:bg-white/15 bg-white/5 border border-white/10 hover:border-brand-orange/50">
-                    <i class="fas fa-arrow-left text-lg"></i> 
-                    <span>Back to Course</span>
-                </a>
-            </div>
         </nav>
     </header>
 
@@ -216,6 +257,30 @@
                 </div>
                 <div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md hover:shadow-lg transition">
                     <p class="flex items-start text-brand-navy font-semibold text-lg"><i class="fas fa-check-circle text-brand-orange mr-3 mt-1 text-xl flex-shrink-0"></i> <span>Create dashboards and reports</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audio Player -->
+    <section class="bg-white px-4 sm:px-6 lg:px-8 py-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="audio-player">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold flex items-center gap-2 text-white">
+                        <i class="fas fa-headphones text-brand-orange"></i>Listen to This Module
+                    </h3>
+                </div>
+                <div class="audio-controls">
+                    <button id="audioPlayBtn" class="play-btn" onclick="toggleAudio()">
+                        <i class="fas fa-play"></i><span id="playBtnText">Play</span>
+                    </button>
+                    <div class="speed-control" style="display: flex; gap: 0.5rem;">
+                        <span class="text-sm">Speed:</span>
+                        <button class="speed-btn active" onclick="setAudioSpeed(1)">1x</button>
+                        <button class="speed-btn" onclick="setAudioSpeed(1.5)">1.5x</button>
+                        <button class="speed-btn" onclick="setAudioSpeed(2)">2x</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -410,7 +475,7 @@
                 </ol>
 
                 <h2>Key Takeaways</h2>
-                <div class="bg-blue-900 bg-opacity-20 p-4 rounded-lg">
+                <div class="bg-blue-900 bg-opacity-20 p-4 rounded-lg text-white">
                     <ul>
                         <li>Analytics reveals what's working and what's not in your marketing</li>
                         <li>Key metrics include traffic, engagement, conversions, and ROI</li>
@@ -421,13 +486,26 @@
                     </ul>
                 </div>
 
+            <!-- Completion Card -->
+            <div class="bg-gradient-to-r from-brand-navy to-brand-navy-dark rounded-2xl shadow-xl p-10 text-white">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-check-circle text-brand-orange text-4xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2 text-white" style="color: #ffffff !important; text-transform: none;">Module 3 Complete!</h3>
+                        <p class="text-lg text-white" style="color: #ffffff !important;">You've mastered analytics fundamentals. Move on to Module 4 to learn about AI-Powered Content Creation!</p>
+                    </div>
+                </div>
+            </div>
+
                 <!-- Module Navigation -->
                 <div class="module-nav">
                     <a href="course-module-2.html">
                         <i class="fas fa-arrow-left mr-2"></i>Previous
                     </a>
-                    <a href="project-workspace.html" style="background: linear-gradient(135deg, #10B981, #059669);">
-                        Start Capstone Project<i class="fas fa-rocket ml-2"></i>
+                    <a href="course-module-4.html">
+                        Next Module<i class="fas fa-arrow-right ml-2"></i>
                     </a>
                 </div>
             </div>
@@ -471,34 +549,7 @@
                 </div>
             </div>
 
-            <!-- Completion Card -->
-            <div class="bg-gradient-to-r from-brand-navy to-brand-navy-dark rounded-2xl shadow-xl p-10 text-white">
-                <div class="flex items-start gap-4 mb-6">
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-certificate text-brand-orange text-4xl"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-bold mb-2">Congratulations! Course Complete 🎉</h3>
-                        <p class="text-blue-100">You've mastered all 3 modules! Now apply your knowledge with the Capstone Project and take the final quiz to earn your certificate.</p>
-                    </div>
-                </div>
-                
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="project-workspace.html" class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-4 px-8 rounded-lg transition transform hover:scale-105 flex-1 flex items-center justify-center gap-2 shadow-lg">
-                        <i class="fas fa-rocket"></i>
-                        Start Capstone Project
-                    </a>
-                    <a href="digital-marketing-course.html" class="bg-white/20 hover:bg-white/30 text-white font-bold py-4 px-8 rounded-lg transition border-2 border-white flex items-center justify-center gap-2">
-                        <i class="fas fa-chevron-left"></i>
-                        Back to Course
-                    </a>
-                </div>
-                
-                <p class="text-blue-200 text-sm mt-4 flex items-center gap-2">
-                    <i class="fas fa-info-circle"></i>
-                    Complete the Capstone Project, then take the Final Quiz to earn your Digital Marketing Mastery Certificate!
-                </p>
-            </div>
+
         </div>
     </section>
 
@@ -510,5 +561,12 @@
     </footer>
 
     <script src="brandmark.js"></script>
+    <script>
+        let utterance = null, isSpeaking = false, currentSpeed = 1;
+        function initAudio() { const content = document.querySelector('.lesson-content').innerText; utterance = new SpeechSynthesisUtterance(content); utterance.rate = currentSpeed; utterance.onend = () => { isSpeaking = false; updatePlayButton(); }; }
+        function toggleAudio() { if (!utterance) initAudio(); if (isSpeaking) { speechSynthesis.pause(); isSpeaking = false; } else { if (speechSynthesis.paused) { speechSynthesis.resume(); } else { speechSynthesis.cancel(); initAudio(); speechSynthesis.speak(utterance); } isSpeaking = true; } updatePlayButton(); }
+        function setAudioSpeed(speed) { currentSpeed = speed; document.querySelectorAll('.speed-btn').forEach(btn => btn.classList.remove('active')); event.target.classList.add('active'); if (utterance) { utterance.rate = speed; if (isSpeaking) { speechSynthesis.cancel(); initAudio(); speechSynthesis.speak(utterance); } } }
+        function updatePlayButton() { const btn = document.getElementById('audioPlayBtn'); const text = document.getElementById('playBtnText'); btn.innerHTML = isSpeaking ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>'; text.textContent = isSpeaking ? 'Pause' : 'Play'; }
+    </script>
 </body>
 </html>
