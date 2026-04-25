@@ -112,6 +112,8 @@ app.use('/api/quiz', require('./routes/quiz'));
 console.log('✅ Quiz routes loaded');
 app.use('/api/students', require('./routes/students'));
 console.log('✅ Students routes loaded');
+app.use('/api/analytics', require('./routes/analytics'));
+console.log('✅ Analytics routes loaded');
 
 // Health Check
 app.get('/api/health', (req, res) => {
