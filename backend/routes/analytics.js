@@ -1,7 +1,8 @@
 /**
  * Analytics routes for course enrollment statistics
- * GET /api/analytics/enrollments - Get all enrollment stats
- * GET /api/analytics/courses/:courseId/enrollments - Get enrollments for specific course
+ * GET /api/analytics/summary - Get dashboard summary (public)
+ * GET /api/analytics/enrollments - Get all enrollment stats (admin only)
+ * GET /api/analytics/courses/:courseId/enrollments - Get enrollments for specific course (admin only)
  */
 
 const express = require('express');
@@ -10,6 +11,62 @@ const Course = require('../models/Course');
 const Enrollment = require('../models/Enrollment');
 const { auth, isAdmin } = require('../middleware/auth');
 const { asyncHandler, NotFoundError } = require('../utils/errorHandler');
+
+// @route   GET /api/analytics/summary
+// @desc    Get dashboard summary (PUBLIC - no auth required)
+// @access  Public
+router.get('/summary', asyncHandler(async (req, res) => {
+    console.log('📊 Fetching public dashboard summary...');
+
+    const totalCourses = await Course.countDocuments();
+    const totalEnrollments = await Enrollment.countDocuments();
+
+    // Get top courses
+    const courseStats = await Course.aggregate([
+        {
+            $lookup: {
+                from: 'enrollments',
+                localField: '_id',
+                foreignField: 'courseId',
+                as: 'enrolledStudents'
+            }
+        },
+        {
+            $project: {
+                title: 1,
+                moduleNumber: 1,
+                category: 1,
+                level: 1,
+                enrollmentCount: { $size: '$enrolledStudents' }
+            }
+        },
+        {
+            $sort: { enrollmentCount: -1 }
+        },
+        {
+            $limit: 5
+        }
+    ]);
+
+    // Calculate average completion
+    const avgCompletion = totalEnrollments > 0
+        ? Math.round((await Enrollment.countDocuments({ overallProgress: 100 }) / totalEnrollments) * 100)
+        : 0;
+
+    res.json({
+        success: true,
+        data: {
+            totalCourses,
+            totalEnrollments,
+            uniqueStudents: totalEnrollments,
+            avgCompletion,
+            topCourses: courseStats.map(c => ({
+                title: c.title,
+                enrollments: c.enrollmentCount
+            }))
+        }
+    });
+}));
 
 // @route   GET /api/analytics/enrollments
 // @desc    Get overall enrollment statistics
