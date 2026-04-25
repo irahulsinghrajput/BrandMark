@@ -131,23 +131,22 @@ app.get('/api/test-order-route', (req, res) => {
     });
 });
 
-// Error Handling Middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(err.status || 500).json({
-        success: false,
-        message: err.message || 'Internal Server Error',
-        ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
-    });
-});
+// Enhanced Error Handling Middleware (must be last)
+const { errorHandler } = require('./utils/errorHandler');
 
-// 404 Handler
+// 404 Handler (before error handler)
 app.use((req, res) => {
     res.status(404).json({
         success: false,
-        message: 'Route not found'
+        message: 'Route not found',
+        path: req.path,
+        method: req.method,
+        timestamp: new Date().toISOString()
     });
 });
+
+// Global error handler (MUST be last middleware)
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {

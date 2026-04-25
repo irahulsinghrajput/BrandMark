@@ -168,6 +168,104 @@ router.post('/:courseId/order', async (req, res) => {
     }
 });
 
+// ==================== WEBHOOK ROUTES ====================
+
+// @route   POST /api/courses/webhook/razorpay
+// @desc    Razorpay webhook handler - validates signature and processes payment
+// @access  Public (but signature-protected)
+router.post('/webhook/razorpay', async (req, res) => {
+    try {
+        const { verifyWebhookSignature } = require('../utils/razorpayUtils');
+        
+        // Get signature from header
+        const webhookSignature = req.headers['x-razorpay-signature'];
+        
+        if (!webhookSignature) {
+            console.warn('⚠️  Webhook signature missing from headers');
+            return res.status(400).json({
+                success: false,
+                message: 'Webhook signature missing'
+            });
+        }
+
+        // Get webhook secret from environment
+        const webhookSecret = process.env.RAZORPAY_WEBHOOK_SECRET;
+        if (!webhookSecret) {
+            console.error('❌ RAZORPAY_WEBHOOK_SECRET not configured');
+            return res.status(500).json({
+                success: false,
+                message: 'Webhook not configured'
+            });
+        }
+
+        // Get raw body for signature verification
+        const webhookBody = JSON.stringify(req.body);
+
+        // Verify webhook signature
+        if (!verifyWebhookSignature(webhookBody, webhookSignature, webhookSecret)) {
+            console.error('❌ Webhook signature verification failed');
+            return res.status(401).json({
+                success: false,
+                message: 'Webhook signature verification failed'
+            });
+        }
+
+        console.log('✅ Webhook signature verified');
+
+        const event = req.body.event;
+        const payload = req.body.payload;
+
+        // Handle different event types
+        if (event === 'payment.authorized') {
+            console.log('💳 Payment authorized:', payload.payment.entity.id);
+            
+            const paymentEntity = payload.payment.entity;
+            const { email, courseId, courseTitle } = paymentEntity.notes;
+
+            // Create enrollment record
+            const enrollment = new Enrollment({
+                studentEmail: email,
+                courseId: courseId,
+                courseTitle: courseTitle,
+                paymentId: paymentEntity.id,
+                amount: paymentEntity.amount / 100, // Convert from paise
+                currency: paymentEntity.currency,
+                status: 'completed',
+                paymentMethod: paymentEntity.method,
+                transactionDate: new Date(paymentEntity.created_at * 1000)
+            });
+
+            await enrollment.save();
+            console.log('✅ Enrollment created:', enrollment._id);
+        } 
+        else if (event === 'payment.failed') {
+            console.log('❌ Payment failed:', payload.payment.entity.id);
+            // Log failed payment for analysis
+        }
+        else if (event === 'refund.created') {
+            console.log('💰 Refund created:', payload.refund.entity.id);
+            // Update enrollment status
+        }
+
+        // Always respond with 200 to acknowledge receipt
+        res.status(200).json({
+            success: true,
+            message: 'Webhook processed'
+        });
+
+    } catch (error) {
+        console.error('❌ Webhook processing error:', error.message);
+        // Still return 200 to prevent Razorpay retries for processing errors
+        res.status(200).json({
+            success: false,
+            message: 'Webhook error (logged)',
+            error: error.message
+        });
+    }
+});
+
+// ==================== PUBLIC ROUTES ====================
+
 // @route   GET /api/courses/:slug
 // @desc    Get single course by slug
 // @access  Public
