@@ -183,6 +183,97 @@
     <footer class="bg-brand-navy text-white py-8 border-t-4 border-brand-orange"><div class="text-center"><p class="text-gray-400">&copy; 2025 BrandMark Solutions.</p></div></footer>
     <script src="brandmark.js"></script>
     <script>let u = null, s = false, sp = 1; function init() { const c = document.querySelector('.lesson-content').innerText; u = new SpeechSynthesisUtterance(c); u.rate = sp; u.onend = () => { s = false; }; } function toggleAudio() { if (!u) init(); s ? speechSynthesis.pause() : (speechSynthesis.paused ? speechSynthesis.resume() : (speechSynthesis.cancel(), init(), speechSynthesis.speak(u))); s = !s; } function setAudioSpeed(speed) { sp = speed; document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active')); event.target.classList.add('active'); if (u) u.rate = speed; }</script>
+    <script>
+        // ?? ENROLLMENT VERIFICATION - CRITICAL SECURITY CHECK
+        function verifyEnrollment() {
+            // Check for logged in user and course access
+            const user = JSON.parse(localStorage.getItem('user'));
+            const enrolledCourses = JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
+            
+            // Current course ID (standardized layout)
+            const currentPath = window.location.pathname;
+            const courseIdMatch = currentPath.match(/course-module-(\d+)\.html/);
+            const courseId = courseIdMatch ? parseInt(courseIdMatch[1]) : null;
+
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            if (!courseId || !enrolledCourses.includes(courseId)) {
+                alert('You are not enrolled in this course module. Please contact support if this is an error.');
+                window.location.href = 'index.html';
+                return;
+            }
+        }
+
+        // Run verification immediately
+        verifyEnrollment();
+    </script>
+    <script>
+        // 🔒 ENROLLMENT VERIFICATION - CRITICAL SECURITY CHECK
+        function verifyEnrollment() {
+            // Check for logged in user and course access
+            const user = JSON.parse(localStorage.getItem('user'));
+            const enrolledCourses = JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
+            
+            // Current course ID (standardized layout)
+            const currentPath = window.location.pathname;
+            const courseIdMatch = currentPath.match(/course-module-(\d+)\.html/);
+            const courseId = courseIdMatch ? parseInt(courseIdMatch[1]) : null;
+
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            if (!courseId || !enrolledCourses.includes(courseId)) {
+                alert('You are not enrolled in this course module. Please contact support if this is an error.');
+                window.location.href = 'index.html';
+                return;
+            }
+        }
+
+        // Run verification immediately
+        verifyEnrollment();
+    </script>
+    <script>
+        // ?? ENROLLMENT VERIFICATION - CRITICAL SECURITY CHECK
+        function verifyEnrollment() {
+            const enrollmentId = localStorage.getItem('enrollmentId');
+            const userEmail = localStorage.getItem('userEmail');
+            const studentToken = localStorage.getItem('studentToken');
+            const studentEmail = localStorage.getItem('studentEmail');
+            const isEnrolled = (enrollmentId && userEmail) || (studentToken && (studentEmail || userEmail));
+            if (!isEnrolled) {
+                alert('?? This course module is restricted. You must enroll and login to access.\n\nRedirecting...');
+                window.location.href = 'digital-marketing-course.html';
+                return false;
+            }
+            return true;
+        }
+        document.addEventListener('DOMContentLoaded', verifyEnrollment);
+    </script>
+    <script>
+        // ?? ENROLLMENT VERIFICATION - CRITICAL SECURITY CHECK
+        function verifyEnrollment() {
+            const enrollmentId = localStorage.getItem('enrollmentId');
+            const userEmail = localStorage.getItem('userEmail');
+            const studentToken = localStorage.getItem('studentToken');
+            const studentEmail = localStorage.getItem('studentEmail');
+            const isEnrolled = (enrollmentId && userEmail) || (studentToken && (studentEmail || userEmail));
+            if (!isEnrolled) {
+                alert('?? This course module is restricted. You must enroll and login to access.\n\nRedirecting...');
+                window.location.href = 'digital-marketing-course.html';
+                return false;
+            }
+            return true;
+        }
+        document.addEventListener('DOMContentLoaded', verifyEnrollment);
+    </script>
 </body>
 </html>
+
+
+
 
