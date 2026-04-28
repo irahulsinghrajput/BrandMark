@@ -574,5 +574,30 @@
     </footer>
 
     <script src="brandmark.js"></script>
+    <script>
+        // 🔒 ENROLLMENT VERIFICATION - CRITICAL SECURITY CHECK
+        function verifyEnrollment() {
+            const enrollmentId = localStorage.getItem('enrollmentId');
+            const userEmail = localStorage.getItem('userEmail');
+            const studentToken = localStorage.getItem('studentToken');
+            const studentEmail = localStorage.getItem('studentEmail');
+
+            // Check if user is properly enrolled
+            const isEnrolled = (enrollmentId && userEmail) || (studentToken && (studentEmail || userEmail));
+
+            if (!isEnrolled) {
+                console.warn('⚠️ UNAUTHORIZED ACCESS ATTEMPT: User tried to access course module without enrollment');
+                alert('🔒 This course module is restricted. You must enroll and login to access this content.\n\nRedirecting to enrollment page...');
+                window.location.href = 'digital-marketing-course.html';
+                return false;
+            }
+
+            console.log('✅ Enrollment verified:', studentEmail || userEmail || 'anonymous student');
+            return true;
+        }
+
+        // Run verification on page load
+        document.addEventListener('DOMContentLoaded', verifyEnrollment);
+    </script>
 </body>
 </html>
