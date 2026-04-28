@@ -600,6 +600,39 @@
                 alert('❌ Error: ' + error.message + '\n\nPlease check the console (F12) for details and contact support if the issue persists.');
             }
         }
+
+        // 🔒 PROTECT MODULE LINKS - PREVENT UNAUTHORIZED ACCESS
+        document.addEventListener('DOMContentLoaded', function() {
+            // Find all module links
+            const moduleLinks = document.querySelectorAll('a[href^="course-module-"]');
+            
+            moduleLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Check enrollment status
+                    const enrollmentId = localStorage.getItem('enrollmentId');
+                    const userEmail = localStorage.getItem('userEmail');
+                    const studentToken = localStorage.getItem('studentToken');
+                    const studentEmail = localStorage.getItem('studentEmail');
+                    
+                    // Verify enrollment
+                    const isEnrolled = (enrollmentId && userEmail) || (studentToken && (studentEmail || userEmail));
+                    
+                    if (!isEnrolled) {
+                        // Prevent navigation
+                        e.preventDefault();
+                        console.warn('⚠️ Access blocked: User not enrolled. Redirecting to enrollment form.');
+                        
+                        // Show enrollment modal
+                        alert('🔒 This course content is restricted.\n\n✅ Please enroll first to access the modules.');
+                        openEnrollmentModal();
+                        return false;
+                    }
+                    
+                    // User is enrolled, allow navigation
+                    console.log('✅ Enrollment verified. Navigating to module:', this.href);
+                });
+            });
+        });
     </script>
 
     <!-- Enrollment Modal -->
