@@ -72,8 +72,9 @@
             width: 500px;
             height: 500px;
             background: url('Brandmark logo transparent.png') center / cover;
-            opacity: 0.08;
+            opacity: 0.15;
             z-index: 0;
+            pointer-events: none;
         }
 
         /* Ornate corner accent decorations */
@@ -175,6 +176,15 @@
             flex-direction: column;
             justify-content: space-between;
             height: 100%;
+            width: 100%;
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 4px;
         }
 
         /* Header section */
@@ -289,16 +299,22 @@
         /* Signature section */
         .signature-section {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 15px;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
             margin-top: 12px;
             align-items: flex-end;
             padding-top: 12px;
             border-top: 2px solid #FF6B35;
+            justify-items: center;
         }
 
         .signature-block {
             text-align: center;
+            width: 100%;
+        }
+
+        .signature-block:nth-child(2) {
+            display: none;
         }
 
         /* Signature initials box */
