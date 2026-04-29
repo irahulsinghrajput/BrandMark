@@ -21,6 +21,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            margin: 0;
         }
 
         .certificate-container {
@@ -517,23 +518,186 @@
         }
 
         /* Print styles */
+        @page {
+            size: A4 landscape;
+            margin: 0;
+            padding: 0;
+        }
+
         @media print {
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            html, body {
+                width: 297mm;
+                height: 210mm;
+                margin: 0;
+                padding: 0;
+            }
+
             body {
                 background: white;
                 padding: 0;
+                margin: 0;
             }
 
             .certificate-container {
                 box-shadow: none;
                 max-width: 100%;
                 aspect-ratio: auto;
-                width: 210mm;
-                height: 297mm;
+                width: 297mm;
+                height: 210mm;
                 margin: 0;
+                padding: 15mm 20mm;
+                page-break-after: avoid;
+                break-after: avoid;
             }
 
             .action-buttons {
                 display: none !important;
+            }
+
+            /* Reduce sizes for print */
+            .logo-img {
+                width: 140px;
+                height: 140px;
+            }
+
+            h1 {
+                font-size: 18px;
+                margin-bottom: 0px;
+            }
+
+            .student-name {
+                font-size: 26px;
+                margin: 0 0 1px;
+            }
+
+            h2 {
+                font-size: 18px;
+                margin: 1px 0;
+            }
+
+            p {
+                font-size: 10px;
+                margin: 2px 0;
+            }
+
+            .course-completed {
+                font-size: 11px;
+                margin: 1px 0;
+            }
+
+            .achievement-text {
+                font-size: 8px;
+                margin: 1px 0;
+            }
+
+            .certificate-meta {
+                font-size: 9px;
+                margin: 1px 0;
+                padding: 2px;
+            }
+
+            .provider-text {
+                font-size: 9px;
+                margin-top: 2px;
+            }
+
+            .signature-section {
+                gap: 8px;
+                margin-top: 4px;
+                padding-top: 4px;
+            }
+
+            .signature-initials {
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+                margin: 0 auto 6px;
+            }
+
+            .signature-text {
+                font-size: 18px;
+                margin: 1px 0;
+            }
+
+            .signature-name {
+                font-size: 8px;
+                margin-top: 0px;
+            }
+
+            .signature-title {
+                font-size: 7px;
+            }
+
+            .certificate-stamp {
+                width: 100px;
+                height: 100px;
+                top: 140px;
+                right: 120px;
+            }
+
+            .certificate-stamp::before {
+                width: 90px;
+                height: 90px;
+            }
+
+            .stamp-text {
+                font-size: 14px;
+            }
+
+            .stamp-text-inner {
+                font-size: 9px;
+                margin-top: 2px;
+            }
+
+            .course-modules {
+                margin: 0px 0;
+                padding: 2px;
+                font-size: 8px;
+            }
+
+            .course-modules li {
+                display: inline;
+                margin: 0 5px;
+            }
+
+            .certificate-footer {
+                margin-top: 2px;
+                padding-top: 2px;
+                font-size: 6px;
+                padding: 2px;
+            }
+
+            .footer-website {
+                font-size: 7px;
+                margin: 0 !important;
+            }
+
+            .footer-company {
+                font-size: 7px;
+                margin: 0 !important;
+            }
+
+            .certificate-header {
+                margin-bottom: 1px;
+                padding: 4px 0;
+            }
+
+            .border-top, .border-bottom {
+                width: 150px;
+            }
+
+            .corner-shield {
+                width: 60px;
+                height: 60px;
+            }
+
+            .corner-arrow {
+                font-size: 32px;
             }
         }
 
