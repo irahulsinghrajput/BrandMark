@@ -559,61 +559,6 @@
                 text.textContent = 'Play';
             }
         }
-    </script>
-    <script>
-        // ?? ENROLLMENT VERIFICATION - CRITICAL SECURITY CHECK
-        function verifyEnrollment() {
-            // Check for logged in user and course access
-            const user = JSON.parse(localStorage.getItem('user'));
-            const enrolledCourses = JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
-            
-            // Current course ID (standardized layout)
-            const currentPath = window.location.pathname;
-            const courseIdMatch = currentPath.match(/course-module-(\d+)\.html/);
-            const courseId = courseIdMatch ? parseInt(courseIdMatch[1]) : null;
-
-            if (!user) {
-                window.location.href = 'student-login.html';
-                return;
-            }
-
-            if (!courseId || !enrolledCourses.includes(courseId)) {
-                alert('You are not enrolled in this course module. Please contact support if this is an error.');
-                window.location.href = 'index.html';
-                return;
-            }
-        }
-
-        // Run verification immediately
-        verifyEnrollment();
-    </script>
-    <script>
-        // 🔒 ENROLLMENT VERIFICATION - CRITICAL SECURITY CHECK
-        function verifyEnrollment() {
-            // Check for logged in user and course access
-            const user = JSON.parse(localStorage.getItem('user'));
-            const enrolledCourses = JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
-            
-            // Current course ID (standardized layout)
-            const currentPath = window.location.pathname;
-            const courseIdMatch = currentPath.match(/course-module-(\d+)\.html/);
-            const courseId = courseIdMatch ? parseInt(courseIdMatch[1]) : null;
-
-            if (!user) {
-                window.location.href = 'student-login.html';
-                return;
-            }
-
-            if (!courseId || !enrolledCourses.includes(courseId)) {
-                alert('You are not enrolled in this course module. Please contact support if this is an error.');
-                window.location.href = 'index.html';
-                return;
-            }
-        }
-
-        // Run verification immediately
-        verifyEnrollment();
-    </script>
 </body>
 </html>
 
