@@ -130,7 +130,7 @@
             const courseId = courseIdMatch ? parseInt(courseIdMatch[1]) : null;
 
             if (!user) {
-                window.location.href = 'login.html';
+                window.location.href = 'student-login.html';
                 return;
             }
 
@@ -157,7 +157,7 @@
             const courseId = courseIdMatch ? parseInt(courseIdMatch[1]) : null;
 
             if (!user) {
-                window.location.href = 'login.html';
+                window.location.href = 'student-login.html';
                 return;
             }
 
@@ -170,40 +170,6 @@
 
         // Run verification immediately
         verifyEnrollment();
-    </script>
-    <script>
-        // ?? ENROLLMENT VERIFICATION - CRITICAL SECURITY CHECK
-        function verifyEnrollment() {
-            const enrollmentId = localStorage.getItem('enrollmentId');
-            const userEmail = localStorage.getItem('userEmail');
-            const studentToken = localStorage.getItem('studentToken');
-            const studentEmail = localStorage.getItem('studentEmail');
-            const isEnrolled = (enrollmentId && userEmail) || (studentToken && (studentEmail || userEmail));
-            if (!isEnrolled) {
-                alert('?? This course module is restricted. You must enroll and login to access.\n\nRedirecting...');
-                window.location.href = 'digital-marketing-course.html';
-                return false;
-            }
-            return true;
-        }
-        document.addEventListener('DOMContentLoaded', verifyEnrollment);
-    </script>
-    <script>
-        // ?? ENROLLMENT VERIFICATION - CRITICAL SECURITY CHECK
-        function verifyEnrollment() {
-            const enrollmentId = localStorage.getItem('enrollmentId');
-            const userEmail = localStorage.getItem('userEmail');
-            const studentToken = localStorage.getItem('studentToken');
-            const studentEmail = localStorage.getItem('studentEmail');
-            const isEnrolled = (enrollmentId && userEmail) || (studentToken && (studentEmail || userEmail));
-            if (!isEnrolled) {
-                alert('?? This course module is restricted. You must enroll and login to access.\n\nRedirecting...');
-                window.location.href = 'digital-marketing-course.html';
-                return false;
-            }
-            return true;
-        }
-        document.addEventListener('DOMContentLoaded', verifyEnrollment);
     </script>
 </body>
 </html>
