@@ -27,12 +27,11 @@
         .certificate-container {
             width: 100%;
             max-width: 1200px;
+            min-height: 500px;
             background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
             position: relative;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-            /* Landscape certificate aspect ratio: 16:9 */
-            aspect-ratio: 16 / 9;
-            padding: 25px 40px;
+            padding: 30px 50px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -174,25 +173,25 @@
 
         /* Header section */
         .certificate-header {
-            margin-bottom: 2px;
+            margin-bottom: 8px;
             background: linear-gradient(90deg, rgba(255, 107, 53, 0.05) 0%, transparent 50%, rgba(11, 44, 77, 0.05) 100%);
-            padding: 8px 0;
+            padding: 10px 0 8px;
             border-bottom: 2px solid #FF6B35;
         }
 
         .logo-img {
-            width: 240px;
-            height: 240px;
-            margin: 0 auto 2px;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 10px;
             object-fit: contain;
             filter: drop-shadow(0 2px 8px rgba(11, 44, 77, 0.1));
         }
 
         h1 {
-            font-size: 28px;
-            font-weight: 900;
+            font-size: 22px;
+            font-weight: 600;
             color: #0B2C4D;
-            margin-bottom: 1px;
+            margin-bottom: 8px;
             letter-spacing: 0.5px;
             font-style: italic;
             font-family: 'Dancing Script', cursive;
@@ -201,48 +200,44 @@
         /* Student name in script font */
         .student-name {
             font-family: 'Dancing Script', cursive;
-            font-size: 36px;
+            font-size: 28px;
             font-weight: 700;
             color: #FF6B35;
-            margin: 0 0 2px;
+            margin: 10px 0 8px;
             font-style: italic;
         }
 
         /* Main body text */
         p {
-            font-size: 12px;
+            font-size: 13px;
             color: #333;
-            line-height: 1.4;
-            margin: 4px 0;
+            line-height: 1.5;
+            margin: 6px 0;
         }
 
         .course-completed {
             font-size: 14px;
             color: #0B2C4D;
             font-weight: 600;
-            margin: 2px 0;
+            margin: 8px 0 0;
         }
 
         h2 {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             color: #0B2C4D;
-            margin: 2px 0 2px;
-            letter-spacing: 1px;
-            background: linear-gradient(90deg, #FF6B35 0%, #0B2C4D 50%, #FF6B35 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin: 6px 0 8px;
+            letter-spacing: 0.5px;
         }
 
         /* Course modules list */
         .course-modules {
             list-style: none;
-            margin: 1px 0;
-            font-size: 9px;
+            margin: 6px 0;
+            font-size: 11px;
             color: #333;
-            padding: 4px;
-            background: rgba(255, 107, 53, 0.08);
+            padding: 6px 0;
+            background: rgba(255, 107, 53, 0.05);
             border-radius: 4px;
         }
 
@@ -259,28 +254,29 @@
         }
 
         .achievement-text {
-            font-size: 9px;
+            font-size: 11px;
             color: #0B2C4D;
             font-style: italic;
-            margin: 2px 0;
+            margin: 6px 0;
             font-weight: 500;
         }
 
         .certificate-meta {
-            font-size: 10px;
+            font-size: 11px;
             color: #0B2C4D;
-            margin: 2px 0;
-            padding: 3px;
+            margin: 8px 0;
+            padding: 4px 0;
             background: linear-gradient(90deg, rgba(11, 44, 77, 0.05) 0%, rgba(255, 107, 53, 0.05) 100%);
             border-left: 3px solid #FF6B35;
             border-radius: 3px;
+            padding-left: 6px;
         }
 
         .provider-text {
-            font-size: 11px;
+            font-size: 13px;
             color: #FF6B35;
             font-weight: 700;
-            margin-top: 3px;
+            margin-top: 6px;
             letter-spacing: 0.5px;
         }
 
@@ -288,10 +284,10 @@
         .signature-section {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
-            margin-top: 6px;
+            gap: 15px;
+            margin-top: 12px;
             align-items: flex-end;
-            padding-top: 6px;
+            padding-top: 12px;
             border-top: 2px solid #FF6B35;
         }
 
@@ -324,34 +320,34 @@
         }
 
         .signature-name {
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 700;
             color: #0B2C4D;
-            margin-top: 1px;
+            margin-top: 3px;
         }
 
         .signature-text {
             font-family: 'Great Vibes', cursive;
-            font-size: 24px;
+            font-size: 22px;
             color: #0B2C4D;
-            margin: 2px 0;
+            margin: 4px 0;
             font-weight: 400;
         }
 
         .signature-title {
-            font-size: 8px;
+            font-size: 9px;
             color: #FF6B35;
-            margin-top: 0;
+            margin-top: 2px;
             font-weight: 600;
         }
 
         /* Certificate Stamp */
         .certificate-stamp {
             position: absolute;
-            right: 160px;
-            top: 175px;
-            width: 130px;
-            height: 130px;
+            right: 100px;
+            top: 90px;
+            width: 110px;
+            height: 110px;
             border: 3px solid #FF6B35;
             border-radius: 50%;
             display: flex;
@@ -382,8 +378,8 @@
             font-family: 'Montserrat', sans-serif;
             font-weight: 900;
             color: #FF6B35;
-            font-size: 18px;
-            letter-spacing: 2px;
+            font-size: 16px;
+            letter-spacing: 1px;
             line-height: 1.2;
         }
 
@@ -486,14 +482,14 @@
 
         /* Footer */
         .certificate-footer {
-            margin-top: 3px;
-            padding-top: 3px;
+            margin-top: 8px;
+            padding-top: 8px;
             border-top: 1px dashed #FF6B35;
-            font-size: 7px;
+            font-size: 8px;
             color: #0B2C4D;
-            line-height: 1.2;
+            line-height: 1.4;
             background: linear-gradient(90deg, rgba(255, 107, 53, 0.03) 0%, rgba(11, 44, 77, 0.03) 100%);
-            padding: 3px;
+            padding: 6px;
             border-radius: 3px;
         }
 
@@ -704,8 +700,9 @@
         /* Responsive design */
         @media (max-width: 1024px) {
             .certificate-container {
-                padding: 20px 30px;
+                padding: 25px 40px;
                 border: 6px solid #0B2C4D;
+                min-height: 450px;
             }
 
             .certificate-container::before {
@@ -713,60 +710,60 @@
             }
 
             h2 {
-                font-size: 20px;
+                font-size: 18px;
             }
 
             .student-name {
-                font-size: 32px;
+                font-size: 24px;
             }
 
             .logo-img {
-                width: 200px;
-                height: 200px;
-            }
-
-            .corner-shield {
-                width: 65px;
-                height: 65px;
-            }
-
-            .corner-arrow {
-                font-size: 36px;
-            }
-
-            .signature-initials {
-                width: 50px;
-                height: 50px;
-                font-size: 22px;
-            }
-
-            .signature-section {
-                gap: 12px;
-                margin-top: 8px;
-            }
-
-            .signature-text {
-                font-size: 20px;
-            }
-
-            .certificate-stamp {
-                width: 110px;
-                height: 110px;
-                top: 145px;
-                right: 150px;
-            }
-
-            .certificate-stamp::before {
                 width: 100px;
                 height: 100px;
             }
 
+            .corner-shield {
+                width: 50px;
+                height: 50px;
+            }
+
+            .corner-arrow {
+                font-size: 28px;
+            }
+
+            .signature-initials {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .signature-section {
+                gap: 10px;
+                margin-top: 8px;
+            }
+
+            .signature-text {
+                font-size: 18px;
+            }
+
+            .certificate-stamp {
+                width: 90px;
+                height: 90px;
+                top: 80px;
+                right: 80px;
+            }
+
+            .certificate-stamp::before {
+                width: 80px;
+                height: 80px;
+            }
+
             .stamp-text {
-                font-size: 15px;
+                font-size: 12px;
             }
 
             .stamp-text-inner {
-                font-size: 9px;
+                font-size: 7px;
             }
         }
 
