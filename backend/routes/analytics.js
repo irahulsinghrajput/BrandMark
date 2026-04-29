@@ -9,7 +9,8 @@ const express = require('express');
 const router = express.Router();
 const Course = require('../models/Course');
 const Enrollment = require('../models/Enrollment');
-const { auth, isAdmin } = require('../middleware/auth');
+const auth = require('../middleware/auth');
+const { isAdmin } = require('../middleware/auth');
 const { asyncHandler, NotFoundError } = require('../utils/errorHandler');
 
 // @route   GET /api/analytics/summary
