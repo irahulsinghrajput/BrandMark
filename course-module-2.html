@@ -581,13 +581,6 @@
                 <div class="flex flex-col sm:flex-row gap-4">
                     <a href="course-module-3.html" class="bg-gradient-to-r from-brand-orange to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-4 px-8 rounded-lg transition transform hover:scale-105 flex-1 flex items-center justify-center gap-2 shadow-lg">
                         <i class="fas fa-arrow-right"></i>
-    <script>
-        let utterance = null, isSpeaking = false, currentSpeed = 1;
-        function initAudio() { const content = document.querySelector('.lesson-content').innerText; utterance = new SpeechSynthesisUtterance(content); utterance.rate = currentSpeed; utterance.onend = () => { isSpeaking = false; updatePlayButton(); }; }
-        function toggleAudio() { if (!utterance) initAudio(); if (isSpeaking) { speechSynthesis.pause(); isSpeaking = false; } else { if (speechSynthesis.paused) { speechSynthesis.resume(); } else { speechSynthesis.cancel(); initAudio(); speechSynthesis.speak(utterance); } isSpeaking = true; } updatePlayButton(); }
-        function setAudioSpeed(speed) { currentSpeed = speed; document.querySelectorAll('.speed-btn').forEach(btn => btn.classList.remove('active')); event.target.classList.add('active'); if (utterance) { utterance.rate = speed; if (isSpeaking) { speechSynthesis.cancel(); initAudio(); speechSynthesis.speak(utterance); } } }
-        function updatePlayButton() { const btn = document.getElementById('audioPlayBtn'); const text = document.getElementById('playBtnText'); btn.innerHTML = isSpeaking ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>'; text.textContent = isSpeaking ? 'Pause' : 'Play'; }
-    </script>
                         Next Module
                     </a>
                     <a href="digital-marketing-course.html" class="bg-white/20 hover:bg-white/30 text-white font-bold py-4 px-8 rounded-lg transition border-2 border-white flex items-center justify-center gap-2">
