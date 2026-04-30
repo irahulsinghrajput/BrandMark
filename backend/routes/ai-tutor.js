@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
+const https = require('https');
 
 // FREE Hugging Face API - No payment required
 const HUGGINGFACE_API_KEY = process.env.HUGGINGFACE_API_KEY || 'hf_YOUR_FREE_TOKEN'; // Get free from huggingface.co
@@ -71,33 +71,52 @@ function findInKnowledgeBase(question, language) {
 // FREE Hugging Face API (completely free)
 async function getAnswerFromHuggingFace(question, language) {
   try {
-    // Using free model from Hugging Face
-    const response = await axios.post(
-      'https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1',
-      {
-        inputs: `You are a Digital Marketing tutor. Answer this question in ${language === 'hi' ? 'Hindi' : language === 'ar' ? 'Arabic' : 'English'}: ${question}. Keep answer concise (2-3 sentences).`,
-        parameters: {
-          max_length: 200,
-          top_p: 0.9,
-          temperature: 0.7
-        }
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${HUGGINGFACE_API_KEY}`,
-          'Content-Type': 'application/json'
-        }
+    const payload = JSON.stringify({
+      inputs: `You are a Digital Marketing tutor. Answer this question in ${language === 'hi' ? 'Hindi' : language === 'ar' ? 'Arabic' : 'English'}: ${question}. Keep answer concise (2-3 sentences).`,
+      parameters: {
+        max_length: 200,
+        top_p: 0.9,
+        temperature: 0.7
       }
-    );
+    });
 
-    if (response.data && response.data[0]) {
-      return response.data[0].generated_text || 'I need more context to answer that.';
-    }
+    return new Promise((resolve, reject) => {
+      const options = {
+        hostname: 'api-inference.huggingface.co',
+        path: '/models/mistralai/Mistral-7B-Instruct-v0.1',
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${HUGGINGFACE_API_KEY}`,
+          'Content-Type': 'application/json',
+          'Content-Length': payload.length
+        }
+      };
+
+      const req = https.request(options, (res) => {
+        let data = '';
+        res.on('data', chunk => data += chunk);
+        res.on('end', () => {
+          try {
+            const response = JSON.parse(data);
+            if (response && response[0] && response[0].generated_text) {
+              resolve(response[0].generated_text);
+            } else {
+              resolve(null);
+            }
+          } catch (e) {
+            resolve(null);
+          }
+        });
+      });
+
+      req.on('error', () => resolve(null));
+      req.write(payload);
+      req.end();
+    });
   } catch (error) {
     console.log('HuggingFace API error:', error.message);
+    return null;
   }
-
-  return null;
 }
 
 module.exports = router;
