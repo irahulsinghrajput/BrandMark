@@ -303,7 +303,7 @@
         .signature-section {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 40px;
+            gap: 15px;
             margin-top: 12px;
             align-items: center;
             padding-top: 12px;
@@ -314,6 +314,7 @@
         .signature-block {
             text-align: center;
             width: 100%;
+            overflow: hidden;
         }
 
         .signature-block:nth-child(2) {
@@ -321,6 +322,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding: 0 5px;
         }
 
         /* Signature initials box */
@@ -820,10 +822,16 @@
 
                     <!-- Center (Footer Content) -->
                     <div class="signature-block">
-                        <p style="margin: 0; font-size: 11px; color: #0B2C4D; font-weight: 600; margin-bottom: 4px;">For more information, visit our website:</p>
-                        <p style="margin: 0; font-size: 13px; color: #FF6B35; font-weight: 700; margin-bottom: 4px;">www.brandmarksolutions.site</p>
-                        <p style="margin: 0; font-size: 9px; color: #0B2C4D; margin-bottom: 3px;">© BrandMark Solutions. All Rights Reserved.</p>
-                        <p style="margin: 0; font-size: 11px; font-weight: 700; color: #0B2C4D; letter-spacing: 0.5px;">BrandMark Solutions</p>
+                        <p style="margin: 0; font-size: 8.5px; color: #0B2C4D; font-weight: 600; line-height: 1;">Visit: www.brandmarksolutions.site</p>
+                        <p style="margin: 0; font-size: 7px; color: #0B2C4D; line-height: 1; margin-top: 1px;">© BrandMark Solutions</p>
+                        
+                        <!-- Official Registration Numbers - Inline -->
+                        <div style="border-top: 0.5px solid #D4AF37; padding-top: 0.5px; margin-top: 0.5px;">
+                            <p style="margin: 0; font-size: 6px; color: #0B2C4D; line-height: 1;">UDYAM: UDYAM-BR-26-0213927</p>
+                            <p style="margin: 0; font-size: 6px; color: #0B2C4D; line-height: 1;">GST: 10LCTPS4278Q1ZD</p>
+                        </div>
+                        
+                        <p style="margin: 0; font-size: 8px; font-weight: 700; color: #0B2C4D; margin-top: 0.5px; line-height: 1;">BrandMark Solutions</p>
                     </div>
 
                     <!-- Right Signature -->
@@ -836,7 +844,13 @@
                 </div>
             </main>
 
-            <!-- Footer (moved to center signature block) -->
+            <!-- Footer -->
+            <footer class="certificate-footer">
+                <p>For more information, visit our website:</p>
+                <p class="footer-website">www.brandmarksolutions.site</p>
+                <p>© BrandMark Solutions. All Rights Reserved.</p>
+                <p class="footer-company">BrandMark Solutions</p>
+            </footer>
         </div>
     </div>
 
