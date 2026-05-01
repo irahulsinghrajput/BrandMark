@@ -344,12 +344,86 @@
             if (thinking) thinking.remove();
         }
 
+        // ============================================================
+        // FULLY CLIENT-SIDE KNOWLEDGE BASE - NO BACKEND NEEDED
+        // Works from file://, http://, https:// everywhere!
+        // ============================================================
+        const knowledgeBase = {
+            en: {
+                'seo': 'SEO (Search Engine Optimization) improves your website ranking in search engines like Google. Key elements: keyword research, on-page optimization, quality content, backlinks, and technical SEO. Good SEO drives free organic traffic to your website.',
+                'search engine': 'Search Engine Optimization (SEO) helps your website appear higher on Google and Bing. Focus on: relevant keywords, fast page speed, mobile-friendly design, and quality backlinks from other websites.',
+                'social media': 'Social Media Marketing promotes your brand on Facebook, Instagram, Twitter, LinkedIn. Key strategies: consistent posting, engaging content, hashtags, paid ads, and collaborating with influencers to grow your audience.',
+                'content': 'Content Marketing creates valuable blog posts, videos, and infographics to attract customers. Good content builds trust, improves SEO, and brings free traffic. Focus on solving your audience\'s problems.',
+                'email': 'Email Marketing sends targeted messages to subscribers. It has the highest ROI of any digital channel — ₹40 return per ₹1 spent! Build your list, personalize messages, and send valuable content regularly.',
+                'ppc': 'PPC (Pay-Per-Click) advertising shows ads on Google and social media. You only pay when someone clicks. Google Ads and Facebook Ads are most popular. Great for quick results and targeting specific audiences.',
+                'google ads': 'Google Ads shows your website at the top of search results. You bid on keywords and pay per click. Target by location, language, device, and more. Best for reaching people actively searching for your product.',
+                'facebook ads': 'Facebook Ads reach 2+ billion users with precise targeting by age, location, interests, and behavior. Use carousel ads, video ads, and retargeting to maximize conversions and grow your business.',
+                'branding': 'Branding creates your company\'s identity — logo, colors, voice, and values. Strong branding builds customer trust and loyalty. Consistent branding across all channels makes your business memorable.',
+                'digital marketing': 'Digital Marketing promotes products/services online through SEO, social media, email, PPC, and content. It\'s measurable, cost-effective, and targets specific audiences. Essential for modern business growth.',
+                'analytics': 'Digital Marketing Analytics tracks campaign performance using tools like Google Analytics. Key metrics: traffic, bounce rate, conversion rate, CTR, and ROI. Data helps you optimize your marketing strategy.',
+                'conversion': 'Conversion Rate Optimization (CRO) increases the percentage of visitors who take action (buy, sign up). Techniques: A/B testing, clear CTAs, faster loading, trust signals, and simplified checkout process.',
+                'influencer': 'Influencer Marketing partners with social media personalities to promote your brand. Choose influencers whose audience matches your target market. Micro-influencers (10K-100K followers) often have higher engagement rates.',
+                'affiliate': 'Affiliate Marketing pays partners a commission for every sale they drive. You only pay for results! Join networks like Amazon Associates or create your own program. Great passive income for bloggers.',
+                'video': 'Video Marketing is the most engaging content type. YouTube is the 2nd largest search engine! Short videos on Instagram Reels and TikTok get massive reach. Always add captions and a clear call-to-action.',
+                'funnel': 'Marketing Funnel guides customers from Awareness → Interest → Decision → Action. Top of funnel: blog posts and social media. Middle: email campaigns. Bottom: offers and demos to convert leads to customers.',
+                'keyword': 'Keyword Research finds what your audience searches for. Use free tools like Google Keyword Planner, Ubersuggest. Target long-tail keywords (3+ words) — less competition, higher conversion rates.',
+                'backlink': 'Backlinks are links from other websites to yours. They signal authority to Google. Earn backlinks through guest posting, creating shareable content, and PR. Quality beats quantity — one link from a top site is worth 100 from low-quality sites.',
+                'landing page': 'Landing Pages are single-focus pages designed to convert visitors. Key elements: strong headline, clear CTA, social proof, and no distractions. A good landing page can double your conversion rate.',
+                'roi': 'ROI (Return on Investment) measures marketing profitability. Formula: (Revenue - Cost) / Cost × 100%. Track ROI for each channel to invest more in what works and cut what doesn\'t.',
+                'hello': 'Hello! I\'m your Digital Marketing AI Tutor. Ask me anything about SEO, Social Media, Content Marketing, Email, PPC, Branding, Analytics, or any digital marketing topic!',
+                'hi': 'Hi there! Ready to learn Digital Marketing? Ask me about SEO, Social Media, Email Marketing, PPC Ads, Content Strategy, Branding, or Analytics. I\'m here to help!',
+                'default': 'Great question! Digital marketing covers SEO, Social Media, Email, PPC, Content, and Branding. Could you be more specific? Try asking about: "What is SEO?", "How does email marketing work?", or "What are Facebook Ads?"'
+            },
+            hi: {
+                'seo': 'SEO (सर्च इंजन ऑप्टिमाइजेशन) आपकी वेबसाइट को Google पर ऊपर लाने में मदद करता है। मुख्य तत्व: कीवर्ड रिसर्च, क्वालिटी कंटेंट, बैकलिंक्स, और तकनीकी SEO। अच्छा SEO आपकी वेबसाइट पर मुफ्त ट्रैफिक लाता है।',
+                'social media': 'सोशल मीडिया मार्केटिंग Facebook, Instagram, Twitter पर आपके ब्रांड को बढ़ावा देती है। नियमित पोस्टिंग, आकर्षक कंटेंट, और इन्फ्लुएंसर के साथ सहयोग से आपके फॉलोवर्स बढ़ते हैं।',
+                'email': 'ईमेल मार्केटिंग ग्राहकों को सीधे संदेश भेजती है। यह सबसे अधिक ROI वाला चैनल है - हर ₹1 पर ₹40 की वापसी! अपनी सूची बनाएं और नियमित मूल्यवान कंटेंट भेजें।',
+                'digital marketing': 'डिजिटल मार्केटिंग में SEO, सोशल मीडिया, ईमेल, PPC और कंटेंट मार्केटिंग शामिल है। यह मापने योग्य, किफायती और विशिष्ट दर्शकों को लक्षित करती है। आधुनिक व्यवसाय के लिए अनिवार्य।',
+                'content': 'कंटेंट मार्केटिंग ब्लॉग, वीडियो और इन्फोग्राफिक्स के माध्यम से ग्राहकों को आकर्षित करती है। अच्छा कंटेंट विश्वास बनाता है और मुफ्त ट्रैफिक लाता है। अपने दर्शकों की समस्याओं का समाधान करने पर ध्यान दें।',
+                'hello': 'नमस्ते! मैं आपका डिजिटल मार्केटिंग AI ट्यूटर हूँ। SEO, सोशल मीडिया, ईमेल मार्केटिंग, PPC, ब्रांडिंग या एनालिटिक्स के बारे में कुछ भी पूछें!',
+                'hi': 'नमस्ते! डिजिटल मार्केटिंग सीखने के लिए तैयार हैं? SEO, सोशल मीडिया, ईमेल मार्केटिंग के बारे में पूछें। मैं मदद के लिए यहाँ हूँ!',
+                'default': 'अच्छा सवाल! डिजिटल मार्केटिंग में SEO, सोशल मीडिया, ईमेल, PPC, कंटेंट और ब्रांडिंग शामिल है। कृपया और विशिष्ट प्रश्न पूछें जैसे: "SEO क्या है?" या "फेसबुक Ads कैसे काम करते हैं?"'
+            },
+            ar: {
+                'seo': 'تحسين محركات البحث (SEO) يساعد موقعك على الظهور في أعلى نتائج Google. العناصر الرئيسية: البحث عن الكلمات المفتاحية، المحتوى الجيد، الروابط الخلفية، والتحسين التقني. SEO الجيد يجلب زيارات مجانية لموقعك.',
+                'social media': 'التسويق عبر وسائل التواصل الاجتماعي يروّج لعلامتك على Facebook و Instagram و Twitter. المفتاح: النشر المنتظم، المحتوى الجذاب، والتعاون مع المؤثرين لزيادة جمهورك.',
+                'email': 'التسويق عبر البريد الإلكتروني يرسل رسائل مخصصة للمشتركين. له أعلى عائد استثمار - 40 ريال مقابل كل ريال! ابنِ قائمتك وأرسل محتوى قيّماً بانتظام.',
+                'digital marketing': 'التسويق الرقمي يشمل SEO ووسائل التواصل الاجتماعي والبريد الإلكتروني وإعلانات الدفع بالنقرة والمحتوى. قابل للقياس وفعّال من حيث التكلفة ويستهدف جماهير محددة.',
+                'hello': 'مرحباً! أنا معلمك الذكي للتسويق الرقمي. اسألني عن SEO أو وسائل التواصل الاجتماعي أو التسويق بالبريد الإلكتروني أو إعلانات PPC أو العلامة التجارية!',
+                'hi': 'مرحباً! هل أنت مستعد لتعلم التسويق الرقمي؟ اسألني عن SEO أو وسائل التواصل الاجتماعي أو التسويق عبر البريد الإلكتروني. أنا هنا للمساعدة!',
+                'default': 'سؤال رائع! يغطي التسويق الرقمي SEO ووسائل التواصل الاجتماعي والبريد الإلكتروني وإعلانات PPC والمحتوى والعلامة التجارية. حاول السؤال: "ما هو SEO؟" أو "كيف تعمل إعلانات Facebook؟"'
+            }
+        };
+
+        function getAnswer(question, lang) {
+            const q = question.toLowerCase();
+            const kb = knowledgeBase[lang] || knowledgeBase['en'];
+
+            // Search for matching topic
+            for (const [keyword, answer] of Object.entries(kb)) {
+                if (keyword !== 'default' && q.includes(keyword)) {
+                    return answer;
+                }
+            }
+
+            // Try English KB as fallback
+            if (lang !== 'en') {
+                const enKb = knowledgeBase['en'];
+                for (const [keyword, answer] of Object.entries(enKb)) {
+                    if (keyword !== 'default' && q.includes(keyword)) {
+                        return answer;
+                    }
+                }
+            }
+
+            return kb['default'] || knowledgeBase['en']['default'];
+        }
+
         async function sendMessage() {
             if (isLoading) return;
 
             const input = document.getElementById('userInput');
             const question = input.value.trim();
-
             if (!question) return;
 
             addMessage('user', question);
@@ -357,52 +431,28 @@
             isLoading = true;
             addThinkingIndicator();
 
-            try {
-                const response = await fetch('/api/ai-tutor', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        question: question,
-                        language: currentLanguage
-                    })
-                });
+            // Simulate thinking delay for natural feel
+            await new Promise(resolve => setTimeout(resolve, 800));
 
-                if (!response.ok) throw new Error('API Error');
+            const answer = getAnswer(question, currentLanguage);
+            removeThinkingIndicator();
+            addMessage('bot', answer);
+            speakAnswer(answer);
 
-                const data = await response.json();
-                removeThinkingIndicator();
-                addMessage('bot', data.answer);
-
-                // Generate speech
-                await generateSpeech(data.answer);
-            } catch (error) {
-                removeThinkingIndicator();
-                addMessage('bot', 'Sorry, I encountered an error. Please try again.');
-                console.error(error);
-            } finally {
-                isLoading = false;
-            }
+            isLoading = false;
         }
 
-        async function generateSpeech(text) {
+        function speakAnswer(text) {
             try {
-                const response = await fetch('/api/generate-voice', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        text: text,
-                        language: currentLanguage
-                    })
-                });
-
-                if (response.ok) {
-                    const audioBlob = await response.blob();
-                    const audioUrl = URL.createObjectURL(audioBlob);
-                    const audio = new Audio(audioUrl);
-                    audio.play().catch(e => console.log('Audio play failed:', e));
-                }
-            } catch (error) {
-                console.log('Voice generation skipped');
+                if (!window.speechSynthesis) return;
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = currentLanguage === 'hi' ? 'hi-IN' : currentLanguage === 'ar' ? 'ar-SA' : 'en-US';
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+                window.speechSynthesis.speak(utterance);
+            } catch (e) {
+                console.log('Speech skipped');
             }
         }
 
