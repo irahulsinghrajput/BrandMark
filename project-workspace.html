@@ -354,6 +354,29 @@
         </div>
     </div>
 
+    <!-- Project Complete Modal -->
+    <div id="projectCompleteModal" style="display:none;" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full text-center shadow-2xl border-4 border-green-400">
+            <div class="text-6xl mb-4">🏆</div>
+            <h2 class="text-2xl font-extrabold text-gray-800 mb-2">All Steps Complete!</h2>
+            <p class="text-gray-600 mb-5">You've passed the quiz <strong>and</strong> completed the project. Your certificate is ready!</p>
+            <div class="bg-green-50 rounded-xl p-4 mb-6 text-left border border-green-200">
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">✓</span>
+                    <span class="text-gray-700 text-sm font-semibold">Mock Quiz (15 questions) — Passed ✅</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">✓</span>
+                    <span class="text-gray-700 text-sm font-semibold">Final Project — Completed ✅</span>
+                </div>
+            </div>
+            <a href="certificate.html" class="block w-full py-4 text-white font-bold rounded-xl text-lg hover:shadow-lg transition mb-3" style="background: linear-gradient(to right, #F26A21, #E65C17);">
+                🎓 Get My Certificate →
+            </a>
+            <button onclick="document.getElementById('projectCompleteModal').style.display='none'" class="text-sm text-gray-400 hover:text-gray-600 transition">Close</button>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="border-t border-white/10 bg-brand-navy-dark/50 text-white py-8 px-4 mt-12">
         <div class="max-w-7xl mx-auto text-center">
@@ -399,9 +422,17 @@
             const allComplete = projectProgress[1] === 100 && projectProgress[2] === 100 && projectProgress[3] === 100;
             
             if (allComplete) {
-                alert(`✅ Excellent! All 3 deliverables complete!\n\n🎉 You've finished the clinic branding project!\n\nYou're now ready to take the quiz and earn your certificate. Click OK to proceed.`);
-                // Redirect to quiz page after user clicks OK
-                window.location.href = 'quiz.html';
+                // Save project completion
+                localStorage.setItem('PROJECT_COMPLETED', 'true');
+
+                const quizDone = localStorage.getItem('QUIZ_COMPLETED') === 'true';
+                if (quizDone) {
+                    // Both done — go to certificate
+                    document.getElementById('projectCompleteModal').style.display = 'flex';
+                } else {
+                    alert('✅ Project complete! You still need to pass the 15-question Mock Quiz first. Redirecting to the quiz now...');
+                    window.location.href = 'quiz.html';
+                }
             } else {
                 const completed = Object.values(projectProgress).filter(p => p === 100).length;
                 alert(`✅ Great work! Deliverable ${num} marked as complete!\n\n${completed}/3 deliverables done. Complete all 3 to unlock the quiz!`);

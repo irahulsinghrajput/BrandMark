@@ -618,11 +618,22 @@
                 <!-- Certificate Section (shown if passing) -->
                 <div id="certificateSection" style="display: none;" class="border-2 border-green-300 rounded-2xl p-10 bg-gradient-to-br from-green-50 to-emerald-50 text-center shadow-lg">
                     <i class="fas fa-trophy text-green-600 text-6xl mb-6 inline-block"></i>
-                    <h3 class="text-3xl font-bold text-green-700 mb-3">🎉 Congratulations!</h3>
-                    <p class="text-gray-700 mb-4 text-lg font-semibold"><i class="fas fa-certificate text-brand-orange mr-2"></i>You've successfully passed the course!</p>
-                    <p class="text-gray-600 mb-6 text-base">Redirecting to your certificate page in 2 seconds...</p>
-                    <div class="flex gap-4 justify-center">
-                        <a href="certificate.html" class="submit-btn"><i class="fas fa-award mr-2"></i>View Your Certificate</a>
+                    <h3 class="text-3xl font-bold text-green-700 mb-3">🎉 Quiz Passed!</h3>
+                    <p class="text-gray-700 mb-4 text-lg font-semibold"><i class="fas fa-check-circle text-green-600 mr-2"></i>Excellent work! Now complete your final project to unlock your certificate.</p>
+                    <div class="bg-white rounded-xl p-5 mb-6 border border-green-200 text-left">
+                        <p class="font-bold text-gray-800 mb-3 text-center">📋 Next Steps to Get Your Certificate:</p>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="w-7 h-7 bg-green-500 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0">✓</span>
+                            <span class="text-gray-700">Step 1: Pass the Mock Quiz (15 questions) <span class="text-green-600 font-semibold">— Done!</span></span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-7 h-7 bg-brand-orange rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0">2</span>
+                            <span class="text-gray-700">Step 2: Complete the <strong>Final Project</strong> in the Project Workspace</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 mb-6 text-sm">Redirecting to Project Workspace in 3 seconds...</p>
+                    <div class="flex gap-4 justify-center flex-wrap">
+                        <a href="project-workspace.html" class="submit-btn"><i class="fas fa-flask mr-2"></i>Go to Project Workspace →</a>
                         <a href="index.html" class="px-8 py-4 bg-white border-2 border-brand-orange text-brand-orange rounded-lg font-semibold hover:bg-orange-50 transition">Go to Home</a>
                     </div>
                 </div>
@@ -815,10 +826,10 @@
                 localStorage.setItem('CERTIFICATE_DATE', completionDate);
                 localStorage.setItem('QUIZ_COMPLETED', 'true');
                 
-                // Redirect to certificate page after 2 seconds
+                // Redirect to project workspace after 3 seconds
                 setTimeout(() => {
-                    window.location.replace('certificate.html');
-                }, 2000);
+                    window.location.replace('project-workspace.html');
+                }, 3000);
             } catch (error) {
                 console.log('Certificate generation initiated');
             }

@@ -865,9 +865,28 @@
     </div>
 
     <script>
+        // Access gate: require quiz + project completion
+        (function() {
+            const quizDone = localStorage.getItem('QUIZ_COMPLETED') === 'true';
+            const projectDone = localStorage.getItem('PROJECT_COMPLETED') === 'true';
+            if (!quizDone) {
+                window.location.replace('quiz.html');
+                return;
+            }
+            if (!projectDone) {
+                window.location.replace('project-workspace.html');
+                return;
+            }
+        })();
+
         // Print certificate as PDF
         function printCertificate() {
             window.print();
+        }
+
+        // Navigate back to dashboard
+        function goToDashboard() {
+            window.location.href = 'course-dashboard.html';
         }
 
         // Navigate back to dashboard
