@@ -277,7 +277,7 @@
             var userEmail    = localStorage.getItem('userEmail');
             var studentToken = localStorage.getItem('studentToken');
             var studentEmail = localStorage.getItem('studentEmail');
-            var isEnrolled   = (enrollmentId && userEmail) || (studentToken && (studentEmail || userEmail));
+            var isEnrolled   = enrollmentId || studentToken;
             if (!isEnrolled) {
                 alert('You are not enrolled in this course. Please enroll first.');
                 window.location.href = 'fullstack-course.html';
