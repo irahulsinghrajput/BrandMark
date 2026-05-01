@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate of Completion — Full Stack Development | BrandMark</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-navy': '#0B2C4D', 'brand-navy-dark': '#081F36',
+                        'brand-orange': '#F26A21', 'brand-orange-dark': '#E65C17'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="brandmark.css">
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+        body { background: linear-gradient(135deg, #0B2C4D 0%, #081F36 50%, #0B2C4D 100%); min-height: 100vh; }
+
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+        @keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+        @keyframes fadeInUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes spin-slow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+        .cert-float { animation: float 4s ease-in-out infinite; }
+        .cert-fade { animation: fadeInUp 0.8s ease forwards; }
+
+        #certificateCard {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 30px 90px rgba(0,0,0,0.5), 0 0 0 6px #F26A21, 0 0 0 10px #0B2C4D, 0 0 0 12px #F26A21;
+            max-width: 900px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .cert-header { background: linear-gradient(135deg, #0B2C4D 0%, #133a66 100%); color: white; padding: 2.5rem 3rem; text-align: center; position: relative; }
+        .cert-header::after { content:''; position:absolute; bottom:0; left:0; right:0; height:4px; background:linear-gradient(to right,#F26A21,#ff8c42,#F26A21); }
+        .cert-title-main { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: white; line-height: 1.2; }
+        .cert-body { padding: 3rem 3rem 2rem; text-align: center; }
+        .cert-name { font-family: 'Playfair Display', serif; font-style: italic; font-size: 3rem; font-weight: 700; color: #0B2C4D; border-bottom: 3px solid #F26A21; padding-bottom: 0.5rem; display: inline-block; margin: 0.5rem 0 1.5rem; }
+        .cert-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: #6b7280; font-weight: 600; }
+        .cert-course { font-size: 1.4rem; font-weight: 800; color: #0B2C4D; margin: 0.5rem 0 1.5rem; }
+        .cert-footer { background: #f8fafc; border-top: 3px solid #F26A21; padding: 1.5rem 3rem; }
+
+        .shimmer-badge {
+            background: linear-gradient(90deg, #F26A21, #ffa040, #F26A21);
+            background-size: 200% 100%;
+            animation: shimmer 2.5s infinite;
+            color: white; font-weight: 700; font-size: 0.7rem;
+            padding: 4px 14px; border-radius: 20px; letter-spacing: 1px;
+        }
+        .skill-chip { background: #EFF6FF; color: #0B2C4D; border: 1.5px solid #93C5FD; font-size: 0.75rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; display: inline-block; margin: 3px; }
+        .print-btn { background: linear-gradient(135deg, #F26A21, #E65C17); color: white; padding: 0.875rem 2.5rem; border-radius: 12px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.75rem; font-size: 1rem; transition: all 0.3s; }
+        .print-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(242,106,33,0.4); }
+        .share-btn { background: transparent; color: white; padding: 0.875rem 2rem; border-radius: 12px; font-weight: 700; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; display: flex; align-items: center; gap: 0.75rem; font-size: 0.95rem; transition: all 0.3s; }
+        .share-btn:hover { background: rgba(255,255,255,0.1); }
+
+        @media print {
+            body { background: white !important; padding: 0 !important; }
+            header, footer, .action-area, .no-print { display: none !important; }
+            #certificateCard { box-shadow: none !important; border: 2px solid #0B2C4D !important; max-width: 100% !important; page-break-inside: avoid; }
+            .cert-float { animation: none !important; }
+        }
+    </style>
+</head>
+<body class="text-white font-[Outfit]">
+
+    <!-- Header — no-print -->
+    <header class="no-print sticky top-0 z-50 bg-brand-navy-dark/90 backdrop-blur border-b border-brand-orange/30 shadow-xl">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark" class="h-11 w-11 rounded-full border-2 border-brand-orange">
+                <div>
+                    <span class="text-xl font-extrabold">Brand<span class="text-brand-orange font-light">Mark</span></span>
+                    <p class="text-xs text-gray-300 font-semibold tracking-widest">FULL STACK CERTIFICATE</p>
+                </div>
+            </a>
+            <div class="flex items-center gap-4">
+                <a href="fullstack-dashboard.html" class="text-gray-300 hover:text-white transition text-sm font-semibold">Dashboard</a>
+                <a href="index.html" class="text-gray-300 hover:text-white transition text-sm font-semibold">Home</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Access Denied Panel -->
+    <div id="accessDeniedPanel" style="display:none" class="flex flex-col items-center justify-center min-h-[70vh] px-4 no-print">
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-10 text-center max-w-md border border-white/20">
+            <i class="fas fa-lock text-brand-orange text-5xl mb-5"></i>
+            <h2 class="text-2xl font-bold text-white mb-3">Certificate Locked</h2>
+            <p id="accessDeniedMsg" class="text-gray-300 mb-6"></p>
+            <div id="accessDeniedLink" class="flex flex-col gap-3"></div>
+        </div>
+    </div>
+
+    <!-- Certificate Content -->
+    <div id="certContent" class="min-h-screen flex flex-col items-center justify-center py-12 px-4">
+
+        <!-- Celebration Text -->
+        <div class="text-center mb-8 no-print cert-fade">
+            <div class="text-6xl mb-3">🎉</div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-2">Congratulations, <span id="heroName" class="text-brand-orange"></span>!</h1>
+            <p class="text-gray-300 text-lg">You have successfully completed the Full Stack Web Development Course</p>
+        </div>
+
+        <!-- Certificate Card -->
+        <div id="certificateCard" class="cert-float cert-fade mb-8" style="animation-delay:0.2s">
+            <!-- CERT HEADER -->
+            <div class="cert-header">
+                <div class="flex items-center justify-center gap-4 mb-4">
+                    <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark" class="h-16 w-16 rounded-full border-3 border-brand-orange shadow-lg">
+                    <div class="text-left">
+                        <div class="text-2xl font-extrabold text-white">BrandMark Solutions</div>
+                        <div class="text-xs text-gray-300 tracking-widest font-semibold">EMPOWERING MSME GROWTH</div>
+                    </div>
+                </div>
+                <div class="cert-title-main mb-2">Certificate of Completion</div>
+                <div class="shimmer-badge inline-block">VERIFIED · FULL STACK DEVELOPMENT</div>
+            </div>
+
+            <!-- CERT BODY -->
+            <div class="cert-body">
+                <div class="cert-label">This certifies that</div>
+                <div id="certName" class="cert-name">Student Name</div>
+                <div class="cert-label mb-1">has successfully completed</div>
+                <div class="cert-course">Professional Certification in Full Stack Development with GenAI</div>
+
+                <p class="text-gray-500 text-sm mb-6 max-w-lg mx-auto leading-relaxed">
+                    Covering <strong>React 18</strong>, <strong>Node.js & Express</strong>, <strong>MongoDB & Mongoose</strong>,
+                    <strong>JWT Authentication</strong>, and <strong>GenAI Integration (OpenAI / Gemini)</strong>
+                    — 15 comprehensive modules, a technical mock test, and a capstone project.
+                </p>
+
+                <div class="mb-6 flex flex-wrap justify-center">
+                    <span class="skill-chip"><i class="fab fa-react mr-1"></i>React 18</span>
+                    <span class="skill-chip"><i class="fab fa-node-js mr-1"></i>Node.js</span>
+                    <span class="skill-chip">Express.js</span>
+                    <span class="skill-chip"><i class="fas fa-database mr-1"></i>MongoDB</span>
+                    <span class="skill-chip">Mongoose ORM</span>
+                    <span class="skill-chip"><i class="fas fa-shield-alt mr-1"></i>JWT Auth</span>
+                    <span class="skill-chip"><i class="fas fa-robot mr-1"></i>GenAI API</span>
+                    <span class="skill-chip">REST APIs</span>
+                    <span class="skill-chip">OWASP Security</span>
+                    <span class="skill-chip">Tailwind CSS</span>
+                </div>
+
+                <!-- Scores Row -->
+                <div class="grid grid-cols-3 gap-4 mb-6 max-w-xs mx-auto text-center">
+                    <div>
+                        <div id="certScore" class="text-2xl font-extrabold text-brand-navy">—</div>
+                        <div class="text-xs text-gray-500 font-semibold">QUIZ SCORE</div>
+                    </div>
+                    <div>
+                        <div id="certCorrect" class="text-2xl font-extrabold text-brand-navy">—</div>
+                        <div class="text-xs text-gray-500 font-semibold">CORRECT</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-extrabold text-green-600">✓</div>
+                        <div class="text-xs text-gray-500 font-semibold">PROJECT</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CERT FOOTER -->
+            <div class="cert-footer">
+                <div class="grid grid-cols-3 gap-4 items-end text-center">
+                    <!-- Date -->
+                    <div>
+                        <div id="certDate" class="text-brand-navy font-extrabold text-sm mb-1">—</div>
+                        <div class="h-px bg-gray-300 mb-1"></div>
+                        <div class="text-xs text-gray-500 font-semibold">DATE OF ISSUE</div>
+                    </div>
+                    <!-- Seal -->
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-full flex items-center justify-center border-4 border-brand-orange" style="background: linear-gradient(135deg, #0B2C4D, #133a66);">
+                            <i class="fas fa-graduation-cap text-brand-orange text-2xl"></i>
+                        </div>
+                        <div class="text-xs text-gray-500 mt-1 font-semibold">OFFICIAL SEAL</div>
+                    </div>
+                    <!-- Certificate ID -->
+                    <div>
+                        <div id="certId" class="text-brand-navy font-extrabold text-xs mb-1 break-all">—</div>
+                        <div class="h-px bg-gray-300 mb-1"></div>
+                        <div class="text-xs text-gray-500 font-semibold">CERTIFICATE ID</div>
+                    </div>
+                </div>
+
+                <!-- Registrations -->
+                <div class="text-center mt-4 pt-4 border-t border-gray-200">
+                    <p class="text-xs text-gray-400 font-semibold tracking-widest">
+                        UDYAM: UDYAM-BR-26-0213927 &nbsp;|&nbsp; GST: 10LCTPS4278Q1ZD &nbsp;|&nbsp; BrandMark Solutions &copy; 2025
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-area no-print flex flex-wrap gap-4 justify-center mb-8 cert-fade" style="animation-delay:0.4s">
+            <button onclick="window.print()" class="print-btn">
+                <i class="fas fa-print text-lg"></i>Download / Print Certificate
+            </button>
+            <button onclick="copyShareLink()" class="share-btn">
+                <i class="fas fa-link text-lg"></i>Copy Certificate Link
+            </button>
+            <a href="fullstack-course.html" class="share-btn" style="text-decoration:none">
+                <i class="fas fa-arrow-left"></i>Back to Course
+            </a>
+        </div>
+
+        <!-- What's Next -->
+        <div class="no-print max-w-3xl w-full px-4 mb-10 cert-fade" style="animation-delay:0.6s">
+            <div class="bg-white/5 backdrop-blur rounded-2xl p-6 border border-white/10">
+                <h3 class="text-lg font-bold text-white mb-5 text-center"><i class="fas fa-road text-brand-orange mr-2"></i>What's Next in Your Career</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white/5 rounded-xl p-4 text-center border border-white/10">
+                        <i class="fab fa-github text-white text-2xl mb-2"></i>
+                        <p class="text-white font-bold text-sm mb-1">Build Your Portfolio</p>
+                        <p class="text-gray-400 text-xs">Push the Task Management SaaS project to GitHub with a great README</p>
+                    </div>
+                    <div class="bg-white/5 rounded-xl p-4 text-center border border-white/10">
+                        <i class="fab fa-linkedin text-blue-400 text-2xl mb-2"></i>
+                        <p class="text-white font-bold text-sm mb-1">Update LinkedIn</p>
+                        <p class="text-gray-400 text-xs">Add this certification to your LinkedIn profile and connect with developers</p>
+                    </div>
+                    <div class="bg-white/5 rounded-xl p-4 text-center border border-white/10">
+                        <i class="fas fa-rocket text-brand-orange text-2xl mb-2"></i>
+                        <p class="text-white font-bold text-sm mb-1">Apply for Roles</p>
+                        <p class="text-gray-400 text-xs">You're ready for Junior Full Stack Developer and React Developer roles</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="no-print border-t border-white/10 bg-brand-navy-dark/70 py-8 px-4">
+        <div class="max-w-7xl mx-auto text-center text-gray-400 text-sm">
+            <p>&copy; 2025 BrandMark Solutions — UDYAM: UDYAM-BR-26-0213927 | GST: 10LCTPS4278Q1ZD</p>
+        </div>
+    </footer>
+
+    <script>
+        function copyShareLink() {
+            navigator.clipboard.writeText(window.location.href)
+                .then(() => alert('Certificate link copied to clipboard!'))
+                .catch(() => alert('Copy manually: ' + window.location.href));
+        }
+
+        (function init() {
+            const quizDone    = localStorage.getItem('FS_QUIZ_COMPLETED') === 'true';
+            const projectDone = localStorage.getItem('FS_PROJECT_COMPLETED') === 'true';
+
+            if (!quizDone && !projectDone) {
+                showAccessDenied('You need to complete both the Mock Test and the Final Project to earn your certificate.', [
+                    { label: '📝 Take Mock Test', href: 'fullstack-quiz.html' },
+                    { label: '🛠 Go to Project Workspace', href: 'fullstack-project-workspace.html' }
+                ]);
+                return;
+            }
+            if (!quizDone) {
+                showAccessDenied('You need to pass the Mock Test first.', [
+                    { label: '📝 Take Mock Test Now', href: 'fullstack-quiz.html' }
+                ]);
+                return;
+            }
+            if (!projectDone) {
+                showAccessDenied('You need to complete the Final Project first.', [
+                    { label: '🛠 Go to Project Workspace', href: 'fullstack-project-workspace.html' }
+                ]);
+                return;
+            }
+
+            // All gates passed — populate certificate
+            const name    = localStorage.getItem('STUDENT_NAME') || 'Full Stack Developer';
+            const date    = localStorage.getItem('FS_CERTIFICATE_DATE') || new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
+            const id      = localStorage.getItem('FS_CERTIFICATE_ID') || ('BM-FS-' + Date.now().toString(36).toUpperCase());
+            const score   = localStorage.getItem('FS_CERTIFICATE_SCORE') || '—';
+            const correct = localStorage.getItem('FS_CERTIFICATE_CORRECT') || '—';
+
+            document.getElementById('heroName').textContent = name.split(' ')[0];
+            document.getElementById('certName').textContent = name;
+            document.getElementById('certDate').textContent = date;
+            document.getElementById('certId').textContent = id;
+            document.getElementById('certScore').textContent = score !== '—' ? score + '%' : '—';
+            document.getElementById('certCorrect').textContent = correct !== '—' ? correct + '/15' : '—';
+
+            document.getElementById('certContent').style.display = 'flex';
+        })();
+
+        function showAccessDenied(msg, links) {
+            document.getElementById('certContent').style.display = 'none';
+            const panel = document.getElementById('accessDeniedPanel');
+            panel.style.display = 'flex';
+            document.getElementById('accessDeniedMsg').textContent = msg;
+            const linksContainer = document.getElementById('accessDeniedLink');
+            links.forEach(l => {
+                const a = document.createElement('a');
+                a.href = l.href;
+                a.className = 'block w-full py-3 px-6 text-white font-bold rounded-xl text-center hover:opacity-90 transition';
+                a.style.background = 'linear-gradient(to right, #F26A21, #E65C17)';
+                a.textContent = l.label;
+                linksContainer.appendChild(a);
+            });
+        }
+    </script>
+    <script src="brandmark.js"></script>
+</body>
+</html>

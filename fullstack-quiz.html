@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Stack Mock Test | BrandMark</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-navy': '#0B2C4D', 'brand-navy-dark': '#081F36',
+                        'brand-orange': '#F26A21', 'brand-orange-dark': '#E65C17'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="brandmark.css">
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+        body { background: linear-gradient(to bottom, #f0f4f8, #ffffff); }
+        .submit-btn { background: linear-gradient(135deg, #F26A21, #E65C17); color: white; padding: 1rem 2.5rem; border-radius: 10px; font-weight: 700; font-size: 1.1rem; border: none; cursor: pointer; transition: all 0.3s; display: inline-block; text-decoration: none; }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(242,106,33,0.4); }
+        .option-label { display: flex; align-items: flex-start; gap: 12px; padding: 14px 18px; border: 2px solid #e5e7eb; border-radius: 10px; cursor: pointer; transition: all 0.3s; background: white; }
+        .option-label:hover { border-color: #F26A21; background: #FFF8F3; }
+        .option-label.selected { border-color: #F26A21; background: #FFF0E6; }
+        .option-label.correct { border-color: #22c55e; background: #f0fdf4; }
+        .option-label.incorrect { border-color: #ef4444; background: #fef2f2; }
+        .progress-bar { height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(to right, #F26A21, #E65C17); border-radius: 4px; transition: width 0.5s ease; }
+        .question-card { background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-left: 5px solid #F26A21; margin-bottom: 2rem; }
+        .question-num { background: #0B2C4D; color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; flex-shrink: 0; }
+    </style>
+</head>
+<body class="min-h-screen font-[Outfit]">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-gradient-to-r from-brand-navy to-brand-navy-dark shadow-xl border-b-4 border-brand-orange">
+        <nav class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark" class="h-11 w-11 rounded-full border-2 border-brand-orange">
+                <div>
+                    <span class="text-xl font-extrabold text-white">Brand<span class="text-brand-orange font-light">Mark</span></span>
+                    <p class="text-xs text-gray-300 tracking-widest">FULL STACK MOCK TEST</p>
+                </div>
+            </a>
+            <div id="quizTimer" class="text-white font-bold text-lg hidden">
+                <i class="fas fa-clock text-brand-orange mr-2"></i><span id="timerDisplay">30:00</span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="max-w-4xl mx-auto px-4 py-10">
+
+        <!-- Intro Section -->
+        <div id="introSection">
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-brand-navy rounded-full mb-6 shadow-xl">
+                    <i class="fas fa-code text-brand-orange text-3xl"></i>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-brand-navy mb-4">Full Stack Mock Test</h1>
+                <p class="text-xl text-gray-600 mb-2">MERN Stack + GenAI — Technical Assessment</p>
+                <p class="text-gray-500">15 questions covering React, Node.js, MongoDB, JWT, and GenAI integration</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <div class="bg-white rounded-2xl p-6 text-center shadow-md border-t-4 border-brand-orange">
+                    <i class="fas fa-question-circle text-brand-orange text-3xl mb-3"></i>
+                    <h3 class="text-2xl font-bold text-brand-navy">15</h3>
+                    <p class="text-gray-600">Technical Questions</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 text-center shadow-md border-t-4 border-brand-orange">
+                    <i class="fas fa-clock text-brand-orange text-3xl mb-3"></i>
+                    <h3 class="text-2xl font-bold text-brand-navy">30 Min</h3>
+                    <p class="text-gray-600">Time Limit</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 text-center shadow-md border-t-4 border-brand-orange">
+                    <i class="fas fa-trophy text-brand-orange text-3xl mb-3"></i>
+                    <h3 class="text-2xl font-bold text-brand-navy">80%</h3>
+                    <p class="text-gray-600">Pass Threshold (12/15)</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-md mb-8 border-l-4 border-brand-orange">
+                <h3 class="text-xl font-bold text-brand-navy mb-4"><i class="fas fa-list-check text-brand-orange mr-2"></i>Topics Covered</h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm text-gray-700">
+                    <span><i class="fab fa-react text-blue-400 mr-1"></i>JSX & React Hooks</span>
+                    <span><i class="fas fa-code text-green-500 mr-1"></i>JavaScript Event Loop</span>
+                    <span><i class="fab fa-node-js text-green-600 mr-1"></i>Node.js & Express</span>
+                    <span><i class="fas fa-shield-alt text-yellow-500 mr-1"></i>JWT Authentication</span>
+                    <span><i class="fas fa-database text-purple-500 mr-1"></i>MongoDB & Mongoose</span>
+                    <span><i class="fas fa-robot text-brand-orange mr-1"></i>GenAI Integration</span>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button onclick="startQuiz()" class="submit-btn text-xl px-16 py-5">
+                    <i class="fas fa-rocket mr-3"></i>Start Mock Test
+                </button>
+            </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <div id="quizSection" style="display:none">
+            <div class="mb-8">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-brand-navy font-bold">Question <span id="currentQ">1</span> of 15</span>
+                    <span id="progressPct" class="text-brand-orange font-bold">0%</span>
+                </div>
+                <div class="progress-bar"><div id="progressFill" class="progress-fill" style="width:0%"></div></div>
+            </div>
+            <div id="questionsContainer"></div>
+            <div class="text-center mt-8">
+                <button onclick="submitQuiz()" id="submitBtn" class="submit-btn">
+                    <i class="fas fa-paper-plane mr-2"></i>Submit Answers
+                </button>
+            </div>
+        </div>
+
+        <!-- Result Section — Pass -->
+        <div id="certificateSection" style="display:none" class="border-2 border-green-300 rounded-2xl p-10 bg-gradient-to-br from-green-50 to-emerald-50 text-center shadow-lg">
+            <i class="fas fa-trophy text-green-600 text-6xl mb-6 inline-block"></i>
+            <h3 class="text-3xl font-bold text-green-700 mb-3">🎉 Quiz Passed!</h3>
+            <p class="text-gray-700 mb-2 text-lg font-semibold">You scored <span id="scoreDisplay" class="text-brand-orange font-bold"></span>%</p>
+            <p class="text-gray-600 mb-4">Correct answers: <span id="correctDisplay" class="font-bold"></span> / 15</p>
+            <div class="bg-white rounded-xl p-5 mb-6 border border-green-200 text-left max-w-md mx-auto">
+                <p class="font-bold text-gray-800 mb-3 text-center">📋 Next Steps to Get Your Certificate:</p>
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="w-7 h-7 bg-green-500 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0">✓</span>
+                    <span class="text-gray-700">Step 1: Pass the Mock Test (15 questions) — Done!</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="w-7 h-7 bg-brand-orange rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0">2</span>
+                    <span class="text-gray-700">Step 2: Complete the Final Project in the Project Workspace</span>
+                </div>
+            </div>
+            <p class="text-gray-500 mb-6 text-sm">Redirecting to Project Workspace in 3 seconds...</p>
+            <div class="flex gap-4 justify-center flex-wrap">
+                <a href="fullstack-project-workspace.html" class="submit-btn"><i class="fas fa-flask mr-2"></i>Go to Project Workspace →</a>
+                <a href="index.html" class="px-8 py-4 bg-white border-2 border-brand-orange text-brand-orange rounded-lg font-semibold hover:bg-orange-50 transition">Home</a>
+            </div>
+        </div>
+
+        <!-- Result Section — Fail -->
+        <div id="retakeSection" style="display:none" class="border-2 border-yellow-300 rounded-2xl p-10 bg-gradient-to-br from-yellow-50 to-amber-50 shadow-lg text-center">
+            <h3 class="text-2xl font-bold text-yellow-700 mb-4">📚 Keep Learning!</h3>
+            <p class="text-gray-800 mb-2 text-lg">You need <strong>80% (12 correct)</strong> to pass.</p>
+            <p class="text-gray-600 mb-6">Score: <span id="failScoreDisplay" class="font-bold text-brand-orange"></span>% — <span id="failCorrectDisplay" class="font-bold"></span>/15 correct</p>
+            <div class="flex gap-4 justify-center flex-wrap">
+                <a href="fullstack-course.html" class="submit-btn inline-block">← Review Course</a>
+                <button onclick="location.reload()" class="px-8 py-4 bg-white border-2 border-brand-orange text-brand-orange rounded-lg font-semibold hover:bg-orange-50 transition">Try Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                q: "What does JSX stand for, and what does it compile to?",
+                options: [
+                    "JavaScript XML — compiles to React.createElement() calls",
+                    "Java Syntax Extension — compiles to HTML",
+                    "JSON XML — compiles to document.createElement()",
+                    "JavaScript Extension — compiles to Vue templates"
+                ],
+                correct: 0,
+                explanation: "JSX is JavaScript XML. Babel compiles it to React.createElement() calls."
+            },
+            {
+                q: "What does the dependency array [] in useEffect(() => { ... }, []) mean?",
+                options: [
+                    "Run the effect every time any state changes",
+                    "Run the effect only once after the initial render (mount)",
+                    "Run the effect before every render",
+                    "Disable the effect entirely"
+                ],
+                correct: 1,
+                explanation: "An empty dependency array [] means the effect runs only once after the component mounts."
+            },
+            {
+                q: "In Node.js, what is the Event Loop responsible for?",
+                options: [
+                    "Compiling JavaScript to machine code",
+                    "Managing HTTP connections directly",
+                    "Processing asynchronous callbacks and non-blocking I/O operations",
+                    "Parsing JSON data from APIs"
+                ],
+                correct: 2,
+                explanation: "The Event Loop handles async callbacks, enabling Node.js to perform non-blocking I/O despite being single-threaded."
+            },
+            {
+                q: "In Express.js, what is the correct signature for a middleware function?",
+                options: [
+                    "function(request, response) {}",
+                    "function(req, res, next) {}",
+                    "function(server, client) {}",
+                    "async function(req, res) {}"
+                ],
+                correct: 1,
+                explanation: "Express middleware receives (req, res, next). Call next() to pass control to the next middleware."
+            },
+            {
+                q: "What does JWT stand for and what are its three parts?",
+                options: [
+                    "JavaScript Web Token — Head, Body, Foot",
+                    "JSON Web Token — Header, Payload, Signature",
+                    "Java Web Transfer — Method, Data, Hash",
+                    "JSON Web Transfer — Key, Value, Expiry"
+                ],
+                correct: 1,
+                explanation: "JWT = JSON Web Token. Structure: Header.Payload.Signature — all Base64URL encoded."
+            },
+            {
+                q: "Why should bcrypt be used to store passwords instead of plain text or MD5?",
+                options: [
+                    "bcrypt is faster than MD5",
+                    "bcrypt produces shorter hashes",
+                    "bcrypt is a one-way adaptive hash function with salting that resists brute-force attacks",
+                    "bcrypt automatically encrypts the database"
+                ],
+                correct: 2,
+                explanation: "bcrypt is adaptive (cost factor slows brute force), uses salt (prevents rainbow tables), and is one-way (irreversible)."
+            },
+            {
+                q: "In MongoDB/Mongoose, which method retrieves a document by its _id?",
+                options: [
+                    "User.findOne({ id })",
+                    "User.getById(id)",
+                    "User.findById(id)",
+                    "User.fetch(id)"
+                ],
+                correct: 2,
+                explanation: "User.findById(id) is the Mongoose method for finding a document by its ObjectId."
+            },
+            {
+                q: "What HTTP status code should a successful POST request that creates a new resource return?",
+                options: ["200 OK", "201 Created", "204 No Content", "301 Moved Permanently"],
+                correct: 1,
+                explanation: "201 Created is the correct status for a successful resource creation. 200 is for general success."
+            },
+            {
+                q: "What does MVC stand for and which layer handles database logic in a Node/Express app?",
+                options: [
+                    "Model-View-Controller — the Controller layer handles database logic",
+                    "Model-View-Controller — the Model layer handles database logic",
+                    "Module-Value-Class — the Module layer handles database logic",
+                    "Model-View-Controller — the View layer handles database logic"
+                ],
+                correct: 1,
+                explanation: "In MVC: Model = data/database logic (Mongoose schema), View = frontend (React), Controller = request handling."
+            },
+            {
+                q: "In React, what is the primary purpose of the key prop when rendering a list?",
+                options: [
+                    "It styles the list items",
+                    "It helps React identify which items changed, enabling efficient DOM updates",
+                    "It sorts the list alphabetically",
+                    "It adds a unique ID attribute to the HTML element"
+                ],
+                correct: 1,
+                explanation: "The key prop helps React's reconciliation algorithm identify which list items changed, were added, or removed."
+            },
+            {
+                q: "What does CORS stand for, and why is it needed in a MERN stack app?",
+                options: [
+                    "Client-Origin Request System — for database security",
+                    "Cross-Origin Resource Sharing — to allow the React frontend (different origin) to make API requests to the Express backend",
+                    "Controlled Output Routing System — to cache API responses",
+                    "Cross-Origin Routing System — to redirect HTTP to HTTPS"
+                ],
+                correct: 1,
+                explanation: "CORS headers tell browsers it's safe for a web page on one origin to request resources from a different origin."
+            },
+            {
+                q: "When integrating OpenAI API into a MERN app, where should the API key be used?",
+                options: [
+                    "Directly in the React component using fetch()",
+                    "In a .env file on the frontend (Vite/CRA)",
+                    "Only on the Node.js/Express backend, never exposed to the frontend",
+                    "In the browser's localStorage"
+                ],
+                correct: 2,
+                explanation: "API keys must NEVER be in frontend code — they're visible to all users. Always call the AI API from your secure backend."
+            },
+            {
+                q: "What is the async/await syntax used for in JavaScript?",
+                options: [
+                    "Declaring variables that change over time",
+                    "Writing asynchronous code that looks synchronous, built on top of Promises",
+                    "Running multiple threads simultaneously in Node.js",
+                    "Importing modules asynchronously"
+                ],
+                correct: 1,
+                explanation: "async/await is syntactic sugar over Promises. It makes async code easier to read and write while remaining non-blocking."
+            },
+            {
+                q: "In Mongoose, what does the required: true option in a schema field do?",
+                options: [
+                    "Adds a database index to the field",
+                    "Automatically generates a value for the field",
+                    "Throws a validation error if the field is missing when saving a document",
+                    "Makes the field unique across all documents"
+                ],
+                correct: 2,
+                explanation: "required: true enables Mongoose validation — an error is thrown if you try to save a document without that field."
+            },
+            {
+                q: "Which React hook should you use to access a value from the Redux store in a functional component?",
+                options: [
+                    "useState",
+                    "useSelector from react-redux",
+                    "useContext",
+                    "useReducer"
+                ],
+                correct: 1,
+                explanation: "useSelector (from react-redux) reads data from the Redux store. useDispatch is used to dispatch actions."
+            }
+        ];
+
+        let answers = new Array(15).fill(null);
+        let timerInterval;
+        let timeLeft = 30 * 60;
+
+        function startQuiz() {
+            document.getElementById('introSection').style.display = 'none';
+            document.getElementById('quizSection').style.display = 'block';
+            document.getElementById('quizTimer').classList.remove('hidden');
+            renderQuestions();
+            startTimer();
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+            questions.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.innerHTML = `
+                    <div class="flex items-start gap-4 mb-5">
+                        <div class="question-num">${idx + 1}</div>
+                        <p class="text-brand-navy font-bold text-lg leading-snug">${q.q}</p>
+                    </div>
+                    <div class="space-y-3" id="options-${idx}">
+                        ${q.options.map((opt, oi) => `
+                            <label class="option-label" id="opt-${idx}-${oi}" onclick="selectOption(${idx}, ${oi})">
+                                <span class="w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center flex-shrink-0 mt-0.5 font-bold text-xs">${String.fromCharCode(65 + oi)}</span>
+                                <span class="text-gray-700">${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>`;
+                container.appendChild(card);
+            });
+        }
+
+        function selectOption(qIdx, optIdx) {
+            answers[qIdx] = optIdx;
+            document.querySelectorAll(`#options-${qIdx} .option-label`).forEach((el, i) => {
+                el.classList.toggle('selected', i === optIdx);
+            });
+            const answered = answers.filter(a => a !== null).length;
+            const pct = Math.round((answered / 15) * 100);
+            document.getElementById('currentQ').textContent = Math.min(answered + 1, 15);
+            document.getElementById('progressPct').textContent = pct + '%';
+            document.getElementById('progressFill').style.width = pct + '%';
+        }
+
+        function submitQuiz() {
+            const unanswered = answers.filter(a => a === null).length;
+            if (unanswered > 0) {
+                if (!confirm(`You have ${unanswered} unanswered question(s). Submit anyway?`)) return;
+            }
+            clearInterval(timerInterval);
+            generateResult();
+        }
+
+        function generateResult() {
+            document.getElementById('quizSection').style.display = 'none';
+            let correct = 0;
+            answers.forEach((ans, i) => { if (ans === questions[i].correct) correct++; });
+            const score = Math.round((correct / 15) * 100);
+
+            if (score >= 80) {
+                const name = localStorage.getItem('STUDENT_NAME') || 'Student';
+                const date = new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
+                localStorage.setItem('FS_QUIZ_COMPLETED', 'true');
+                localStorage.setItem('FS_CERTIFICATE_SCORE', score);
+                localStorage.setItem('FS_CERTIFICATE_CORRECT', correct);
+                localStorage.setItem('FS_CERTIFICATE_DATE', date);
+                localStorage.setItem('FS_CERTIFICATE_ID', 'BM-FS-' + Date.now().toString(36).toUpperCase());
+
+                document.getElementById('scoreDisplay').textContent = score;
+                document.getElementById('correctDisplay').textContent = correct;
+                document.getElementById('certificateSection').style.display = 'block';
+                setTimeout(() => window.location.replace('fullstack-project-workspace.html'), 3000);
+            } else {
+                document.getElementById('failScoreDisplay').textContent = score;
+                document.getElementById('failCorrectDisplay').textContent = correct;
+                document.getElementById('retakeSection').style.display = 'block';
+            }
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                const m = Math.floor(timeLeft / 60);
+                const s = timeLeft % 60;
+                document.getElementById('timerDisplay').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+                if (timeLeft <= 0) { clearInterval(timerInterval); submitQuiz(); }
+                if (timeLeft <= 300) document.getElementById('timerDisplay').style.color = '#ef4444';
+            }, 1000);
+        }
+    </script>
+    <script src="brandmark.js"></script>
+</body>
+</html>

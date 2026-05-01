@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Project: Task Management SaaS | BrandMark Full Stack</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-navy': '#0B2C4D', 'brand-navy-dark': '#081F36',
+                        'brand-orange': '#F26A21', 'brand-orange-dark': '#E65C17'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="brandmark.css">
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+        body { background: linear-gradient(135deg, #0B2C4D 0%, #081F36 100%); min-height: 100vh; }
+        .tab-button { transition: all 0.3s; border-bottom: 3px solid transparent; color: #9ca3af; font-weight: 600; padding: 0.75rem 1.25rem; }
+        .tab-button.active { border-bottom-color: #F26A21; color: #F26A21; }
+        .tab-button:hover { color: #F26A21; }
+        .deliverable-textarea { width: 100%; min-height: 180px; background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.15); border-radius: 10px; color: white; padding: 1rem; font-size: 0.9rem; resize: vertical; transition: border-color 0.3s; line-height: 1.6; font-family: 'Courier New', monospace; }
+        .deliverable-textarea:focus { border-color: #F26A21; outline: none; }
+        .deliverable-textarea::placeholder { color: rgba(255,255,255,0.35); }
+        .code-block { background: #1e293b; border-left: 4px solid #F26A21; padding: 1.25rem; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 0.8rem; color: #e2e8f0; overflow-x: auto; white-space: pre; line-height: 1.5; }
+        .progress-ring { background: rgba(255,255,255,0.1); border-radius: 50%; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; border: 4px solid rgba(242,106,33,0.3); }
+        .progress-ring.complete { border-color: #22c55e; background: rgba(34,197,94,0.1); }
+    </style>
+</head>
+<body class="text-white font-[Outfit]">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-brand-navy-dark/95 backdrop-blur-lg border-b border-brand-orange/30 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark" class="h-11 w-11 rounded-full border-2 border-brand-orange">
+                <div>
+                    <span class="text-xl font-extrabold">Brand<span class="text-brand-orange font-light">Mark</span></span>
+                    <p class="text-xs text-gray-400 font-semibold">FULL STACK PROJECT</p>
+                </div>
+            </a>
+            <div class="flex items-center gap-4">
+                <a href="fullstack-dashboard.html" class="text-gray-300 hover:text-white transition text-sm font-semibold hidden md:flex items-center gap-2"><i class="fas fa-th-large mr-1"></i>Dashboard</a>
+                <a href="fullstack-quiz.html" class="text-gray-300 hover:text-white transition text-sm font-semibold hidden md:flex items-center gap-2"><i class="fas fa-list-check mr-1"></i>Take Quiz</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Project Hero -->
+    <div class="bg-gradient-to-r from-brand-navy to-brand-navy-dark py-12 px-4 border-b border-brand-orange/20">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row gap-8 items-start">
+                <div class="flex-1">
+                    <span class="inline-block bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-full mb-4 uppercase tracking-widest">Final Capstone Project</span>
+                    <h1 class="text-3xl md:text-4xl font-extrabold mb-3">Task Management SaaS <span class="text-brand-orange">with AI Summarization</span></h1>
+                    <p class="text-gray-300 text-lg mb-4">Build a production-ready full stack SaaS application: React frontend + Node/Express API + MongoDB + OpenAI/Gemini AI summarization feature.</p>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="bg-blue-500/20 text-blue-300 text-xs font-bold px-3 py-1 rounded-full border border-blue-500/30"><i class="fab fa-react mr-1"></i>React + Tailwind</span>
+                        <span class="bg-green-500/20 text-green-300 text-xs font-bold px-3 py-1 rounded-full border border-green-500/30"><i class="fab fa-node-js mr-1"></i>Node + Express</span>
+                        <span class="bg-purple-500/20 text-purple-300 text-xs font-bold px-3 py-1 rounded-full border border-purple-500/30"><i class="fas fa-database mr-1"></i>MongoDB</span>
+                        <span class="bg-orange-500/20 text-orange-300 text-xs font-bold px-3 py-1 rounded-full border border-orange-500/30"><i class="fas fa-robot mr-1"></i>AI Integration</span>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="text-center"><div class="text-brand-orange font-bold text-2xl">3</div><div class="text-gray-400 text-xs">Deliverables</div></div>
+                    <div class="text-center"><div class="text-brand-orange font-bold text-2xl">8–12h</div><div class="text-gray-400 text-xs">Est. Time</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Overview -->
+    <div class="max-w-5xl mx-auto px-4 pt-8">
+        <div class="bg-white/5 backdrop-blur rounded-2xl p-6 border border-white/10 mb-8">
+            <h3 class="text-lg font-bold mb-5 flex items-center gap-2"><i class="fas fa-chart-line text-brand-orange"></i>Your Progress</h3>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="text-center">
+                    <div id="ring-1" class="progress-ring mx-auto mb-2"><span id="progress-1" class="text-brand-orange font-bold text-sm">0%</span></div>
+                    <div class="text-xs text-gray-400">React Frontend</div>
+                    <div id="bar-wrap-1" class="h-1 bg-gray-600 rounded mt-2"><div id="bar-1" class="h-1 bg-brand-orange rounded transition-all" style="width:0%"></div></div>
+                </div>
+                <div class="text-center">
+                    <div id="ring-2" class="progress-ring mx-auto mb-2"><span id="progress-2" class="text-brand-orange font-bold text-sm">0%</span></div>
+                    <div class="text-xs text-gray-400">Secured API</div>
+                    <div id="bar-wrap-2" class="h-1 bg-gray-600 rounded mt-2"><div id="bar-2" class="h-1 bg-brand-orange rounded transition-all" style="width:0%"></div></div>
+                </div>
+                <div class="text-center">
+                    <div id="ring-3" class="progress-ring mx-auto mb-2"><span id="progress-3" class="text-brand-orange font-bold text-sm">0%</span></div>
+                    <div class="text-xs text-gray-400">MongoDB + AI</div>
+                    <div id="bar-wrap-3" class="h-1 bg-gray-600 rounded mt-2"><div id="bar-3" class="h-1 bg-brand-orange rounded transition-all" style="width:0%"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs + Deliverables -->
+    <div class="max-w-5xl mx-auto px-4 pb-16">
+        <div class="flex border-b border-white/10 mb-6 overflow-x-auto">
+            <button class="tab-button active" onclick="switchTab(1)"><i class="fab fa-react mr-2"></i>Deliverable 1 — Frontend</button>
+            <button class="tab-button" onclick="switchTab(2)"><i class="fas fa-server mr-2"></i>Deliverable 2 — API</button>
+            <button class="tab-button" onclick="switchTab(3)"><i class="fas fa-robot mr-2"></i>Deliverable 3 — DB + AI</button>
+        </div>
+
+        <!-- Tab 1: React Frontend -->
+        <div id="tab-1" class="tab-content">
+            <div class="bg-white/5 rounded-2xl p-6 border border-white/10 mb-4">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-bold flex items-center gap-3"><span class="w-9 h-9 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">1</span>Responsive React Frontend</h2>
+                    <span class="text-xs text-blue-300 font-bold bg-blue-500/20 px-3 py-1 rounded-full">React 18 + Tailwind CSS</span>
+                </div>
+                <p class="text-gray-300 mb-5">Build a fully responsive task management UI with React. Users should be able to view, create, edit, delete, and filter tasks. Implement a "Summarize Tasks" button that calls your AI endpoint.</p>
+
+                <div class="bg-brand-navy/50 rounded-xl p-5 mb-5 border border-white/10">
+                    <h3 class="font-bold text-brand-orange mb-3"><i class="fas fa-list-check mr-2"></i>Requirements Checklist</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>Task list with Create / Edit / Delete / Complete toggle</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>Filter bar (All / Active / Completed)</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>React Router: /tasks, /login, /dashboard routes</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>JWT-protected routes using PrivateRoute pattern</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>Loading spinners and error toasts with Axios interceptors</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>AI Summarize button — calls backend AI endpoint</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>Fully responsive (mobile, tablet, desktop) with Tailwind CSS</li>
+                    </ul>
+                </div>
+
+                <div class="mb-5">
+                    <h3 class="font-bold text-brand-orange mb-3"><i class="fas fa-code mr-2"></i>Starter Code Reference</h3>
+                    <div class="code-block">// Example: TaskList component with AI Summarize button
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const API = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
+export default function TaskList() {
+  const [tasks, setTasks] = useState([]);
+  const [summary, setSummary] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    axios.get(`${API}/tasks`, {
+      headers: { Authorization: `Bearer ${token}` }
+    }).then(r => setTasks(r.data));
+  }, []);
+
+  const summarizeTasks = async () => {
+    setLoading(true);
+    const res = await axios.post(`${API}/ai/summarize`, { tasks });
+    setSummary(res.data.summary);
+    setLoading(false);
+  };
+
+  return (
+    &lt;div className="p-6"&gt;
+      {tasks.map(t => &lt;TaskCard key={t._id} task={t} /&gt;)}
+      &lt;button onClick={summarizeTasks} disabled={loading}&gt;
+        {loading ? 'Summarizing...' : '🤖 Summarize with AI'}
+      &lt;/button&gt;
+      {summary && &lt;div className="ai-summary"&gt;{summary}&lt;/div&gt;}
+    &lt;/div&gt;
+  );
+}</div>
+                </div>
+
+                <label class="block text-sm font-semibold text-gray-300 mb-2">Your Implementation Notes / Component Structure:</label>
+                <textarea id="textarea-1" class="deliverable-textarea" placeholder="Describe your React component structure, state management approach, and any challenges you solved...&#10;&#10;Example:&#10;- Components: App.jsx, TaskList.jsx, TaskCard.jsx, AddTaskForm.jsx, AIPanel.jsx&#10;- State: useState for tasks array, useEffect for API calls on mount&#10;- Auth: JWT in localStorage, PrivateRoute wrapper around /dashboard&#10;- AI button: calls POST /api/ai/summarize with tasks array..."></textarea>
+                <button onclick="submitDeliverable(1)" class="mt-4 bg-green-500 hover:bg-green-600 text-white py-3 px-8 rounded-lg font-bold transition flex items-center gap-2"><i class="fas fa-check"></i>Mark Deliverable 1 Complete</button>
+            </div>
+        </div>
+
+        <!-- Tab 2: API -->
+        <div id="tab-2" class="tab-content hidden">
+            <div class="bg-white/5 rounded-2xl p-6 border border-white/10 mb-4">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-bold flex items-center gap-3"><span class="w-9 h-9 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">2</span>Secured Express API with JWT</h2>
+                    <span class="text-xs text-green-300 font-bold bg-green-500/20 px-3 py-1 rounded-full">Node.js + Express + JWT</span>
+                </div>
+                <p class="text-gray-300 mb-5">Build a RESTful Node/Express API following MVC architecture. Implement JWT authentication, protect all task routes, and add an AI summarization endpoint.</p>
+
+                <div class="bg-brand-navy/50 rounded-xl p-5 mb-5 border border-white/10">
+                    <h3 class="font-bold text-brand-orange mb-3"><i class="fas fa-list-check mr-2"></i>Requirements Checklist</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>POST /api/auth/register — hash password with bcrypt, return JWT</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>POST /api/auth/login — verify bcrypt hash, return JWT</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>Auth middleware: verifies Bearer token on protected routes</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>GET / POST / PUT / DELETE /api/tasks — full CRUD, JWT-protected</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>POST /api/ai/summarize — accepts tasks array, calls OpenAI/Gemini, returns summary</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>Input validation with express-validator</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>Global error handler middleware</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>CORS configured for frontend origin</li>
+                    </ul>
+                </div>
+
+                <div class="mb-5">
+                    <h3 class="font-bold text-brand-orange mb-3"><i class="fas fa-code mr-2"></i>Starter Code Reference</h3>
+                    <div class="code-block">// routes/ai.js — AI summarization endpoint
+const express = require('express');
+const router = express.Router();
+const { OpenAI } = require('openai');
+const authMiddleware = require('../middleware/auth');
+
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+router.post('/summarize', authMiddleware, async (req, res) => {
+  try {
+    const { tasks } = req.body;
+    if (!tasks || !tasks.length) {
+      return res.status(400).json({ message: 'No tasks provided' });
+    }
+    const taskList = tasks.map((t, i) =>
+      `${i+1}. [${t.completed?'Done':'Pending'}] ${t.title}`
+    ).join('\n');
+
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages: [{
+        role: 'user',
+        content: `Summarize these tasks in 2-3 sentences:\n${taskList}`
+      }]
+    });
+
+    res.json({ summary: completion.choices[0].message.content });
+  } catch (err) {
+    res.status(500).json({ message: 'AI service error', error: err.message });
+  }
+});
+
+module.exports = router;</div>
+                </div>
+
+                <label class="block text-sm font-semibold text-gray-300 mb-2">Your API Implementation Notes / Route Structure:</label>
+                <textarea id="textarea-2" class="deliverable-textarea" placeholder="Document your API endpoints, middleware chain, and auth flow...&#10;&#10;Example:&#10;- Folder structure: routes/, controllers/, middleware/, models/&#10;- Auth middleware: extracts Bearer token, verifies with jwt.verify(token, process.env.JWT_SECRET)&#10;- Task routes: all protected with authMiddleware, user ID from req.user._id&#10;- AI route: POST /api/ai/summarize, calls openai.chat.completions.create()..."></textarea>
+                <button onclick="submitDeliverable(2)" class="mt-4 bg-green-500 hover:bg-green-600 text-white py-3 px-8 rounded-lg font-bold transition flex items-center gap-2"><i class="fas fa-check"></i>Mark Deliverable 2 Complete</button>
+            </div>
+        </div>
+
+        <!-- Tab 3: MongoDB + AI -->
+        <div id="tab-3" class="tab-content hidden">
+            <div class="bg-white/5 rounded-2xl p-6 border border-white/10 mb-4">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-bold flex items-center gap-3"><span class="w-9 h-9 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-sm">3</span>MongoDB CRUD + AI Summarization</h2>
+                    <span class="text-xs text-purple-300 font-bold bg-purple-500/20 px-3 py-1 rounded-full">MongoDB + Mongoose + GenAI</span>
+                </div>
+                <p class="text-gray-300 mb-5">Design the MongoDB schema, implement full CRUD operations, and complete the AI summarization integration end-to-end. Deploy to MongoDB Atlas.</p>
+
+                <div class="bg-brand-navy/50 rounded-xl p-5 mb-5 border border-white/10">
+                    <h3 class="font-bold text-brand-orange mb-3"><i class="fas fa-list-check mr-2"></i>Requirements Checklist</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>User schema: name, email (unique), password (hashed), timestamps</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>Task schema: title, description, completed (Boolean), priority, owner (ref: User), timestamps</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>CRUD: create task, list user's tasks, update task, delete task</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>Query filter: GET /api/tasks?completed=true</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>Index on { owner, completed } for query performance</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>AI summaries saved to DB (AISummary model with content + timestamp)</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>Deployed to MongoDB Atlas (free M0 cluster)</li>
+                    </ul>
+                </div>
+
+                <div class="mb-5">
+                    <h3 class="font-bold text-brand-orange mb-3"><i class="fas fa-code mr-2"></i>Starter Code Reference</h3>
+                    <div class="code-block">// models/Task.js — Mongoose Schema
+const mongoose = require('mongoose');
+
+const taskSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: [true, 'Title is required'],
+    trim: true,
+    maxlength: 200
+  },
+  description: { type: String, default: '' },
+  completed: { type: Boolean, default: false },
+  priority: {
+    type: String,
+    enum: ['low', 'medium', 'high'],
+    default: 'medium'
+  },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  }
+}, { timestamps: true });
+
+// Compound index for performance
+taskSchema.index({ owner: 1, completed: 1 });
+
+module.exports = mongoose.model('Task', taskSchema);</div>
+                </div>
+
+                <label class="block text-sm font-semibold text-gray-300 mb-2">Your Database Design Notes / Schema Decisions:</label>
+                <textarea id="textarea-3" class="deliverable-textarea" placeholder="Document your schema design, indexes, and AI integration decisions...&#10;&#10;Example:&#10;- User schema: { name, email (unique, required), password (required), createdAt }&#10;- Task schema: { title, description, completed, priority, owner (ObjectId ref User), timestamps }&#10;- Index: taskSchema.index({ owner: 1, completed: 1 }) for fast filtered queries&#10;- AI Summary stored in { userId, content, taskCount, createdAt }&#10;- Atlas connection: mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })..."></textarea>
+                <button onclick="submitDeliverable(3)" class="mt-4 bg-green-500 hover:bg-green-600 text-white py-3 px-8 rounded-lg font-bold transition flex items-center gap-2"><i class="fas fa-check"></i>Mark Deliverable 3 Complete</button>
+            </div>
+        </div>
+
+        <!-- Pro Tip -->
+        <div class="bg-brand-navy/40 rounded-xl p-4 border border-brand-orange/20 mb-8">
+            <p class="text-green-300 text-sm"><i class="fas fa-lightbulb text-brand-orange mr-2"></i><strong>Pro Tip:</strong> Write your notes in the text areas above for each deliverable. Click "Mark Complete" once you have implemented that deliverable. All 3 must be complete to unlock your certificate!</p>
+        </div>
+    </div>
+
+    <!-- Project Complete Modal -->
+    <div id="projectCompleteModal" style="display:none" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full text-center shadow-2xl border-4 border-green-400">
+            <div class="text-6xl mb-4">🏆</div>
+            <h2 class="text-2xl font-extrabold text-gray-800 mb-2">All Steps Complete!</h2>
+            <p class="text-gray-600 mb-5">You've passed the quiz <strong>and</strong> completed the project. Your certificate is ready!</p>
+            <div class="bg-green-50 rounded-xl p-4 mb-6 text-left border border-green-200">
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">✓</span>
+                    <span class="text-gray-700 text-sm font-semibold">Mock Test (15 questions) — Passed ✅</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">✓</span>
+                    <span class="text-gray-700 text-sm font-semibold">Task Management SaaS Project — Complete ✅</span>
+                </div>
+            </div>
+            <a href="fullstack-certificate.html" class="block w-full py-4 text-white font-bold rounded-xl text-lg hover:shadow-lg transition mb-3" style="background: linear-gradient(to right, #F26A21, #E65C17);">
+                🎓 Get My Certificate →
+            </a>
+            <button onclick="document.getElementById('projectCompleteModal').style.display='none'" class="text-sm text-gray-400 hover:text-gray-600">Close</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 bg-brand-navy-dark/50 text-white py-8 px-4">
+        <div class="max-w-7xl mx-auto text-center">
+            <p class="text-gray-400">&copy; 2025 BrandMark Solutions. Full Stack Final Project — Task Management SaaS with AI Summarization</p>
+        </div>
+    </footer>
+
+    <script>
+        let projectProgress = { 1: 0, 2: 0, 3: 0 };
+
+        function switchTab(n) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-' + n).classList.remove('hidden');
+            document.querySelectorAll('.tab-button')[n - 1].classList.add('active');
+        }
+
+        function submitDeliverable(num) {
+            const text = document.getElementById('textarea-' + num).value.trim();
+            if (!text) {
+                alert('Please add some notes before marking as complete.');
+                return;
+            }
+            projectProgress[num] = 100;
+            document.getElementById('progress-' + num).textContent = '100%';
+            document.getElementById('bar-' + num).style.width = '100%';
+            document.getElementById('ring-' + num).classList.add('complete');
+
+            const allComplete = projectProgress[1] === 100 && projectProgress[2] === 100 && projectProgress[3] === 100;
+
+            if (allComplete) {
+                localStorage.setItem('FS_PROJECT_COMPLETED', 'true');
+                const quizDone = localStorage.getItem('FS_QUIZ_COMPLETED') === 'true';
+                if (quizDone) {
+                    document.getElementById('projectCompleteModal').style.display = 'flex';
+                } else {
+                    alert('✅ Project complete! You still need to pass the Mock Test first. Redirecting to the quiz...');
+                    window.location.href = 'fullstack-quiz.html';
+                }
+            } else {
+                const done = Object.values(projectProgress).filter(p => p === 100).length;
+                alert(`✅ Deliverable ${num} marked as complete! ${done}/3 deliverables done.`);
+                if (num < 3) switchTab(num + 1);
+            }
+        }
+
+        switchTab(1);
+    </script>
+    <script src="brandmark.js"></script>
+    <script src="fullstack-ai-tutor-widget.js"></script>
+</body>
+</html>
