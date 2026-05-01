@@ -182,6 +182,7 @@
 
     <footer class="bg-brand-navy text-white py-8 border-t-4 border-brand-orange"><div class="text-center"><p class="text-gray-400">&copy; 2025 BrandMark Solutions.</p></div></footer>
     <script src="brandmark.js"></script>
+    <script src="ai-tutor-widget.js"></script>
     <script>let u = null, s = false, sp = 1; function init() { const c = document.querySelector('.lesson-content').innerText; u = new SpeechSynthesisUtterance(c); u.rate = sp; u.onend = () => { s = false; }; } function toggleAudio() { if (!u) init(); s ? speechSynthesis.pause() : (speechSynthesis.paused ? speechSynthesis.resume() : (speechSynthesis.cancel(), init(), speechSynthesis.speak(u))); s = !s; } function setAudioSpeed(speed) { sp = speed; document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active')); event.target.classList.add('active'); if (u) u.rate = speed; }</script>
     
 </body>

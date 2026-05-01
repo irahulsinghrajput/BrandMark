@@ -211,6 +211,7 @@
     </footer>
 
     <script src="brandmark.js"></script>
+    <script src="ai-tutor-widget.js"></script>
     <script>
         let u = null, s = false, sp = 1;
         function init() { const c = document.querySelector('.lesson-content').innerText; u = new SpeechSynthesisUtterance(c); u.rate = sp; u.onend = () => { s = false; upd(); }; }
