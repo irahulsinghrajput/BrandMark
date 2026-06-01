@@ -333,7 +333,7 @@ async function initiatePayment(courseId, studentName, email) {
             currency: orderData.data.currency,
             name: "BrandMark Solutions",
             description: orderData.data.courseTitle,
-            image: "https://brandmarksolutions.site/new logoBrandMarkupdatedone.jpeg",
+            image: "https://brandmarksolutions.site/brandmark-logo-new.png",
             prefill: {
                 name: studentName,
                 email: email

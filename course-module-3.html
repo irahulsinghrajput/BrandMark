@@ -155,84 +155,62 @@
             opacity: 0.5;
             cursor: not-allowed;
         }
-
-        .audio-player {
-            background: linear-gradient(135deg, #0B2C4D 0%, #081F36 100%);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            color: white;
-            box-shadow: 0 4px 15px rgba(11, 44, 77, 0.3);
-        }
-
-        .audio-controls {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .play-btn {
-            background: linear-gradient(135deg, #F26A21, #E65C17);
-            border: none;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .play-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(242, 106, 33, 0.4);
-        }
-
-        .speed-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.875rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .speed-btn.active {
-            background: #F26A21;
-            border-color: #F26A21;
-        }
     </style>
 </head>
 <body class="bg-brand-black text-white font-[Outfit]">
     <!-- Navigation Header -->
     <header class="sticky top-0 z-50 bg-gradient-to-r from-brand-navy via-brand-navy to-brand-navy-dark shadow-2xl border-b-4 border-brand-orange">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
-            <!-- Left: Logo -->
             <a href="index.html" class="flex items-center gap-4 hover:opacity-90 transition group">
                 <div class="relative">
-                    <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark Logo" class="h-14 w-14 rounded-full object-cover shadow-lg border-2 border-brand-orange group-hover:shadow-xl transition">
+                    <img src="brandmark-logo-new.png" alt="BrandMark Logo" class="h-14 w-14 rounded-full object-cover shadow-lg border-2 border-brand-orange group-hover:shadow-xl transition">
                     <div class="absolute inset-0 rounded-full bg-brand-orange opacity-0 group-hover:opacity-10 transition"></div>
                 </div>
                 <div class="flex flex-col">
                     <span class="text-3xl font-extrabold text-white tracking-tight">Brand<span class="text-brand-orange font-light">Mark</span><span class="text-xs align-top">®</span></span>
-                    <span class="text-xs text-gray-300 tracking-widest font-semibold">DIGITAL MASTERY</span>
+                    <span class="text-xs text-blue-200 tracking-widest font-semibold">DIGITAL MASTERY</span>
                 </div>
             </a>
+            <div class="flex items-center gap-4">
+                <div class="hidden md:flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg backdrop-blur-sm border border-white/20">
+                    <i class="fas fa-book-open text-brand-orange"></i>
+                    <span class="text-white font-medium text-sm">Module 3</span>
+                </div>
+                <a href="digital-marketing-course.html" class="inline-flex items-center gap-2 text-white hover:text-brand-orange transition font-bold px-6 py-3 rounded-lg hover:bg-white/15 bg-white/5 border border-white/10 hover:border-brand-orange/50">
+                    <i class="fas fa-arrow-left text-lg"></i> 
+                    <span>Back to Course</span>
+                </a>
+            </div>
         </nav>
     </header>
 
     <!-- Module Header Section -->
-    <section class="relative min-h-[40vh] flex flex-col justify-center items-center text-center py-16 bg-brand-navy">
-        <div class="absolute inset-0 bg-gradient-to-b from-brand-navy/90 to-brand-navy/100 z-0"></div>
-        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Analytics & Metrics</h1>
-            <p class="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">Master tracking, analysis, and data-driven optimization</p>
+    <section class="relative overflow-hidden bg-gradient-to-r from-brand-navy via-brand-navy to-brand-navy-dark pt-20 pb-16 px-4 sm:px-6 lg:px-8 mt-16">
+        <div class="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
+            <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-brand-orange rounded-full mix-blend-multiply filter blur-3xl"></div>
+        </div>
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="text-center mb-12 bg-white rounded-2xl shadow-lg p-12 border-t-4 border-brand-orange">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-brand-orange to-orange-600 mb-6 shadow-lg">
+                    <i class="fas fa-chart-line text-white text-2xl"></i>
+                </div>
+                <h1 class="text-5xl font-extrabold text-brand-navy mb-4">Analytics & Metrics</h1>
+                <p class="text-xl text-gray-600 mb-2">Module 3 of the Digital Marketing Course</p>
+                <p class="text-gray-500">Master tracking, analysis, and data-driven optimization</p>
+                <div class="flex flex-wrap justify-center gap-6 mt-8 text-gray-700">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-clock text-brand-orange text-lg"></i>
+                        <span class="font-semibold">4 hours learning</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-book text-brand-orange text-lg"></i>
+                        <span class="font-semibold">6 detailed sections</span>
+                    </div>
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-green-100 border border-green-300 text-green-700 rounded-full text-sm font-semibold">
+                        <i class="fas fa-check-circle"></i>Beginner Level
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -257,30 +235,6 @@
                 </div>
                 <div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md hover:shadow-lg transition">
                     <p class="flex items-start text-brand-navy font-semibold text-lg"><i class="fas fa-check-circle text-brand-orange mr-3 mt-1 text-xl flex-shrink-0"></i> <span>Create dashboards and reports</span></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Audio Player -->
-    <section class="bg-white px-4 sm:px-6 lg:px-8 py-8">
-        <div class="max-w-4xl mx-auto">
-            <div class="audio-player">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-xl font-bold flex items-center gap-2 text-white">
-                        <i class="fas fa-headphones text-brand-orange"></i>Listen to This Module
-                    </h3>
-                </div>
-                <div class="audio-controls">
-                    <button id="audioPlayBtn" class="play-btn" onclick="toggleAudio()">
-                        <i class="fas fa-play"></i><span id="playBtnText">Play</span>
-                    </button>
-                    <div class="speed-control" style="display: flex; gap: 0.5rem;">
-                        <span class="text-sm">Speed:</span>
-                        <button class="speed-btn active" onclick="setAudioSpeed(1)">1x</button>
-                        <button class="speed-btn" onclick="setAudioSpeed(1.5)">1.5x</button>
-                        <button class="speed-btn" onclick="setAudioSpeed(2)">2x</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -311,7 +265,7 @@
                 <h3>Traffic & Reach Metrics</h3>
                 <div class="metric-box">
                     <p><strong>Impressions:</strong> Number of times your content/ad is displayed (viewed by an audience)</p>
-                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666;">Example: Your ad appears 10,000 times on Instagram = 10,000 impressions</p>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666;">Example: Your ad appears 10,000 times on Facebook = 10,000 impressions</p>
                 </div>
 
                 <div class="metric-box">
@@ -405,7 +359,7 @@
                 <h3>Advertising Platform Analytics</h3>
                 <ul>
                     <li><strong>Google Ads Dashboard:</strong> Track keywords, ads, impressions, clicks, conversions</li>
-                    <li><strong>Instagram Ads Manager:</strong> Monitor social media campaign performance</li>
+                    <li><strong>Facebook Ads Manager:</strong> Monitor social media campaign performance</li>
                     <li><strong>LinkedIn Campaign Manager:</strong> B2B advertising analytics</li>
                 </ul>
 
@@ -475,7 +429,7 @@
                 </ol>
 
                 <h2>Key Takeaways</h2>
-                <div class="bg-blue-900 bg-opacity-20 p-4 rounded-lg text-white">
+                <div class="bg-blue-900 bg-opacity-20 p-4 rounded-lg">
                     <ul>
                         <li>Analytics reveals what's working and what's not in your marketing</li>
                         <li>Key metrics include traffic, engagement, conversions, and ROI</li>
@@ -485,19 +439,6 @@
                         <li>Create actionable reports that drive decision-making</li>
                     </ul>
                 </div>
-
-            <!-- Completion Card -->
-            <div class="bg-gradient-to-r from-brand-navy to-brand-navy-dark rounded-2xl shadow-xl p-10 text-white">
-                <div class="flex items-start gap-4 mb-6">
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-check-circle text-brand-orange text-4xl"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-bold mb-2 text-white" style="color: #ffffff !important; text-transform: none;">Module 3 Complete!</h3>
-                        <p class="text-lg text-white" style="color: #ffffff !important;">You've mastered analytics fundamentals. Move on to Module 4 to learn about AI-Powered Content Creation!</p>
-                    </div>
-                </div>
-            </div>
 
                 <!-- Module Navigation -->
                 <div class="module-nav">
@@ -549,7 +490,34 @@
                 </div>
             </div>
 
-
+            <!-- Completion Card -->
+            <div class="bg-gradient-to-r from-brand-navy to-brand-navy-dark rounded-2xl shadow-xl p-10 text-white">
+                <div class="flex items-start gap-4 mb-6">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-check-circle text-brand-orange text-4xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">Ready for the Next Step?</h3>
+                        <p class="text-blue-100">You've completed all the course material. Test your knowledge with the quiz and earn your certificate!</p>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="quiz.html" class="bg-gradient-to-r from-brand-orange to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-4 px-8 rounded-lg transition transform hover:scale-105 flex-1 flex items-center justify-center gap-2 shadow-lg">
+                        <i class="fas fa-arrow-right"></i>
+                        Take the Final Quiz
+                    </a>
+                    <a href="digital-marketing-course.html" class="bg-white/20 hover:bg-white/30 text-white font-bold py-4 px-8 rounded-lg transition border-2 border-white flex items-center justify-center gap-2">
+                        <i class="fas fa-chevron-left"></i>
+                        Back to Course
+                    </a>
+                </div>
+                
+                <p class="text-blue-200 text-sm mt-4 flex items-center gap-2">
+                    <i class="fas fa-info-circle"></i>
+                    Passing score is 80% (12+/15 correct). You'll receive a digital certificate upon passing!
+                </p>
+            </div>
         </div>
     </section>
 
@@ -561,16 +529,5 @@
     </footer>
 
     <script src="brandmark.js"></script>
-    <script src="ai-tutor-widget.js"></script>
-    <script>
-        let utterance = null, isSpeaking = false, currentSpeed = 1;
-        function initAudio() { const content = document.querySelector('.lesson-content').innerText; utterance = new SpeechSynthesisUtterance(content); utterance.rate = currentSpeed; utterance.onend = () => { isSpeaking = false; updatePlayButton(); }; }
-        function toggleAudio() { if (!utterance) initAudio(); if (isSpeaking) { speechSynthesis.pause(); isSpeaking = false; } else { if (speechSynthesis.paused) { speechSynthesis.resume(); } else { speechSynthesis.cancel(); initAudio(); speechSynthesis.speak(utterance); } isSpeaking = true; } updatePlayButton(); }
-        function setAudioSpeed(speed) { currentSpeed = speed; document.querySelectorAll('.speed-btn').forEach(btn => btn.classList.remove('active')); event.target.classList.add('active'); if (utterance) { utterance.rate = speed; if (isSpeaking) { speechSynthesis.cancel(); initAudio(); speechSynthesis.speak(utterance); } } }
-        function updatePlayButton() { const btn = document.getElementById('audioPlayBtn'); const text = document.getElementById('playBtnText'); btn.innerHTML = isSpeaking ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>'; text.textContent = isSpeaking ? 'Pause' : 'Play'; }
 </body>
 </html>
-
-
-
-

@@ -75,197 +75,6 @@ router.get('/categories', async (req, res) => {
     }
 });
 
-// IMPORTANT: POST/specific routes MUST come BEFORE generic /:slug route
-// Otherwise /:slug will match :courseId/order and cause 404 errors
-
-// @route   POST /api/courses/:courseId/order
-// @desc    Create Razorpay order for course enrollment
-// @access  Public
-router.post('/:courseId/order', async (req, res) => {
-    try {
-        const { courseId } = req.params;
-        const { email } = req.body;
-        
-        console.log('🔵 Order request received for courseId:', courseId, 'email:', email);
-        
-        if (!email) {
-            console.log('❌ Email missing');
-            return res.status(400).json({
-                success: false,
-                message: 'Email is required'
-            });
-        }
-
-        // Course pricing map (hardcoded for now, can be extended)
-        const coursePrices = {
-            'digital-marketing-001': {
-                title: 'Digital Marketing Mastery with Gen AI',
-                price: 49, // ₹49 (will be converted to paise by * 100)
-                moduleNumber: 1
-            }
-        };
-
-        const courseInfo = coursePrices[courseId] || {
-            title: 'BrandMark Course',
-            price: 49,
-            moduleNumber: 1
-        };
-
-        console.log('📚 Course info:', courseInfo);
-
-        // Initialize Razorpay
-        if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
-            console.error('❌ Razorpay credentials missing');
-            return res.status(500).json({
-                success: false,
-                message: 'Payment system not configured'
-            });
-        }
-
-        console.log('💳 Initializing Razorpay...');
-        const Razorpay = require('razorpay');
-        const razorpay = new Razorpay({
-            key_id: process.env.RAZORPAY_KEY_ID,
-            key_secret: process.env.RAZORPAY_KEY_SECRET
-        });
-
-        const options = {
-            amount: courseInfo.price * 100, // Razorpay expects amount in paise
-            currency: 'INR',
-            receipt: `receipt_${Date.now()}`,
-            notes: {
-                courseId,
-                email,
-                courseTitle: courseInfo.title
-            }
-        };
-
-        console.log('📦 Creating Razorpay order with options:', options);
-        const order = await razorpay.orders.create(options);
-        console.log('✅ Order created:', order.id);
-
-        const responseData = {
-            success: true,
-            message: 'Order created successfully',
-            data: {
-                orderId: order.id,
-                amount: order.amount,
-                currency: order.currency,
-                keyId: process.env.RAZORPAY_KEY_ID
-            }
-        };
-        
-        console.log('📤 Sending response:', responseData);
-        res.status(200).json(responseData);
-    } catch (error) {
-        console.error('❌ Order creation error:', error.message);
-        console.error('Full error:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error creating order',
-            error: error.message
-        });
-    }
-});
-
-// ==================== WEBHOOK ROUTES ====================
-
-// @route   POST /api/courses/webhook/razorpay
-// @desc    Razorpay webhook handler - validates signature and processes payment
-// @access  Public (but signature-protected)
-router.post('/webhook/razorpay', async (req, res) => {
-    try {
-        const { verifyWebhookSignature } = require('../utils/razorpayUtils');
-        
-        // Get signature from header
-        const webhookSignature = req.headers['x-razorpay-signature'];
-        
-        if (!webhookSignature) {
-            console.warn('⚠️  Webhook signature missing from headers');
-            return res.status(400).json({
-                success: false,
-                message: 'Webhook signature missing'
-            });
-        }
-
-        // Get webhook secret from environment
-        const webhookSecret = process.env.RAZORPAY_WEBHOOK_SECRET;
-        if (!webhookSecret) {
-            console.error('❌ RAZORPAY_WEBHOOK_SECRET not configured');
-            return res.status(500).json({
-                success: false,
-                message: 'Webhook not configured'
-            });
-        }
-
-        // Get raw body for signature verification
-        const webhookBody = JSON.stringify(req.body);
-
-        // Verify webhook signature
-        if (!verifyWebhookSignature(webhookBody, webhookSignature, webhookSecret)) {
-            console.error('❌ Webhook signature verification failed');
-            return res.status(401).json({
-                success: false,
-                message: 'Webhook signature verification failed'
-            });
-        }
-
-        console.log('✅ Webhook signature verified');
-
-        const event = req.body.event;
-        const payload = req.body.payload;
-
-        // Handle different event types
-        if (event === 'payment.authorized') {
-            console.log('💳 Payment authorized:', payload.payment.entity.id);
-            
-            const paymentEntity = payload.payment.entity;
-            const { email, courseId, courseTitle } = paymentEntity.notes;
-
-            // Create enrollment record
-            const enrollment = new Enrollment({
-                studentEmail: email,
-                courseId: courseId,
-                courseTitle: courseTitle,
-                paymentId: paymentEntity.id,
-                amount: paymentEntity.amount / 100, // Convert from paise
-                currency: paymentEntity.currency,
-                status: 'completed',
-                paymentMethod: paymentEntity.method,
-                transactionDate: new Date(paymentEntity.created_at * 1000)
-            });
-
-            await enrollment.save();
-            console.log('✅ Enrollment created:', enrollment._id);
-        } 
-        else if (event === 'payment.failed') {
-            console.log('❌ Payment failed:', payload.payment.entity.id);
-            // Log failed payment for analysis
-        }
-        else if (event === 'refund.created') {
-            console.log('💰 Refund created:', payload.refund.entity.id);
-            // Update enrollment status
-        }
-
-        // Always respond with 200 to acknowledge receipt
-        res.status(200).json({
-            success: true,
-            message: 'Webhook processed'
-        });
-
-    } catch (error) {
-        console.error('❌ Webhook processing error:', error.message);
-        // Still return 200 to prevent Razorpay retries for processing errors
-        res.status(200).json({
-            success: false,
-            message: 'Webhook error (logged)',
-            error: error.message
-        });
-    }
-});
-
-// ==================== PUBLIC ROUTES ====================
-
 // @route   GET /api/courses/:slug
 // @desc    Get single course by slug
 // @access  Public
@@ -513,6 +322,86 @@ router.post('/:courseId/review', verifyToken, async (req, res) => {
 
 // ==================== PAYMENT ROUTES ====================
 
+// @route   POST /api/courses/:courseId/order
+// @desc    Create Razorpay order for course enrollment
+// @access  Public
+router.post('/:courseId/order', async (req, res) => {
+    try {
+        const { courseId } = req.params;
+        const { email } = req.body;
+        
+        if (!email) {
+            return res.status(400).json({
+                success: false,
+                message: 'Email is required'
+            });
+        }
+
+        // Course pricing map (hardcoded for now, can be extended)
+        const coursePrices = {
+            'digital-marketing-001': {
+                title: 'Digital Marketing Mastery with Gen AI',
+                price: 4900, // ₹49 in paise
+                moduleNumber: 1
+            }
+        };
+
+        const courseInfo = coursePrices[courseId] || {
+            title: 'BrandMark Course',
+            price: 4900,
+            moduleNumber: 1
+        };
+
+        // Initialize Razorpay
+        if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+            return res.status(500).json({
+                success: false,
+                message: 'Payment system not configured'
+            });
+        }
+
+        const Razorpay = require('razorpay');
+        const razorpay = new Razorpay({
+            key_id: process.env.RAZORPAY_KEY_ID,
+            key_secret: process.env.RAZORPAY_KEY_SECRET
+        });
+
+        // Create Razorpay order
+        const order = await razorpay.orders.create({
+            amount: courseInfo.price,
+            currency: 'INR',
+            receipt: `${courseId}_${Date.now()}`,
+            notes: {
+                courseId: courseId,
+                email: email,
+                courseTitle: courseInfo.title
+            }
+        });
+
+        // Return order details for frontend
+        res.status(201).json({
+            success: true,
+            message: 'Order created successfully',
+            data: {
+                orderId: order.id,
+                amount: courseInfo.price,
+                currency: 'INR',
+                courseTitle: courseInfo.title,
+                email,
+                keyId: process.env.RAZORPAY_KEY_ID
+            }
+        });
+
+    } catch (error) {
+        console.error('Razorpay order error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error creating payment order',
+            error: error.message
+        });
+    }
+});
+
 // @route   POST /api/courses/payment/verify
 // @desc    Verify Razorpay payment and create enrollment
 // @access  Public
@@ -540,26 +429,18 @@ router.post('/payment/verify', async (req, res) => {
             });
         }
 
-        // Payment verified successfully! Save enrollment.
-        const Student = require('../models/Student');
+        // Payment verified successfully!
+        // TODO: Save enrollment to MongoDB when connection is fixed
         const enrollmentId = `enroll_${Date.now()}`;
-
-        // Check if student already enrolled (prevent duplicate enrollment on retry)
-        const existingStudent = await Student.findOne({ email });
-        const alreadyEnrolled = existingStudent &&
-            existingStudent.enrolledCourses.some(e => e.courseId === courseId);
-
+        
         res.status(200).json({
             success: true,
             message: 'Payment verified successfully!',
             data: {
-                enrollmentId,
+                enrollmentId: enrollmentId,
                 paymentId: razorpay_payment_id,
-                orderId: razorpay_order_id,
-                email,
-                courseId,
-                alreadyHasAccount: !!existingStudent,
-                alreadyEnrolled
+                email: email,
+                courseId: courseId
             }
         });
 
