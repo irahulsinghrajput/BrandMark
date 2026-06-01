@@ -120,29 +120,31 @@
   style.textContent = `
     #bm-fs-fab {
       position: fixed; bottom: 28px; right: 28px; z-index: 9998;
-      width: 60px; height: 60px; border-radius: 50%;
-      background: linear-gradient(135deg, #F26A21, #E65C17);
-      color: #fff; border: none; cursor: pointer;
-      font-size: 26px; box-shadow: 0 4px 20px rgba(242,106,33,0.5);
+      width: 66px; height: 66px; border-radius: 50%;
+      background: #ffffff; border: 2px solid #F26A21;
+      cursor: pointer; box-shadow: 0 10px 28px rgba(242,106,33,0.25);
       transition: transform 0.2s, box-shadow 0.2s;
       display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
     }
-    #bm-fs-fab:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(242,106,33,0.7); }
+    #bm-fs-fab:hover { transform: scale(1.08); box-shadow: 0 12px 32px rgba(242,106,33,0.32); }
+    .bm-fs-fab-icon { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
     #bm-fs-chat {
       position: fixed; bottom: 100px; right: 28px; z-index: 9999;
-      width: 360px; max-height: 520px; border-radius: 16px;
-      background: #fff; box-shadow: 0 8px 40px rgba(11,44,77,0.25);
+      width: 360px; max-height: 520px; border-radius: 20px;
+      background: #ffffff; box-shadow: 0 8px 40px rgba(11,44,77,0.18);
       display: flex; flex-direction: column; overflow: hidden;
-      font-family: 'Outfit', sans-serif; border: 2px solid #0B2C4D;
+      font-family: 'Outfit', sans-serif; border: 2px solid #F26A21;
     }
     #bm-fs-header {
-      background: linear-gradient(135deg, #0B2C4D, #081F36);
-      color: #fff; padding: 12px 16px;
+      background: #ffffff;
+      color: #0B2C4D; padding: 14px 16px;
       display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid rgba(242,106,33,0.2);
     }
     #bm-fs-header h4 { margin: 0; font-size: 14px; font-weight: 700; }
     #bm-fs-header span { font-size: 11px; color: #F26A21; }
-    #bm-fs-close { background: none; border: none; color: #fff; font-size: 18px; cursor: pointer; padding: 0 4px; }
+    #bm-fs-close { background: none; border: none; color: #0B2C4D; font-size: 18px; cursor: pointer; padding: 0 4px; }
     #bm-fs-lang {
       background: #f8fafc; padding: 8px 12px;
       display: flex; gap: 6px; border-bottom: 1px solid #e5e7eb;
@@ -195,11 +197,11 @@
   // ── Inject HTML ─────────────────────────────────────────────────────────────
   const wrapper = document.createElement('div');
   wrapper.innerHTML = `
-    <button id="bm-fs-fab" title="Full Stack AI Tutor">⚡</button>
+    <button id="bm-fs-fab" title="Full Stack AI Tutor"><img src="Brandmarkchatbot.PNG" alt="BrandMark Bot" class="bm-fs-fab-icon" /></button>
     <div id="bm-fs-chat" style="display:none">
       <div id="bm-fs-header">
         <div>
-          <h4>⚡ Full Stack AI Tutor</h4>
+          <h4>BrandMark AI Tutor</h4>
           <span>MERN · React · Node · MongoDB · GenAI</span>
         </div>
         <button id="bm-fs-close">✕</button>

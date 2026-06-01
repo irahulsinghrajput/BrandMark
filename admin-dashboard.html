@@ -534,11 +534,32 @@
     </div>
 
     <script>
-        // Production backend
-        const API_URL = 'https://brandmark-api-2026.onrender.com/api';
-        // For local development: 'http://localhost:5000/api'
-        // const API_URL = 'http://localhost:5000/api';
+        // Smart API URL detection: try local backend first, then fallback to production
+        let API_URL = 'https://brandmark-api-2026.onrender.com/api';
+        const LOCAL_API_URL = 'http://localhost:5001/api';
+
+        async function resolveApiUrl() {
+            if (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                try {
+                    const localHealth = await fetch(`${LOCAL_API_URL}/health`, {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    if (localHealth.ok) {
+                        API_URL = LOCAL_API_URL;
+                        console.log('ℹ️ Using local backend at', API_URL);
+                        return;
+                    }
+                } catch (error) {
+                    console.warn('⚠️ Local backend not reachable, falling back to production backend.');
+                }
+            }
+            console.log('ℹ️ Using production backend at', API_URL);
+        }
+
+        resolveApiUrl();
         let authToken = localStorage.getItem('adminToken');
+
 
         // Check if already logged in
         if (authToken) {
@@ -576,6 +597,29 @@
                     errorDiv.classList.add('show');
                 }
             } catch (error) {
+                if (API_URL === LOCAL_API_URL) {
+                    console.warn('⚠️ Local backend failed; retrying with production backend...', error);
+                    API_URL = 'https://brandmark-api-2026.onrender.com/api';
+                    try {
+                        const retryResponse = await fetch(`${API_URL}/admin/login`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ email, password })
+                        });
+                        const retryData = await retryResponse.json();
+                        if (retryData.success) {
+                            authToken = retryData.token;
+                            localStorage.setItem('adminToken', authToken);
+                            showDashboard();
+                            return;
+                        }
+                        errorDiv.textContent = retryData.message || 'Login failed. Please check your credentials.';
+                        errorDiv.classList.add('show');
+                        return;
+                    } catch (retryError) {
+                        console.warn('⚠️ Production retry also failed.', retryError);
+                    }
+                }
                 errorDiv.textContent = 'Connection error. Please ensure the backend server is running.';
                 errorDiv.classList.add('show');
             } finally {

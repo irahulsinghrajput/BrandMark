@@ -304,8 +304,8 @@ router.get('/:slug', async (req, res) => {
 router.post('/enroll', verifyToken, async (req, res) => {
     try {
         const { courseId } = req.body;
-        const userId = req.user.id;
-        const email = req.user.email;
+        const userId = (req.user && req.user.id) || (req.admin && req.admin._id);
+        const email = (req.user && req.user.email) || (req.admin && req.admin.email);
         
         if (!courseId) {
             return res.status(400).json({

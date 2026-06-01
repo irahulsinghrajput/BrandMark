@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tutor - BrandMark Full Stack Development Course</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="brandmark.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-navy': '#0B2C4D',
+                        'brand-navy-dark': '#081F36',
+                        'brand-orange': '#F26A21',
+                        'brand-orange-dark': '#E65C17',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+
+        body { background: #f0f4f8; }
+
+        .chat-messages {
+            height: 420px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            padding: 20px;
+            scroll-behavior: smooth;
+        }
+        .chat-messages::-webkit-scrollbar { width: 4px; }
+        .chat-messages::-webkit-scrollbar-track { background: #f1f5f9; }
+        .chat-messages::-webkit-scrollbar-thumb { background: #F26A21; border-radius: 4px; }
+
+        .user-message {
+            background: linear-gradient(135deg, #F26A21, #E65C17);
+            color: #fff;
+            align-self: flex-end;
+            border-radius: 18px 18px 4px 18px;
+            padding: 12px 18px;
+            max-width: 80%;
+            box-shadow: 0 4px 12px rgba(242,106,33,0.3);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .bot-message {
+            background: linear-gradient(135deg, #0B2C4D, #0d3560);
+            color: #fff;
+            align-self: flex-start;
+            border-radius: 18px 18px 18px 4px;
+            padding: 12px 18px;
+            max-width: 80%;
+            box-shadow: 0 4px 12px rgba(11,44,77,0.2);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .thinking {
+            display: flex;
+            gap: 5px;
+            padding: 14px 18px;
+            background: #e2e8f0;
+            border-radius: 18px 18px 18px 4px;
+            width: fit-content;
+        }
+        .dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #F26A21;
+            animation: bounce 1.4s infinite;
+        }
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes bounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-8px); }
+        }
+
+        .lang-btn {
+            padding: 10px 22px;
+            border: 2px solid #F26A21;
+            background: transparent;
+            color: #F26A21;
+            cursor: pointer;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+        }
+        .lang-btn:hover, .lang-btn.active {
+            background: #F26A21;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(242,106,33,0.35);
+        }
+
+        .topic-chip {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(242,106,33,0.1);
+            border: 1px solid rgba(242,106,33,0.3);
+            color: #E65C17;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .topic-chip:hover {
+            background: #F26A21;
+            color: #fff;
+            border-color: #F26A21;
+        }
+
+        .voice-btn-active {
+            background: #dc2626 !important;
+            animation: pulse-red 1s infinite;
+        }
+        @keyframes pulse-red {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(220,38,38,0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 bg-gradient-to-r from-brand-navy to-brand-navy-dark shadow-xl border-b-4 border-brand-orange">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 hover:opacity-90 transition">
+                <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark Logo" class="h-11 w-11 rounded-full object-cover border-2 border-brand-orange shadow-lg">
+                <div class="flex flex-col">
+                    <span class="text-xl font-extrabold text-white tracking-tight">Brand<span class="text-brand-orange font-light">Mark</span></span>
+                    <span class="text-xs text-blue-200 font-semibold">FULL STACK MASTERY</span>
+                </div>
+            </a>
+            <div class="hidden md:flex items-center gap-6">
+                <a href="index.html" class="text-white hover:text-brand-orange transition font-semibold text-sm">Home</a>
+                <a href="fullstack-course.html" class="text-white hover:text-brand-orange transition font-semibold text-sm">Course</a>
+                <a href="fullstack-dashboard.html" class="text-white hover:text-brand-orange transition font-semibold text-sm">Dashboard</a>
+                <a href="fullstack-ai-tutor.html" class="px-4 py-2 bg-brand-orange text-white rounded-full font-bold text-sm shadow-lg"><i class="fas fa-robot"></i> AI Tutor</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="bg-gradient-to-r from-brand-navy to-brand-navy-dark py-16 px-4">
+        <div class="max-w-5xl mx-auto grid gap-10 lg:grid-cols-[auto_minmax(0,1fr)] items-center">
+            <div class="flex justify-center lg:justify-start">
+                <div class="rounded-full bg-white/10 p-4 shadow-2xl border border-white/10">
+                    <img src="Brandmarkchatbot.PNG" alt="BrandMark Chat Bot" class="h-36 w-36 rounded-full object-cover shadow-xl border-4 border-brand-orange bg-white" />
+                </div>
+            </div>
+            <div class="text-center lg:text-left">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20 mb-5 backdrop-blur-sm justify-center lg:justify-start">
+                    <i class="fas fa-robot text-brand-orange text-sm"></i>
+                    <span class="text-sm font-semibold text-white/80">BrandMark Full Stack Tutor</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                    AI Course <span class="text-brand-orange">Tutor</span>
+                </h1>
+                <p class="text-gray-300 text-lg max-w-3xl mx-auto lg:mx-0">Ask anything about Full Stack Development in English, Hindi or Arabic. Get instant guidance on React, Node, MongoDB, Express, JWT, and GenAI.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-10">
+
+        <!-- Language Selector -->
+        <div class="flex gap-3 justify-center mb-8 flex-wrap">
+            <button class="lang-btn active" onclick="setLanguage('en', this)">🇬🇧 English</button>
+            <button class="lang-btn" onclick="setLanguage('hi', this)">🇮🇳 हिंदी</button>
+            <button class="lang-btn" onclick="setLanguage('ar', this)">🇸🇦 العربية</button>
+        </div>
+
+        <!-- Tutor Grid -->
+        <div class="grid md:grid-cols-2 gap-6">
+
+            <!-- Left: Info Panel -->
+            <div class="bg-gradient-to-br from-brand-navy to-brand-navy-dark rounded-2xl p-8 flex flex-col justify-between shadow-xl">
+                <div>
+                    <div class="w-20 h-20 bg-brand-orange/20 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-brand-orange/40">
+                        <i class="fas fa-robot text-brand-orange text-4xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-white text-center mb-2">AI Tutor Ready</h2>
+                    <p class="text-gray-300 text-center text-sm mb-8">Ask me about Full Stack Development topics below</p>
+
+                    <!-- Quick Topics -->
+                    <div class="mb-6">
+                        <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-3">Quick Topics</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="topic-chip" onclick="askTopic('What is React?')">React</span>
+                            <span class="topic-chip" onclick="askTopic('How does Node.js work?')">Node.js</span>
+                            <span class="topic-chip" onclick="askTopic('What is MongoDB?')">MongoDB</span>
+                            <span class="topic-chip" onclick="askTopic('What is Express.js?')">Express</span>
+                            <span class="topic-chip" onclick="askTopic('What is JWT?')">JWT Auth</span>
+                            <span class="topic-chip" onclick="askTopic('What is GenAI?')">GenAI</span>
+                            <span class="topic-chip" onclick="askTopic('Explain CORS')">CORS</span>
+                            <span class="topic-chip" onclick="askTopic('What is REST API?')">REST API</span>
+                            <span class="topic-chip" onclick="askTopic('What is Mongoose?')">Mongoose</span>
+                            <span class="topic-chip" onclick="askTopic('What is Tailwind?')">Tailwind</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="bg-white/10 rounded-xl p-3 text-center">
+                        <p class="text-brand-orange text-xl font-bold">30+</p>
+                        <p class="text-gray-300 text-xs">Topics</p>
+                    </div>
+                    <div class="bg-white/10 rounded-xl p-3 text-center">
+                        <p class="text-brand-orange text-xl font-bold">3</p>
+                        <p class="text-gray-300 text-xs">Languages</p>
+                    </div>
+                    <div class="bg-white/10 rounded-xl p-3 text-center">
+                        <p class="text-brand-orange text-xl font-bold">Free</p>
+                        <p class="text-gray-300 text-xs">Forever</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Chat Interface -->
+            <div class="bg-white rounded-2xl shadow-xl flex flex-col overflow-hidden border border-gray-100">
+
+                <!-- Chat Header -->
+                <div class="bg-gradient-to-r from-brand-navy to-brand-navy-dark px-6 py-4 flex items-center gap-3">
+                    <img src="Brandmarkchatbot.PNG" alt="BrandMark Bot" class="w-12 h-12 rounded-full border-2 border-white shadow-lg object-cover" />
+                    <div>
+                        <p class="text-white font-bold text-sm">BrandMark AI Tutor</p>
+                        <p class="text-green-300 text-xs flex items-center gap-1">
+                            <span class="w-2 h-2 bg-green-400 rounded-full inline-block"></span> Online · Instant Answers
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Messages -->
+                <div class="chat-messages bg-gray-50" id="chatMessages"></div>
+
+                <!-- Input Area -->
+                <div class="px-4 py-3 bg-white border-t border-gray-100 flex gap-2">
+                    <input
+                        type="text"
+                        id="userInput"
+                        placeholder="Ask your question..."
+                        onkeypress="if(event.key==='Enter') sendMessage()"
+                        class="flex-1 px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-brand-orange transition placeholder-gray-400"
+                    />
+                    <button onclick="sendMessage()" title="Send"
+                        class="px-4 py-3 bg-brand-orange hover:bg-brand-orange-dark text-white rounded-xl transition shadow-md hover:shadow-lg">
+                        <i class="fas fa-paper-plane text-sm"></i>
+                    </button>
+                    <button onclick="startVoiceInput()" id="voiceBtn" title="Voice Input"
+                        class="px-4 py-3 bg-brand-navy hover:bg-brand-navy-dark text-white rounded-xl transition shadow-md hover:shadow-lg">
+                        <i class="fas fa-microphone text-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-navy-dark text-white py-10 px-4 border-t-4 border-brand-orange mt-10">
+        <div class="max-w-6xl mx-auto text-center">
+            <p class="text-gray-300 text-sm">&copy; 2025 BrandMark Solutions. All rights reserved.</p>
+            <p class="mt-2 text-xs text-gray-400">
+                <a href="fullstack-dashboard.html" class="text-brand-orange hover:underline">← Back to Dashboard</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        let currentLanguage = 'en';
+        let isLoading = false;
+
+        const greetings = {
+            'en': 'Hello! I am your Full Stack AI tutor. I can help you learn about React, Node.js, MongoDB, Express, JWT, GenAI, and more. What would you like to know?',
+            'hi': 'नमस्ते! मैं आपका Full Stack AI ट्यूटर हूँ। मैं आपको React, Node.js, MongoDB, Express, JWT, और GenAI सीखने में मदद कर सकता हूँ। आप क्या जानना चाहते हैं?',
+            'ar': 'مرحبا! أنا معلمك الذكي للـ Full Stack. يمكنني مساعدتك على تعلم React و Node.js و MongoDB و Express و JWT و GenAI. ماذا تريد أن تعرف؟'
+        };
+
+        const placeholders = {
+            'en': 'Ask your question...',
+            'hi': 'अपना प्रश्न पूछें...',
+            'ar': 'اسأل سؤالك...'
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            addMessage('bot', greetings[currentLanguage]);
+        });
+
+        function setLanguage(lang, btn) {
+            currentLanguage = lang;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('chatMessages').innerHTML = '';
+            document.getElementById('userInput').placeholder = placeholders[lang];
+            addMessage('bot', greetings[lang]);
+        }
+
+        function askTopic(question) {
+            document.getElementById('userInput').value = question;
+            sendMessage();
+        }
+
+        function addMessage(sender, text) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageEl = document.createElement('div');
+            messageEl.className = `message ${sender}-message`;
+            messageEl.textContent = text;
+            messagesDiv.appendChild(messageEl);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function addThinkingIndicator() {
+            const messagesDiv = document.getElementById('chatMessages');
+            const thinkingEl = document.createElement('div');
+            thinkingEl.className = 'thinking';
+            thinkingEl.id = 'thinking-indicator';
+            thinkingEl.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+            messagesDiv.appendChild(thinkingEl);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function removeThinkingIndicator() {
+            const thinking = document.getElementById('thinking-indicator');
+            if (thinking) thinking.remove();
+        }
+
+        const knowledgeBase = {
+            en: {
+                'react': 'React is a JavaScript library for building user interfaces with reusable components. Key concepts: JSX, Virtual DOM, state, props, hooks (useState, useEffect), and component lifecycle. React makes building interactive UIs fast and scalable.',
+                'node': 'Node.js is a runtime that lets you run JavaScript on servers. It\'s event-driven, non-blocking, and perfect for building scalable applications. Node.js powers the backend of modern web apps.',
+                'mongodb': 'MongoDB is a NoSQL database that stores data in JSON-like documents. Unlike SQL, it\'s flexible and doesn\'t require fixed schemas. MongoDB Atlas (cloud version) is free to get started.',
+                'express': 'Express.js is a Node.js framework for building fast, minimal REST APIs. It handles routing, middleware, and HTTP requests/responses. Express is the "E" in MERN stack.',
+                'jwt': 'JWT (JSON Web Token) is a secure way to authenticate users. It contains encoded data (header, payload, signature) and works perfectly with REST APIs. Token is stored on client and sent with each request.',
+                'genai': 'GenAI (Generative AI) refers to AI models like GPT and Gemini that generate text, code, and images. You can integrate OpenAI API or Google Gemini into your Full Stack apps for AI features.',
+                'cors': 'CORS (Cross-Origin Resource Sharing) allows your frontend (different domain) to access your backend API. Without CORS headers, browsers block cross-origin requests for security.',
+                'rest api': 'REST API uses HTTP methods (GET, POST, PUT, DELETE) to perform operations on resources. RESTful design is stateless and scalable. Each endpoint represents a resource (users, products, etc.).',
+                'mongoose': 'Mongoose is an ODM (Object Document Mapper) for MongoDB. It provides schema validation, middleware, and automatic type conversion. Makes working with MongoDB in Node.js much easier.',
+                'tailwind': 'Tailwind CSS is a utility-first CSS framework. Instead of writing custom CSS, you use pre-made classes like "text-center" and "bg-blue-500". Tailwind speeds up frontend development significantly.',
+                'hooks': 'React Hooks let you use state and other React features in functional components. Common hooks: useState (manage state), useEffect (side effects), useContext (global state), and custom hooks.',
+                'axios': 'Axios is a promise-based HTTP client for making API requests from React. It\'s cleaner than fetch() with better error handling and request/response interceptors.',
+                'redux': 'Redux is a state management library for React. It centralizes app state, making it predictable and easy to debug. Redux uses actions, reducers, and the store pattern.',
+                'routing': 'React Router enables client-side navigation. Libraries like React Router v6 handle page transitions without full page reloads. Key components: BrowserRouter, Routes, Route, Link.',
+                'middleware': 'Express middleware are functions that process requests before reaching route handlers. They can validate data, log requests, handle authentication, and more.',
+                'auth': 'Authentication verifies user identity. Common methods: JWT tokens, OAuth, session-based auth. Always hash passwords with bcrypt and never store plain text passwords.',
+                'database': 'A database stores and retrieves data. SQL databases (PostgreSQL) are relational; NoSQL (MongoDB) are document-based. Choose based on your data structure and scalability needs.',
+                'deployment': 'Deployment puts your app live on the internet. Popular platforms: Vercel (frontend), Render or Heroku (backend), AWS, Google Cloud. GitHub Actions automates deployments via CI/CD.',
+                'git': 'Git is version control software. GitHub is a platform for hosting repositories. Use git to track code changes, collaborate with teams, and manage different versions of your project.',
+                'npm': 'NPM (Node Package Manager) installs and manages JavaScript libraries. Use "npm install package-name" to add dependencies. package.json tracks all dependencies.',
+                'api': 'An API (Application Programming Interface) lets different software communicate. In web dev, APIs return data (JSON) over HTTP. Your React app calls your Node.js backend API.',
+                'full stack': 'Full Stack development means building both frontend (React) and backend (Node.js). You handle UI, database, authentication, API design, and deployment.',
+                'hello': 'Hello! I\'m your Full Stack AI Tutor. Ask me anything about React, Node.js, MongoDB, Express, JWT, GenAI, and other Full Stack technologies!',
+                'hi': 'Hi there! Ready to learn Full Stack Development? Ask me about React, Node.js, MongoDB, Express, JWT, or GenAI. I\'m here to help!',
+                'default': 'Great question! Full Stack covers React (frontend), Node.js/Express (backend), MongoDB (database), and GenAI integration. Be more specific: "What is React?", "How does MongoDB work?", or "Explain JWT authentication?"'
+            },
+            hi: {
+                'react': 'React एक JavaScript लाइब्रेरी है जो reusable components से UIs बनाती है। JSX, Virtual DOM, state, props, और hooks का उपयोग करते हैं। React fast और scalable है।',
+                'node': 'Node.js एक runtime है जो सर्वर पर JavaScript चलाता है। Event-driven, non-blocking है। Modern web apps की backend को power देता है।',
+                'mongodb': 'MongoDB एक NoSQL database है जो JSON जैसे documents में data store करता है। SQL के विपरीत, यह flexible है।',
+                'express': 'Express.js एक Node.js framework है जो REST APIs बनाने के लिए है। Routing, middleware, और HTTP requests handle करता है।',
+                'jwt': 'JWT एक secure तरीका है users को authenticate करने का। Token में header, payload, और signature होते हैं।',
+                'genai': 'GenAI (Generative AI) GPT और Gemini जैसे models हैं जो text, code, और images generate करते हैं।',
+                'cors': 'CORS (Cross-Origin Resource Sharing) से frontend (different domain) backend API को access कर सकता है।',
+                'rest api': 'REST API HTTP methods (GET, POST, PUT, DELETE) का use करता है। Stateless और scalable design है।',
+                'hello': 'नमस्ते! मैं आपका Full Stack AI ट्यूटर हूँ। React, Node.js, MongoDB, Express, JWT, या GenAI के बारे में कुछ भी पूछें!',
+                'hi': 'नमस्ते! Full Stack Development सीखने के लिए तैयार हैं? मैं आपकी मदद कर सकता हूँ!',
+                'default': 'अच्छा सवाल! Full Stack में React (frontend), Node.js (backend), MongoDB (database) शामिल है। कृपया specific प्रश्न पूछें: "React क्या है?" या "MongoDB कैसे काम करता है?"'
+            },
+            ar: {
+                'react': 'React هي مكتبة JavaScript لبناء واجهات المستخدم من مكونات قابلة لإعادة الاستخدام. تستخدم JSX والخطافات والحالة والخصائص.',
+                'node': 'Node.js هو وقت تشغيل يسمح لك بتشغيل JavaScript على الخوادم. إنه مدفوع بالأحداث وخالي من الحجب.',
+                'mongodb': 'MongoDB هي قاعدة بيانات NoSQL تخزن البيانات في مستندات تشبه JSON. مرنة وبدون مخطط ثابت.',
+                'express': 'Express.js هو إطار عمل Node.js لبناء REST APIs بسرعة. يتعامل مع التوجيه والبرامج الوسيطة.',
+                'jwt': 'JWT (JSON Web Token) طريقة آمنة للتحقق من هوية المستخدمين. يحتوي على رأس وحمول وتوقيع.',
+                'genai': 'GenAI تشير إلى نماذج AI التوليدية مثل GPT و Gemini التي تولد النصوص والأكواد والصور.',
+                'hello': 'مرحباً! أنا معلمك الذكي للـ Full Stack. اسألني عن React أو Node.js أو MongoDB أو Express أو JWT أو GenAI!',
+                'hi': 'مرحباً! هل أنت مستعد لتعلم Full Stack Development؟ أنا هنا للمساعدة!',
+                'default': 'سؤال رائع! يشمل Full Stack على React (frontend) و Node.js (backend) و MongoDB (database). حاول السؤال: "ما هو React؟" أو "كيف تعمل MongoDB؟"'
+            }
+        };
+
+        function getAnswer(question, lang) {
+            const q = question.toLowerCase();
+            const kb = knowledgeBase[lang] || knowledgeBase['en'];
+
+            for (const [keyword, answer] of Object.entries(kb)) {
+                if (keyword !== 'default' && q.includes(keyword)) {
+                    return answer;
+                }
+            }
+
+            if (lang !== 'en') {
+                const enKb = knowledgeBase['en'];
+                for (const [keyword, answer] of Object.entries(enKb)) {
+                    if (keyword !== 'default' && q.includes(keyword)) {
+                        return answer;
+                    }
+                }
+            }
+
+            return kb['default'] || knowledgeBase['en']['default'];
+        }
+
+        async function sendMessage() {
+            if (isLoading) return;
+
+            const input = document.getElementById('userInput');
+            const question = input.value.trim();
+            if (!question) return;
+
+            addMessage('user', question);
+            input.value = '';
+            isLoading = true;
+            addThinkingIndicator();
+
+            await new Promise(resolve => setTimeout(resolve, 800));
+
+            const answer = getAnswer(question, currentLanguage);
+            removeThinkingIndicator();
+            addMessage('bot', answer);
+            speakAnswer(answer);
+
+            isLoading = false;
+        }
+
+        function speakAnswer(text) {
+            try {
+                if (!window.speechSynthesis) return;
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = currentLanguage === 'hi' ? 'hi-IN' : currentLanguage === 'ar' ? 'ar-SA' : 'en-US';
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+                window.speechSynthesis.speak(utterance);
+            } catch (e) {
+                console.log('Speech skipped');
+            }
+        }
+
+        function startVoiceInput() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                alert('Voice input not supported in your browser. Try Chrome.');
+                return;
+            }
+            const btn = document.getElementById('voiceBtn');
+            const recognition = new SpeechRecognition();
+            recognition.language = currentLanguage === 'hi' ? 'hi-IN' : currentLanguage === 'ar' ? 'ar-SA' : 'en-US';
+
+            recognition.onstart = () => {
+                btn.classList.add('voice-btn-active');
+                btn.innerHTML = '<i class="fas fa-stop text-sm"></i>';
+            };
+            recognition.onresult = (event) => {
+                const transcript = Array.from(event.results).map(r => r[0].transcript).join('');
+                document.getElementById('userInput').value = transcript;
+            };
+            recognition.onend = () => {
+                btn.classList.remove('voice-btn-active');
+                btn.innerHTML = '<i class="fas fa-microphone text-sm"></i>';
+            };
+            recognition.onerror = () => {
+                btn.classList.remove('voice-btn-active');
+                btn.innerHTML = '<i class="fas fa-microphone text-sm"></i>';
+            };
+            recognition.start();
+        }
+    </script>
+</body>
+</html>

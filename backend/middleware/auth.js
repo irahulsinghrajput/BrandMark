@@ -40,8 +40,9 @@ const auth = async (req, res, next) => {
             });
         }
 
-        // Add admin to request object
+        // Add admin to request object and make it available as req.user for routes that expect a user object
         req.admin = admin;
+        req.user = admin;
         next();
     } catch (error) {
         console.error('Auth middleware error:', error);

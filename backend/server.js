@@ -36,6 +36,8 @@ app.use('/api/', limiter);
 // CORS Configuration
 const allowedOrigins = [
     'http://localhost:5500',
+    'http://localhost:5001',
+    'http://localhost:3000',
     'https://brandmarksolutions.site',
     'https://www.brandmarksolutions.site'
 ];
@@ -44,6 +46,9 @@ app.use(cors({
     origin: function(origin, callback) {
         // Allow requests with no origin (like mobile apps or curl)
         if (!origin) return callback(null, true);
+        
+        // Allow file:// pages that send origin 'null'
+        if (origin === 'null') return callback(null, true);
         
         if (process.env.NODE_ENV === 'development') {
             return callback(null, true); // Allow all in development
