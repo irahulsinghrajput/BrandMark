@@ -75,7 +75,7 @@ async function startEnrollmentFlow(courseId) {
             currency: 'INR',
             name: 'BrandMark Solutions',
             description: courseTitle,
-            image: 'https://brandmarksolutions.site/new logoBrandMarkupdatedone.jpeg',
+            image: 'https://brandmarksolutions.site/brandmark-logo-new.png.png',
             prefill: {
                 name: studentName,
                 email: email,
@@ -596,7 +596,7 @@ Create file: `verify-certificate.html`
 <body>
     <div class="container">
         <div class="logo">
-            <img src="new logoBrandMarkupdatedone.jpeg" alt="BrandMark">
+            <img src="brandmark-logo-new.png.png" alt="BrandMark">
         </div>
         
         <h1>Certificate Verification</h1>

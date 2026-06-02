@@ -11,7 +11,7 @@
             <div class="flex justify-between items-center h-20">
                 <!-- Logo Area -->
                 <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer no-underline" aria-label="BrandMark Home">
-                    <img src="new logoBrandMarkupdatedone.jpeg" alt="Brand Mark Logo" class="h-12 w-12 rounded-full object-cover mr-3">
+                    <img src="brandmark-logo-new.png.png" alt="Brand Mark Logo" class="h-12 w-12 rounded-full object-cover mr-3">
                     <span class="text-2xl font-bold tracking-tighter text-white">
                         Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">®</span>
                     </span>
