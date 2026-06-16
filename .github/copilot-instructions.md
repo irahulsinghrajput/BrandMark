@@ -85,7 +85,7 @@ Older pages (About Us, Services, Careers) embed `<style>` tags in HTML instead o
 - Google Fonts: "Outfit" family (loaded in head)
 
 ### Image Assets
-Images stored in root directory: `Brandmarklogo.jpeg`, `DigitalMarketing.jpeg`, etc. Paths are relative in HTML files.
+Images stored in root directory: `brandmark-logo-new.png.png` (standardized logo used throughout all pages), `DigitalMarketing.jpeg`, etc. Paths are relative in HTML files. All pages now use `brandmark-logo-new.png.png` as the primary logo.
 
 ## Common Tasks
 
