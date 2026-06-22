@@ -12,8 +12,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Careers | Brand Mark Solutions</title>
-    <meta name="description" content="Join the BrandMark team! Explore career opportunities and internships in digital marketing, design, photography, UI/UX, and web development.">
+    <title>Careers - BrandMark Solutions | Join Our Team</title>
+    <meta name="description" content="Join BrandMark Solutions! Explore careers and internships in marketing, design, photography, UI/UX, and web development.">
     <meta name="keywords" content="marketing jobs, design internships, digital marketing careers, UI/UX jobs, photography internship, web design jobs">
     
     <!-- Open Graph / Facebook -->
@@ -21,7 +21,7 @@
     <meta property="og:url" content="https://brandmarksolutions.site/brandmarkcareers.html">
     <meta property="og:title" content="Careers | Brand Mark Solutions">
     <meta property="og:description" content="Join our team! Explore career opportunities in marketing, design, and development.">
-    <meta property="og:image" content="https://brandmarksolutions.site/new logoBrandMarkupdatedone.jpeg">
+    <meta property="og:image" content="https://brandmarksolutions.site/brandmark-logo-new.png.png">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
@@ -30,14 +30,31 @@
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://brandmarksolutions.site/brandmarkcareers.html">
-    
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR-GA-ID"></script>
+
+    <!-- CSRF Token Meta Tag (initialized on page load) -->
+    <meta name="csrf-token" content="">
+
+    <!-- CSRF Token Initialization Script -->
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'YOUR-GA-ID');
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const isLocalhost =
+                    window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.protocol === 'file:';
+                const API_URL = isLocalhost 
+                    ? 'http://localhost:5001/api'
+                    : 'https://brandmark-api-2026.onrender.com/api';
+
+                const response = await fetch(`${API_URL}/csrf-token`);
+                const data = await response.json();
+                if (data.token) {
+                    document.querySelector('meta[name="csrf-token"]').content = data.token;
+                }
+            } catch (error) {
+                console.warn('Failed to fetch CSRF token:', error);
+            }
+        });
     </script>
     
     <link rel="stylesheet" href="brandmark.css">
@@ -70,7 +87,6 @@
             }
         }
     </script>
-    <script src="https://t.contentsquare.net/uxa/c673c89abc518.js"></script>
 </head>
 <body class="bg-brand-bg-light text-brand-text-body font-sans antialiased selection:bg-brand-orange selection:text-white">
 
@@ -83,7 +99,7 @@
             <div class="flex justify-between items-center h-20">
                 <!-- Logo Area -->
                 <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer no-underline" aria-label="BrandMark Home">
-                    <img src="new logoBrandMarkupdatedone.jpeg" alt="Brand Mark Logo" class="h-12 w-12 rounded-full object-cover mr-3">
+                    <img src="brandmark-logo-new.png.png" alt="Brand Mark Logo" class="h-12 w-12 rounded-full object-cover mr-3">
                     <span class="text-2xl font-bold tracking-tighter text-white">
                         Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">®</span>
                     </span>
@@ -278,7 +294,7 @@
                 <div>
                     <h4 class="text-white font-bold mb-6">Contact</h4>
                     <ul class="space-y-3 text-sm text-gray-300">
-                        <li class="flex items-center"><i class="fa-solid fa-envelope w-5"></i> info.aimservicesprivatelimited@gmail.com</li>
+                        <li class="flex items-center"><i class="fa-solid fa-envelope w-5"></i> contact@brandmarksolutions.site</li>
                         <li class="flex items-center"><i class="fa-solid fa-phone w-5"></i> +91 709 186 3003</li>
                         <li class="flex items-center"><i class="fa-solid fa-location-dot w-5"></i> Gangotri, Buddha colony, Patna - 800001</li>
                     </ul>
@@ -318,7 +334,7 @@
             "@type": "Organization",
             "name": "BrandMark Solutions",
             "sameAs": "https://brandmarksolutions.site/",
-            "logo": "https://brandmarksolutions.site/new logoBrandMarkupdatedone.jpeg"
+            "logo": "https://brandmarksolutions.site/brandmark-logo-new.png.png"
         },
         "jobLocation": {
             "@type": "Place",

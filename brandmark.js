@@ -5,8 +5,50 @@ const isLocalhost =
     window.location.hostname === '127.0.0.1' ||
     window.location.protocol === 'file:';
 const API_URL = isLocalhost 
-    ? 'http://localhost:5000/api'     // Local Backend
+    ? 'http://localhost:5001/api'     // Local Backend
     : 'https://brandmark-api-2026.onrender.com/api'; // Production Backend
+
+// ============= SECURITY HELPERS =============
+// Generate CSRF Token (retrieved from meta tag set by server)
+function getCsrfToken() {
+    const token = document.querySelector('meta[name="csrf-token"]')?.content;
+    return token || '';
+}
+
+// Safe text content setter (prevents XSS)
+function setSafeText(element, text) {
+    if (typeof text !== 'string') {
+        element.textContent = '';
+        return;
+    }
+    element.textContent = text;
+}
+
+// Safe HTML builder (only use with trusted HTML, never with user input)
+function createSafeMessage(type, message) {
+    const div = document.createElement('div');
+    div.className = `text-center p-4 rounded-lg border`;
+    
+    switch(type) {
+        case 'error':
+            div.className += ' bg-red-100 text-red-800 border-red-300';
+            break;
+        case 'success':
+            div.className += ' bg-green-100 text-green-800 border-green-300';
+            break;
+        case 'warning':
+            div.className += ' bg-yellow-100 text-yellow-800 border-yellow-300';
+            break;
+        case 'info':
+            div.className += ' bg-blue-100 text-blue-800 border-blue-300';
+            break;
+        default:
+            div.className += ' bg-gray-100 text-gray-800 border-gray-300';
+    }
+    
+    setSafeText(div, message);
+    return div;
+}
 
 // Mobile Menu Toggle
 const btn = document.getElementById('mobile-menu-btn');
@@ -47,12 +89,66 @@ if (contactForm) {
         const messageDiv = document.getElementById('contactMessage');
         
         // Get form data
+        const name = contactForm.querySelector('[name="name"]').value.trim();
+        const email = contactForm.querySelector('[name="email"]').value.trim();
+        const phone = contactForm.querySelector('[name="phone"]').value.trim();
+        const subject = contactForm.querySelector('[name="subject"]').value.trim();
+        const message = contactForm.querySelector('[name="message"]').value.trim();
+        
+        // Enhanced form validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^[\d\s\-\+\(\)]{10,}$/;
+        
+        // Validate all fields
+        if (!name || name.length < 2) {
+            const msg = createSafeMessage('warning', '❌ Please enter a valid name (at least 2 characters).');
+            messageDiv.replaceChildren(msg);
+            messageDiv.classList.remove('hidden');
+            return;
+        }
+        
+        if (!emailRegex.test(email)) {
+            const msg = createSafeMessage('warning', '❌ Please enter a valid email address.');
+            messageDiv.replaceChildren(msg);
+            messageDiv.classList.remove('hidden');
+            return;
+        }
+        
+        if (phone && !phoneRegex.test(phone)) {
+            const msg = createSafeMessage('warning', '❌ Please enter a valid phone number.');
+            messageDiv.replaceChildren(msg);
+            messageDiv.classList.remove('hidden');
+            return;
+        }
+        
+        if (!subject || subject.length < 3) {
+            const msg = createSafeMessage('warning', '❌ Please enter a subject (at least 3 characters).');
+            messageDiv.replaceChildren(msg);
+            messageDiv.classList.remove('hidden');
+            return;
+        }
+        
+        if (!message || message.length < 10) {
+            const msg = createSafeMessage('warning', '❌ Please enter a message (at least 10 characters).');
+            messageDiv.replaceChildren(msg);
+            messageDiv.classList.remove('hidden');
+            return;
+        }
+        
+        // Track contact form submit in Google Analytics
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'contact_form_submit', {
+                'event_category': 'engagement',
+                'event_label': subject
+            });
+        }
+        
         const formData = {
-            name: contactForm.querySelector('[name="name"]').value,
-            email: contactForm.querySelector('[name="email"]').value,
-            phone: contactForm.querySelector('[name="phone"]').value,
-            subject: contactForm.querySelector('[name="subject"]').value,
-            message: contactForm.querySelector('[name="message"]').value
+            name,
+            email,
+            phone: phone || '',
+            subject,
+            message
         };
         
         // Show enhanced loading state with cold-start warning
@@ -60,26 +156,42 @@ if (contactForm) {
         btnSpinner.classList.remove('hidden');
         btn.disabled = true;
         
-        // Show patience message for cold starts
-        messageDiv.className = 'text-center p-4 rounded-lg bg-blue-100 text-blue-800 border border-blue-300';
-        messageDiv.innerHTML = `
-            <div class="flex items-center justify-center gap-2 mb-2">
-                <svg class="animate-spin h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                <strong>Connecting to secure server...</strong>
-            </div>
-            <p class="text-sm">Please wait while we establish a secure connection. This may take up to 30 seconds.</p>
-            <p class="text-xs mt-1 opacity-75">Thank you for your patience!</p>
-        `;
+        // Show patience message for cold starts (SAFE: using createElement)
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'text-center p-4 rounded-lg bg-blue-100 text-blue-800 border border-blue-300';
+        
+        const spinnerContainer = document.createElement('div');
+        spinnerContainer.className = 'flex items-center justify-center gap-2 mb-2';
+        
+        const spinner = document.createElement('i');
+        spinner.className = 'fas fa-spinner fa-spin text-blue-600';
+        
+        const text = document.createElement('strong');
+        setSafeText(text, 'Connecting to secure server...');
+        
+        spinnerContainer.appendChild(spinner);
+        spinnerContainer.appendChild(text);
+        loadingDiv.appendChild(spinnerContainer);
+        
+        const waitText = document.createElement('p');
+        waitText.className = 'text-sm';
+        setSafeText(waitText, 'Please wait while we establish a secure connection. This may take up to 30 seconds.');
+        loadingDiv.appendChild(waitText);
+        
+        const patienceText = document.createElement('p');
+        patienceText.className = 'text-xs mt-1 opacity-75';
+        setSafeText(patienceText, 'Thank you for your patience!');
+        loadingDiv.appendChild(patienceText);
+        
+        messageDiv.replaceChildren(loadingDiv);
         messageDiv.classList.remove('hidden');
 
         try {
             const response = await fetch(`${API_URL}/contact`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': getCsrfToken()  // SECURITY: Add CSRF token
                 },
                 body: JSON.stringify(formData)
             });
@@ -87,25 +199,135 @@ if (contactForm) {
             const data = await response.json();
 
             if (data.success) {
-                // Success message
-                messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-                messageDiv.textContent = data.message || 'Thank you! We will get back to you soon.';
+                // Track successful contact form submission
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'contact_form_success', {
+                        'event_category': 'conversion',
+                        'event_label': 'contact_form'
+                    });
+                }
+                
+                // Success message (SAFE)
+                const msg = createSafeMessage('success', data.message || 'Thank you! We will get back to you soon.');
+                messageDiv.replaceChildren(msg);
                 messageDiv.classList.remove('hidden');
                 contactForm.reset();
             } else {
-                // Error message
-                messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-                messageDiv.textContent = data.message || 'Something went wrong. Please try again.';
+                // Error message (SAFE)
+                const msg = createSafeMessage('error', data.message || 'Something went wrong. Please try again.');
+                messageDiv.replaceChildren(msg);
                 messageDiv.classList.remove('hidden');
             }
         } catch (error) {
             console.error('Contact form error:', error);
-            messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-            messageDiv.textContent = 'Failed to send message. Please check your connection.';
+            const msg = createSafeMessage('error', 'Failed to send message. Please check your connection.');
+            messageDiv.replaceChildren(msg);
             messageDiv.classList.remove('hidden');
         } finally {
             // Reset button state
             btnText.textContent = 'Send Message';
+            btnSpinner.classList.add('hidden');
+            btn.disabled = false;
+        }
+    });
+}
+
+// Free SEO Audit Form Handling
+const seoAuditForm = document.getElementById('seoAuditForm');
+if (seoAuditForm) {
+    seoAuditForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = seoAuditForm.querySelector('[name="name"]').value.trim();
+        const email = seoAuditForm.querySelector('[name="email"]').value.trim();
+        const phone = seoAuditForm.querySelector('[name="phone"]').value.trim();
+        const website = seoAuditForm.querySelector('[name="website"]').value.trim();
+        const notes = seoAuditForm.querySelector('[name="message"]').value.trim();
+
+        const messageDiv = document.getElementById('seoAuditMessage');
+        const btn = document.getElementById('seoAuditSubmitBtn');
+        const btnText = document.getElementById('seoAuditBtnText');
+        const btnSpinner = document.getElementById('seoAuditBtnSpinner');
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const urlRegex = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/.*)?$/i;
+
+        if (!name || name.length < 2) {
+            const msg = createSafeMessage('warning', 'Please enter your full name.');
+            messageDiv.replaceChildren(msg);
+            messageDiv.classList.remove('hidden');
+            return;
+        }
+
+        if (!emailRegex.test(email)) {
+            const msg = createSafeMessage('warning', 'Please enter a valid email address.');
+            messageDiv.replaceChildren(msg);
+            messageDiv.classList.remove('hidden');
+            return;
+        }
+
+        if (!urlRegex.test(website)) {
+            const msg = createSafeMessage('warning', 'Please enter a valid website URL.');
+            messageDiv.replaceChildren(msg);
+            messageDiv.classList.remove('hidden');
+            return;
+        }
+
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'seo_audit_request', {
+                'event_category': 'engagement',
+                'event_label': website
+            });
+        }
+
+        const formData = {
+            name,
+            email,
+            phone: phone || '',
+            subject: 'Free SEO Audit Request',
+            message: `Website: ${website}\nNotes: ${notes || 'No additional notes provided.'}`
+        };
+
+        btnText.textContent = 'Submitting...';
+        btnSpinner.classList.remove('hidden');
+        btn.disabled = true;
+
+        try {
+            const response = await fetch(`${API_URL}/contact`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': getCsrfToken()  // SECURITY: Add CSRF token
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'seo_audit_success', {
+                        'event_category': 'conversion',
+                        'event_label': 'free_seo_audit'
+                    });
+                }
+
+                const msg = createSafeMessage('success', data.message || 'Request sent! We will email your audit shortly.');
+                messageDiv.replaceChildren(msg);
+                messageDiv.classList.remove('hidden');
+                seoAuditForm.reset();
+            } else {
+                const msg = createSafeMessage('error', data.message || 'Something went wrong. Please try again.');
+                messageDiv.replaceChildren(msg);
+                messageDiv.classList.remove('hidden');
+            }
+        } catch (error) {
+            console.error('SEO audit form error:', error);
+            const msg = createSafeMessage('error', 'Failed to send request. Please check your connection.');
+            messageDiv.replaceChildren(msg);
+            messageDiv.classList.remove('hidden');
+        } finally {
+            btnText.textContent = 'Request Free Audit';
             btnSpinner.classList.add('hidden');
             btn.disabled = false;
         }
@@ -121,54 +343,56 @@ newsletterForms.forEach(form => {
         const emailInput = form.querySelector('input[type="email"]');
         const btn = form.querySelector('button[type="submit"]');
         const originalText = btn.innerText;
-
-        // Create or get message container
-        let msgContainer = form.nextElementSibling;
-        if (!msgContainer || !msgContainer.classList.contains('newsletter-msg')) {
-            msgContainer = document.createElement('div');
-            msgContainer.className = 'newsletter-msg mt-4 text-center p-3 rounded-lg hidden text-sm font-medium';
-            form.parentNode.insertBefore(msgContainer, form.nextSibling);
+        
+        // Basic email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailInput.value)) {
+            alert('❌ Please enter a valid email address.');
+            return;
         }
         
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
+        // Track newsletter signup attempt
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'newsletter_signup_attempt', {
+                'event_category': 'engagement'
+            });
+        }
+        
+        btn.innerText = 'Subscribing...';
         btn.disabled = true;
-        msgContainer.classList.add('hidden');
 
         try {
             const response = await fetch(`${API_URL}/newsletter`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': getCsrfToken()  // SECURITY: Add CSRF token
                 },
                 body: JSON.stringify({ email: emailInput.value })
             });
 
             const data = await response.json();
 
-            msgContainer.classList.remove('hidden');
             if (data.success) {
-                msgContainer.className = 'newsletter-msg mt-4 text-center p-3 rounded-lg bg-green-100 text-green-800 text-sm font-medium';
-                msgContainer.innerHTML = '✅ ' + (data.message || 'Successfully subscribed! Check your inbox.');
+                // Track successful newsletter signup
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'newsletter_signup_success', {
+                        'event_category': 'conversion',
+                        'event_label': 'newsletter'
+                    });
+                }
+                
+                alert('✅ ' + (data.message || 'Successfully subscribed to newsletter!'));
                 form.reset();
             } else {
-                msgContainer.className = 'newsletter-msg mt-4 text-center p-3 rounded-lg bg-red-100 text-red-800 text-sm font-medium';
-                msgContainer.innerHTML = '❌ ' + (data.message || 'Failed to subscribe. Please try again.');
+                alert('❌ ' + (data.message || 'Failed to subscribe. Please try again.'));
             }
         } catch (error) {
             console.error('Newsletter error:', error);
-            msgContainer.classList.remove('hidden');
-            msgContainer.className = 'newsletter-msg mt-4 text-center p-3 rounded-lg bg-red-100 text-red-800 text-sm font-medium';
-            msgContainer.innerHTML = '❌ Network error. Please check your connection.';
+            alert('❌ Failed to subscribe. Please check your connection.');
         } finally {
             btn.innerText = originalText;
             btn.disabled = false;
-            
-            // Auto hide success message after 5 seconds
-            if (msgContainer.innerHTML.includes('✅')) {
-                setTimeout(() => {
-                    msgContainer.classList.add('hidden');
-                }, 5000);
-            }
         }
     });
 });
@@ -331,14 +555,15 @@ function createChatWidget() {
 
     const widget = document.createElement('div');
     widget.id = 'bm-chat-widget';
+    widget.style.cssText = 'position:fixed !important; bottom:30px !important; right:30px !important; z-index:1100 !important;';
     widget.innerHTML = `
         <button id="bm-chat-toggle" aria-label="Open Brandmark AI chat">
-            <img src="Brandmarkchatbot.PNG" alt="Chat" class="bm-chat-toggle-img" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+            <img src="brandmark-logo-new.png.png" alt="Chat with Brandmark" class="bm-chat-toggle-icon" onerror="this.src='💬'">
         </button>
         <div id="bm-chat-window" class="bm-chat-hidden" role="dialog" aria-label="Brandmark AI chat window">
             <div class="bm-chat-header">
                 <div class="bm-chat-title">
-                    <img src="Brandmarkchatbot.PNG" alt="Brandmark AI Bot" class="bm-chat-logo" onerror="this.onerror=null; this.src='Brandmarklogo.jpeg';" />
+                    <img src="https://www.brandmarksolutions.site/brandmark-logo-new.png.png?v=2" alt="Brandmark logo" class="bm-chat-logo" onerror="this.onerror=null; this.src='https://www.brandmarksolutions.site/brandmark-logo-new.png.png?v=1';" />
                     <span>Ask Brandmark AI</span>
                 </div>
                 <button id="bm-chat-close" aria-label="Close chat">✖</button>
@@ -362,9 +587,17 @@ function createChatWidget() {
     const sendBtn = widget.querySelector('#bm-chat-send');
 
     const toggleChat = () => {
+        const isOpening = chatWindow.classList.contains('bm-chat-hidden');
         chatWindow.classList.toggle('bm-chat-hidden');
         if (!chatWindow.classList.contains('bm-chat-hidden')) {
             input.focus();
+            // Track chatbot opened
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'chatbot_opened', {
+                    'event_category': 'engagement',
+                    'event_label': 'brandmark_ai'
+                });
+            }
         }
     };
 
@@ -381,6 +614,14 @@ function createChatWidget() {
     const sendMessage = async () => {
         const userText = input.value.trim();
         if (!userText) return;
+
+        // Track chatbot message sent
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'chatbot_message_sent', {
+                'event_category': 'engagement',
+                'event_label': 'brandmark_ai'
+            });
+        }
 
         appendMessage(userText, 'bm-chat-user');
         input.value = '';

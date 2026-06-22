@@ -13,6 +13,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | BrandMark Solutions</title>
+    
+    <!-- CSRF Token Meta Tag (initialized on page load) -->
+    <meta name="csrf-token" content="">
+    
+    <!-- CSRF Token Initialization Script -->
+    <script>
+        // Initialize CSRF token before page loads
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const isLocalhost =
+                    window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.protocol === 'file:';
+                const API_URL = isLocalhost 
+                    ? 'http://localhost:5001/api'
+                    : 'https://brandmark-api-2026.onrender.com/api';
+
+                const response = await fetch(`${API_URL}/csrf-token`);
+                const data = await response.json();
+                if (data.token) {
+                    document.querySelector('meta[name="csrf-token"]').content = data.token;
+                }
+                
+                // Check if user is still authenticated via server
+                await checkAdminSession();
+            } catch (error) {
+                console.warn('Failed to initialize CSRF token:', error);
+            }
+        });
+
+        // Check if session is still valid (server-side)
+        async function checkAdminSession() {
+            try {
+                const isLocalhost =
+                    window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.protocol === 'file:';
+                const API_URL = isLocalhost 
+                    ? 'http://localhost:5001/api'
+                    : 'https://brandmark-api-2026.onrender.com/api';
+
+                const response = await fetch(`${API_URL}/admin/verify`, {
+                    credentials: 'include' // Include cookies
+                });
+                
+                const data = await response.json();
+                if (data.authenticated) {
+                    showDashboardOnLoad();
+                }
+            } catch (error) {
+                console.warn('Session check failed:', error);
+            }
+        }
+    </script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -349,7 +404,6 @@
             }
         }
     </style>
-    <script src="https://t.contentsquare.net/uxa/c673c89abc518.js"></script>
 </head>
 <body>
 
@@ -406,6 +460,11 @@
                     <h3>Newsletter Subscribers</h3>
                     <div class="number" id="totalSubscribers">0</div>
                 </div>
+                <div class="stat-card">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <h3>Quote Requests</h3>
+                    <div class="number" id="totalQuotes">0</div>
+                </div>
             </div>
 
             <!-- Tabs -->
@@ -418,6 +477,9 @@
                 </button>
                 <button class="tab-btn" onclick="switchTab('newsletter')">
                     <i class="fas fa-newspaper"></i> Newsletter
+                </button>
+                <button class="tab-btn" onclick="switchTab('quotes')">
+                    <i class="fas fa-file-invoice-dollar"></i> Quotes
                 </button>
             </div>
 
@@ -496,19 +558,57 @@
                     </table>
                 </div>
             </div>
+
+            <!-- Quotes Tab -->
+            <div class="tab-content" id="quotesTab">
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Market</th>
+                                <th>Company Size</th>
+                                <th>Quote</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quotesBody">
+                            <tr>
+                                <td colspan="8" class="loading">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // Production backend
-        const API_URL = 'https://brandmark-api-2026.onrender.com/api';
-        // For local development: 'http://localhost:5000/api'
-        // const API_URL = 'http://localhost:5000/api';
-        let authToken = localStorage.getItem('adminToken');
+        // Detect environment
+        const isLocalhost =
+            window.location.hostname === 'localhost' ||
+            window.location.hostname === '127.0.0.1' ||
+            window.location.protocol === 'file:';
+        const API_URL = isLocalhost 
+            ? 'http://localhost:5001/api'
+            : 'https://brandmark-api-2026.onrender.com/api';
 
-        // Check if already logged in
-        if (authToken) {
-            showDashboard();
+        // ============= SECURITY HELPERS =============
+        function getCsrfToken() {
+            return document.querySelector('meta[name="csrf-token"]')?.content || '';
+        }
+
+        // Show dashboard after initial check
+        function showDashboardOnLoad() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('dashboardScreen').classList.add('active');
+            // Delay loading to ensure CSRF token is ready
+            setTimeout(() => loadDashboardData(), 100);
         }
 
         // Login Form Handler
@@ -527,21 +627,26 @@
             try {
                 const response = await fetch(`${API_URL}/admin/login`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'X-CSRF-Token': getCsrfToken()  // SECURITY: Add CSRF token
+                    },
+                    credentials: 'include',  // SECURITY: Include cookies (for httpOnly cookie auth)
                     body: JSON.stringify({ email, password })
                 });
                 
                 const data = await response.json();
                 
-                if (data.success) {
-                    authToken = data.token;
-                    localStorage.setItem('adminToken', authToken);
+                if (data.success || response.ok) {
+                    // Don't store token in localStorage - let server handle it via httpOnly cookie
+                    // Server will set cookie automatically
                     showDashboard();
                 } else {
                     errorDiv.textContent = data.message || 'Login failed. Please check your credentials.';
                     errorDiv.classList.add('show');
                 }
             } catch (error) {
+                console.error('Login error:', error);
                 errorDiv.textContent = 'Connection error. Please ensure the backend server is running.';
                 errorDiv.classList.add('show');
             } finally {
@@ -557,10 +662,25 @@
         }
 
         function logout() {
-            localStorage.removeItem('adminToken');
-            authToken = null;
-            document.getElementById('loginScreen').style.display = 'flex';
-            document.getElementById('dashboardScreen').classList.remove('active');
+            // Send logout request to server (server will clear httpOnly cookie)
+            fetch(`${API_URL}/admin/logout`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-Token': getCsrfToken()  // SECURITY: Add CSRF token
+                },
+                credentials: 'include'  // Include cookies
+            }).then(() => {
+                // Clear UI regardless of server response
+                document.getElementById('loginScreen').style.display = 'flex';
+                document.getElementById('dashboardScreen').classList.remove('active');
+                // Reset form
+                document.getElementById('loginForm').reset();
+            }).catch(error => {
+                console.error('Logout error:', error);
+                // Still clear UI even if logout fails
+                document.getElementById('loginScreen').style.display = 'flex';
+                document.getElementById('dashboardScreen').classList.remove('active');
+            });
         }
 
         async function loadDashboardData() {
@@ -568,21 +688,27 @@
                 loadStats(),
                 loadApplications(),
                 loadContacts(),
-                loadNewsletter()
+                loadNewsletter(),
+                loadQuotes()
             ]);
         }
 
         async function loadStats() {
             try {
                 const response = await fetch(`${API_URL}/admin/dashboard`, {
-                    headers: { 'Authorization': `Bearer ${authToken}` }
+                    headers: { 
+                        'X-CSRF-Token': getCsrfToken()
+                    },
+                    credentials: 'include'  // Include httpOnly cookies
                 });
                 const data = await response.json();
                 
                 if (data.success) {
-                    document.getElementById('totalApplications').textContent = data.data.totalApplications || 0;
-                    document.getElementById('totalContacts').textContent = data.data.totalContacts || 0;
-                    document.getElementById('totalSubscribers').textContent = data.data.totalSubscribers || 0;
+                    const stats = data.data.stats || data.data;
+                    document.getElementById('totalApplications').textContent = (stats.applications && stats.applications.total) || stats.totalApplications || 0;
+                    document.getElementById('totalContacts').textContent = (stats.contacts && stats.contacts.total) || stats.totalContacts || 0;
+                    document.getElementById('totalSubscribers').textContent = stats.subscribers || stats.totalSubscribers || 0;
+                    document.getElementById('totalQuotes').textContent = (stats.quotes && stats.quotes.total) || stats.totalQuotes || 0;
                 }
             } catch (error) {
                 console.error('Error loading stats:', error);
@@ -592,7 +718,10 @@
         async function loadApplications() {
             try {
                 const response = await fetch(`${API_URL}/careers`, {
-                    headers: { 'Authorization': `Bearer ${authToken}` }
+                    headers: { 
+                        'X-CSRF-Token': getCsrfToken()
+                    },
+                    credentials: 'include'
                 });
                 const data = await response.json();
                 
@@ -647,7 +776,10 @@
         async function loadContacts() {
             try {
                 const response = await fetch(`${API_URL}/contact`, {
-                    headers: { 'Authorization': `Bearer ${authToken}` }
+                    headers: { 
+                        'X-CSRF-Token': getCsrfToken()
+                    },
+                    credentials: 'include'
                 });
                 const data = await response.json();
                 
@@ -691,7 +823,10 @@
         async function loadNewsletter() {
             try {
                 const response = await fetch(`${API_URL}/newsletter`, {
-                    headers: { 'Authorization': `Bearer ${authToken}` }
+                    headers: { 
+                        'X-CSRF-Token': getCsrfToken()
+                    },
+                    credentials: 'include'
                 });
                 const data = await response.json();
                 
@@ -725,15 +860,75 @@
             }
         }
 
+        async function loadQuotes() {
+            try {
+                const response = await fetch(`${API_URL}/quotes`, {
+                    headers: { 
+                        'X-CSRF-Token': getCsrfToken()
+                    },
+                    credentials: 'include'
+                });
+                const data = await response.json();
+
+                const tbody = document.getElementById('quotesBody');
+                const serviceLabels = {
+                    branding: 'Branding',
+                    social_media_content: 'Social Media / Content',
+                    web_design: 'Web Design',
+                    content: 'Content',
+                    marketing_strategy: 'Marketing Strategy',
+                    digital_ads_setup: 'Digital Ads (Setup)'
+                };
+
+                const marketLabels = {
+                    us: 'US',
+                    europe: 'Europe',
+                    middle_east: 'Middle East'
+                };
+
+                if (data.success && data.data.length > 0) {
+                    tbody.innerHTML = data.data.map(quote => `
+                        <tr>
+                            <td><strong>${serviceLabels[quote.serviceType] || quote.serviceType}</strong></td>
+                            <td>${quote.name}</td>
+                            <td>${quote.email}</td>
+                            <td>${marketLabels[quote.market] || quote.market}</td>
+                            <td>${quote.companySize}</td>
+                            <td>${quote.quoteDisplay}</td>
+                            <td>
+                                <span class="badge ${quote.status === 'new' ? 'new' : 'reviewing'}">
+                                    ${quote.status}
+                                </span>
+                            </td>
+                            <td>${new Date(quote.createdAt).toLocaleDateString()}</td>
+                        </tr>
+                    `).join('');
+                } else {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="8" class="empty-state">
+                                <i class="fas fa-inbox"></i>
+                                <h3>No Quote Requests</h3>
+                                <p>Quote submissions will appear here.</p>
+                            </td>
+                        </tr>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error loading quotes:', error);
+            }
+        }
+
         async function updateStatus(type, id, status) {
             try {
                 const endpoint = type === 'career' ? 'careers' : 'contact';
                 const response = await fetch(`${API_URL}/${endpoint}/${id}/status`, {
                     method: 'PATCH',
                     headers: {
-                        'Authorization': `Bearer ${authToken}`,
+                        'X-CSRF-Token': getCsrfToken(),
                         'Content-Type': 'application/json'
                     },
+                    credentials: 'include',
                     body: JSON.stringify({ status })
                 });
                 

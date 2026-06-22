@@ -12,40 +12,58 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brand Mark | Branding & Marketing for MSMEs</title>
-    <meta name="description" content="Empowering small businesses and MSMEs with impactful branding and marketing strategies. Affordable digital marketing, brand identity design, and social media management services.">
-    <meta name="keywords" content="branding, marketing, MSMEs, small business, digital marketing, brand identity, social media management, affordable marketing">
+    <title>BrandMark Solutions - Branding, Web Design & Marketing</title>
+    <meta name="description" content="BrandMark Solutions provides conversion-focused branding, high-performance websites, and measurable marketing for SMEs across US, Europe, and Middle East.">
+    <meta name="keywords" content="branding agency, web design, digital marketing, SME branding, growth marketing, business solutions">
     <meta name="author" content="BrandMark Solutions">
+    <link rel="canonical" href="https://www.brandmarksolutions.site/">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://brandmarksolutions.site/">
-    <meta property="og:title" content="Brand Mark | Branding & Marketing for MSMEs">
-    <meta property="og:description" content="Empowering small businesses with impactful branding and marketing strategies. Big agency expertise, small business heart.">
-    <meta property="og:image" content="https://brandmarksolutions.site/new logoBrandMarkupdatedone.jpeg">
+    <meta property="og:url" content="https://www.brandmarksolutions.site/">
+    <meta property="og:title" content="BrandMark Solutions - Branding, Web Design & Marketing">
+    <meta property="og:description" content="Conversion-focused branding, high-performance websites, and measurable marketing for SMEs.">
+    <meta property="og:image" content="https://brandmarksolutions.site/brandmark-logo-new.png.png">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://brandmarksolutions.site/">
-    <meta property="twitter:title" content="Brand Mark | Branding & Marketing for MSMEs">
-    <meta property="twitter:description" content="Empowering small businesses with impactful branding and marketing strategies.">
-    <meta property="twitter:image" content="https://brandmarksolutions.site/new logoBrandMarkupdatedone.jpeg">
+    <meta property="twitter:title" content="Brand Mark | Branding, Web & Growth for US, Europe & Middle East SMEs">
+    <meta property="twitter:description" content="Branding, websites, and growth marketing for SMEs scaling in the US, Europe, and Middle East.">
+    <meta property="twitter:image" content="https://brandmarksolutions.site/brandmark-logo-new.png.png">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/jpeg" href="new logoBrandMarkupdatedone.jpeg">
-    <link rel="apple-touch-icon" href="new logoBrandMarkupdatedone.jpeg">
+    <link rel="icon" type="image/png" href="brandmark-logo-new.png.png">
+    <link rel="apple-touch-icon" href="brandmark-logo-new.png.png">
+    
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://brandmarksolutions.site/">
-    
-    <!-- Google Analytics -->
-    <!-- Replace YOUR-GA-ID with your actual Google Analytics ID -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR-GA-ID"></script>
+
+    <!-- CSRF Token Meta Tag (initialized on page load) -->
+    <meta name="csrf-token" content="">
+
+    <!-- CSRF Token Initialization Script -->
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'YOUR-GA-ID');
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const isLocalhost =
+                    window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.protocol === 'file:';
+                const API_URL = isLocalhost 
+                    ? 'http://localhost:5001/api'
+                    : 'https://brandmark-api-2026.onrender.com/api';
+
+                const response = await fetch(`${API_URL}/csrf-token`);
+                const data = await response.json();
+                if (data.token) {
+                    document.querySelector('meta[name="csrf-token"]').content = data.token;
+                }
+            } catch (error) {
+                console.warn('Failed to fetch CSRF token:', error);
+            }
+        });
     </script>
 
     <link rel="stylesheet" href="brandmark.css">
@@ -78,7 +96,6 @@
             }
         }
     </script>
-    <script src="https://t.contentsquare.net/uxa/c673c89abc518.js"></script>
 </head>
 <body class="bg-brand-bg-light text-brand-text-body font-sans antialiased selection:bg-brand-orange selection:text-white">
 
@@ -92,7 +109,7 @@
                 <!-- Logo Area -->
                 <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer no-underline" aria-label="BrandMark Home">
                     <!-- Updated Logo + Text Logic -->
-                    <img src="new logoBrandMarkupdatedone.jpeg" alt="Brand Mark Logo" class="h-12 w-12 rounded-full object-cover mr-3">
+                    <img src="brandmark-logo-new.png.png" alt="BrandMark Solutions logo" class="h-12 w-12 rounded-full object-cover mr-3">
                     <span class="text-2xl font-bold tracking-tighter text-white">
                         Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">®</span>
                     </span>
@@ -103,6 +120,7 @@
                     <a href="index.html" class="text-white font-medium tracking-wide hover:text-brand-orange transition-colors" aria-current="page">Home</a>
                     <a href="brandmarkAboutUs.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">About Us</a>
                     <a href="brandmarkservices.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Services</a>
+                    <a href="courses.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Courses</a>
                     <a href="portfolio.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Portfolio</a>
                     <a href="brandmarkpersonalblogs.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Blog</a>
                     <a href="brandmarkcareers.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Careers</a>
@@ -123,6 +141,7 @@
                 <a href="index.html" class="block px-3 py-3 rounded-md text-base font-medium text-white bg-brand-navy-dark">Home</a>
                 <a href="brandmarkAboutUs.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">About Us</a>
                 <a href="brandmarkservices.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Services</a>
+                <a href="courses.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Courses</a>
                 <a href="portfolio.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Portfolio</a>
                 <a href="brandmarkpersonalblogs.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Blog</a>
                 <a href="brandmarkcareers.html" class="block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Careers</a>
@@ -140,18 +159,18 @@
 
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
             <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 fade-in-up">
-                Make Your Mark <br>
-                <span style="color: #081F36;">In The World.</span>
+                Build a Brand That Wins <br>
+                <span style="color: #081F36;">Across Global Markets.</span>
             </h1>
             <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-400 fade-in-up" style="transition-delay: 100ms;">
-                Affordable, high-impact branding & marketing strategies tailored specifically for Small Businesses and MSMEs.
+                We help SMEs in the US, Europe, and Middle East grow with conversion-focused branding, high-performance websites, and measurable marketing.
             </p>
             <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4 fade-in-up" style="transition-delay: 200ms;">
                 <a href="brandmarkservices.html" class="px-8 py-4 bg-brand-orange text-white rounded-full font-bold hover:bg-brand-orange-dark transition duration-300 shadow-lg">
                     Explore Services
                 </a>
                 <a href="#contact" class="px-8 py-4 border border-brand-navy text-brand-navy rounded-full font-medium hover:bg-brand-navy hover:text-white transition duration-300">
-                    Free Consultation
+                    Book a Strategy Call
                 </a>
             </div>
         </div>
@@ -161,7 +180,7 @@
     <!-- Brands/Trust Section -->
     <div class="py-10 border-y border-brand-border-light bg-brand-navy">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-gray-300 text-sm tracking-widest uppercase mb-6">Trusted by local businesses like yours</p>
+            <p class="text-gray-300 text-sm tracking-widest uppercase mb-6">Supporting growth-focused SMEs in the US, Europe, and Middle East</p>
             <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
                 <i class="fa-brands fa-aws text-4xl text-white"></i>
                 <i class="fa-brands fa-google text-3xl text-white"></i>
@@ -177,70 +196,122 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 fade-in-up">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 text-brand-navy">What We Do</h2>
-                <p class="text-brand-text-muted max-w-xl mx-auto">We simplify the complex world of marketing so you can focus on running your business.</p>
+                <p class="text-brand-text-muted max-w-xl mx-auto">End-to-end brand and growth execution for businesses expanding into competitive international markets.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Service 1 -->
-                <div class="p-8 rounded-2xl bg-brand-bg-white border border-brand-border-light hover:border-brand-orange hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group fade-in-up">
+                <a href="brandidentitydesignservices.html" class="block p-8 rounded-2xl bg-brand-bg-white border border-brand-border-light hover:border-brand-orange hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group fade-in-up">
                     <div class="w-14 h-14 bg-brand-bg-card rounded-xl flex items-center justify-center mb-6 text-brand-navy group-hover:bg-brand-orange group-hover:text-white transition-colors">
                         <i class="fa-solid fa-pen-nib text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 text-brand-navy">Brand Identity Design</h3>
                     <p class="text-brand-text-muted text-sm leading-relaxed">
-                        From logo design to voice and tone. We build a cohesive visual identity that tells your unique story to the world.
+                        From positioning to visual systems, we build brand identities that create trust across cultures and markets.
                     </p>
-                </div>
+                </a>
                 <!-- Service 2 -->
-                <div class="p-8 rounded-2xl bg-brand-bg-white border border-brand-border-light hover:border-brand-orange hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group fade-in-up" style="transition-delay: 100ms;">
+                <a href="DigitalMarketingservices.html" class="block p-8 rounded-2xl bg-brand-bg-white border border-brand-border-light hover:border-brand-orange hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group fade-in-up" style="transition-delay: 100ms;">
                     <div class="w-14 h-14 bg-brand-bg-card rounded-xl flex items-center justify-center mb-6 text-brand-navy group-hover:bg-brand-orange group-hover:text-white transition-colors">
                         <i class="fa-solid fa-bullhorn text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 text-brand-navy">Digital Marketing</h3>
                     <p class="text-brand-text-muted text-sm leading-relaxed">
-                        Data-driven campaigns on Google and Facebook that bring high-quality leads directly to your doorstep.
+                        ROI-focused campaigns across Google, Meta, and search channels to generate qualified leads and steady pipeline growth.
                     </p>
-                </div>
+                </a>
                 <!-- Service 3 -->
-                <div class="p-8 rounded-2xl bg-brand-bg-white border border-brand-border-light hover:border-brand-orange hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group fade-in-up" style="transition-delay: 200ms;">
+                <a href="SocialMediaManagementservices.html" class="block p-8 rounded-2xl bg-brand-bg-white border border-brand-border-light hover:border-brand-orange hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group fade-in-up" style="transition-delay: 200ms;">
                     <div class="w-14 h-14 bg-brand-bg-card rounded-xl flex items-center justify-center mb-6 text-brand-navy group-hover:bg-brand-orange group-hover:text-white transition-colors">
                         <i class="fa-solid fa-share-nodes text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 text-brand-navy">Social Media Management</h3>
                     <p class="text-brand-text-muted text-sm leading-relaxed">
-                        Engage your community with consistent, creative content across Instagram, LinkedIn, and Twitter.
+                        Build authority with platform-native content for LinkedIn, Instagram, and emerging channels your buyers actually use.
                     </p>
-                </div>
+                </a>
                 <!-- Service 4 -->
-                <div class="p-8 rounded-2xl bg-brand-bg-white border border-brand-border-light hover:border-brand-orange hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group fade-in-up" style="transition-delay: 300ms;">
+                <a href="Websitedevelopmentservice.html" class="block p-8 rounded-2xl bg-brand-bg-white border border-brand-border-light hover:border-brand-orange hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group fade-in-up" style="transition-delay: 300ms;">
                     <div class="w-14 h-14 bg-brand-bg-card rounded-xl flex items-center justify-center mb-6 text-brand-navy group-hover:bg-brand-orange group-hover:text-white transition-colors">
                         <i class="fa-solid fa-code text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 text-brand-navy">Web Design & Development</h3>
                     <p class="text-brand-text-muted text-sm leading-relaxed">
-                        Modern, responsive websites and web applications that convert visitors into customers with seamless user experiences.
+                        High-conversion websites and landing pages optimized for speed, clarity, and lead generation.
                     </p>
-                </div>
+                </a>
                 <!-- Service 5 -->
-                <div class="p-8 rounded-2xl bg-brand-bg-white border border-brand-border-light hover:border-brand-orange hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group fade-in-up" style="transition-delay: 400ms;">
+                <a href="contentstrategyservices.html" class="block p-8 rounded-2xl bg-brand-bg-white border border-brand-border-light hover:border-brand-orange hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group fade-in-up" style="transition-delay: 400ms;">
                     <div class="w-14 h-14 bg-brand-bg-card rounded-xl flex items-center justify-center mb-6 text-brand-navy group-hover:bg-brand-orange group-hover:text-white transition-colors">
                         <i class="fa-solid fa-pen-fancy text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 text-brand-navy">Content Strategy</h3>
                     <p class="text-brand-text-muted text-sm leading-relaxed">
-                        High-value content that establishes your authority. Blogs, articles, and whitepapers that build trust through storytelling.
+                        Strategic content that educates buyers, strengthens positioning, and drives organic demand over time.
                     </p>
-                </div>
+                </a>
                 <!-- Service 6 -->
-                <div class="p-8 rounded-2xl bg-brand-bg-white border border-brand-border-light hover:border-brand-orange hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group fade-in-up" style="transition-delay: 500ms;">
+                <a href="marketstrategyservices.html" class="block p-8 rounded-2xl bg-brand-bg-white border border-brand-border-light hover:border-brand-orange hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group fade-in-up" style="transition-delay: 500ms;">
                     <div class="w-14 h-14 bg-brand-bg-card rounded-xl flex items-center justify-center mb-6 text-brand-navy group-hover:bg-brand-orange group-hover:text-white transition-colors">
                         <i class="fa-solid fa-chart-line text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3 text-brand-navy">Marketing Strategy</h3>
                     <p class="text-brand-text-muted text-sm leading-relaxed">
-                        Comprehensive marketing strategies tailored to your business goals with market research and competitor analysis.
+                        Practical market-entry and growth roadmaps aligned to your goals, audience, and region-specific competition.
                     </p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Free SEO Audit Section -->
+    <section id="free-audit" class="seo-audit-section">
+        <div class="seo-audit-container">
+            <div class="seo-audit-card fade-in-up">
+                <div class="seo-audit-copy">
+                    <span class="seo-audit-badge">Free SEO Audit</span>
+                    <h2>Get a Free SEO Audit for Your Global Website</h2>
+                    <p>
+                        We review your site and share a concise action plan to improve rankings and leads in your target regions.
+                    </p>
+                    <ul class="seo-audit-list">
+                        <li><i class="fa-solid fa-magnifying-glass-chart"></i> Technical SEO check</li>
+                        <li><i class="fa-solid fa-bolt"></i> Speed and Core Web Vitals</li>
+                        <li><i class="fa-solid fa-link"></i> Indexing and metadata review</li>
+                        <li><i class="fa-solid fa-chart-line"></i> Quick wins to grow traffic</li>
+                    </ul>
+                    <p class="seo-audit-note">We respond within 24 business hours.</p>
+                    <p class="seo-audit-note" style="margin-top:10px;">Need pricing now? <a href="quote-request.html" class="font-semibold" style="color:#0B2C4D; text-decoration:underline;">Get an instant quote</a>.</p>
                 </div>
+                <form id="seoAuditForm" class="seo-audit-form" novalidate>
+                    <div class="seo-audit-grid">
+                        <div class="seo-audit-field">
+                            <label for="seoName">Full Name</label>
+                            <input id="seoName" name="name" type="text" placeholder="Your name" required>
+                        </div>
+                        <div class="seo-audit-field">
+                            <label for="seoEmail">Email</label>
+                            <input id="seoEmail" name="email" type="email" placeholder="you@email.com" required>
+                        </div>
+                        <div class="seo-audit-field">
+                            <label for="seoPhone">Phone</label>
+                            <input id="seoPhone" name="phone" type="tel" placeholder="+91 00000 00000">
+                        </div>
+                        <div class="seo-audit-field">
+                            <label for="seoWebsite">Website URL</label>
+                            <input id="seoWebsite" name="website" type="url" placeholder="https://yourwebsite.com" required>
+                        </div>
+                    </div>
+                    <div class="seo-audit-field">
+                        <label for="seoNotes">Business Goals or Notes</label>
+                        <textarea id="seoNotes" name="message" rows="4" placeholder="Tell us what you want to improve"></textarea>
+                    </div>
+                    <div id="seoAuditMessage" class="seo-audit-message hidden" role="status"></div>
+                    <button id="seoAuditSubmitBtn" type="submit" class="btn-primary seo-audit-btn">
+                        <span id="seoAuditBtnText">Request Free Audit</span>
+                        <span id="seoAuditBtnSpinner" class="seo-audit-spinner hidden" aria-hidden="true"></span>
+                    </button>
+                </form>
             </div>
         </div>
     </section>
@@ -250,10 +321,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div class="fade-in-up">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-6 text-brand-navy">Big Agency Expertise,<br>Small Business Heart.</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 text-brand-navy">Global Delivery,<br>Local Market Relevance.</h2>
                     <div class="space-y-6 text-brand-text-muted">
                         <p>
-                            At <span class="text-brand-navy font-semibold">Brand Mark</span>, we understand the challenges of running a small business. You wear many hats, and "marketing expert" shouldn't have to be one of them.
+                            At <span class="text-brand-navy font-semibold">Brand Mark</span>, we help growing businesses compete internationally without enterprise overhead. You get strategic clarity, execution speed, and communication that works across time zones.
                         </p>
                     </div>
                 </div>
@@ -270,7 +341,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 fade-in-up">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 text-brand-navy">What Our Clients Say</h2>
-                <p class="text-brand-text-muted max-w-2xl mx-auto">Don't just take our word for it. Here's what businesses we've worked with have to say about their experience.</p>
+                <p class="text-brand-text-muted max-w-2xl mx-auto">Don’t just take our word for it. Here’s what growth-focused businesses say about working with us.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -352,7 +423,7 @@
 
             <!-- Trust Badges -->
             <div class="mt-16 text-center fade-in-up">
-                <p class="text-brand-text-muted text-sm mb-6">Trusted by 50+ businesses across India</p>
+                <p class="text-brand-text-muted text-sm mb-6">Trusted by businesses serving clients across the US, Europe, and Middle East</p>
                 <div class="flex flex-wrap justify-center items-center gap-8 opacity-60">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-award text-brand-orange text-2xl"></i>
@@ -376,7 +447,7 @@
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-12 fade-in-up">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 text-brand-navy">Let's Build Your Brand</h2>
-                <p class="text-brand-text-muted">Ready to take your business to the next level? Drop us a message.</p>
+                <p class="text-brand-text-muted">Planning to grow in the US, Europe, or Middle East? Tell us your goals and we’ll send a focused action plan.</p>
             </div>
             <form class="space-y-6 fade-in-up" id="contactForm" aria-label="Contact form">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -419,11 +490,11 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <div class="col-span-1 md:col-span-2">
                     <a href="index.html" class="flex items-center mb-4 cursor-pointer no-underline">
-                        <img src="new logoBrandMarkupdatedone.jpeg" alt="Logo" class="h-8 w-8 rounded-full mr-2">
+                        <img src="brandmark-logo-new.png.png" alt="BrandMark Solutions logo" class="h-8 w-8 rounded-full mr-2">
                         <span id="footer-text-logo" class="text-xl font-bold">Brand<span class="font-light">Mark</span></span>
                     </a>
                     <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
-                        Helping small businesses create lasting impressions through strategic branding and innovative marketing solutions.
+                        Helping ambitious businesses build stronger brands, better websites, and predictable growth across global markets.
                     </p>
                     <div class="flex space-x-4 mt-6">
                         <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-brand-orange hover:text-white transition-colors">
@@ -453,7 +524,7 @@
                 <div>
                     <h4 class="text-white font-bold mb-6">Contact</h4>
                     <ul class="space-y-3 text-sm text-gray-300">
-                        <li class="flex items-center"><i class="fa-solid fa-envelope w-5"></i> info.aimservicesprivatelimited@gmail.com</li>
+                        <li class="flex items-center"><i class="fa-solid fa-envelope w-5"></i> contact@brandmarksolutions.site</li>
                         <li class="flex items-center"><i class="fa-solid fa-phone w-5"></i> +91 709 186 3003</li>
                         <li class="flex items-center"><i class="fa-solid fa-location-dot w-5"></i> Gangotri, Buddha colony, Patna - 800001</li>
                     </ul>
@@ -484,14 +555,30 @@
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://brandmarksolutions.site/"
+            }
+        ]
+    }
+    </script>
+
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
         "@type": "ProfessionalService",
         "name": "BrandMark Solutions",
         "alternateName": "Brand Mark",
-        "description": "Affordable, high-impact branding & marketing strategies tailored specifically for Small Businesses and MSMEs in Patna, India. Digital marketing, brand identity design, social media management, and web development services.",
+        "description": "Branding, web design, and growth marketing for SMEs scaling in the US, Europe, and Middle East.",
         "url": "https://brandmarksolutions.site/",
-        "logo": "https://brandmarksolutions.site/new%20logoBrandMarkupdatedone.jpeg",
-        "image": "https://brandmarksolutions.site/new%20logoBrandMarkupdatedone.jpeg",
-        "email": "info.aimservicesprivatelimited@gmail.com",
+        "logo": "https://brandmarksolutions.site/brandmark-logo-new.png.png",
+        "image": "https://brandmarksolutions.site/brandmark-logo-new.png.png",
+        "email": "contact@brandmarksolutions.site",
         "telephone": "+917091863003",
         "priceRange": "$$",
         "address": {
@@ -512,10 +599,20 @@
             "https://www.instagram.com/brandmarksolutions",
             "https://www.linkedin.com/company/brandmarksolutions"
         ],
-        "areaServed": {
-            "@type": "Country",
-            "name": "India"
-        },
+        "areaServed": [
+            {
+                "@type": "Country",
+                "name": "United States"
+            },
+            {
+                "@type": "AdministrativeArea",
+                "name": "Europe"
+            },
+            {
+                "@type": "AdministrativeArea",
+                "name": "Middle East"
+            }
+        ],
         "serviceType": [
             "Brand Identity Design",
             "Digital Marketing",

@@ -4,6 +4,20 @@ const API_URL = 'https://brandmark-api-2026.onrender.com/api';
 // For local development: 'http://localhost:5000/api'
 // const API_URL = 'http://localhost:5000/api'
 
+// ============= SECURITY HELPERS =============
+function getCsrfToken() {
+    const token = document.querySelector('meta[name="csrf-token"]')?.content;
+    return token || '';
+}
+
+function setSafeText(element, text) {
+    if (typeof text !== 'string') {
+        element.textContent = '';
+        return;
+    }
+    element.textContent = text;
+}
+
 // Initialize career application forms
 document.addEventListener('DOMContentLoaded', () => {
     const careerForm = document.getElementById('careerApplicationForm');
@@ -46,55 +60,110 @@ async function handleCareerSubmit(e) {
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
     submitBtn.disabled = true;
     
-    // Show patience message for cold starts
-    messageDiv.className = 'application-message info';
-    messageDiv.innerHTML = `
-        <i class="fas fa-spinner fa-spin"></i>
-        <strong>Connecting to secure server...</strong>
-        <p>Please wait while we establish a secure connection and upload your files. This may take up to 30 seconds.</p>
-        <p style="font-size: 0.9em; opacity: 0.8; margin-top: 8px;">Thank you for your patience!</p>
-    `;
+    // Show patience message for cold starts (SAFE: using createElement)
+    const loadingDiv = document.createElement('div');
+    loadingDiv.className = 'application-message info flex flex-col items-center gap-3';
+    
+    const spinnerIcon = document.createElement('i');
+    spinnerIcon.className = 'fas fa-spinner fa-spin text-2xl';
+    
+    const title = document.createElement('strong');
+    setSafeText(title, 'Connecting to secure server...');
+    
+    const description = document.createElement('p');
+    setSafeText(description, 'Please wait while we establish a secure connection and upload your files. This may take up to 30 seconds.');
+    
+    const thanks = document.createElement('p');
+    thanks.style.fontSize = '0.9em';
+    thanks.style.opacity = '0.8';
+    thanks.style.marginTop = '8px';
+    setSafeText(thanks, 'Thank you for your patience!');
+    
+    loadingDiv.appendChild(spinnerIcon);
+    loadingDiv.appendChild(title);
+    loadingDiv.appendChild(description);
+    loadingDiv.appendChild(thanks);
+    
+    messageDiv.replaceChildren(loadingDiv);
     messageDiv.classList.remove('hidden');
     
     try {
         const response = await fetch(`${API_URL}/careers`, {
             method: 'POST',
+            headers: {
+                'X-CSRF-Token': getCsrfToken()  // SECURITY: Add CSRF token
+            },
             body: formData
         });
         
         const data = await response.json();
         
         if (data.success) {
-            // Success
-            messageDiv.className = 'application-message success';
-            messageDiv.innerHTML = `
-                <i class="fas fa-check-circle"></i>
-                <strong>Application Submitted!</strong>
-                <p>${data.message || 'Thank you for applying! We will review your application and get back to you soon.'}</p>
-            `;
+            // Success (SAFE: using createElement)
+            const successDiv = document.createElement('div');
+            successDiv.className = 'application-message success';
+            
+            const icon = document.createElement('i');
+            icon.className = 'fas fa-check-circle';
+            
+            const title = document.createElement('strong');
+            setSafeText(title, 'Application Submitted!');
+            
+            const message = document.createElement('p');
+            setSafeText(message, data.message || 'Thank you for applying! We will review your application and get back to you soon.');
+            
+            successDiv.appendChild(icon);
+            successDiv.appendChild(title);
+            successDiv.appendChild(message);
+            
+            messageDiv.replaceChildren(successDiv);
             messageDiv.classList.remove('hidden');
             form.reset();
             
             // Scroll to message
             messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } else {
-            // Error
-            messageDiv.className = 'application-message error';
-            messageDiv.innerHTML = `
-                <i class="fas fa-exclamation-circle"></i>
-                <strong>Submission Failed</strong>
-                <p>${data.message || 'Something went wrong. Please try again.'}</p>
-            `;
+            // Error (SAFE: using createElement)
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'application-message error';
+            
+            const icon = document.createElement('i');
+            icon.className = 'fas fa-exclamation-circle';
+            
+            const title = document.createElement('strong');
+            setSafeText(title, 'Submission Failed');
+            
+            const message = document.createElement('p');
+            setSafeText(message, data.message || 'Something went wrong. Please try again.');
+            
+            errorDiv.appendChild(icon);
+            errorDiv.appendChild(title);
+            errorDiv.appendChild(message);
+            
+            messageDiv.replaceChildren(errorDiv);
             messageDiv.classList.remove('hidden');
         }
     } catch (error) {
         console.error('Career application error:', error);
-        messageDiv.className = 'application-message error';
-        messageDiv.innerHTML = `
-            <i class="fas fa-exclamation-triangle"></i>
-            <strong>Connection Error</strong>
-            <p>Failed to submit application. Please check your internet connection and try again.</p>
-        `;
+        
+        // Error (SAFE: using createElement)
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'application-message error';
+        
+        const icon = document.createElement('i');
+        icon.className = 'fas fa-exclamation-triangle';
+        
+        const title = document.createElement('strong');
+        setSafeText(title, 'Connection Error');
+        
+        const message = document.createElement('p');
+        setSafeText(message, 'Failed to submit application. Please check your internet connection and try again.');
+        
+        errorDiv.appendChild(icon);
+        errorDiv.appendChild(title);
+        errorDiv.appendChild(message);
+        
+        messageDiv.replaceChildren(errorDiv);
         messageDiv.classList.remove('hidden');
     } finally {
         submitBtn.innerHTML = originalBtnText;

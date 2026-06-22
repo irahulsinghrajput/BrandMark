@@ -12,32 +12,49 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | Brand Mark Solutions</title>
-    <meta name="description" content="Meet the BrandMark team - passionate marketing and branding experts dedicated to helping MSMEs grow. Learn about our mission, vision, and values.">
-    <meta name="keywords" content="about brandmark, marketing team, branding experts, MSME marketing, brand consultants">
+    <title>About Us - BrandMark Solutions | Our Team & Mission</title>
+    <meta name="description" content="Meet the BrandMark Solutions team. We help SMEs globally grow through conversion-focused branding, high-performance websites, and measurable marketing.">
+    <meta name="keywords" content="about brand mark solutions, global branding team, SME growth agency, US Europe Middle East marketing">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://brandmarksolutions.site/brandmarkAboutUs.html">
-    <meta property="og:title" content="About Us | Brand Mark Solutions">
-    <meta property="og:description" content="Meet the BrandMark team - passionate experts helping MSMEs grow.">
-    <meta property="og:image" content="https://brandmarksolutions.site/new logoBrandMarkupdatedone.jpeg">
+    <meta property="og:title" content="About Us | Brand Mark Solutions for US, Europe & Middle East">
+    <meta property="og:description" content="Meet the team helping SMEs scale through branding, web, and growth marketing across global markets.">
+    <meta property="og:image" content="https://brandmarksolutions.site/brandmark-logo-new.png.png">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://brandmarksolutions.site/brandmarkAboutUs.html">
-    <meta property="twitter:title" content="About Us | Brand Mark Solutions">
+    <meta property="twitter:title" content="About Us | Brand Mark Solutions for US, Europe & Middle East">
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://brandmarksolutions.site/brandmarkAboutUs.html">
-    
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR-GA-ID"></script>
+
+    <!-- CSRF Token Meta Tag (initialized on page load) -->
+    <meta name="csrf-token" content="">
+
+    <!-- CSRF Token Initialization Script -->
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'YOUR-GA-ID');
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const isLocalhost =
+                    window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.protocol === 'file:';
+                const API_URL = isLocalhost 
+                    ? 'http://localhost:5001/api'
+                    : 'https://brandmark-api-2026.onrender.com/api';
+
+                const response = await fetch(`${API_URL}/csrf-token`);
+                const data = await response.json();
+                if (data.token) {
+                    document.querySelector('meta[name="csrf-token"]').content = data.token;
+                }
+            } catch (error) {
+                console.warn('Failed to fetch CSRF token:', error);
+            }
+        });
     </script>
 
     <link rel="stylesheet" href="brandmark.css">
@@ -70,7 +87,6 @@
             }
         }
     </script>
-    <script src="https://t.contentsquare.net/uxa/c673c89abc518.js"></script>
 </head>
 <body class="bg-brand-bg-light text-brand-text-body font-sans antialiased selection:bg-brand-orange selection:text-white">
 
@@ -83,7 +99,7 @@
             <div class="flex justify-between items-center h-20">
                 <!-- Logo Area -->
                 <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer no-underline" aria-label="BrandMark Home">
-                    <img src="new logoBrandMarkupdatedone.jpeg" alt="Brand Mark Logo" class="h-12 w-12 rounded-full object-cover mr-3">
+                    <img src="brandmark-logo-new.png.png" alt="Brand Mark Logo" class="h-12 w-12 rounded-full object-cover mr-3">
                     <span class="text-2xl font-bold tracking-tighter text-white">
                         Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">®</span>
                     </span>
@@ -134,7 +150,7 @@
                 Brand Mark Solutions
             </h1>
             <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-300 fade-in-up" style="transition-delay: 100ms;">
-                Architecting Digital Ecosystems.
+                Building brands and growth systems for global markets.
             </p>
         </div>
         </main>
@@ -149,10 +165,10 @@
             <div class="w-16 h-1 bg-brand-orange mx-auto mb-12"></div>
             
             <p class="text-lg md:text-xl text-brand-text-body mb-6 leading-relaxed">
-                Welcome to Brand Mark Solutions. In a fragmented digital landscape, many businesses struggle to align their online presence with their core identity. We solve this by providing cohesive, end-to-end digital solutions.
+                At Brand Mark Solutions, we help ambitious businesses align brand, website, and marketing into one clear growth engine. Many companies struggle with fragmented execution; we solve this with integrated strategy and delivery.
             </p>
             <p class="text-lg md:text-xl text-brand-text-body leading-relaxed">
-                We don't just build websites or run social media campaigns; we architect your entire digital ecosystem—from robust web development and compelling content creation to strategic social media management, ensuring your unique brand identity is consistent across all channels. Our focus is on delivering a unified growth strategy that drives measurable results and sustainable success for your business.
+                We partner with SMEs serving customers in the US, Europe, and Middle East to build market-ready brands, conversion-focused websites, and measurable demand generation systems. Our focus is practical execution that delivers sustainable business outcomes.
             </p>
         </div>
     </section>
@@ -197,18 +213,18 @@
     <section class="py-20 px-4 sm:px-6 lg:px-8 bg-brand-navy text-white">
         <div class="max-w-4xl mx-auto text-center fade-in-up">
             <h2 class="text-3xl md:text-4xl font-bold mb-12 uppercase tracking-wide">
-                Customer Delight
+                Client Experience
             </h2>
             <div class="w-16 h-1 bg-brand-orange mx-auto mb-12"></div>
             
             <p class="text-2xl md:text-3xl font-light mb-8 leading-relaxed">
-                "We make the customers orgasm when we lay out our ideas and creatives in front of them."
+                "Our goal is simple: deliver work clients are proud to share and results they can clearly measure."
             </p>
             <p class="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
-                At Brand Mark Solutions, we are driven by a strong innate desire to delight the customer to an extent that they want to give us virtual hugs.
+                We prioritize clear communication, dependable delivery, and long-term partnerships built on trust and performance.
             </p>
             <p class="text-base md:text-lg text-gray-400 italic">
-                BTW, we live for occasional fatty foods, intoxicating liquids, and jalebis (yes, we're a bunch of nice kids!)
+                Every project is handled with strategic thinking, creative precision, and accountability from start to finish.
             </p>
         </div>
     </section>
@@ -220,7 +236,7 @@
                 <div>
                     <h4 class="text-white font-bold mb-6">Brand Mark Solutions</h4>
                     <p class="text-sm mb-6 leading-relaxed">
-                        We help businesses build powerful brands and implement effective marketing strategies that drive growth and engagement.
+                        We help businesses build powerful brands and execute growth strategies for the US, Europe, and Middle East.
                     </p>
                     <div class="flex gap-4">
                         <a href="#" class="text-gray-300 hover:text-brand-orange transition-colors text-xl" aria-label="Twitter">
@@ -271,7 +287,7 @@
                         </li>
                         <li class="flex items-center">
                             <i class="fa-solid fa-envelope w-5"></i>
-                            <span class="break-all">info.aimservicesprivatelimited@gmail.com</span>
+                            <span class="break-all">contact@brandmarksolutions.site</span>
                         </li>
                     </ul>
                 </div>
@@ -297,10 +313,10 @@
             "@type": "Organization",
             "name": "Brand Mark Solutions",
             "alternateName": "BrandMark",
-            "description": "Branding and marketing services for MSMEs and small businesses",
+            "description": "Branding, web, and growth marketing services for SMEs in the US, Europe, and Middle East",
             "url": "https://brandmarksolutions.site/",
-            "logo": "https://brandmarksolutions.site/new logoBrandMarkupdatedone.jpeg",
-            "email": "info.aimservicesprivatelimited@gmail.com",
+            "logo": "https://brandmarksolutions.site/brandmark-logo-new.png.png",
+            "email": "contact@brandmarksolutions.site",
             "telephone": "+917091863003",
             "address": {
                 "@type": "PostalAddress",
