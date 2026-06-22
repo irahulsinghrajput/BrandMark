@@ -1,0 +1,79 @@
+<!-- Shared Navigation Component - Load this in all pages -->
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="hidden fixed left-0 right-0 top-20 bg-brand-navy shadow-lg z-40 md:hidden">
+    <div class="px-4 py-4 space-y-4">
+        <a href="index.html" class="block text-gray-200 hover:text-brand-orange transition-colors font-medium">Home</a>
+        <a href="brandmarkAboutUs.html" class="block text-gray-200 hover:text-brand-orange transition-colors font-medium">About Us</a>
+        <a href="brandmarkservices.html" class="block text-gray-200 hover:text-brand-orange transition-colors font-medium">Services</a>
+        <a href="courses.html" class="block text-gray-200 hover:text-brand-orange transition-colors font-medium">Courses</a>
+        <a href="portfolio.html" class="block text-gray-200 hover:text-brand-orange transition-colors font-medium">Portfolio</a>
+        <a href="brandmarkpersonalblogs.html" class="block text-gray-200 hover:text-brand-orange transition-colors font-medium">Blog</a>
+        <a href="brandmarkcareers.html" class="block text-gray-200 hover:text-brand-orange transition-colors font-medium">Careers</a>
+    </div>
+</div>
+
+<!-- Navigation Bar -->
+<nav class="fixed w-full z-50 glass-nav transition-all duration-300 bg-brand-navy shadow-lg" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+            <!-- Logo Area -->
+            <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer no-underline" aria-label="BrandMark Home">
+                <img src="brandmark-logo-new.png.png" alt="BrandMark Solutions logo" class="h-12 w-12 rounded-full object-cover mr-3">
+                <span class="text-2xl font-bold tracking-tighter text-white">
+                    Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">®</span>
+                </span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="index.html" class="text-white font-medium tracking-wide hover:text-brand-orange transition-colors" aria-current="page">Home</a>
+                <a href="brandmarkAboutUs.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">About Us</a>
+                <a href="brandmarkservices.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Services</a>
+                <a href="courses.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Courses</a>
+                <a href="portfolio.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Portfolio</a>
+                <a href="brandmarkpersonalblogs.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Blog</a>
+                <a href="brandmarkcareers.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Careers</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mobile-menu">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+// Load navigation dynamically
+document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    
+    if (btn && menu) {
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            btn.setAttribute('aria-expanded', menu.classList.contains('hidden') ? 'false' : 'true');
+        });
+        
+        // Close mobile menu on link click
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                btn.setAttribute('aria-expanded', 'false');
+            });
+        });
+    }
+    
+    // Navbar Scroll Effect
+    window.addEventListener('scroll', () => {
+        const nav = document.getElementById('navbar');
+        if (window.scrollY > 20) {
+            nav.classList.add('shadow-lg');
+        } else {
+            nav.classList.remove('shadow-lg');
+        }
+    });
+});
+</script>

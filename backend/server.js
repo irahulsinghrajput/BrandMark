@@ -16,6 +16,8 @@ const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const crypto = require('crypto');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -25,6 +27,16 @@ app.set('trust proxy', 1);
 // Security Middleware
 app.use(helmet());
 app.use(compression());
+app.use(cookieParser()); // Parse cookies for CSRF tokens
+
+// Enhanced Security Headers
+app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+    next();
+});
 
 // Rate Limiting
 const limiter = rateLimit({
@@ -32,6 +44,12 @@ const limiter = rateLimit({
     max: 100 // limit each IP to 100 requests per windowMs
 });
 app.use('/api/', limiter);
+
+// STRONGER rate limiting for forms
+const formLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 10 // limit each IP to 10 requests per hour
+});
 
 // CORS Configuration
 const allowedOrigins = [
@@ -56,7 +74,7 @@ app.use(cors({
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token']
 }));
 
 // Body Parser Middleware with size limits
@@ -67,6 +85,42 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(mongoSanitize()); // Prevent MongoDB injection attacks
 app.use(xss()); // Prevent XSS attacks by sanitizing user input
 app.use(hpp()); // Prevent HTTP Parameter Pollution
+
+// ============= CSRF PROTECTION =============
+// Generate CSRF tokens for clients
+const csrfTokens = new Map();
+
+app.get('/api/csrf-token', (req, res) => {
+    const token = crypto.randomBytes(32).toString('hex');
+    csrfTokens.set(token, true);
+    res.json({ token });
+});
+
+// Validate CSRF tokens
+function validateCsrfToken(req, res, next) {
+    const token = req.get('X-CSRF-Token') || req.body.csrf_token;
+    
+    if (!token || !csrfTokens.has(token)) {
+        return res.status(403).json({ 
+            success: false, 
+            message: 'CSRF token validation failed' 
+        });
+    }
+    
+    // Token is valid, remove it (single use)
+    csrfTokens.delete(token);
+    next();
+}
+
+// Apply CSRF protection to form routes
+app.use('/api/contact', validateCsrfToken);
+app.use('/api/careers', validateCsrfToken);
+app.use('/api/newsletter', validateCsrfToken);
+app.use('/api/quotes', validateCsrfToken);
+
+// Apply CSRF protection to admin endpoints
+app.post('/api/admin/login', validateCsrfToken);
+app.post('/api/admin/logout', validateCsrfToken);
 
 // Static Files for Uploads
 app.use('/uploads', express.static('uploads'));

@@ -4,8 +4,13 @@ const Admin = require('../models/Admin');
 // Authentication middleware
 const auth = async (req, res, next) => {
     try {
-        // Get token from header
-        const token = req.header('Authorization')?.replace('Bearer ', '');
+        // Get token from Authorization header OR from httpOnly cookie
+        let token = req.header('Authorization')?.replace('Bearer ', '');
+        
+        // If no Authorization header, check for cookie
+        if (!token) {
+            token = req.cookies?.authToken;
+        }
 
         if (!token) {
             return res.status(401).json({

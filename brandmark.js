@@ -8,6 +8,48 @@ const API_URL = isLocalhost
     ? 'http://localhost:5001/api'     // Local Backend
     : 'https://brandmark-api-2026.onrender.com/api'; // Production Backend
 
+// ============= SECURITY HELPERS =============
+// Generate CSRF Token (retrieved from meta tag set by server)
+function getCsrfToken() {
+    const token = document.querySelector('meta[name="csrf-token"]')?.content;
+    return token || '';
+}
+
+// Safe text content setter (prevents XSS)
+function setSafeText(element, text) {
+    if (typeof text !== 'string') {
+        element.textContent = '';
+        return;
+    }
+    element.textContent = text;
+}
+
+// Safe HTML builder (only use with trusted HTML, never with user input)
+function createSafeMessage(type, message) {
+    const div = document.createElement('div');
+    div.className = `text-center p-4 rounded-lg border`;
+    
+    switch(type) {
+        case 'error':
+            div.className += ' bg-red-100 text-red-800 border-red-300';
+            break;
+        case 'success':
+            div.className += ' bg-green-100 text-green-800 border-green-300';
+            break;
+        case 'warning':
+            div.className += ' bg-yellow-100 text-yellow-800 border-yellow-300';
+            break;
+        case 'info':
+            div.className += ' bg-blue-100 text-blue-800 border-blue-300';
+            break;
+        default:
+            div.className += ' bg-gray-100 text-gray-800 border-gray-300';
+    }
+    
+    setSafeText(div, message);
+    return div;
+}
+
 // Mobile Menu Toggle
 const btn = document.getElementById('mobile-menu-btn');
 const menu = document.getElementById('mobile-menu');
@@ -59,36 +101,36 @@ if (contactForm) {
         
         // Validate all fields
         if (!name || name.length < 2) {
-            messageDiv.className = 'text-center p-4 rounded-lg bg-yellow-100 text-yellow-800 border border-yellow-300';
-            messageDiv.textContent = '❌ Please enter a valid name (at least 2 characters).';
+            const msg = createSafeMessage('warning', '❌ Please enter a valid name (at least 2 characters).');
+            messageDiv.replaceChildren(msg);
             messageDiv.classList.remove('hidden');
             return;
         }
         
         if (!emailRegex.test(email)) {
-            messageDiv.className = 'text-center p-4 rounded-lg bg-yellow-100 text-yellow-800 border border-yellow-300';
-            messageDiv.textContent = '❌ Please enter a valid email address.';
+            const msg = createSafeMessage('warning', '❌ Please enter a valid email address.');
+            messageDiv.replaceChildren(msg);
             messageDiv.classList.remove('hidden');
             return;
         }
         
         if (phone && !phoneRegex.test(phone)) {
-            messageDiv.className = 'text-center p-4 rounded-lg bg-yellow-100 text-yellow-800 border border-yellow-300';
-            messageDiv.textContent = '❌ Please enter a valid phone number.';
+            const msg = createSafeMessage('warning', '❌ Please enter a valid phone number.');
+            messageDiv.replaceChildren(msg);
             messageDiv.classList.remove('hidden');
             return;
         }
         
         if (!subject || subject.length < 3) {
-            messageDiv.className = 'text-center p-4 rounded-lg bg-yellow-100 text-yellow-800 border border-yellow-300';
-            messageDiv.textContent = '❌ Please enter a subject (at least 3 characters).';
+            const msg = createSafeMessage('warning', '❌ Please enter a subject (at least 3 characters).');
+            messageDiv.replaceChildren(msg);
             messageDiv.classList.remove('hidden');
             return;
         }
         
         if (!message || message.length < 10) {
-            messageDiv.className = 'text-center p-4 rounded-lg bg-yellow-100 text-yellow-800 border border-yellow-300';
-            messageDiv.textContent = '❌ Please enter a message (at least 10 characters).';
+            const msg = createSafeMessage('warning', '❌ Please enter a message (at least 10 characters).');
+            messageDiv.replaceChildren(msg);
             messageDiv.classList.remove('hidden');
             return;
         }
@@ -114,26 +156,42 @@ if (contactForm) {
         btnSpinner.classList.remove('hidden');
         btn.disabled = true;
         
-        // Show patience message for cold starts
-        messageDiv.className = 'text-center p-4 rounded-lg bg-blue-100 text-blue-800 border border-blue-300';
-        messageDiv.innerHTML = `
-            <div class="flex items-center justify-center gap-2 mb-2">
-                <svg class="animate-spin h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                <strong>Connecting to secure server...</strong>
-            </div>
-            <p class="text-sm">Please wait while we establish a secure connection. This may take up to 30 seconds.</p>
-            <p class="text-xs mt-1 opacity-75">Thank you for your patience!</p>
-        `;
+        // Show patience message for cold starts (SAFE: using createElement)
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'text-center p-4 rounded-lg bg-blue-100 text-blue-800 border border-blue-300';
+        
+        const spinnerContainer = document.createElement('div');
+        spinnerContainer.className = 'flex items-center justify-center gap-2 mb-2';
+        
+        const spinner = document.createElement('i');
+        spinner.className = 'fas fa-spinner fa-spin text-blue-600';
+        
+        const text = document.createElement('strong');
+        setSafeText(text, 'Connecting to secure server...');
+        
+        spinnerContainer.appendChild(spinner);
+        spinnerContainer.appendChild(text);
+        loadingDiv.appendChild(spinnerContainer);
+        
+        const waitText = document.createElement('p');
+        waitText.className = 'text-sm';
+        setSafeText(waitText, 'Please wait while we establish a secure connection. This may take up to 30 seconds.');
+        loadingDiv.appendChild(waitText);
+        
+        const patienceText = document.createElement('p');
+        patienceText.className = 'text-xs mt-1 opacity-75';
+        setSafeText(patienceText, 'Thank you for your patience!');
+        loadingDiv.appendChild(patienceText);
+        
+        messageDiv.replaceChildren(loadingDiv);
         messageDiv.classList.remove('hidden');
 
         try {
             const response = await fetch(`${API_URL}/contact`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': getCsrfToken()  // SECURITY: Add CSRF token
                 },
                 body: JSON.stringify(formData)
             });
@@ -149,21 +207,21 @@ if (contactForm) {
                     });
                 }
                 
-                // Success message
-                messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-                messageDiv.textContent = data.message || 'Thank you! We will get back to you soon.';
+                // Success message (SAFE)
+                const msg = createSafeMessage('success', data.message || 'Thank you! We will get back to you soon.');
+                messageDiv.replaceChildren(msg);
                 messageDiv.classList.remove('hidden');
                 contactForm.reset();
             } else {
-                // Error message
-                messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-                messageDiv.textContent = data.message || 'Something went wrong. Please try again.';
+                // Error message (SAFE)
+                const msg = createSafeMessage('error', data.message || 'Something went wrong. Please try again.');
+                messageDiv.replaceChildren(msg);
                 messageDiv.classList.remove('hidden');
             }
         } catch (error) {
             console.error('Contact form error:', error);
-            messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-            messageDiv.textContent = 'Failed to send message. Please check your connection.';
+            const msg = createSafeMessage('error', 'Failed to send message. Please check your connection.');
+            messageDiv.replaceChildren(msg);
             messageDiv.classList.remove('hidden');
         } finally {
             // Reset button state
@@ -195,28 +253,22 @@ if (seoAuditForm) {
         const urlRegex = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/.*)?$/i;
 
         if (!name || name.length < 2) {
-            messageDiv.className = 'seo-audit-message';
-            messageDiv.textContent = 'Please enter your full name.';
-            messageDiv.style.background = '#fff3cd';
-            messageDiv.style.color = '#7a5200';
+            const msg = createSafeMessage('warning', 'Please enter your full name.');
+            messageDiv.replaceChildren(msg);
             messageDiv.classList.remove('hidden');
             return;
         }
 
         if (!emailRegex.test(email)) {
-            messageDiv.className = 'seo-audit-message';
-            messageDiv.textContent = 'Please enter a valid email address.';
-            messageDiv.style.background = '#fff3cd';
-            messageDiv.style.color = '#7a5200';
+            const msg = createSafeMessage('warning', 'Please enter a valid email address.');
+            messageDiv.replaceChildren(msg);
             messageDiv.classList.remove('hidden');
             return;
         }
 
         if (!urlRegex.test(website)) {
-            messageDiv.className = 'seo-audit-message';
-            messageDiv.textContent = 'Please enter a valid website URL.';
-            messageDiv.style.background = '#fff3cd';
-            messageDiv.style.color = '#7a5200';
+            const msg = createSafeMessage('warning', 'Please enter a valid website URL.');
+            messageDiv.replaceChildren(msg);
             messageDiv.classList.remove('hidden');
             return;
         }
@@ -244,7 +296,8 @@ if (seoAuditForm) {
             const response = await fetch(`${API_URL}/contact`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': getCsrfToken()  // SECURITY: Add CSRF token
                 },
                 body: JSON.stringify(formData)
             });
@@ -259,25 +312,19 @@ if (seoAuditForm) {
                     });
                 }
 
-                messageDiv.className = 'seo-audit-message';
-                messageDiv.textContent = data.message || 'Request sent! We will email your audit shortly.';
-                messageDiv.style.background = '#e6f4ea';
-                messageDiv.style.color = '#1e6b3f';
+                const msg = createSafeMessage('success', data.message || 'Request sent! We will email your audit shortly.');
+                messageDiv.replaceChildren(msg);
                 messageDiv.classList.remove('hidden');
                 seoAuditForm.reset();
             } else {
-                messageDiv.className = 'seo-audit-message';
-                messageDiv.textContent = data.message || 'Something went wrong. Please try again.';
-                messageDiv.style.background = '#fdecea';
-                messageDiv.style.color = '#7a1f1f';
+                const msg = createSafeMessage('error', data.message || 'Something went wrong. Please try again.');
+                messageDiv.replaceChildren(msg);
                 messageDiv.classList.remove('hidden');
             }
         } catch (error) {
             console.error('SEO audit form error:', error);
-            messageDiv.className = 'seo-audit-message';
-            messageDiv.textContent = 'Failed to send request. Please check your connection.';
-            messageDiv.style.background = '#fdecea';
-            messageDiv.style.color = '#7a1f1f';
+            const msg = createSafeMessage('error', 'Failed to send request. Please check your connection.');
+            messageDiv.replaceChildren(msg);
             messageDiv.classList.remove('hidden');
         } finally {
             btnText.textContent = 'Request Free Audit';
@@ -318,7 +365,8 @@ newsletterForms.forEach(form => {
             const response = await fetch(`${API_URL}/newsletter`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': getCsrfToken()  // SECURITY: Add CSRF token
                 },
                 body: JSON.stringify({ email: emailInput.value })
             });

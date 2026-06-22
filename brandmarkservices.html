@@ -31,14 +31,31 @@
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://brandmarksolutions.site/brandmarkservices.html">
-    
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR-GA-ID"></script>
+
+    <!-- CSRF Token Meta Tag (initialized on page load) -->
+    <meta name="csrf-token" content="">
+
+    <!-- CSRF Token Initialization Script -->
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'YOUR-GA-ID');
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const isLocalhost =
+                    window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.protocol === 'file:';
+                const API_URL = isLocalhost 
+                    ? 'http://localhost:5001/api'
+                    : 'https://brandmark-api-2026.onrender.com/api';
+
+                const response = await fetch(`${API_URL}/csrf-token`);
+                const data = await response.json();
+                if (data.token) {
+                    document.querySelector('meta[name="csrf-token"]').content = data.token;
+                }
+            } catch (error) {
+                console.warn('Failed to fetch CSRF token:', error);
+            }
+        });
     </script>
 
     <link rel="stylesheet" href="brandmark.css">
