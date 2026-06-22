@@ -56,6 +56,9 @@ dist/
 build/
 .cache/
 
+# Nested repository (not part of this repo's Pages build)
+BrandMark-Solutions/
+
 # Sensitive documents
 register-admin.json
 *password*.txt
