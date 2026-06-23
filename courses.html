@@ -509,9 +509,9 @@
                                 localStorage.setItem('studentEmail', email);
                                 localStorage.setItem('STUDENT_NAME', name);
                                 localStorage.setItem('ACTIVE_ENROLLMENT_COURSE', courseId);
-                                const dashboard = courseId === 'fullstack-mern-001' ? 'fullstack-dashboard.html' : 'course-dashboard.html';
-                                alert('🎉 Payment successful! You are now enrolled.');
-                                window.location.href = dashboard;
+                                alert('🎉 Payment successful! Set your password to access your course on any device.');
+                                const setupUrl = `student-login.html?course=${encodeURIComponent(courseId)}&tab=register&email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&postPayment=1`;
+                                window.location.href = setupUrl;
                             } else {
                                 alert('❌ Payment verification failed: ' + (verifyData.message || 'Unknown error'));
                             }

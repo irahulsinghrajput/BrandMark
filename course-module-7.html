@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,6 +10,7 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="brandmark.css">
+    <link rel="stylesheet" href="course-premium-theme.css">
     <style>
         * { font-family: 'Outfit', sans-serif; } body { background: linear-gradient(to bottom, #f0f4f8 0%, #ffffff 100%); }
         .lesson-content { background: white; color: #1f2937; padding: 3rem; border-radius: 16px; }
@@ -26,7 +27,7 @@
         .module-nav a { padding: 0.875rem 1.75rem; background: linear-gradient(135deg, #F26A21, #E65C17); color: white; border-radius: 8px; text-decoration: none; font-weight: 600; }
     </style>
 </head>
-<body class="text-white">
+<body class="text-white premium-course-page" data-course-id="digital-marketing-001">
     <header class="sticky top-0 z-50 bg-gradient-to-r from-brand-navy via-brand-navy to-brand-navy-dark border-b-4 border-brand-orange">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between">
             <a href="index.html" class="flex items-center gap-4"><img src="brandmark-logo-new.png.png" alt="BrandMark" class="h-16 w-16 rounded-full border-2 border-brand-orange"><span class="text-3xl font-extrabold text-white">Brand<span class="text-brand-orange">Mark</span></span></a>
@@ -157,7 +158,7 @@
                         <i class="fas fa-file-pdf text-red-500 mr-4 text-2xl"></i>
                         <div>
                             <p class="font-semibold text-brand-navy">Digital Marketing Setup Checklist</p>
-                            <p class="text-sm text-gray-500">PDF • 2.4 MB</p>
+                            <p class="text-sm text-gray-500">PDF â€¢ 2.4 MB</p>
                         </div>
                         <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
                     </a>
@@ -165,7 +166,7 @@
                         <i class="fas fa-file-excel text-green-500 mr-4 text-2xl"></i>
                         <div>
                             <p class="font-semibold text-brand-navy">Buyer Persona Template</p>
-                            <p class="text-sm text-gray-500">XLSX • 512 KB</p>
+                            <p class="text-sm text-gray-500">XLSX â€¢ 512 KB</p>
                         </div>
                         <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
                     </a>
@@ -173,7 +174,7 @@
                         <i class="fas fa-file-word text-blue-500 mr-4 text-2xl"></i>
                         <div>
                             <p class="font-semibold text-brand-navy">Marketing Strategy Template</p>
-                            <p class="text-sm text-gray-500">DOCX • 3.1 MB</p>
+                            <p class="text-sm text-gray-500">DOCX â€¢ 3.1 MB</p>
                         </div>
                         <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
                     </a>
@@ -219,8 +220,12 @@
         function setAudioSpeed(speed) { sp = speed; document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active')); event.target.classList.add('active'); if (u) { u.rate = speed; if (s) { speechSynthesis.cancel(); init(); speechSynthesis.speak(u); } } }
         function upd() { const b = document.querySelector('.play-btn'); b.innerHTML = s ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>'; document.getElementById('playBtnText').textContent = s ? 'Pause' : 'Play'; }
     </script>
+    <script src="course-access-guard.js"></script>
 </body>
 </html>
+
+
+
 
 
 

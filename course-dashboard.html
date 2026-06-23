@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,7 @@
     <meta name="description" content="Access your enrolled course materials, lessons, and progress tracking.">
     
     <link rel="stylesheet" href="brandmark.css">
+    <link rel="stylesheet" href="course-premium-theme.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -60,7 +61,7 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans antialiased">
+<body class="bg-gray-50 text-gray-900 font-sans antialiased premium-course-page" data-course-id="digital-marketing-001">
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 glass-nav transition-all duration-300 bg-brand-navy shadow-lg">
@@ -69,7 +70,7 @@
                 <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer no-underline">
                     <img src="brandmark-logo-new.png.png" alt="BrandMark Solutions logo" class="h-12 w-12 rounded-full object-cover mr-3">
                     <span class="text-2xl font-bold tracking-tighter text-white">
-                        Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">®</span>
+                        Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">Â®</span>
                     </span>
                 </a>
 
@@ -270,20 +271,16 @@
         // Check if user has access to Digital Marketing course
         function checkEnrollment() {
             const expectedCourseId = 'digital-marketing-001';
-            const enrollmentId = localStorage.getItem('enrollmentId');
-            const userEmail = localStorage.getItem('userEmail');
-            const activeEnrollmentCourse = localStorage.getItem('ACTIVE_ENROLLMENT_COURSE');
+            const studentToken = localStorage.getItem('studentToken');
             const enrolledCourses = JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
             const hasCourseInAccount = enrolledCourses.some((course) => course.courseId === expectedCourseId);
-            const hasDirectAccess = !!enrollmentId && !!userEmail && activeEnrollmentCourse === expectedCourseId;
 
-            if (!hasCourseInAccount && !hasDirectAccess) {
-                alert('⚠️ You are not enrolled in Digital Marketing course. Please enroll first.');
-                window.location.href = 'digital-marketing-course.html';
+            if (!studentToken || !hasCourseInAccount) {
+                window.location.href = 'student-login.html?course=digital-marketing-001';
                 return;
             }
 
-            console.log('✅ Digital Marketing access granted');
+            console.log('Digital Marketing access granted');
         }
 
         function logout() {
@@ -305,5 +302,9 @@
         // Check enrollment on page load
         document.addEventListener('DOMContentLoaded', checkEnrollment);
     </script>
+    <script src="course-access-guard.js"></script>
 </body>
 </html>
+
+
+

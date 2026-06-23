@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="brandmark.css">
+    <link rel="stylesheet" href="course-premium-theme.css">
     <script>
         tailwind.config = {
             theme: {
@@ -45,7 +46,7 @@
         .badge-cap  { background: #ffedd5; color: #9a3412; font-size: 0.7rem; font-weight: 700; padding: 2px 10px; border-radius: 20px; }
     </style>
 </head>
-<body>
+<body data-course-id="fullstack-mern-001" class="premium-course-page">
 
     <!-- Navigation Header -->
     <header class="sticky top-0 z-50 bg-gradient-to-r from-brand-navy via-brand-navy to-brand-navy-dark shadow-2xl border-b-4 border-brand-orange">
@@ -274,16 +275,12 @@
     <script>
         function checkEnrollment() {
             var expectedCourseId = 'fullstack-mern-001';
-            var enrollmentId = localStorage.getItem('enrollmentId');
-            var userEmail = localStorage.getItem('userEmail');
-            var activeEnrollmentCourse = localStorage.getItem('ACTIVE_ENROLLMENT_COURSE');
+            var studentToken = localStorage.getItem('studentToken');
             var enrolledCourses = JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
             var hasCourseInAccount = enrolledCourses.some(function(course){ return course.courseId === expectedCourseId; });
-            var hasDirectAccess = !!enrollmentId && !!userEmail && activeEnrollmentCourse === expectedCourseId;
 
-            if (!hasCourseInAccount && !hasDirectAccess) {
-                alert('You are not enrolled in this course. Please enroll first.');
-                window.location.href = 'fullstack-course.html';
+            if (!studentToken || !hasCourseInAccount) {
+                window.location.href = 'student-login.html?course=fullstack-mern-001';
                 return;
             }
             console.log('Full Stack access granted');
@@ -300,5 +297,8 @@
         document.addEventListener('DOMContentLoaded', checkEnrollment);
     </script>
     <script src="fullstack-ai-tutor-widget.js"></script>
+    <script src="course-access-guard.js"></script>
 </body>
 </html>
+
+

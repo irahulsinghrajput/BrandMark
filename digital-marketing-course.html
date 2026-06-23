@@ -528,8 +528,9 @@
                         localStorage.setItem('studentEmail', email);
                         localStorage.setItem('STUDENT_NAME', name);
                         localStorage.setItem('ACTIVE_ENROLLMENT_COURSE', 'digital-marketing-001');
-                        alert('🎉 Payment successful! Redirecting to your dashboard...');
-                        window.location.replace('course-dashboard.html');
+                        alert('🎉 Payment successful! Set your password to access your course on any device.');
+                        const setupUrl = `student-login.html?course=digital-marketing-001&tab=register&email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&postPayment=1`;
+                        window.location.replace(setupUrl);
                     } else {
                         alert('Payment verification failed. Please contact support.');
                     }

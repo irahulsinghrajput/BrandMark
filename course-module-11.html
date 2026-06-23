@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +8,7 @@
     <script>tailwind.config = { theme: { extend: { colors: { 'brand-navy': '#0B2C4D', 'brand-navy-dark': '#081F36', 'brand-orange': '#F26A21' } } } }</script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="brandmark.css">
+    <link rel="stylesheet" href="course-premium-theme.css">
     <style>
         * { font-family: 'Outfit', sans-serif; } body { background: linear-gradient(to bottom, #f0f4f8 0%, #ffffff 100%); }
         .lesson-content { background: white; padding: 3rem; border-radius: 16px; }
@@ -23,7 +24,7 @@
         .module-nav a { padding: 0.875rem 1.75rem; background: linear-gradient(135deg, #F26A21, #E65C17); color: white; border-radius: 8px; text-decoration: none; font-weight: 600; }
     </style>
 </head>
-<body class="text-white">
+<body class="text-white premium-course-page" data-course-id="digital-marketing-001">
     <header class="sticky top-0 z-50 bg-gradient-to-r from-brand-navy to-brand-navy-dark border-b-4 border-brand-orange">
         <nav class="max-w-7xl mx-auto px-4 py-6 flex justify-between relative"><a href="index.html" class="flex items-center gap-2"><img src="brandmark-logo-new.png.png" class="h-12 w-12 rounded-full border-2 border-brand-orange"><span class="font-bold text-white">Brand<span class="text-brand-orange">Mark</span></span></a></nav>
     </header>
@@ -80,7 +81,7 @@
                         <i class="fas fa-file-pdf text-red-500 mr-4 text-2xl"></i>
                         <div>
                             <p class="font-semibold text-brand-navy">Digital Marketing Setup Checklist</p>
-                            <p class="text-sm text-gray-500">PDF � 2.4 MB</p>
+                            <p class="text-sm text-gray-500">PDF ï¿½ 2.4 MB</p>
                         </div>
                         <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
                     </a>
@@ -88,7 +89,7 @@
                         <i class="fas fa-file-excel text-green-500 mr-4 text-2xl"></i>
                         <div>
                             <p class="font-semibold text-brand-navy">Buyer Persona Template</p>
-                            <p class="text-sm text-gray-500">XLSX � 512 KB</p>
+                            <p class="text-sm text-gray-500">XLSX ï¿½ 512 KB</p>
                         </div>
                         <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
                     </a>
@@ -96,7 +97,7 @@
                         <i class="fas fa-file-word text-blue-500 mr-4 text-2xl"></i>
                         <div>
                             <p class="font-semibold text-brand-navy">Marketing Strategy Template</p>
-                            <p class="text-sm text-gray-500">DOCX � 3.1 MB</p>
+                            <p class="text-sm text-gray-500">DOCX ï¿½ 3.1 MB</p>
                         </div>
                         <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
                     </a>
@@ -130,8 +131,12 @@
     
     <script>
 
+    <script src="course-access-guard.js"></script>
 </body>
 </html>
+
+
+
 
 
 
