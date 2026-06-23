@@ -295,7 +295,7 @@
       const response = await fetch(`${API_BASE_URL}/ai-tutor`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question, language })
+        body: JSON.stringify({ question, language, course: 'fullstack' })
       });
 
       const data = await response.json();
