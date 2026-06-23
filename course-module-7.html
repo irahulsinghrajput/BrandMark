@@ -220,9 +220,13 @@
         function setAudioSpeed(speed) { sp = speed; document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active')); event.target.classList.add('active'); if (u) { u.rate = speed; if (s) { speechSynthesis.cancel(); init(); speechSynthesis.speak(u); } } }
         function upd() { const b = document.querySelector('.play-btn'); b.innerHTML = s ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>'; document.getElementById('playBtnText').textContent = s ? 'Pause' : 'Play'; }
     </script>
+    <script src="course-multilingual-learning.js"></script>
     <script src="course-access-guard.js"></script>
 </body>
 </html>
+
+
+
 
 
 

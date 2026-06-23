@@ -188,9 +188,13 @@
         function toggleAudio() { if (!u) init(); s ? speechSynthesis.pause() : (speechSynthesis.paused ? speechSynthesis.resume() : (speechSynthesis.cancel(), init(), speechSynthesis.speak(u))); s = !s; }
         function setAudioSpeed(sp_new) { sp = sp_new; document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active')); event.target.classList.add('active'); if (u) u.rate = sp; }
     </script>
+    <script src="course-multilingual-learning.js"></script>
     <script src="course-access-guard.js"></script>
 </body>
 </html>
+
+
+
 
 
 
