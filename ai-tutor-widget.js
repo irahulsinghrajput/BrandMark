@@ -254,10 +254,13 @@
   }
 
   function showThinking() {
+    const thinkingLabels = { en: 'Thinking...', hi: 'सोच रहा हूँ...', ar: 'جاري التفكير...' };
     const d = document.createElement('div');
-    d.className = 'bm-thinking'; d.id = 'bm-thinking';
-    d.innerHTML = '<div class="bm-dot"></div><div class="bm-dot"></div><div class="bm-dot"></div>';
-    msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight;
+    d.className = 'bm-thinking';
+    d.id = 'bm-thinking';
+    d.innerHTML = `<span style="font-size:12px;color:#475569;margin-right:8px;">${thinkingLabels[lang] || thinkingLabels.en}</span><div class="bm-dot"></div><div class="bm-dot"></div><div class="bm-dot"></div>`;
+    msgs.appendChild(d);
+    msgs.scrollTop = msgs.scrollHeight;
   }
 
   function removeThinking() {
@@ -306,6 +309,29 @@
     });
   });
 
+  async function fetchTutorReply(question, language) {
+    const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+      ? 'http://localhost:5001/api'
+      : 'https://brandmark-api-2026.onrender.com/api';
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/ai-tutor`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question, language })
+      });
+
+      const data = await response.json();
+      if (response.ok && data && data.success && data.answer) {
+        return data.answer;
+      }
+    } catch (_err) {
+      // Fall back to local KB when API is unavailable
+    }
+
+    return getAnswer(question, language);
+  }
+
   // ── Send Message ───────────────────────────────────────────────────────────
   async function sendMessage() {
     if (isLoading) return;
@@ -315,9 +341,8 @@
     input.value = '';
     isLoading = true;
     showThinking();
-    await new Promise(r => setTimeout(r, 700));
+    const answer = await fetchTutorReply(q, lang);
     removeThinking();
-    const answer = getAnswer(q, lang);
     addMsg('bot', answer);
     speak(answer);
     isLoading = false;

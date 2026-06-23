@@ -112,7 +112,12 @@
     for (const [kw, ans] of Object.entries(kb)) {
       if (kw !== 'default' && q.includes(kw)) return ans;
     }
-    return kb['default'];
+    if (lang !== 'en') {
+      for (const [kw, ans] of Object.entries(KB.en)) {
+        if (kw !== 'default' && q.includes(kw)) return ans;
+      }
+    }
+    return kb['default'] || KB.en.default;
   }
 
   // ── Inject Styles ───────────────────────────────────────────────────────────
@@ -281,19 +286,46 @@
     return d;
   }
 
+  async function fetchTutorReply(question, language) {
+    const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+      ? 'http://localhost:5001/api'
+      : 'https://brandmark-api-2026.onrender.com/api';
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/ai-tutor`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question, language })
+      });
+
+      const data = await response.json();
+      if (response.ok && data && data.success && data.answer) {
+        return data.answer;
+      }
+    } catch (_err) {
+      // Fall back to local KB when API is unavailable
+    }
+
+    return getAnswer(question, language);
+  }
+
+  function getThinkingLabel() {
+    if (lang === 'hi') return 'सोच रहा हूँ...';
+    if (lang === 'ar') return 'جاري التفكير...';
+    return 'Thinking...';
+  }
+
   // ── Send Message ─────────────────────────────────────────────────────────────
-  function sendMessage(text) {
+  async function sendMessage(text) {
     const q = (text || input.value).trim();
     if (!q) return;
     input.value = '';
     appendMsg(q, 'user');
-    const thinking = appendMsg('Thinking...', 'thinking');
-    setTimeout(() => {
-      msgs.removeChild(thinking);
-      const answer = getAnswer(q, lang);
-      appendMsg(answer, 'bot');
-      speak(answer);
-    }, 500);
+    const thinking = appendMsg(getThinkingLabel(), 'thinking');
+    const answer = await fetchTutorReply(q, lang);
+    msgs.removeChild(thinking);
+    appendMsg(answer, 'bot');
+    speak(answer);
   }
 
   send.addEventListener('click', () => sendMessage());

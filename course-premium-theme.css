@@ -82,6 +82,61 @@ body.premium-course-page {
   color: #f8fafc;
 }
 
+/* Keep resource/download sections clean and readable (white premium cards) */
+.premium-course-page .mt-8.bg-brand-navy {
+  background: #ffffff !important;
+  color: var(--brand-navy) !important;
+  border: 1px solid rgba(11, 44, 77, 0.12) !important;
+  box-shadow: 0 12px 26px rgba(11, 44, 77, 0.08);
+}
+
+.premium-course-page .mt-8.bg-brand-navy h3,
+.premium-course-page .mt-8.bg-brand-navy p,
+.premium-course-page .mt-8.bg-brand-navy span {
+  color: var(--brand-navy) !important;
+}
+
+.premium-course-page .mt-8.bg-brand-navy a {
+  background: #ffffff !important;
+  border: 1px solid rgba(11, 44, 77, 0.14);
+}
+
+.premium-course-page .mt-8.bg-brand-navy a:hover {
+  background: #f7fbff !important;
+  border-color: rgba(242, 106, 33, 0.4);
+}
+
+/* Avoid dark-on-dark in lesson summary/takeaways blocks */
+.premium-course-page .bg-blue-900,
+.premium-course-page .bg-blue-900\/20,
+.premium-course-page .bg-opacity-20 {
+  color: var(--brand-navy);
+}
+
+/* Shared multilingual audio bar */
+.bm-audio-lang-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.bm-audio-lang-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.bm-audio-lang-btn.bm-active {
+  background: linear-gradient(135deg, var(--brand-orange), var(--brand-orange-dark));
+  border-color: transparent;
+}
+
 @media (max-width: 768px) {
   .premium-course-page .lesson-content {
     padding: 1.25rem;
