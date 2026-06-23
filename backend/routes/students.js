@@ -12,6 +12,11 @@ const generateToken = (student) => {
     );
 };
 
+const COURSE_TITLES = {
+    'digital-marketing-001': 'Digital Marketing Mastery with Gen AI',
+    'fullstack-mern-001': 'Full Stack Web Development — MERN + GenAI'
+};
+
 // @route   POST /api/students/register
 // @desc    Register student after successful payment (or add enrollment to existing account)
 // @access  Public
@@ -26,6 +31,13 @@ router.post('/register', async (req, res) => {
             });
         }
 
+        if (!COURSE_TITLES[courseId]) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid courseId'
+            });
+        }
+
         if (password.length < 6) {
             return res.status(400).json({
                 success: false,
@@ -33,13 +45,14 @@ router.post('/register', async (req, res) => {
             });
         }
 
+        const resolvedCourseTitle = COURSE_TITLES[courseId];
         let student = await Student.findOne({ email });
 
         if (student) {
             // Student exists - add enrollment if not already enrolled
             const alreadyEnrolled = student.enrolledCourses.some(e => e.courseId === courseId);
             if (!alreadyEnrolled) {
-                student.enrolledCourses.push({ courseId, courseTitle, paymentId, orderId });
+                student.enrolledCourses.push({ courseId, courseTitle: resolvedCourseTitle, paymentId, orderId });
                 await student.save();
             }
             const token = generateToken(student);
@@ -55,7 +68,7 @@ router.post('/register', async (req, res) => {
             name,
             email,
             password,
-            enrolledCourses: [{ courseId, courseTitle, paymentId, orderId }]
+            enrolledCourses: [{ courseId, courseTitle: resolvedCourseTitle, paymentId, orderId }]
         });
 
         const token = generateToken(student);
@@ -78,10 +91,14 @@ router.post('/register', async (req, res) => {
 // @access  Public
 router.post('/login', async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password, courseId } = req.body;
 
         if (!email || !password) {
             return res.status(400).json({ success: false, message: 'Email and password are required' });
+        }
+
+        if (courseId && !COURSE_TITLES[courseId]) {
+            return res.status(400).json({ success: false, message: 'Invalid courseId' });
         }
 
         const student = await Student.findOne({ email }).select('+password');
@@ -92,6 +109,16 @@ router.post('/login', async (req, res) => {
         const isMatch = await student.comparePassword(password);
         if (!isMatch) {
             return res.status(401).json({ success: false, message: 'Invalid email or password' });
+        }
+
+        if (courseId) {
+            const enrolled = student.enrolledCourses.some((course) => course.courseId === courseId);
+            if (!enrolled) {
+                return res.status(403).json({
+                    success: false,
+                    message: 'You are not enrolled in this course. Please enroll first.'
+                });
+            }
         }
 
         const token = generateToken(student);

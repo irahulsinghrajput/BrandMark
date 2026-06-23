@@ -337,20 +337,27 @@ router.post('/:courseId/order', async (req, res) => {
             });
         }
 
-        // Course pricing map (hardcoded for now, can be extended)
+        // Course pricing map (in paise)
         const coursePrices = {
             'digital-marketing-001': {
                 title: 'Digital Marketing Mastery with Gen AI',
-                price: 4900, // ₹49 in paise
+                price: 4900,
+                moduleNumber: 1
+            },
+            'fullstack-mern-001': {
+                title: 'Full Stack Web Development — MERN + GenAI',
+                price: 49900,
                 moduleNumber: 1
             }
         };
 
-        const courseInfo = coursePrices[courseId] || {
-            title: 'BrandMark Course',
-            price: 4900,
-            moduleNumber: 1
-        };
+        const courseInfo = coursePrices[courseId];
+        if (!courseInfo) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid course ID'
+            });
+        }
 
         // Initialize Razorpay
         if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {

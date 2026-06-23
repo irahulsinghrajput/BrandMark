@@ -273,25 +273,28 @@
     <script src="brandmark.js"></script>
     <script>
         function checkEnrollment() {
+            var expectedCourseId = 'fullstack-mern-001';
             var enrollmentId = localStorage.getItem('enrollmentId');
-            var userEmail    = localStorage.getItem('userEmail');
-            var studentToken = localStorage.getItem('studentToken');
-            var studentEmail = localStorage.getItem('studentEmail');
-            var isEnrolled   = enrollmentId || studentToken;
-            if (!isEnrolled) {
+            var userEmail = localStorage.getItem('userEmail');
+            var activeEnrollmentCourse = localStorage.getItem('ACTIVE_ENROLLMENT_COURSE');
+            var enrolledCourses = JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
+            var hasCourseInAccount = enrolledCourses.some(function(course){ return course.courseId === expectedCourseId; });
+            var hasDirectAccess = !!enrollmentId && !!userEmail && activeEnrollmentCourse === expectedCourseId;
+
+            if (!hasCourseInAccount && !hasDirectAccess) {
                 alert('You are not enrolled in this course. Please enroll first.');
                 window.location.href = 'fullstack-course.html';
                 return;
             }
-            console.log('Authenticated:', studentEmail || userEmail || 'Student');
+            console.log('Full Stack access granted');
         }
         function logout() {
             if (confirm('Are you sure you want to logout?')) {
                 ['enrollmentId','userEmail','studentToken','studentName','studentEmail',
-                 'enrolledCourses','STUDENT_NAME','FS_QUIZ_COMPLETED','FS_PROJECT_COMPLETED',
+                 'enrolledCourses','STUDENT_NAME','ACTIVE_ENROLLMENT_COURSE','FS_QUIZ_COMPLETED','FS_PROJECT_COMPLETED',
                  'FS_CERTIFICATE_SCORE','FS_CERTIFICATE_CORRECT','FS_CERTIFICATE_DATE','FS_CERTIFICATE_ID']
                 .forEach(function(k){ localStorage.removeItem(k); });
-                window.location.href = 'student-login.html';
+                window.location.href = 'student-login.html?course=fullstack-mern-001';
             }
         }
         document.addEventListener('DOMContentLoaded', checkEnrollment);

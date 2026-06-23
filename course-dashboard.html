@@ -267,26 +267,38 @@
 
     <script src="brandmark.js"></script>
     <script>
-        // Check if user is enrolled
+        // Check if user has access to Digital Marketing course
         function checkEnrollment() {
+            const expectedCourseId = 'digital-marketing-001';
             const enrollmentId = localStorage.getItem('enrollmentId');
             const userEmail = localStorage.getItem('userEmail');
-            
-            if (!enrollmentId || !userEmail) {
-                alert('⚠️ You are not enrolled in this course. Please enroll first.');
-                window.location.href = 'courses.html';
+            const activeEnrollmentCourse = localStorage.getItem('ACTIVE_ENROLLMENT_COURSE');
+            const enrolledCourses = JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
+            const hasCourseInAccount = enrolledCourses.some((course) => course.courseId === expectedCourseId);
+            const hasDirectAccess = !!enrollmentId && !!userEmail && activeEnrollmentCourse === expectedCourseId;
+
+            if (!hasCourseInAccount && !hasDirectAccess) {
+                alert('⚠️ You are not enrolled in Digital Marketing course. Please enroll first.');
+                window.location.href = 'digital-marketing-course.html';
                 return;
             }
-            
-            console.log('✅ Student enrolled:', userEmail);
-            console.log('📚 Enrollment ID:', enrollmentId);
+
+            console.log('✅ Digital Marketing access granted');
         }
 
         function logout() {
             if (confirm('Are you sure you want to logout?')) {
-                localStorage.removeItem('enrollmentId');
-                localStorage.removeItem('userEmail');
-                window.location.href = 'courses.html';
+                [
+                    'enrollmentId',
+                    'userEmail',
+                    'studentToken',
+                    'studentName',
+                    'studentEmail',
+                    'enrolledCourses',
+                    'STUDENT_NAME',
+                    'ACTIVE_ENROLLMENT_COURSE'
+                ].forEach((key) => localStorage.removeItem(key));
+                window.location.href = 'student-login.html?course=digital-marketing-001';
             }
         }
 

@@ -169,10 +169,32 @@
             ? 'http://localhost:5001/api'
             : 'https://brandmark-api-2026.onrender.com/api';
 
-        // Check if already logged in
+        const COURSE_CONFIG = {
+            'digital-marketing-001': {
+                title: 'Digital Marketing Mastery with Gen AI',
+                dashboard: 'course-dashboard.html'
+            },
+            'fullstack-mern-001': {
+                title: 'Full Stack Web Development — MERN + GenAI',
+                dashboard: 'fullstack-dashboard.html'
+            }
+        };
+
+        function getActiveCourseId() {
+            const params = new URLSearchParams(window.location.search);
+            const queryCourse = params.get('course');
+            return COURSE_CONFIG[queryCourse] ? queryCourse : 'digital-marketing-001';
+        }
+
+        const activeCourseId = getActiveCourseId();
+        const activeCourse = COURSE_CONFIG[activeCourseId];
+
+        // Check if already logged in for this course
         const existingToken = localStorage.getItem('studentToken');
-        if (existingToken) {
-            window.location.href = 'course-dashboard.html';
+        const storedCourses = JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
+        const alreadyEnrolledInActiveCourse = storedCourses.some((course) => course.courseId === activeCourseId);
+        if (existingToken && alreadyEnrolledInActiveCourse) {
+            window.location.href = activeCourse.dashboard;
         }
 
         // Read URL param for pre-filled email (from payment flow)
@@ -180,6 +202,8 @@
         const prefillEmail = urlParams.get('email');
         const prefillName = urlParams.get('name');
         const autoTab = urlParams.get('tab');
+
+        document.getElementById('regCourseId').value = activeCourseId;
 
         if (prefillEmail) {
             document.getElementById('loginEmail').value = prefillEmail;
@@ -236,7 +260,7 @@
                 const res = await fetch(`${API_BASE_URL}/students/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
+                    body: JSON.stringify({ email, password, courseId: activeCourseId })
                 });
                 const data = await res.json();
 
@@ -244,15 +268,21 @@
                     throw new Error(data.message || 'Login failed');
                 }
 
-                // Save to localStorage
+                const enrolledCourses = data.data.enrolledCourses || [];
+                const hasCourseAccess = enrolledCourses.some((course) => course.courseId === activeCourseId);
+                if (!hasCourseAccess) {
+                    throw new Error('You are not enrolled in this course. Please enroll first.');
+                }
+
                 localStorage.setItem('studentToken', data.data.token);
                 localStorage.setItem('studentName', data.data.name);
                 localStorage.setItem('studentEmail', data.data.email);
-                localStorage.setItem('enrolledCourses', JSON.stringify(data.data.enrolledCourses));
+                localStorage.setItem('enrolledCourses', JSON.stringify(enrolledCourses));
                 localStorage.setItem('STUDENT_NAME', data.data.name);
                 localStorage.setItem('userEmail', data.data.email);
+                localStorage.setItem('ACTIVE_ENROLLMENT_COURSE', activeCourseId);
 
-                window.location.href = 'course-dashboard.html';
+                window.location.href = activeCourse.dashboard;
 
             } catch (error) {
                 errorDiv.textContent = error.message;
@@ -281,8 +311,11 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        name, email, password, courseId,
-                        courseTitle: 'Digital Marketing Mastery with Gen AI'
+                        name,
+                        email,
+                        password,
+                        courseId,
+                        courseTitle: activeCourse.title
                     })
                 });
                 const data = await res.json();
@@ -297,8 +330,9 @@
                 localStorage.setItem('enrolledCourses', JSON.stringify(data.data.enrolledCourses));
                 localStorage.setItem('STUDENT_NAME', data.data.name);
                 localStorage.setItem('userEmail', data.data.email);
+                localStorage.setItem('ACTIVE_ENROLLMENT_COURSE', activeCourseId);
 
-                window.location.href = 'course-dashboard.html';
+                window.location.href = activeCourse.dashboard;
 
             } catch (error) {
                 errorDiv.textContent = error.message;
