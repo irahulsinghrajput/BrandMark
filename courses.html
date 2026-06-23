@@ -255,9 +255,12 @@
                             </ul>
                         </div>
 
-                        <a href="fullstack-course.html" class="block w-full text-center bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold py-3 rounded-lg transition-colors" aria-label="Explore Full Stack Web Developer course">
+                        <a href="fullstack-course.html" class="block w-full text-center bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold py-3 rounded-lg transition-colors mb-3" aria-label="Explore Full Stack Web Developer course">
                             Explore Course <i class="fas fa-arrow-right ml-2"></i>
                         </a>
+                        <button onclick="openEnrollmentModalFor('fullstack-mern-001')" class="block w-full text-center bg-brand-navy hover:bg-brand-navy-dark text-white font-semibold py-3 rounded-lg transition-colors border-0 cursor-pointer" style="font-family: Outfit, sans-serif; font-size: 1rem;">
+                            <i class="fas fa-shopping-cart mr-2"></i>Enroll Now (₹499)
+                        </button>
                     </div>
                 </div>
 
@@ -387,11 +390,23 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
         // Configuration for API endpoints - Environment aware
-        const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === '')
+        const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
             ? 'http://localhost:5001/api'
             : 'https://brandmark-api-2026.onrender.com/api';
+
+        // Track which course is being enrolled
+        let activeCourseForEnrollment = 'digital-marketing-001';
+
+        function openEnrollmentModalFor(courseId) {
+            activeCourseForEnrollment = courseId;
+            const title = courseId === 'fullstack-mern-001' ? 'Full Stack Web Developer' : 'Digital Marketing Mastery with Gen AI';
+            document.getElementById('enrollmentModalTitle').textContent = 'Enroll in ' + title;
+            document.getElementById('enrollmentModal').style.display = 'flex';
+        }
         
         function openEnrollmentModal() {
+            activeCourseForEnrollment = 'digital-marketing-001';
+            document.getElementById('enrollmentModalTitle').textContent = 'Enroll in Digital Marketing Mastery with Gen AI';
             document.getElementById('enrollmentModal').style.display = 'flex';
         }
         
@@ -425,14 +440,19 @@
                 console.log('📡 Connecting to API at:', API_BASE_URL);
 
                 // Step 1: Create order on backend
-                const orderResponse = await fetch(`${API_BASE_URL}/courses/digital-marketing-001/order`, {
+                const isFullStack = activeCourseForEnrollment === 'fullstack-mern-001';
+                const courseId = activeCourseForEnrollment;
+                const courseTitle = isFullStack ? 'Full Stack Web Developer' : 'Digital Marketing Mastery with Gen AI';
+                const courseAmount = isFullStack ? 49900 : 4900;
+
+                const orderResponse = await fetch(`${API_BASE_URL}/courses/${courseId}/order`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        courseTitle: 'Digital Marketing Mastery with Gen AI',
-                        amount: 4900, // ₹49 in paise
+                        courseTitle: courseTitle,
+                        amount: courseAmount,
                         email: email
                     })
                 });
@@ -459,7 +479,7 @@
                     amount: orderData.data.amount,
                     currency: 'INR',
                     name: 'BrandMark Solutions',
-                    description: 'Digital Marketing Mastery with Gen AI Course',
+                    description: courseTitle,
                     order_id: orderData.data.orderId,
                     handler: async function(response) {
                         console.log('💳 Payment response:', response);
@@ -475,7 +495,7 @@
                                     razorpay_order_id: response.razorpay_order_id,
                                     razorpay_payment_id: response.razorpay_payment_id,
                                     razorpay_signature: response.razorpay_signature,
-                                    courseId: 'digital-marketing-001',
+                                    courseId: courseId,
                                     email: email
                                 })
                             });
@@ -488,9 +508,10 @@
                                 localStorage.setItem('userEmail', email);
                                 localStorage.setItem('studentEmail', email);
                                 localStorage.setItem('STUDENT_NAME', name);
-                                localStorage.setItem('ACTIVE_ENROLLMENT_COURSE', 'digital-marketing-001');
+                                localStorage.setItem('ACTIVE_ENROLLMENT_COURSE', courseId);
+                                const dashboard = courseId === 'fullstack-mern-001' ? 'fullstack-dashboard.html' : 'course-dashboard.html';
                                 alert('🎉 Payment successful! You are now enrolled.');
-                                window.location.href = 'course-dashboard.html';
+                                window.location.href = dashboard;
                             } else {
                                 alert('❌ Payment verification failed: ' + (verifyData.message || 'Unknown error'));
                             }
@@ -532,7 +553,7 @@
     <!-- Enrollment Modal -->
     <div id="enrollmentModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
         <div style="background: white; border-radius: 12px; padding: 40px; max-width: 450px; width: 90%; box-shadow: 0 10px 40px rgba(0,0,0,0.3);">
-            <h2 style="color: #0B2C4D; margin-top: 0; margin-bottom: 10px; font-size: 28px; font-weight: 700;">Enroll in Course</h2>
+            <h2 id="enrollmentModalTitle" style="color: #0B2C4D; margin-top: 0; margin-bottom: 10px; font-size: 24px; font-weight: 700;">Enroll in Course</h2>
             <p style="color: #6C757D; margin-bottom: 30px; font-size: 14px;">Enter your details to proceed with enrollment</p>
             
             <form onsubmit="event.preventDefault(); proceedToPayment();">
