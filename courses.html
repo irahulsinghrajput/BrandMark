@@ -389,8 +389,8 @@
     <script>
         // Configuration for API endpoints - Environment aware
         const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === '')
-            ? 'http://localhost:5000/api'
-            : 'https://brandmark-backend.onrender.com/api';
+            ? 'http://localhost:5001/api'
+            : 'https://brandmark-api-2026.onrender.com/api';
         
         function openEnrollmentModal() {
             document.getElementById('enrollmentModal').style.display = 'flex';
@@ -487,6 +487,9 @@
                             if (verifyData.success) {
                                 localStorage.setItem('enrollmentId', verifyData.data.enrollmentId);
                                 localStorage.setItem('userEmail', email);
+                                localStorage.setItem('studentEmail', email);
+                                localStorage.setItem('STUDENT_NAME', name);
+                                localStorage.setItem('ACTIVE_ENROLLMENT_COURSE', 'digital-marketing-001');
                                 alert('🎉 Payment successful! You are now enrolled.');
                                 window.location.href = 'course-dashboard.html';
                             } else {
