@@ -27,7 +27,7 @@ const courseData = {
 // FREE endpoint using Hugging Face API (5000 free requests/month)
 router.post('/', async (req, res) => {
   try {
-    const { question, language } = req.body;
+    const { question, language, course } = req.body;
 
     if (!question) {
       return res.status(400).json({ error: 'Question is required' });
@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
 
     if (!answer) {
       // If not found, use Hugging Face free API
-      answer = await getAnswerFromHuggingFace(question, language);
+      answer = await getAnswerFromHuggingFace(question, language, course);
     }
 
     res.json({
@@ -69,12 +69,19 @@ function findInKnowledgeBase(question, language) {
 }
 
 // FREE Hugging Face API (completely free)
-async function getAnswerFromHuggingFace(question, language) {
+async function getAnswerFromHuggingFace(question, language, course) {
   try {
+    const responseLanguage = language === 'hi' ? 'Hindi' : language === 'ar' ? 'Arabic' : 'English';
+    const courseContext = course === 'fullstack'
+      ? 'You are a senior Full Stack MERN + GenAI tutor.'
+      : course === 'digital-marketing'
+        ? 'You are a senior Digital Marketing + GenAI tutor.'
+        : 'You are a senior course tutor for Digital Marketing and Full Stack development.';
+
     const payload = JSON.stringify({
-      inputs: `You are a Digital Marketing tutor. Answer this question in ${language === 'hi' ? 'Hindi' : language === 'ar' ? 'Arabic' : 'English'}: ${question}. Keep answer concise (2-3 sentences).`,
+      inputs: `${courseContext} Answer in ${responseLanguage}. Keep tone practical and human, use short examples when helpful, and keep answer concise (3-5 sentences). Question: ${question}`,
       parameters: {
-        max_length: 200,
+        max_length: 260,
         top_p: 0.9,
         temperature: 0.7
       }
