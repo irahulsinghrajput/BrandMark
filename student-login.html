@@ -74,6 +74,11 @@
                 </div>
 
                 <div class="px-8 py-8">
+                    <div id="fileModeBanner" class="hidden mb-5 p-3 rounded-lg border border-amber-200 bg-amber-50 text-amber-900 text-sm">
+                        You opened this page as a local file, and some browsers block cross-origin login requests from file:// pages.
+                        <a id="fileModeLoginLink" href="#" class="font-semibold underline ml-1">Open secure login page</a>
+                    </div>
+
                     <div id="postPaymentBanner" class="hidden mb-5 p-3 rounded-lg border border-green-200 bg-green-50 text-green-800 text-sm font-semibold">
                         Payment confirmed. Create your password now to access this course from any device.
                     </div>
@@ -168,9 +173,52 @@
     </div>
 
     <script>
-        const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-            ? 'http://localhost:5001/api'
-            : 'https://brandmark-api-2026.onrender.com/api';
+        const API_BASE_URLS = [
+            (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+                ? 'http://localhost:5000/api'
+                : 'https://brandmark-api-2026.onrender.com/api',
+            'https://brandmark-api-2026.onrender.com/api',
+            'http://localhost:5000/api',
+            'http://localhost:5001/api'
+        ];
+
+        async function requestJson(path, options = {}) {
+            const errors = [];
+
+            for (const baseUrl of API_BASE_URLS) {
+                try {
+                    const mergedHeaders = {
+                        'Accept': 'application/json',
+                        ...(options.headers || {})
+                    };
+
+                    const response = await fetch(`${baseUrl}${path}`, {
+                        ...options,
+                        mode: 'cors',
+                        cache: 'no-store',
+                        headers: mergedHeaders
+                    });
+
+                    const text = await response.text();
+                    let payload = {};
+                    try {
+                        payload = text ? JSON.parse(text) : {};
+                    } catch (parseError) {
+                        payload = { message: text };
+                    }
+
+                    if (response.ok) {
+                        return payload;
+                    }
+
+                    errors.push(`${baseUrl}: ${response.status} ${payload.message || 'request failed'}`);
+                } catch (error) {
+                    errors.push(`${baseUrl}: ${error.message}`);
+                }
+            }
+
+            throw new Error(errors[0] || 'Unable to reach the authentication service.');
+        }
 
         const COURSE_CONFIG = {
             'digital-marketing-001': {
@@ -192,6 +240,16 @@
         const activeCourseId = getActiveCourseId();
         const activeCourse = COURSE_CONFIG[activeCourseId];
 
+        if (window.location.protocol === 'file:') {
+            const secureLoginUrl = `https://brandmarksolutions.site/student-login.html${window.location.search || ''}`;
+            const fileBanner = document.getElementById('fileModeBanner');
+            const fileLink = document.getElementById('fileModeLoginLink');
+            if (fileBanner && fileLink) {
+                fileLink.href = secureLoginUrl;
+                fileBanner.classList.remove('hidden');
+            }
+        }
+
         // Check if already logged in for this course
         const existingToken = localStorage.getItem('studentToken');
         const storedCourses = JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
@@ -204,8 +262,10 @@
         const urlParams = new URLSearchParams(window.location.search);
         const prefillEmail = urlParams.get('email');
         const prefillName = urlParams.get('name');
+        const prefillPassword = urlParams.get('password') || '';
         const autoTab = urlParams.get('tab');
         const isPostPayment = urlParams.get('postPayment') === '1';
+        const autoLogin = urlParams.get('autoLogin') === '1';
 
         document.getElementById('regCourseId').value = activeCourseId;
         document.getElementById('courseContextText').textContent = activeCourse.title;
@@ -217,13 +277,29 @@
         if (prefillName) {
             document.getElementById('regName').value = prefillName;
         }
+        if (prefillPassword) {
+            document.getElementById('loginPassword').value = prefillPassword;
+            document.getElementById('regPassword').value = prefillPassword;
+        }
         if (autoTab === 'register') {
             switchTab('register');
+        } else {
+            switchTab('login');
         }
 
         if (isPostPayment) {
             document.getElementById('postPaymentBanner').classList.remove('hidden');
-            switchTab('register');
+            if (autoTab === 'register') {
+                switchTab('register');
+            } else {
+                switchTab('login');
+            }
+        }
+
+        if (autoLogin && prefillEmail && prefillPassword) {
+            setTimeout(() => {
+                document.getElementById('loginForm').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+            }, 500);
         }
 
         function switchTab(tab) {
@@ -267,19 +343,23 @@
             spinner.classList.remove('hidden');
 
             try {
-                const res = await fetch(`${API_BASE_URL}/students/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password, courseId: activeCourseId })
+                const formBody = new URLSearchParams({
+                    email,
+                    password,
+                    courseId: activeCourseId
                 });
-                const data = await res.json();
+
+                const data = await requestJson('/students/login', {
+                    method: 'POST',
+                    body: formBody
+                });
 
                 if (!data.success) {
                     throw new Error(data.message || 'Login failed');
                 }
 
                 const enrolledCourses = data.data.enrolledCourses || [];
-                const hasCourseAccess = enrolledCourses.some((course) => course.courseId === activeCourseId);
+                const hasCourseAccess = enrolledCourses.some((course) => course && course.courseId === activeCourseId);
                 if (!hasCourseAccess) {
                     throw new Error('You are not enrolled in this course. Please enroll first.');
                 }
@@ -295,7 +375,12 @@
                 window.location.href = activeCourse.dashboard;
 
             } catch (error) {
-                errorDiv.textContent = error.message;
+                const fallbackMessage = error && error.message ? error.message : 'Login failed. Please try again.';
+                if (fallbackMessage.includes('Failed to fetch') || fallbackMessage.includes('fetch')) {
+                    errorDiv.textContent = 'The login service is taking longer than expected. Please try again in a moment.';
+                } else {
+                    errorDiv.textContent = fallbackMessage;
+                }
                 errorDiv.classList.remove('hidden');
                 btnText.classList.remove('hidden');
                 spinner.classList.add('hidden');
@@ -317,18 +402,18 @@
             spinner.classList.remove('hidden');
 
             try {
-                const res = await fetch(`${API_BASE_URL}/students/register`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        name,
-                        email,
-                        password,
-                        courseId,
-                        courseTitle: activeCourse.title
-                    })
+                const formBody = new URLSearchParams({
+                    name,
+                    email,
+                    password,
+                    courseId,
+                    courseTitle: activeCourse.title
                 });
-                const data = await res.json();
+
+                const data = await requestJson('/students/register', {
+                    method: 'POST',
+                    body: formBody
+                });
 
                 if (!data.success) {
                     throw new Error(data.message || 'Registration failed');
