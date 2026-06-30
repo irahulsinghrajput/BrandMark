@@ -71,6 +71,7 @@
   let lang = 'en';
   let isOpen = false;
   let isLoading = false;
+  const conversationHistory = [];
 
   const greetings = {
     en: '👋 Hi! I\'m your AI Tutor. Ask me anything about this module or Digital Marketing!',
@@ -310,23 +311,35 @@
   });
 
   async function fetchTutorReply(question, language) {
-    const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-      ? 'http://localhost:5001/api'
-      : 'https://brandmark-api-2026.onrender.com/api';
+    const API_BASE_URLS = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+      ? ['http://localhost:5000/api', 'http://localhost:5001/api']
+      : ['https://brandmark-api-2026.onrender.com/api'];
 
-    try {
-      const response = await fetch(`${API_BASE_URL}/ai-tutor`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question, language, course: 'digital-marketing' })
-      });
+    const historySlice = conversationHistory.slice(-6).map((item) => ({
+      role: item.role,
+      content: item.content
+    }));
 
-      const data = await response.json();
-      if (response.ok && data && data.success && data.answer) {
-        return data.answer;
+    for (const baseUrl of API_BASE_URLS) {
+      try {
+        const response = await fetch(`${baseUrl}/ai-tutor`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            question,
+            language,
+            course: 'digital-marketing',
+            history: historySlice
+          })
+        });
+
+        const data = await response.json();
+        if (response.ok && data && data.success && data.answer) {
+          return data.answer;
+        }
+      } catch (_err) {
+        // Try next API endpoint
       }
-    } catch (_err) {
-      // Fall back to local KB when API is unavailable
     }
 
     return getAnswer(question, language);
@@ -338,12 +351,14 @@
     const q = input.value.trim();
     if (!q) return;
     addMsg('user', q);
+    conversationHistory.push({ role: 'user', content: q });
     input.value = '';
     isLoading = true;
     showThinking();
     const answer = await fetchTutorReply(q, lang);
     removeThinking();
     addMsg('bot', answer);
+    conversationHistory.push({ role: 'assistant', content: answer });
     speak(answer);
     isLoading = false;
   }

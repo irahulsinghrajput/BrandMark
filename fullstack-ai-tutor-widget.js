@@ -236,6 +236,7 @@
 
   // ── State ───────────────────────────────────────────────────────────────────
   let lang = 'en';
+  const conversationHistory = [];
   const fab   = document.getElementById('bm-fs-fab');
   const chat  = document.getElementById('bm-fs-chat');
   const close = document.getElementById('bm-fs-close');
@@ -287,23 +288,35 @@
   }
 
   async function fetchTutorReply(question, language) {
-    const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-      ? 'http://localhost:5001/api'
-      : 'https://brandmark-api-2026.onrender.com/api';
+    const API_BASE_URLS = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+      ? ['http://localhost:5000/api', 'http://localhost:5001/api']
+      : ['https://brandmark-api-2026.onrender.com/api'];
 
-    try {
-      const response = await fetch(`${API_BASE_URL}/ai-tutor`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question, language, course: 'fullstack' })
-      });
+    const historySlice = conversationHistory.slice(-6).map((item) => ({
+      role: item.role,
+      content: item.content
+    }));
 
-      const data = await response.json();
-      if (response.ok && data && data.success && data.answer) {
-        return data.answer;
+    for (const baseUrl of API_BASE_URLS) {
+      try {
+        const response = await fetch(`${baseUrl}/ai-tutor`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            question,
+            language,
+            course: 'fullstack',
+            history: historySlice
+          })
+        });
+
+        const data = await response.json();
+        if (response.ok && data && data.success && data.answer) {
+          return data.answer;
+        }
+      } catch (_err) {
+        // Try next API endpoint
       }
-    } catch (_err) {
-      // Fall back to local KB when API is unavailable
     }
 
     return getAnswer(question, language);
@@ -321,10 +334,12 @@
     if (!q) return;
     input.value = '';
     appendMsg(q, 'user');
+    conversationHistory.push({ role: 'user', content: q });
     const thinking = appendMsg(getThinkingLabel(), 'thinking');
     const answer = await fetchTutorReply(q, lang);
     msgs.removeChild(thinking);
     appendMsg(answer, 'bot');
+    conversationHistory.push({ role: 'assistant', content: answer });
     speak(answer);
   }
 
