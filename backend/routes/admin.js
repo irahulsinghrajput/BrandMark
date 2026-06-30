@@ -7,6 +7,7 @@ const Contact = require('../models/Contact');
 const Career = require('../models/Career');
 const Newsletter = require('../models/Newsletter');
 const Blog = require('../models/Blog');
+const Quote = require('../models/Quote');
 const auth = require('../middleware/auth');
 
 // @route   POST /api/admin/register
@@ -115,10 +116,18 @@ router.post('/login',
                 { expiresIn: '7d' }
             );
 
+            // Set httpOnly cookie (more secure than returning token)
+            res.cookie('authToken', token, {
+                httpOnly: true,                                    // Not accessible via JavaScript
+                secure: process.env.NODE_ENV === 'production',    // Only sent over HTTPS in production
+                sameSite: 'strict',                                // CSRF protection
+                path: '/',
+                maxAge: 7 * 24 * 60 * 60 * 1000                  // 7 days
+            });
+
             res.json({
                 success: true,
                 message: 'Login successful',
-                token,
                 admin: {
                     id: admin._id,
                     email: admin.email,
@@ -148,7 +157,9 @@ router.get('/dashboard', auth, async (req, res) => {
             newApplications,
             totalSubscribers,
             totalBlogs,
-            publishedBlogs
+            publishedBlogs,
+            totalQuotes,
+            newQuotes
         ] = await Promise.all([
             Contact.countDocuments(),
             Contact.countDocuments({ status: 'new' }),
@@ -156,7 +167,9 @@ router.get('/dashboard', auth, async (req, res) => {
             Career.countDocuments({ status: 'new' }),
             Newsletter.countDocuments({ isActive: true }),
             Blog.countDocuments(),
-            Blog.countDocuments({ published: true })
+            Blog.countDocuments({ published: true }),
+            Quote.countDocuments(),
+            Quote.countDocuments({ status: 'new' })
         ]);
 
         // Recent activities
@@ -177,7 +190,8 @@ router.get('/dashboard', auth, async (req, res) => {
                     contacts: { total: totalContacts, new: newContacts },
                     applications: { total: totalApplications, new: newApplications },
                     subscribers: totalSubscribers,
-                    blogs: { total: totalBlogs, published: publishedBlogs }
+                    blogs: { total: totalBlogs, published: publishedBlogs },
+                    quotes: { total: totalQuotes, new: newQuotes }
                 },
                 recentActivities: {
                     contacts: recentContacts,
@@ -213,6 +227,62 @@ router.get('/me', auth, async (req, res) => {
         res.status(500).json({
             success: false,
             message: 'Failed to fetch profile'
+        });
+    }
+});
+
+// @route   GET /api/admin/verify
+// @desc    Verify if user has valid authentication cookie
+// @access  Public (checks for cookie, returns auth status)
+router.get('/verify', (req, res) => {
+    try {
+        // Check if authToken cookie exists
+        const token = req.cookies.authToken;
+        
+        if (!token) {
+            return res.json({ authenticated: false });
+        }
+
+        // Verify token validity
+        const jwtSecret = process.env.JWT_SECRET;
+        const decoded = jwt.verify(token, jwtSecret || 'your-secret-key-change-in-production');
+
+        res.json({ 
+            authenticated: true,
+            user: {
+                id: decoded.id,
+                email: decoded.email,
+                role: decoded.role
+            }
+        });
+    } catch (error) {
+        // Token invalid or expired
+        res.json({ authenticated: false });
+    }
+});
+
+// @route   POST /api/admin/logout
+// @desc    Logout admin (clear httpOnly cookie)
+// @access  Public
+router.post('/logout', (req, res) => {
+    try {
+        // Clear the authToken cookie
+        res.clearCookie('authToken', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            path: '/'
+        });
+
+        res.json({
+            success: true,
+            message: 'Logged out successfully'
+        });
+    } catch (error) {
+        console.error('Logout error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Logout failed'
         });
     }
 });

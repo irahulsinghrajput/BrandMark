@@ -173,9 +173,105 @@ const sendNewsletterWelcome = async (email) => {
     }
 };
 
+// Send quote request email to admin
+const sendQuoteEmail = async (quoteData) => {
+    try {
+        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+            console.warn('⚠️ Email credentials not configured. Skipping email send.');
+            return { success: false, message: 'Email not configured' };
+        }
+
+        const transporter = createTransporter();
+
+        const marketLabel = quoteData.market === 'us'
+            ? 'US'
+            : quoteData.market === 'europe'
+                ? 'Europe'
+                : 'Middle East';
+
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
+            subject: `New Quote Request - ${quoteData.serviceLabel} (${quoteData.quoteDisplay})`,
+            html: `
+                <div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto;">
+                    <h2 style="color: #0B2C4D;">New Quote Request</h2>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <p><strong>Name:</strong> ${quoteData.name}</p>
+                        <p><strong>Email:</strong> ${quoteData.email}</p>
+                        <p><strong>Phone:</strong> ${quoteData.phone || 'Not provided'}</p>
+                        <p><strong>Website:</strong> ${quoteData.website || 'Not provided'}</p>
+                        <p><strong>Service:</strong> ${quoteData.serviceLabel}</p>
+                        <p><strong>Company Size:</strong> ${quoteData.companySize}</p>
+                        <p><strong>Market:</strong> ${marketLabel}</p>
+                        <p><strong>Timeline:</strong> ${quoteData.timeline || 'Not provided'}</p>
+                        <p><strong>Budget:</strong> ${quoteData.budget || 'Not provided'}</p>
+                        <p><strong>Auto Quote:</strong> <span style="color:#F26A21;font-weight:bold;">${quoteData.quoteDisplay}</span></p>
+                        <hr style="border: 1px solid #dee2e6; margin: 15px 0;">
+                        <p><strong>Notes:</strong></p>
+                        <p style="white-space: pre-wrap;">${quoteData.notes || 'No notes provided.'}</p>
+                    </div>
+                    <p style="color: #6c757d; font-size: 12px;">Submitted on: ${new Date().toLocaleString()}</p>
+                </div>
+            `
+        };
+
+        await transporter.sendMail(mailOptions);
+        return { success: true, message: 'Quote email sent successfully' };
+    } catch (error) {
+        console.error('Error sending quote email:', error);
+        return { success: false, message: error.message };
+    }
+};
+
+// Send quote auto-reply to submitter
+const sendQuoteAutoReply = async ({ email, name, serviceLabel, quoteDisplay, market }) => {
+    try {
+        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+            return { success: false, message: 'Email not configured' };
+        }
+
+        const transporter = createTransporter();
+        const marketLabel = market === 'us' ? 'US' : market === 'europe' ? 'Europe' : 'Middle East';
+
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: 'Your BrandMark Quote Estimate',
+            html: `
+                <div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto;">
+                    <h2 style="color: #F26A21;">Your Quote Estimate is Ready</h2>
+                    <p>Hi ${name},</p>
+                    <p>Thanks for requesting a quote from BrandMark Solutions. Here is your estimated starting quote:</p>
+                    <div style="background: #f8f9fa; padding: 18px; border-radius: 8px; margin: 20px 0;">
+                        <p style="margin: 8px 0;"><strong>Service:</strong> ${serviceLabel}</p>
+                        <p style="margin: 8px 0;"><strong>Market:</strong> ${marketLabel}</p>
+                        <p style="margin: 8px 0;"><strong>Estimated Price:</strong> <span style="color:#F26A21;font-weight:bold;">${quoteDisplay}</span></p>
+                    </div>
+                    <p>This is an estimated starting package. Final pricing may vary based on scope and delivery timeline.</p>
+                    <p>Our team will review your request and reach out with next steps.</p>
+                    <div style="background: #f8f9fa; padding: 16px; border-radius: 8px; margin-top: 20px;">
+                        <p style="margin: 0;"><strong>BrandMark Solutions</strong></p>
+                        <p style="margin: 5px 0;">Website: <a href="https://brandmarksolutions.site">brandmarksolutions.site</a></p>
+                    </div>
+                    <p style="color: #6c757d; font-size: 12px;">This is an automated message. Please do not reply directly to this email.</p>
+                </div>
+            `
+        };
+
+        await transporter.sendMail(mailOptions);
+        return { success: true, message: 'Quote auto-reply sent successfully' };
+    } catch (error) {
+        console.error('Error sending quote auto-reply:', error);
+        return { success: false, message: error.message };
+    }
+};
+
 module.exports = {
     sendContactEmail,
     sendContactAutoReply,
     sendCareerEmail,
-    sendNewsletterWelcome
+    sendNewsletterWelcome,
+    sendQuoteEmail,
+    sendQuoteAutoReply
 };

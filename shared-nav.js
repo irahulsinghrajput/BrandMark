@@ -11,7 +11,7 @@
             <div class="flex justify-between items-center h-20">
                 <!-- Logo Area -->
                 <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer no-underline" aria-label="BrandMark Home">
-                    <img src="new logoBrandMarkupdatedone.jpeg" alt="Brand Mark Logo" class="h-12 w-12 rounded-full object-cover mr-3">
+                    <img src="brandmark-logo-new.png.png" alt="Brand Mark Logo" class="h-12 w-12 rounded-full object-cover mr-3">
                     <span class="text-2xl font-bold tracking-tighter text-white">
                         Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">®</span>
                     </span>
@@ -24,6 +24,7 @@
                     <a href="brandmarkservices.html" class="nav-link text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Services</a>
                     <a href="portfolio.html" class="nav-link text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Portfolio</a>
                     <a href="brandmarkpersonalblogs.html" class="nav-link text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Blog</a>
+                    <a href="courses.html" class="nav-link text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Courses</a>
                     <a href="brandmarkcareers.html" class="nav-link text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium tracking-wide">Careers</a>
                 </div>
 
@@ -44,6 +45,7 @@
                 <a href="brandmarkservices.html" class="nav-link-mobile block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Services</a>
                 <a href="portfolio.html" class="nav-link-mobile block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Portfolio</a>
                 <a href="brandmarkpersonalblogs.html" class="nav-link-mobile block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Blog</a>
+                <a href="courses.html" class="nav-link-mobile block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Courses</a>
                 <a href="brandmarkcareers.html" class="nav-link-mobile block px-3 py-3 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-brand-navy-dark">Careers</a>
             </div>
         </div>

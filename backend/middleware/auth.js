@@ -4,8 +4,13 @@ const Admin = require('../models/Admin');
 // Authentication middleware
 const auth = async (req, res, next) => {
     try {
-        // Get token from header
-        const token = req.header('Authorization')?.replace('Bearer ', '');
+        // Get token from Authorization header OR from httpOnly cookie
+        let token = req.header('Authorization')?.replace('Bearer ', '');
+        
+        // If no Authorization header, check for cookie
+        if (!token) {
+            token = req.cookies?.authToken;
+        }
 
         if (!token) {
             return res.status(401).json({
@@ -64,5 +69,24 @@ const isSuperAdmin = (req, res, next) => {
     }
 };
 
+// Check if user/admin is admin
+const isAdmin = (req, res, next) => {
+    if (req.admin && (req.admin.role === 'admin' || req.admin.role === 'superadmin')) {
+        next();
+    } else {
+        res.status(403).json({
+            success: false,
+            message: 'Access denied. Admin privileges required.'
+        });
+    }
+};
+
+// Alias verifyToken to auth for consistency
+const verifyToken = auth;
+const authenticateToken = auth;
+
 module.exports = auth;
+module.exports.verifyToken = verifyToken;
+module.exports.authenticateToken = authenticateToken;
 module.exports.isSuperAdmin = isSuperAdmin;
+module.exports.isAdmin = isAdmin;

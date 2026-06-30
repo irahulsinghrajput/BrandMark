@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Course Guides</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+    <header class="sticky top-0 z-50 bg-brand-navy-dark border-b-4 border-brand-orange shadow-lg">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="course-dashboard.html" class="flex items-center gap-3 text-white hover:opacity-90 transition">
+                <i class="fas fa-arrow-left"></i>
+                <span class="font-bold">Back to Dashboard</span>
+            </a>
+            <div class="flex gap-3">
+                <a href="resources-hub.html" class="text-white hover:text-brand-orange transition font-bold px-4 py-2 rounded-lg hover:bg-white/15 bg-white/5 border border-white/10">
+                    <i class="fas fa-home mr-2"></i>Resources Hub
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-brand-navy mb-3">📥 Download Course Guides</h1>
+            <p class="text-xl text-gray-600">Worksheets, templates, and checklists for each module</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Module 1 -->
+            <div class="bg-white rounded-xl shadow-lg p-8 border-t-4 border-blue-500 hover:shadow-xl transition">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-book text-blue-500 text-2xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-brand-navy mb-3">Module 1: Digital Marketing Fundamentals</h2>
+                <p class="text-gray-600 mb-4">Learn digital marketing channels, strategies, and core concepts. Includes worksheets for target audience analysis, marketing objectives, and KPI definition.</p>
+                <div class="flex gap-3">
+                    <a href="resources/module-1-guide.html" target="_blank" class="flex-1 bg-blue-500 text-white py-3 px-4 rounded-lg text-center font-semibold hover:bg-blue-600 transition">
+                        <i class="fas fa-download mr-2"></i>View/Download
+                    </a>
+                    <button onclick="printToPDF('resources/module-1-guide.html')" class="flex-1 bg-gray-200 text-gray-800 py-3 px-4 rounded-lg font-semibold hover:bg-gray-300 transition">
+                        <i class="fas fa-file-pdf mr-2"></i>Save as PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Module 2 -->
+            <div class="bg-white rounded-xl shadow-lg p-8 border-t-4 border-orange-500 hover:shadow-xl transition">
+                <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-robot text-orange-500 text-2xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-brand-navy mb-3">Module 2: Gen AI for Marketing</h2>
+                <p class="text-gray-600 mb-4">Master Generative AI tools with practical templates. Includes prompt library, image generation ideas, and AI ethics checklist.</p>
+                <div class="flex gap-3">
+                    <a href="resources/module-2-guide.html" target="_blank" class="flex-1 bg-orange-500 text-white py-3 px-4 rounded-lg text-center font-semibold hover:bg-orange-600 transition">
+                        <i class="fas fa-download mr-2"></i>View/Download
+                    </a>
+                    <button onclick="printToPDF('resources/module-2-guide.html')" class="flex-1 bg-gray-200 text-gray-800 py-3 px-4 rounded-lg font-semibold hover:bg-gray-300 transition">
+                        <i class="fas fa-file-pdf mr-2"></i>Save as PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Module 3 -->
+            <div class="bg-white rounded-xl shadow-lg p-8 border-t-4 border-green-500 hover:shadow-xl transition">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-chart-bar text-green-500 text-2xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-brand-navy mb-3">Module 3: Analytics & Metrics</h2>
+                <p class="text-gray-600 mb-4">Master data analysis and KPI tracking. Includes metrics tracker, campaign analysis template, and analytics setup checklist.</p>
+                <div class="flex gap-3">
+                    <a href="resources/module-3-guide.html" target="_blank" class="flex-1 bg-green-600 text-white py-3 px-4 rounded-lg text-center font-semibold hover:bg-green-700 transition">
+                        <i class="fas fa-download mr-2"></i>View/Download
+                    </a>
+                    <button onclick="printToPDF('resources/module-3-guide.html')" class="flex-1 bg-gray-200 text-gray-800 py-3 px-4 rounded-lg font-semibold hover:bg-gray-300 transition">
+                        <i class="fas fa-file-pdf mr-2"></i>Save as PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-12 bg-blue-50 border-l-4 border-blue-500 p-6 rounded">
+            <h3 class="font-bold text-blue-900 mb-2">💡 How to Use These Guides</h3>
+            <ul class="text-blue-800 space-y-2">
+                <li>✓ View online and read in your browser</li>
+                <li>✓ Download as HTML and print as PDF (use your browser's print function)</li>
+                <li>✓ Complete the worksheets and templates while learning</li>
+                <li>✓ Use as reference materials throughout the course</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function printToPDF(url) {
+            window.open(url, '_blank');
+            alert('The guide has opened in a new tab. To save as PDF:\n1. Press Ctrl+P (or Cmd+P on Mac)\n2. Select "Save as PDF"\n3. Click Save');
+        }
+    </script>
+</body>
+</html>

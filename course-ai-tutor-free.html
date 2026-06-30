@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tutor - BrandMark Digital Marketing Course</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="brandmark.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-navy': '#0B2C4D',
+                        'brand-navy-dark': '#081F36',
+                        'brand-orange': '#F26A21',
+                        'brand-orange-dark': '#E65C17',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+
+        body { background: #f0f4f8; }
+
+        .chat-messages {
+            height: 420px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            padding: 20px;
+            scroll-behavior: smooth;
+        }
+        .chat-messages::-webkit-scrollbar { width: 4px; }
+        .chat-messages::-webkit-scrollbar-track { background: #f1f5f9; }
+        .chat-messages::-webkit-scrollbar-thumb { background: #F26A21; border-radius: 4px; }
+
+        .user-message {
+            background: linear-gradient(135deg, #F26A21, #E65C17);
+            color: #fff;
+            align-self: flex-end;
+            border-radius: 18px 18px 4px 18px;
+            padding: 12px 18px;
+            max-width: 80%;
+            box-shadow: 0 4px 12px rgba(242,106,33,0.3);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .bot-message {
+            background: linear-gradient(135deg, #0B2C4D, #0d3560);
+            color: #fff;
+            align-self: flex-start;
+            border-radius: 18px 18px 18px 4px;
+            padding: 12px 18px;
+            max-width: 80%;
+            box-shadow: 0 4px 12px rgba(11,44,77,0.2);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .thinking {
+            display: flex;
+            gap: 5px;
+            padding: 14px 18px;
+            background: #e2e8f0;
+            border-radius: 18px 18px 18px 4px;
+            width: fit-content;
+        }
+        .dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #F26A21;
+            animation: bounce 1.4s infinite;
+        }
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes bounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-8px); }
+        }
+
+        .lang-btn {
+            padding: 10px 22px;
+            border: 2px solid #F26A21;
+            background: transparent;
+            color: #F26A21;
+            cursor: pointer;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+        }
+        .lang-btn:hover, .lang-btn.active {
+            background: #F26A21;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(242,106,33,0.35);
+        }
+
+        .topic-chip {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(242,106,33,0.1);
+            border: 1px solid rgba(242,106,33,0.3);
+            color: #E65C17;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .topic-chip:hover {
+            background: #F26A21;
+            color: #fff;
+            border-color: #F26A21;
+        }
+
+        .voice-btn-active {
+            background: #dc2626 !important;
+            animation: pulse-red 1s infinite;
+        }
+        @keyframes pulse-red {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(220,38,38,0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 bg-gradient-to-r from-brand-navy to-brand-navy-dark shadow-xl border-b-4 border-brand-orange">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 hover:opacity-90 transition">
+                <img src="brandmark-logo-new.png.png" alt="BrandMark Logo" class="h-11 w-11 rounded-full object-cover border-2 border-brand-orange shadow-lg">
+                <div class="flex flex-col">
+                    <span class="text-xl font-extrabold text-white tracking-tight">Brand<span class="text-brand-orange font-light">Mark</span></span>
+                    <span class="text-xs text-blue-200 font-semibold">DIGITAL MASTERY</span>
+                </div>
+            </a>
+            <div class="hidden md:flex items-center gap-6">
+                <a href="index.html" class="text-white hover:text-brand-orange transition font-semibold text-sm">Home</a>
+                <a href="digital-marketing-course.html" class="text-white hover:text-brand-orange transition font-semibold text-sm">Course</a>
+                <a href="course-dashboard.html" class="text-white hover:text-brand-orange transition font-semibold text-sm">Dashboard</a>
+                <a href="course-ai-tutor-free.html" class="px-4 py-2 bg-brand-orange text-white rounded-full font-bold text-sm shadow-lg">🤖 AI Tutor</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="bg-gradient-to-r from-brand-navy to-brand-navy-dark py-12 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full border border-white/20 mb-5 backdrop-blur-sm">
+                <i class="fas fa-robot text-brand-orange text-sm"></i>
+                <span class="text-sm font-semibold text-white/80">BrandMark Digital Marketing Tutor</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-3">
+                🤖 AI Course <span class="text-brand-orange">Tutor</span>
+            </h1>
+            <p class="text-gray-300 text-lg">Ask anything about Digital Marketing in English, Hindi or Arabic</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-10">
+
+        <!-- Language Selector -->
+        <div class="flex gap-3 justify-center mb-8 flex-wrap">
+            <button class="lang-btn active" onclick="setLanguage('en', this)">🇬🇧 English</button>
+            <button class="lang-btn" onclick="setLanguage('hi', this)">🇮🇳 हिंदी</button>
+            <button class="lang-btn" onclick="setLanguage('ar', this)">🇸🇦 العربية</button>
+        </div>
+
+        <!-- Tutor Grid -->
+        <div class="grid md:grid-cols-2 gap-6">
+
+            <!-- Left: Info Panel -->
+            <div class="bg-gradient-to-br from-brand-navy to-brand-navy-dark rounded-2xl p-8 flex flex-col justify-between shadow-xl">
+                <div>
+                    <div class="w-20 h-20 bg-brand-orange/20 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-brand-orange/40">
+                        <span class="text-4xl">🤖</span>
+                    </div>
+                    <h2 class="text-2xl font-bold text-white text-center mb-2">AI Tutor Ready</h2>
+                    <p class="text-gray-300 text-center text-sm mb-8">Ask me about Digital Marketing topics below</p>
+
+                    <!-- Quick Topics -->
+                    <div class="mb-6">
+                        <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-3">Quick Topics</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="topic-chip" onclick="askTopic('What is SEO?')">SEO</span>
+                            <span class="topic-chip" onclick="askTopic('social media marketing')">Social Media</span>
+                            <span class="topic-chip" onclick="askTopic('email marketing')">Email</span>
+                            <span class="topic-chip" onclick="askTopic('content marketing')">Content</span>
+                            <span class="topic-chip" onclick="askTopic('PPC advertising')">PPC Ads</span>
+                            <span class="topic-chip" onclick="askTopic('branding strategy')">Branding</span>
+                            <span class="topic-chip" onclick="askTopic('what is marketing funnel')">Funnel</span>
+                            <span class="topic-chip" onclick="askTopic('digital analytics ROI')">Analytics</span>
+                            <span class="topic-chip" onclick="askTopic('keyword research')">Keywords</span>
+                            <span class="topic-chip" onclick="askTopic('backlinks')">Backlinks</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="bg-white/10 rounded-xl p-3 text-center">
+                        <p class="text-brand-orange text-xl font-bold">20+</p>
+                        <p class="text-gray-300 text-xs">Topics</p>
+                    </div>
+                    <div class="bg-white/10 rounded-xl p-3 text-center">
+                        <p class="text-brand-orange text-xl font-bold">3</p>
+                        <p class="text-gray-300 text-xs">Languages</p>
+                    </div>
+                    <div class="bg-white/10 rounded-xl p-3 text-center">
+                        <p class="text-brand-orange text-xl font-bold">Free</p>
+                        <p class="text-gray-300 text-xs">Forever</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Chat Interface -->
+            <div class="bg-white rounded-2xl shadow-xl flex flex-col overflow-hidden border border-gray-100">
+
+                <!-- Chat Header -->
+                <div class="bg-gradient-to-r from-brand-navy to-brand-navy-dark px-6 py-4 flex items-center gap-3">
+                    <div class="w-9 h-9 bg-brand-orange rounded-full flex items-center justify-center">
+                        <i class="fas fa-robot text-white text-sm"></i>
+                    </div>
+                    <div>
+                        <p class="text-white font-bold text-sm">BrandMark AI Tutor</p>
+                        <p class="text-green-300 text-xs flex items-center gap-1">
+                            <span class="w-2 h-2 bg-green-400 rounded-full inline-block"></span> Online · Instant Answers
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Messages -->
+                <div class="chat-messages bg-gray-50" id="chatMessages"></div>
+
+                <!-- Input Area -->
+                <div class="px-4 py-3 bg-white border-t border-gray-100 flex gap-2">
+                    <input
+                        type="text"
+                        id="userInput"
+                        placeholder="Ask your question..."
+                        onkeypress="if(event.key==='Enter') sendMessage()"
+                        class="flex-1 px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-brand-orange transition placeholder-gray-400"
+                    />
+                    <button onclick="sendMessage()" title="Send"
+                        class="px-4 py-3 bg-brand-orange hover:bg-brand-orange-dark text-white rounded-xl transition shadow-md hover:shadow-lg">
+                        <i class="fas fa-paper-plane text-sm"></i>
+                    </button>
+                    <button onclick="startVoiceInput()" id="voiceBtn" title="Voice Input"
+                        class="px-4 py-3 bg-brand-navy hover:bg-brand-navy-dark text-white rounded-xl transition shadow-md hover:shadow-lg">
+                        <i class="fas fa-microphone text-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-navy-dark text-white py-10 px-4 border-t-4 border-brand-orange mt-10">
+        <div class="max-w-6xl mx-auto text-center">
+            <p class="text-gray-300 text-sm">&copy; 2025 BrandMark Solutions. All rights reserved.</p>
+            <p class="mt-2 text-xs text-gray-400">
+                <a href="course-dashboard.html" class="text-brand-orange hover:underline">← Back to Dashboard</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        let currentLanguage = 'en';
+        let isLoading = false;
+
+        const greetings = {
+            'en': 'Hello! I am your AI tutor. I can help you learn about Digital Marketing. What would you like to know?',
+            'hi': 'नमस्ते! मैं आपका AI ट्यूटर हूँ। मैं आपको डिजिटल मार्केटिंग सीखने में मदद कर सकता हूँ। आप क्या जानना चाहते हैं?',
+            'ar': 'مرحبا! أنا معلمك الذكي. يمكنني مساعدتك على تعلم التسويق الرقمي. ماذا تريد أن تعرف؟'
+        };
+
+        const placeholders = {
+            'en': 'Ask your question...',
+            'hi': 'अपना प्रश्न पूछें...',
+            'ar': 'اسأل سؤالك...'
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            addMessage('bot', greetings[currentLanguage]);
+        });
+
+        function setLanguage(lang, btn) {
+            currentLanguage = lang;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('chatMessages').innerHTML = '';
+            document.getElementById('userInput').placeholder = placeholders[lang];
+            addMessage('bot', greetings[lang]);
+        }
+
+        function askTopic(question) {
+            document.getElementById('userInput').value = question;
+            sendMessage();
+        }
+
+        function addMessage(sender, text) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageEl = document.createElement('div');
+            messageEl.className = `message ${sender}-message`;
+            messageEl.textContent = text;
+            messagesDiv.appendChild(messageEl);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function addThinkingIndicator() {
+            const messagesDiv = document.getElementById('chatMessages');
+            const thinkingEl = document.createElement('div');
+            thinkingEl.className = 'thinking';
+            thinkingEl.id = 'thinking-indicator';
+            thinkingEl.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+            messagesDiv.appendChild(thinkingEl);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function removeThinkingIndicator() {
+            const thinking = document.getElementById('thinking-indicator');
+            if (thinking) thinking.remove();
+        }
+
+        // ============================================================
+        // FULLY CLIENT-SIDE KNOWLEDGE BASE - NO BACKEND NEEDED
+        // Works from file://, http://, https:// everywhere!
+        // ============================================================
+        const knowledgeBase = {
+            en: {
+                'seo': 'SEO (Search Engine Optimization) improves your website ranking in search engines like Google. Key elements: keyword research, on-page optimization, quality content, backlinks, and technical SEO. Good SEO drives free organic traffic to your website.',
+                'search engine': 'Search Engine Optimization (SEO) helps your website appear higher on Google and Bing. Focus on: relevant keywords, fast page speed, mobile-friendly design, and quality backlinks from other websites.',
+                'social media': 'Social Media Marketing promotes your brand on Facebook, Instagram, Twitter, LinkedIn. Key strategies: consistent posting, engaging content, hashtags, paid ads, and collaborating with influencers to grow your audience.',
+                'content': 'Content Marketing creates valuable blog posts, videos, and infographics to attract customers. Good content builds trust, improves SEO, and brings free traffic. Focus on solving your audience\'s problems.',
+                'email': 'Email Marketing sends targeted messages to subscribers. It has the highest ROI of any digital channel — ₹40 return per ₹1 spent! Build your list, personalize messages, and send valuable content regularly.',
+                'ppc': 'PPC (Pay-Per-Click) advertising shows ads on Google and social media. You only pay when someone clicks. Google Ads and Facebook Ads are most popular. Great for quick results and targeting specific audiences.',
+                'google ads': 'Google Ads shows your website at the top of search results. You bid on keywords and pay per click. Target by location, language, device, and more. Best for reaching people actively searching for your product.',
+                'facebook ads': 'Facebook Ads reach 2+ billion users with precise targeting by age, location, interests, and behavior. Use carousel ads, video ads, and retargeting to maximize conversions and grow your business.',
+                'branding': 'Branding creates your company\'s identity — logo, colors, voice, and values. Strong branding builds customer trust and loyalty. Consistent branding across all channels makes your business memorable.',
+                'digital marketing': 'Digital Marketing promotes products/services online through SEO, social media, email, PPC, and content. It\'s measurable, cost-effective, and targets specific audiences. Essential for modern business growth.',
+                'analytics': 'Digital Marketing Analytics tracks campaign performance using tools like Google Analytics. Key metrics: traffic, bounce rate, conversion rate, CTR, and ROI. Data helps you optimize your marketing strategy.',
+                'conversion': 'Conversion Rate Optimization (CRO) increases the percentage of visitors who take action (buy, sign up). Techniques: A/B testing, clear CTAs, faster loading, trust signals, and simplified checkout process.',
+                'influencer': 'Influencer Marketing partners with social media personalities to promote your brand. Choose influencers whose audience matches your target market. Micro-influencers (10K-100K followers) often have higher engagement rates.',
+                'affiliate': 'Affiliate Marketing pays partners a commission for every sale they drive. You only pay for results! Join networks like Amazon Associates or create your own program. Great passive income for bloggers.',
+                'video': 'Video Marketing is the most engaging content type. YouTube is the 2nd largest search engine! Short videos on Instagram Reels and TikTok get massive reach. Always add captions and a clear call-to-action.',
+                'funnel': 'Marketing Funnel guides customers from Awareness → Interest → Decision → Action. Top of funnel: blog posts and social media. Middle: email campaigns. Bottom: offers and demos to convert leads to customers.',
+                'keyword': 'Keyword Research finds what your audience searches for. Use free tools like Google Keyword Planner, Ubersuggest. Target long-tail keywords (3+ words) — less competition, higher conversion rates.',
+                'backlink': 'Backlinks are links from other websites to yours. They signal authority to Google. Earn backlinks through guest posting, creating shareable content, and PR. Quality beats quantity — one link from a top site is worth 100 from low-quality sites.',
+                'landing page': 'Landing Pages are single-focus pages designed to convert visitors. Key elements: strong headline, clear CTA, social proof, and no distractions. A good landing page can double your conversion rate.',
+                'roi': 'ROI (Return on Investment) measures marketing profitability. Formula: (Revenue - Cost) / Cost × 100%. Track ROI for each channel to invest more in what works and cut what doesn\'t.',
+                'hello': 'Hello! I\'m your Digital Marketing AI Tutor. Ask me anything about SEO, Social Media, Content Marketing, Email, PPC, Branding, Analytics, or any digital marketing topic!',
+                'hi': 'Hi there! Ready to learn Digital Marketing? Ask me about SEO, Social Media, Email Marketing, PPC Ads, Content Strategy, Branding, or Analytics. I\'m here to help!',
+                'default': 'Great question! Digital marketing covers SEO, Social Media, Email, PPC, Content, and Branding. Could you be more specific? Try asking about: "What is SEO?", "How does email marketing work?", or "What are Facebook Ads?"'
+            },
+            hi: {
+                'seo': 'SEO (सर्च इंजन ऑप्टिमाइजेशन) आपकी वेबसाइट को Google पर ऊपर लाने में मदद करता है। मुख्य तत्व: कीवर्ड रिसर्च, क्वालिटी कंटेंट, बैकलिंक्स, और तकनीकी SEO। अच्छा SEO आपकी वेबसाइट पर मुफ्त ट्रैफिक लाता है।',
+                'social media': 'सोशल मीडिया मार्केटिंग Facebook, Instagram, Twitter पर आपके ब्रांड को बढ़ावा देती है। नियमित पोस्टिंग, आकर्षक कंटेंट, और इन्फ्लुएंसर के साथ सहयोग से आपके फॉलोवर्स बढ़ते हैं।',
+                'email': 'ईमेल मार्केटिंग ग्राहकों को सीधे संदेश भेजती है। यह सबसे अधिक ROI वाला चैनल है - हर ₹1 पर ₹40 की वापसी! अपनी सूची बनाएं और नियमित मूल्यवान कंटेंट भेजें।',
+                'digital marketing': 'डिजिटल मार्केटिंग में SEO, सोशल मीडिया, ईमेल, PPC और कंटेंट मार्केटिंग शामिल है। यह मापने योग्य, किफायती और विशिष्ट दर्शकों को लक्षित करती है। आधुनिक व्यवसाय के लिए अनिवार्य।',
+                'content': 'कंटेंट मार्केटिंग ब्लॉग, वीडियो और इन्फोग्राफिक्स के माध्यम से ग्राहकों को आकर्षित करती है। अच्छा कंटेंट विश्वास बनाता है और मुफ्त ट्रैफिक लाता है। अपने दर्शकों की समस्याओं का समाधान करने पर ध्यान दें।',
+                'hello': 'नमस्ते! मैं आपका डिजिटल मार्केटिंग AI ट्यूटर हूँ। SEO, सोशल मीडिया, ईमेल मार्केटिंग, PPC, ब्रांडिंग या एनालिटिक्स के बारे में कुछ भी पूछें!',
+                'hi': 'नमस्ते! डिजिटल मार्केटिंग सीखने के लिए तैयार हैं? SEO, सोशल मीडिया, ईमेल मार्केटिंग के बारे में पूछें। मैं मदद के लिए यहाँ हूँ!',
+                'default': 'अच्छा सवाल! डिजिटल मार्केटिंग में SEO, सोशल मीडिया, ईमेल, PPC, कंटेंट और ब्रांडिंग शामिल है। कृपया और विशिष्ट प्रश्न पूछें जैसे: "SEO क्या है?" या "फेसबुक Ads कैसे काम करते हैं?"'
+            },
+            ar: {
+                'seo': 'تحسين محركات البحث (SEO) يساعد موقعك على الظهور في أعلى نتائج Google. العناصر الرئيسية: البحث عن الكلمات المفتاحية، المحتوى الجيد، الروابط الخلفية، والتحسين التقني. SEO الجيد يجلب زيارات مجانية لموقعك.',
+                'social media': 'التسويق عبر وسائل التواصل الاجتماعي يروّج لعلامتك على Facebook و Instagram و Twitter. المفتاح: النشر المنتظم، المحتوى الجذاب، والتعاون مع المؤثرين لزيادة جمهورك.',
+                'email': 'التسويق عبر البريد الإلكتروني يرسل رسائل مخصصة للمشتركين. له أعلى عائد استثمار - 40 ريال مقابل كل ريال! ابنِ قائمتك وأرسل محتوى قيّماً بانتظام.',
+                'digital marketing': 'التسويق الرقمي يشمل SEO ووسائل التواصل الاجتماعي والبريد الإلكتروني وإعلانات الدفع بالنقرة والمحتوى. قابل للقياس وفعّال من حيث التكلفة ويستهدف جماهير محددة.',
+                'hello': 'مرحباً! أنا معلمك الذكي للتسويق الرقمي. اسألني عن SEO أو وسائل التواصل الاجتماعي أو التسويق بالبريد الإلكتروني أو إعلانات PPC أو العلامة التجارية!',
+                'hi': 'مرحباً! هل أنت مستعد لتعلم التسويق الرقمي؟ اسألني عن SEO أو وسائل التواصل الاجتماعي أو التسويق عبر البريد الإلكتروني. أنا هنا للمساعدة!',
+                'default': 'سؤال رائع! يغطي التسويق الرقمي SEO ووسائل التواصل الاجتماعي والبريد الإلكتروني وإعلانات PPC والمحتوى والعلامة التجارية. حاول السؤال: "ما هو SEO؟" أو "كيف تعمل إعلانات Facebook؟"'
+            }
+        };
+
+        function getAnswer(question, lang) {
+            const q = question.toLowerCase();
+            const kb = knowledgeBase[lang] || knowledgeBase['en'];
+
+            // Search for matching topic
+            for (const [keyword, answer] of Object.entries(kb)) {
+                if (keyword !== 'default' && q.includes(keyword)) {
+                    return answer;
+                }
+            }
+
+            // Try English KB as fallback
+            if (lang !== 'en') {
+                const enKb = knowledgeBase['en'];
+                for (const [keyword, answer] of Object.entries(enKb)) {
+                    if (keyword !== 'default' && q.includes(keyword)) {
+                        return answer;
+                    }
+                }
+            }
+
+            return kb['default'] || knowledgeBase['en']['default'];
+        }
+
+        async function sendMessage() {
+            if (isLoading) return;
+
+            const input = document.getElementById('userInput');
+            const question = input.value.trim();
+            if (!question) return;
+
+            addMessage('user', question);
+            input.value = '';
+            isLoading = true;
+            addThinkingIndicator();
+
+            // Simulate thinking delay for natural feel
+            await new Promise(resolve => setTimeout(resolve, 800));
+
+            const answer = getAnswer(question, currentLanguage);
+            removeThinkingIndicator();
+            addMessage('bot', answer);
+            speakAnswer(answer);
+
+            isLoading = false;
+        }
+
+        function speakAnswer(text) {
+            try {
+                if (!window.speechSynthesis) return;
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = currentLanguage === 'hi' ? 'hi-IN' : currentLanguage === 'ar' ? 'ar-SA' : 'en-US';
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+                window.speechSynthesis.speak(utterance);
+            } catch (e) {
+                console.log('Speech skipped');
+            }
+        }
+
+        function startVoiceInput() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                alert('Voice input not supported in your browser. Try Chrome.');
+                return;
+            }
+            const btn = document.getElementById('voiceBtn');
+            const recognition = new SpeechRecognition();
+            recognition.language = currentLanguage === 'hi' ? 'hi-IN' : currentLanguage === 'ar' ? 'ar-SA' : 'en-US';
+
+            recognition.onstart = () => {
+                btn.classList.add('voice-btn-active');
+                btn.innerHTML = '<i class="fas fa-stop text-sm"></i>';
+            };
+            recognition.onresult = (event) => {
+                const transcript = Array.from(event.results).map(r => r[0].transcript).join('');
+                document.getElementById('userInput').value = transcript;
+            };
+            recognition.onend = () => {
+                btn.classList.remove('voice-btn-active');
+                btn.innerHTML = '<i class="fas fa-microphone text-sm"></i>';
+            };
+            recognition.onerror = () => {
+                btn.classList.remove('voice-btn-active');
+                btn.innerHTML = '<i class="fas fa-microphone text-sm"></i>';
+            };
+            recognition.start();
+        }
+    </script>
+</body>
+</html>

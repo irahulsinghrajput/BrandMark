@@ -6,6 +6,9 @@
 .env.local
 .env.production
 *.env
+backend/.env
+backend/.env.*
+!backend/.env.example
 
 # Node modules
 node_modules/
@@ -52,6 +55,9 @@ temp/
 dist/
 build/
 .cache/
+
+# Nested repository (not part of this repo's Pages build)
+BrandMark-Solutions/
 
 # Sensitive documents
 register-admin.json
