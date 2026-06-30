@@ -54,27 +54,52 @@ const formLimiter = rateLimit({
 // CORS Configuration
 const allowedOrigins = [
     'http://localhost:5500',
+    'http://localhost:5000',
+    'http://localhost:5001',
     'https://brandmarksolutions.site',
-    'https://www.brandmarksolutions.site'
+    'https://www.brandmarksolutions.site',
+    'null'
 ];
+
+const CORS_ALLOWED_HEADERS = 'Content-Type, Authorization, X-CSRF-Token';
+const CORS_ALLOWED_METHODS = 'GET,POST,PUT,DELETE,PATCH,OPTIONS';
+
+// Ensure file:// (Origin: null) requests always get explicit CORS headers.
+app.use((req, res, next) => {
+    const origin = req.headers.origin;
+    if (!origin || origin === 'null') {
+        res.setHeader('Access-Control-Allow-Origin', 'null');
+        res.setHeader('Access-Control-Allow-Credentials', 'true');
+        res.setHeader('Access-Control-Allow-Methods', CORS_ALLOWED_METHODS);
+        res.setHeader('Access-Control-Allow-Headers', CORS_ALLOWED_HEADERS);
+        res.setHeader('Vary', 'Origin');
+
+        if (req.method === 'OPTIONS') {
+            return res.sendStatus(204);
+        }
+    }
+    next();
+});
 
 app.use(cors({
     origin: function(origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl)
-        if (!origin) return callback(null, true);
+        // Allow requests with no origin (like mobile apps, curl, or file:// pages)
+        if (!origin || origin === 'null') return callback(null, true);
         
         if (process.env.NODE_ENV === 'development') {
             return callback(null, true); // Allow all in development
         }
         
         if (allowedOrigins.indexOf(origin) === -1) {
-            return callback(new Error('Not allowed by CORS'), false);
+            // Do not throw here; returning false avoids turning CORS mismatch into 500s.
+            return callback(null, false);
         }
         return callback(null, true);
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token']
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token'],
+    optionsSuccessStatus: 204
 }));
 
 // Body Parser Middleware with size limits

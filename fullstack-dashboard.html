@@ -277,11 +277,15 @@
             var expectedCourseId = 'fullstack-mern-001';
             var studentToken = localStorage.getItem('studentToken');
             var enrolledCourses = JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
-            var hasCourseInAccount = enrolledCourses.some(function(course){ return course.courseId === expectedCourseId; });
+            var hasCourseInAccount = enrolledCourses.some(function(course){ return course && course.courseId === expectedCourseId; });
+            var hasStoredCourseFlag = localStorage.getItem('ACTIVE_ENROLLMENT_COURSE') === expectedCourseId;
 
-            if (!studentToken || !hasCourseInAccount) {
-                window.location.href = 'student-login.html?course=fullstack-mern-001';
+            if (!studentToken || (!hasCourseInAccount && !hasStoredCourseFlag)) {
+                window.location.href = 'student-login.html?course=' + encodeURIComponent(expectedCourseId);
                 return;
+            }
+            if (!hasCourseInAccount && hasStoredCourseFlag) {
+                localStorage.setItem('enrolledCourses', JSON.stringify([{ courseId: expectedCourseId, courseTitle: 'Full Stack Web Development — MERN + GenAI' }]));
             }
             console.log('Full Stack access granted');
         }

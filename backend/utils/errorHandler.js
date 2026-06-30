@@ -70,6 +70,13 @@ class PaymentError extends APIError {
  * Must be last middleware in the chain
  */
 const errorHandler = (err, req, res, next) => {
+    const origin = req.headers.origin;
+    if (!origin || origin === 'null') {
+        res.setHeader('Access-Control-Allow-Origin', 'null');
+        res.setHeader('Access-Control-Allow-Credentials', 'true');
+        res.setHeader('Vary', 'Origin');
+    }
+
     // Log error details
     console.error('🔴 ERROR OCCURRED:');
     console.error('   Message:', err.message);

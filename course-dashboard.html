@@ -70,7 +70,7 @@
                 <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer no-underline">
                     <img src="brandmark-logo-new.png.png" alt="BrandMark Solutions logo" class="h-12 w-12 rounded-full object-cover mr-3">
                     <span class="text-2xl font-bold tracking-tighter text-white">
-                        Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">Â®</span>
+                        Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">&reg;</span>
                     </span>
                 </a>
 
@@ -109,7 +109,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-start justify-between">
                 <div>
-                    <h1 class="text-4xl md:text-5xl font-bold mb-4">Digital Marketing Mastery with Gen AI</h1>
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4 text-white" style="color: #ffffff;">Digital Marketing Mastery with Gen AI</h1>
                     <p class="text-lg text-gray-100 mb-6">Welcome back! Continue your learning journey</p>
                     
                     <!-- Progress Info -->
@@ -273,11 +273,16 @@
             const expectedCourseId = 'digital-marketing-001';
             const studentToken = localStorage.getItem('studentToken');
             const enrolledCourses = JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
-            const hasCourseInAccount = enrolledCourses.some((course) => course.courseId === expectedCourseId);
+            const hasCourseInAccount = enrolledCourses.some((course) => course && course.courseId === expectedCourseId);
+            const hasStoredCourseFlag = localStorage.getItem('ACTIVE_ENROLLMENT_COURSE') === expectedCourseId;
 
-            if (!studentToken || !hasCourseInAccount) {
-                window.location.href = 'student-login.html?course=digital-marketing-001';
+            if (!studentToken || (!hasCourseInAccount && !hasStoredCourseFlag)) {
+                window.location.replace('student-login.html?course=' + encodeURIComponent(expectedCourseId));
                 return;
+            }
+
+            if (!hasCourseInAccount && hasStoredCourseFlag) {
+                localStorage.setItem('enrolledCourses', JSON.stringify([{ courseId: expectedCourseId, courseTitle: 'Digital Marketing Mastery with Gen AI' }]));
             }
 
             console.log('Digital Marketing access granted');

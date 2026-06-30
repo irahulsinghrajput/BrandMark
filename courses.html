@@ -153,6 +153,14 @@
             <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-300">
                 Master in-demand skills with our expert-crafted courses. From digital marketing to web development, we've got you covered.
             </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+                        <a href="digital-marketing-course.html" class="inline-block bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold py-3 px-8 rounded-lg transition-colors">
+                            <i class="fas fa-play-circle mr-2"></i>Explore Courses
+                        </a>
+                        <a href="student-login.html?tab=login" class="inline-block border-2 border-white hover:bg-white hover:text-brand-navy text-white font-semibold py-3 px-8 rounded-lg transition-colors">
+                            <i class="fas fa-sign-in-alt mr-2"></i>Student Login
+                        </a>
+                    </div>
         </div>
     </section>
 
@@ -162,7 +170,7 @@
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Available Courses</h2>
                 <p class="text-gray-600 max-w-2xl mx-auto">Start your learning journey and transform your career with our comprehensive, industry-focused courses.</p>
-            </div>
+        </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 
@@ -390,9 +398,46 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
         // Configuration for API endpoints - Environment aware
-        const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-            ? 'http://localhost:5001/api'
-            : 'https://brandmark-api-2026.onrender.com/api';
+        const API_BASE_URLS = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+            ? ['http://localhost:5000/api', 'http://localhost:5001/api']
+            : ['https://brandmark-api-2026.onrender.com/api'];
+
+        async function requestApi(path, options = {}) {
+            const errors = [];
+
+            for (const baseUrl of API_BASE_URLS) {
+                try {
+                    const response = await fetch(`${baseUrl}${path}`, {
+                        ...options,
+                        mode: 'cors',
+                        cache: 'no-store',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            ...(options.headers || {})
+                        }
+                    });
+
+                    const text = await response.text();
+                    let payload = {};
+                    try {
+                        payload = text ? JSON.parse(text) : {};
+                    } catch (parseError) {
+                        payload = { message: text };
+                    }
+
+                    if (response.ok) {
+                        return payload;
+                    }
+
+                    errors.push(`${baseUrl}: ${response.status} ${payload.message || 'request failed'}`);
+                } catch (error) {
+                    errors.push(`${baseUrl}: ${error.message}`);
+                }
+            }
+
+            throw new Error(errors[0] || 'Unable to reach the authentication service.');
+        }
 
         // Track which course is being enrolled
         let activeCourseForEnrollment = 'digital-marketing-001';
@@ -437,7 +482,7 @@
             try {
                 console.log('📧 Email entered:', email);
                 console.log('👤 Name entered:', name);
-                console.log('📡 Connecting to API at:', API_BASE_URL);
+                console.log('📡 Connecting to API at:', API_BASE_URLS);
 
                 // Step 1: Create order on backend
                 const isFullStack = activeCourseForEnrollment === 'fullstack-mern-001';
@@ -445,11 +490,8 @@
                 const courseTitle = isFullStack ? 'Full Stack Web Developer' : 'Digital Marketing Mastery with Gen AI';
                 const courseAmount = isFullStack ? 49900 : 4900;
 
-                const orderResponse = await fetch(`${API_BASE_URL}/courses/${courseId}/order`, {
+                const orderData = await requestApi(`/courses/${courseId}/order`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
                     body: JSON.stringify({
                         courseTitle: courseTitle,
                         amount: courseAmount,
@@ -457,16 +499,11 @@
                     })
                 });
 
-                console.log('Response status:', orderResponse.status);
+                console.log('✅ Order response:', orderData);
 
-                if (!orderResponse.ok) {
-                    const errorData = await orderResponse.json().catch(() => ({}));
-                    console.error('Order creation failed:', errorData);
-                    
-                    throw new Error(errorData.message || `Failed to create order (Status: ${orderResponse.status})`);
+                if (!orderData.success || !orderData.data || !orderData.data.orderId) {
+                    throw new Error(orderData.message || '⚠️ Invalid response from server. Check console for details.');
                 }
-
-                const orderData = await orderResponse.json();
                 console.log('✅ Order created:', orderData);
 
                 if (!orderData.success || !orderData.data || !orderData.data.orderId) {
@@ -486,11 +523,8 @@
                         
                         // Step 4: Verify payment
                         try {
-                            const verifyResponse = await fetch(`${API_BASE_URL}/courses/payment/verify`, {
+                            const verifyData = await requestApi('/courses/payment/verify', {
                                 method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
                                 body: JSON.stringify({
                                     razorpay_order_id: response.razorpay_order_id,
                                     razorpay_payment_id: response.razorpay_payment_id,
@@ -499,19 +533,42 @@
                                     email: email
                                 })
                             });
-
-                            const verifyData = await verifyResponse.json();
                             console.log('✅ Payment verified:', verifyData);
 
                             if (verifyData.success) {
-                                localStorage.setItem('enrollmentId', verifyData.data.enrollmentId);
-                                localStorage.setItem('userEmail', email);
-                                localStorage.setItem('studentEmail', email);
-                                localStorage.setItem('STUDENT_NAME', name);
-                                localStorage.setItem('ACTIVE_ENROLLMENT_COURSE', courseId);
-                                alert('🎉 Payment successful! Set your password to access your course on any device.');
-                                const setupUrl = `student-login.html?course=${encodeURIComponent(courseId)}&tab=register&email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&postPayment=1`;
-                                window.location.href = setupUrl;
+                                const tempPasswordBase = (email.split('@')[0] || 'student').replace(/[^a-z0-9]/gi, '').toLowerCase();
+                                const tempPassword = `BrandMark${tempPasswordBase}${courseId === 'fullstack-mern-001' ? 'FS' : 'DM'}!`;
+
+                                const registerData = await requestApi('/students/register', {
+                                    method: 'POST',
+                                    body: JSON.stringify({
+                                        name,
+                                        email,
+                                        password: tempPassword,
+                                        courseId,
+                                        courseTitle,
+                                        paymentId: response.razorpay_payment_id,
+                                        orderId: response.razorpay_order_id
+                                    })
+                                });
+
+                                if (registerData.success && registerData.data) {
+                                    localStorage.setItem('enrollmentId', verifyData.data.enrollmentId);
+                                    localStorage.setItem('userEmail', email);
+                                    localStorage.setItem('studentEmail', email);
+                                    localStorage.setItem('studentToken', registerData.data.token);
+                                    localStorage.setItem('studentName', registerData.data.name);
+                                    localStorage.setItem('enrolledCourses', JSON.stringify(registerData.data.enrolledCourses || []));
+                                    localStorage.setItem('STUDENT_NAME', registerData.data.name);
+                                    localStorage.setItem('ACTIVE_ENROLLMENT_COURSE', courseId);
+
+                                    const dashboardUrl = isFullStack ? 'fullstack-dashboard.html' : 'course-dashboard.html';
+                                    const setupUrl = `${dashboardUrl}?welcome=1`;
+                                    window.location.href = setupUrl;
+                                } else {
+                                    const fallbackUrl = `student-login.html?course=${encodeURIComponent(courseId)}&tab=login&email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&password=${encodeURIComponent(tempPassword)}&autoLogin=1&postPayment=1`;
+                                    window.location.href = fallbackUrl;
+                                }
                             } else {
                                 alert('❌ Payment verification failed: ' + (verifyData.message || 'Unknown error'));
                             }
