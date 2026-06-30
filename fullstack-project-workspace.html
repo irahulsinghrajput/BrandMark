@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -69,7 +69,7 @@
                 </div>
                 <div class="flex gap-4">
                     <div class="text-center"><div class="text-brand-orange font-bold text-2xl">3</div><div class="text-gray-400 text-xs">Deliverables</div></div>
-                    <div class="text-center"><div class="text-brand-orange font-bold text-2xl">8–12h</div><div class="text-gray-400 text-xs">Est. Time</div></div>
+                    <div class="text-center"><div class="text-brand-orange font-bold text-2xl">8â€“12h</div><div class="text-gray-400 text-xs">Est. Time</div></div>
                 </div>
             </div>
         </div>
@@ -102,9 +102,9 @@
     <!-- Tabs + Deliverables -->
     <div class="max-w-5xl mx-auto px-4 pb-16">
         <div class="flex border-b border-white/10 mb-6 overflow-x-auto">
-            <button class="tab-button active" onclick="switchTab(1)"><i class="fab fa-react mr-2"></i>Deliverable 1 — Frontend</button>
-            <button class="tab-button" onclick="switchTab(2)"><i class="fas fa-server mr-2"></i>Deliverable 2 — API</button>
-            <button class="tab-button" onclick="switchTab(3)"><i class="fas fa-robot mr-2"></i>Deliverable 3 — DB + AI</button>
+            <button class="tab-button active" onclick="switchTab(1)"><i class="fab fa-react mr-2"></i>Deliverable 1 â€” Frontend</button>
+            <button class="tab-button" onclick="switchTab(2)"><i class="fas fa-server mr-2"></i>Deliverable 2 â€” API</button>
+            <button class="tab-button" onclick="switchTab(3)"><i class="fas fa-robot mr-2"></i>Deliverable 3 â€” DB + AI</button>
         </div>
 
         <!-- Tab 1: React Frontend -->
@@ -124,7 +124,7 @@
                         <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>React Router: /tasks, /login, /dashboard routes</li>
                         <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>JWT-protected routes using PrivateRoute pattern</li>
                         <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>Loading spinners and error toasts with Axios interceptors</li>
-                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>AI Summarize button — calls backend AI endpoint</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>AI Summarize button â€” calls backend AI endpoint</li>
                         <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>Fully responsive (mobile, tablet, desktop) with Tailwind CSS</li>
                     </ul>
                 </div>
@@ -160,7 +160,7 @@ export default function TaskList() {
     &lt;div className="p-6"&gt;
       {tasks.map(t => &lt;TaskCard key={t._id} task={t} /&gt;)}
       &lt;button onClick={summarizeTasks} disabled={loading}&gt;
-        {loading ? 'Summarizing...' : '🤖 Summarize with AI'}
+        {loading ? 'Summarizing...' : 'ðŸ¤– Summarize with AI'}
       &lt;/button&gt;
       {summary && &lt;div className="ai-summary"&gt;{summary}&lt;/div&gt;}
     &lt;/div&gt;
@@ -186,11 +186,11 @@ export default function TaskList() {
                 <div class="bg-brand-navy/50 rounded-xl p-5 mb-5 border border-white/10">
                     <h3 class="font-bold text-brand-orange mb-3"><i class="fas fa-list-check mr-2"></i>Requirements Checklist</h3>
                     <ul class="space-y-2 text-sm text-gray-300">
-                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>POST /api/auth/register — hash password with bcrypt, return JWT</li>
-                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>POST /api/auth/login — verify bcrypt hash, return JWT</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>POST /api/auth/register â€” hash password with bcrypt, return JWT</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>POST /api/auth/login â€” verify bcrypt hash, return JWT</li>
                         <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>Auth middleware: verifies Bearer token on protected routes</li>
-                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>GET / POST / PUT / DELETE /api/tasks — full CRUD, JWT-protected</li>
-                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>POST /api/ai/summarize — accepts tasks array, calls OpenAI/Gemini, returns summary</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>GET / POST / PUT / DELETE /api/tasks â€” full CRUD, JWT-protected</li>
+                        <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>POST /api/ai/summarize â€” accepts tasks array, calls OpenAI/Gemini, returns summary</li>
                         <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>Input validation with express-validator</li>
                         <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>Global error handler middleware</li>
                         <li><i class="fas fa-circle text-gray-500 mr-2 text-xs"></i>CORS configured for frontend origin</li>
@@ -199,7 +199,7 @@ export default function TaskList() {
 
                 <div class="mb-5">
                     <h3 class="font-bold text-brand-orange mb-3"><i class="fas fa-code mr-2"></i>Starter Code Reference</h3>
-                    <div class="code-block">// routes/ai.js — AI summarization endpoint
+                    <div class="code-block">// routes/ai.js â€” AI summarization endpoint
 const express = require('express');
 const router = express.Router();
 const { OpenAI } = require('openai');
@@ -264,7 +264,7 @@ module.exports = router;</div>
 
                 <div class="mb-5">
                     <h3 class="font-bold text-brand-orange mb-3"><i class="fas fa-code mr-2"></i>Starter Code Reference</h3>
-                    <div class="code-block">// models/Task.js — Mongoose Schema
+                    <div class="code-block">// models/Task.js â€” Mongoose Schema
 const mongoose = require('mongoose');
 
 const taskSchema = new mongoose.Schema({
@@ -309,21 +309,21 @@ module.exports = mongoose.model('Task', taskSchema);</div>
     <!-- Project Complete Modal -->
     <div id="projectCompleteModal" style="display:none" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4">
         <div class="bg-white rounded-2xl p-8 max-w-md w-full text-center shadow-2xl border-4 border-green-400">
-            <div class="text-6xl mb-4">🏆</div>
+            <div class="text-6xl mb-4">ðŸ†</div>
             <h2 class="text-2xl font-extrabold text-gray-800 mb-2">All Steps Complete!</h2>
             <p class="text-gray-600 mb-5">You've passed the quiz <strong>and</strong> completed the project. Your certificate is ready!</p>
             <div class="bg-green-50 rounded-xl p-4 mb-6 text-left border border-green-200">
                 <div class="flex items-center gap-2 mb-2">
-                    <span class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">✓</span>
-                    <span class="text-gray-700 text-sm font-semibold">Mock Test (15 questions) — Passed ✅</span>
+                    <span class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">âœ“</span>
+                    <span class="text-gray-700 text-sm font-semibold">Mock Test (15 questions) â€” Passed âœ…</span>
                 </div>
                 <div class="flex items-center gap-2">
-                    <span class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">✓</span>
-                    <span class="text-gray-700 text-sm font-semibold">Task Management SaaS Project — Complete ✅</span>
+                    <span class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">âœ“</span>
+                    <span class="text-gray-700 text-sm font-semibold">Task Management SaaS Project â€” Complete âœ…</span>
                 </div>
             </div>
             <a href="fullstack-certificate.html" class="block w-full py-4 text-white font-bold rounded-xl text-lg hover:shadow-lg transition mb-3" style="background: linear-gradient(to right, #F26A21, #E65C17);">
-                🎓 Get My Certificate →
+                ðŸŽ“ Get My Certificate â†’
             </a>
             <button onclick="document.getElementById('projectCompleteModal').style.display='none'" class="text-sm text-gray-400 hover:text-gray-600">Close</button>
         </div>
@@ -332,7 +332,7 @@ module.exports = mongoose.model('Task', taskSchema);</div>
     <!-- Footer -->
     <footer class="border-t border-white/10 bg-brand-navy-dark/50 text-white py-8 px-4">
         <div class="max-w-7xl mx-auto text-center">
-            <p class="text-gray-400">&copy; 2025 BrandMark Solutions. Full Stack Final Project — Task Management SaaS with AI Summarization</p>
+            <p class="text-gray-400">&copy; 2025 BrandMark Solutions. Full Stack Final Project â€” Task Management SaaS with AI Summarization</p>
         </div>
     </footer>
 
@@ -365,19 +365,20 @@ module.exports = mongoose.model('Task', taskSchema);</div>
                 if (quizDone) {
                     document.getElementById('projectCompleteModal').style.display = 'flex';
                 } else {
-                    alert('✅ Project complete! You still need to pass the Mock Test first. Redirecting to the quiz...');
+                    alert('âœ… Project complete! You still need to pass the Mock Test first. Redirecting to the quiz...');
                     window.location.href = 'fullstack-quiz.html';
                 }
             } else {
                 const done = Object.values(projectProgress).filter(p => p === 100).length;
-                alert(`✅ Deliverable ${num} marked as complete! ${done}/3 deliverables done.`);
+                alert(`âœ… Deliverable ${num} marked as complete! ${done}/3 deliverables done.`);
                 if (num < 3) switchTab(num + 1);
             }
         }
 
         switchTab(1);
     </script>
-    <script src="brandmark.js"></script>
+    <script src="brandmark.js?v=20260701"></script>
     <script src="fullstack-ai-tutor-widget.js"></script>
 </body>
 </html>
+

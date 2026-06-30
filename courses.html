@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -106,7 +106,7 @@
                 <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer no-underline">
                     <img src="brandmark-logo-new.png.png" alt="BrandMark Solutions logo" class="h-12 w-12 rounded-full object-cover mr-3">
                     <span class="text-2xl font-bold tracking-tighter text-white">
-                        Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">®</span>
+                        Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">Â®</span>
                     </span>
                 </a>
 
@@ -218,15 +218,15 @@
                             Explore Course <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                         <button onclick="openEnrollmentModal()" class="block w-full text-center bg-brand-navy hover:bg-brand-navy-dark text-white font-semibold py-3 rounded-lg transition-colors">
-                            <i class="fas fa-shopping-cart mr-2"></i>Enroll Now (₹49)
+                            <i class="fas fa-shopping-cart mr-2"></i>Enroll Now (â‚¹49)
                         </button>
                     </div>
                 </div>
 
                 <!-- Course 2: Full Stack Developer -->
                 <div class="course-card rounded-lg overflow-hidden">
-                    <div class="h-48 bg-gradient-to-br from-brand-navy to-brand-navy-dark flex items-center justify-center">
-                        <i class="fas fa-code text-brand-orange text-6xl opacity-80"></i>
+                    <div class="h-48 bg-gray-100 flex items-center justify-center overflow-hidden">
+                        <img src="Full Stack developer Course.png" alt="Full Stack Developer Course" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <div class="flex items-start justify-between mb-3">
@@ -267,7 +267,7 @@
                             Explore Course <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                         <button onclick="openEnrollmentModalFor('fullstack-mern-001')" class="block w-full text-center bg-brand-navy hover:bg-brand-navy-dark text-white font-semibold py-3 rounded-lg transition-colors border-0 cursor-pointer" style="font-family: Outfit, sans-serif; font-size: 1rem;">
-                            <i class="fas fa-shopping-cart mr-2"></i>Enroll Now (₹499)
+                            <i class="fas fa-shopping-cart mr-2"></i>Enroll Now (â‚¹499)
                         </button>
                     </div>
                 </div>
@@ -394,7 +394,7 @@
         </div>
     </footer>
 
-    <script src="brandmark.js"></script>
+    <script src="brandmark.js?v=20260701"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
         // Configuration for API endpoints - Environment aware
@@ -480,9 +480,9 @@
         
         async function initiatePayment(email, name) {
             try {
-                console.log('📧 Email entered:', email);
-                console.log('👤 Name entered:', name);
-                console.log('📡 Connecting to API at:', API_BASE_URLS);
+                console.log('ðŸ“§ Email entered:', email);
+                console.log('ðŸ‘¤ Name entered:', name);
+                console.log('ðŸ“¡ Connecting to API at:', API_BASE_URLS);
 
                 // Step 1: Create order on backend
                 const isFullStack = activeCourseForEnrollment === 'fullstack-mern-001';
@@ -499,15 +499,15 @@
                     })
                 });
 
-                console.log('✅ Order response:', orderData);
+                console.log('âœ… Order response:', orderData);
 
                 if (!orderData.success || !orderData.data || !orderData.data.orderId) {
-                    throw new Error(orderData.message || '⚠️ Invalid response from server. Check console for details.');
+                    throw new Error(orderData.message || 'âš ï¸ Invalid response from server. Check console for details.');
                 }
-                console.log('✅ Order created:', orderData);
+                console.log('âœ… Order created:', orderData);
 
                 if (!orderData.success || !orderData.data || !orderData.data.orderId) {
-                    throw new Error('⚠️ Invalid response from server. Check console for details.');
+                    throw new Error('âš ï¸ Invalid response from server. Check console for details.');
                 }
 
                 // Step 3: Open Razorpay checkout
@@ -519,7 +519,7 @@
                     description: courseTitle,
                     order_id: orderData.data.orderId,
                     handler: async function(response) {
-                        console.log('💳 Payment response:', response);
+                        console.log('ðŸ’³ Payment response:', response);
                         
                         // Step 4: Verify payment
                         try {
@@ -533,7 +533,7 @@
                                     email: email
                                 })
                             });
-                            console.log('✅ Payment verified:', verifyData);
+                            console.log('âœ… Payment verified:', verifyData);
 
                             if (verifyData.success) {
                                 const tempPasswordBase = (email.split('@')[0] || 'student').replace(/[^a-z0-9]/gi, '').toLowerCase();
@@ -570,11 +570,11 @@
                                     window.location.href = fallbackUrl;
                                 }
                             } else {
-                                alert('❌ Payment verification failed: ' + (verifyData.message || 'Unknown error'));
+                                alert('âŒ Payment verification failed: ' + (verifyData.message || 'Unknown error'));
                             }
                         } catch (error) {
                             console.error('Verification error:', error);
-                            alert('✅ Payment completed! Enrollment is being processed.');
+                            alert('âœ… Payment completed! Enrollment is being processed.');
                         }
                     },
                     prefill: {
@@ -595,14 +595,14 @@
                 
                 rzp.on('payment.failed', function(response) {
                     console.error('Payment failed:', response.error);
-                    alert('❌ Payment failed: ' + (response.error.description || 'Unknown error'));
+                    alert('âŒ Payment failed: ' + (response.error.description || 'Unknown error'));
                 });
                 
                 rzp.open();
 
             } catch (error) {
-                console.error('❌ Error in initiatePayment:', error);
-                alert('❌ Error: ' + error.message + '\n\nPlease check the console (F12) for details and contact support if the issue persists.');
+                console.error('âŒ Error in initiatePayment:', error);
+                alert('âŒ Error: ' + error.message + '\n\nPlease check the console (F12) for details and contact support if the issue persists.');
             }
         }
     </script>
@@ -665,3 +665,4 @@
 
 </body>
 </html>
+
