@@ -106,7 +106,7 @@
                 <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer no-underline">
                     <img src="brandmark-logo-new.png.png" alt="BrandMark Solutions logo" class="h-12 w-12 rounded-full object-cover mr-3">
                     <span class="text-2xl font-bold tracking-tighter text-white">
-                        Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">Â®</span>
+                        Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">(R)</span>
                     </span>
                 </a>
 
@@ -480,9 +480,9 @@
         
         async function initiatePayment(email, name) {
             try {
-                console.log('ðŸ“§ Email entered:', email);
-                console.log('ðŸ‘¤ Name entered:', name);
-                console.log('ðŸ“¡ Connecting to API at:', API_BASE_URLS);
+                console.log('[EMAIL] Email entered:', email);
+                console.log('[USER] Name entered:', name);
+                console.log('[API] Connecting to API at:', API_BASE_URLS);
 
                 // Step 1: Create order on backend
                 const isFullStack = activeCourseForEnrollment === 'fullstack-mern-001';
@@ -499,15 +499,15 @@
                     })
                 });
 
-                console.log('âœ… Order response:', orderData);
+                console.log('[OK] Order response:', orderData);
 
                 if (!orderData.success || !orderData.data || !orderData.data.orderId) {
-                    throw new Error(orderData.message || 'âš ï¸ Invalid response from server. Check console for details.');
+                    throw new Error(orderData.message || '[WARN] Invalid response from server. Check console for details.');
                 }
-                console.log('âœ… Order created:', orderData);
+                console.log('[OK] Order created:', orderData);
 
                 if (!orderData.success || !orderData.data || !orderData.data.orderId) {
-                    throw new Error('âš ï¸ Invalid response from server. Check console for details.');
+                    throw new Error('[WARN] Invalid response from server. Check console for details.');
                 }
 
                 // Step 3: Open Razorpay checkout
@@ -519,7 +519,7 @@
                     description: courseTitle,
                     order_id: orderData.data.orderId,
                     handler: async function(response) {
-                        console.log('ðŸ’³ Payment response:', response);
+                        console.log('[PAYMENT] Payment response:', response);
                         
                         // Step 4: Verify payment
                         try {
@@ -533,7 +533,7 @@
                                     email: email
                                 })
                             });
-                            console.log('âœ… Payment verified:', verifyData);
+                            console.log('[OK] Payment verified:', verifyData);
 
                             if (verifyData.success) {
                                 const tempPasswordBase = (email.split('@')[0] || 'student').replace(/[^a-z0-9]/gi, '').toLowerCase();
@@ -570,11 +570,11 @@
                                     window.location.href = fallbackUrl;
                                 }
                             } else {
-                                alert('âŒ Payment verification failed: ' + (verifyData.message || 'Unknown error'));
+                                alert('[ERROR] Payment verification failed: ' + (verifyData.message || 'Unknown error'));
                             }
                         } catch (error) {
                             console.error('Verification error:', error);
-                            alert('âœ… Payment completed! Enrollment is being processed.');
+                            alert('[OK] Payment completed! Enrollment is being processed.');
                         }
                     },
                     prefill: {
@@ -595,14 +595,14 @@
                 
                 rzp.on('payment.failed', function(response) {
                     console.error('Payment failed:', response.error);
-                    alert('âŒ Payment failed: ' + (response.error.description || 'Unknown error'));
+                    alert('[ERROR] Payment failed: ' + (response.error.description || 'Unknown error'));
                 });
                 
                 rzp.open();
 
             } catch (error) {
-                console.error('âŒ Error in initiatePayment:', error);
-                alert('âŒ Error: ' + error.message + '\n\nPlease check the console (F12) for details and contact support if the issue persists.');
+                console.error('[ERROR] Error in initiatePayment:', error);
+                alert('[ERROR] Error: ' + error.message + '\n\nPlease check the console (F12) for details and contact support if the issue persists.');
             }
         }
     </script>

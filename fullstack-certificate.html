@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificate of Completion â€” Full Stack Development | BrandMark</title>
+    <title>Certificate of Completion  -  Full Stack Development | BrandMark</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -73,7 +73,7 @@
 </head>
 <body class="text-white font-[Outfit]">
 
-    <!-- Header â€” no-print -->
+    <!-- Header  -  no-print -->
     <header class="no-print sticky top-0 z-50 bg-brand-navy-dark/90 backdrop-blur border-b border-brand-orange/30 shadow-xl">
         <nav class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-3">
@@ -105,7 +105,7 @@
 
         <!-- Celebration Text -->
         <div class="text-center mb-8 no-print cert-fade">
-            <div class="text-6xl mb-3">ðŸŽ‰</div>
+            <div class="text-6xl mb-3">[SUCCESS]</div>
             <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-2">Congratulations, <span id="heroName" class="text-brand-orange"></span>!</h1>
             <p class="text-gray-300 text-lg">You have successfully completed the Full Stack Web Development Course</p>
         </div>
@@ -122,7 +122,7 @@
                     </div>
                 </div>
                 <div class="cert-title-main mb-2">Certificate of Completion</div>
-                <div class="shimmer-badge inline-block">VERIFIED Â· FULL STACK DEVELOPMENT</div>
+                <div class="shimmer-badge inline-block">VERIFIED  -  FULL STACK DEVELOPMENT</div>
             </div>
 
             <!-- CERT BODY -->
@@ -135,7 +135,7 @@
                 <p class="text-gray-500 text-sm mb-6 max-w-lg mx-auto leading-relaxed">
                     Covering <strong>React 18</strong>, <strong>Node.js & Express</strong>, <strong>MongoDB & Mongoose</strong>,
                     <strong>JWT Authentication</strong>, and <strong>GenAI Integration (OpenAI / Gemini)</strong>
-                    â€” 15 comprehensive modules, a technical mock test, and a capstone project.
+                     -  15 comprehensive modules, a technical mock test, and a capstone project.
                 </p>
 
                 <div class="mb-6 flex flex-wrap justify-center">
@@ -154,15 +154,15 @@
                 <!-- Scores Row -->
                 <div class="grid grid-cols-3 gap-4 mb-6 max-w-xs mx-auto text-center">
                     <div>
-                        <div id="certScore" class="text-2xl font-extrabold text-brand-navy">â€”</div>
+                        <div id="certScore" class="text-2xl font-extrabold text-brand-navy"> - </div>
                         <div class="text-xs text-gray-500 font-semibold">QUIZ SCORE</div>
                     </div>
                     <div>
-                        <div id="certCorrect" class="text-2xl font-extrabold text-brand-navy">â€”</div>
+                        <div id="certCorrect" class="text-2xl font-extrabold text-brand-navy"> - </div>
                         <div class="text-xs text-gray-500 font-semibold">CORRECT</div>
                     </div>
                     <div>
-                        <div class="text-2xl font-extrabold text-green-600">âœ“</div>
+                        <div class="text-2xl font-extrabold text-green-600">[OK]</div>
                         <div class="text-xs text-gray-500 font-semibold">PROJECT</div>
                     </div>
                 </div>
@@ -173,7 +173,7 @@
                 <div class="grid grid-cols-3 gap-4 items-end text-center">
                     <!-- Date -->
                     <div>
-                        <div id="certDate" class="text-brand-navy font-extrabold text-sm mb-1">â€”</div>
+                        <div id="certDate" class="text-brand-navy font-extrabold text-sm mb-1"> - </div>
                         <div class="h-px bg-gray-300 mb-1"></div>
                         <div class="text-xs text-gray-500 font-semibold">DATE OF ISSUE</div>
                     </div>
@@ -186,7 +186,7 @@
                     </div>
                     <!-- Certificate ID -->
                     <div>
-                        <div id="certId" class="text-brand-navy font-extrabold text-xs mb-1 break-all">â€”</div>
+                        <div id="certId" class="text-brand-navy font-extrabold text-xs mb-1 break-all"> - </div>
                         <div class="h-px bg-gray-300 mb-1"></div>
                         <div class="text-xs text-gray-500 font-semibold">CERTIFICATE ID</div>
                     </div>
@@ -242,7 +242,7 @@
     <!-- Footer -->
     <footer class="no-print border-t border-white/10 bg-brand-navy-dark/70 py-8 px-4">
         <div class="max-w-7xl mx-auto text-center text-gray-400 text-sm">
-            <p>&copy; 2025 BrandMark Solutions â€” UDYAM: UDYAM-BR-26-0213927 | GST: 10LCTPS4278Q1ZD</p>
+            <p>&copy; 2025 BrandMark Solutions  -  UDYAM: UDYAM-BR-26-0213927 | GST: 10LCTPS4278Q1ZD</p>
         </div>
     </footer>
 
@@ -259,37 +259,37 @@
 
             if (!quizDone && !projectDone) {
                 showAccessDenied('You need to complete both the Mock Test and the Final Project to earn your certificate.', [
-                    { label: 'ðŸ“ Take Mock Test', href: 'fullstack-quiz.html' },
-                    { label: 'ðŸ›  Go to Project Workspace', href: 'fullstack-project-workspace.html' }
+                    { label: '[TEST] Take Mock Test', href: 'fullstack-quiz.html' },
+                    { label: '[WORKSPACE] Go to Project Workspace', href: 'fullstack-project-workspace.html' }
                 ]);
                 return;
             }
             if (!quizDone) {
                 showAccessDenied('You need to pass the Mock Test first.', [
-                    { label: 'ðŸ“ Take Mock Test Now', href: 'fullstack-quiz.html' }
+                    { label: '[TEST] Take Mock Test Now', href: 'fullstack-quiz.html' }
                 ]);
                 return;
             }
             if (!projectDone) {
                 showAccessDenied('You need to complete the Final Project first.', [
-                    { label: 'ðŸ›  Go to Project Workspace', href: 'fullstack-project-workspace.html' }
+                    { label: '[WORKSPACE] Go to Project Workspace', href: 'fullstack-project-workspace.html' }
                 ]);
                 return;
             }
 
-            // All gates passed â€” populate certificate
+            // All gates passed  -  populate certificate
             const name    = localStorage.getItem('STUDENT_NAME') || 'Full Stack Developer';
             const date    = localStorage.getItem('FS_CERTIFICATE_DATE') || new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
             const id      = localStorage.getItem('FS_CERTIFICATE_ID') || ('BM-FS-' + Date.now().toString(36).toUpperCase());
-            const score   = localStorage.getItem('FS_CERTIFICATE_SCORE') || 'â€”';
-            const correct = localStorage.getItem('FS_CERTIFICATE_CORRECT') || 'â€”';
+            const score   = localStorage.getItem('FS_CERTIFICATE_SCORE') || ' - ';
+            const correct = localStorage.getItem('FS_CERTIFICATE_CORRECT') || ' - ';
 
             document.getElementById('heroName').textContent = name.split(' ')[0];
             document.getElementById('certName').textContent = name;
             document.getElementById('certDate').textContent = date;
             document.getElementById('certId').textContent = id;
-            document.getElementById('certScore').textContent = score !== 'â€”' ? score + '%' : 'â€”';
-            document.getElementById('certCorrect').textContent = correct !== 'â€”' ? correct + '/15' : 'â€”';
+            document.getElementById('certScore').textContent = score !== ' - ' ? score + '%' : ' - ';
+            document.getElementById('certCorrect').textContent = correct !== ' - ' ? correct + '/15' : ' - ';
 
             document.getElementById('certContent').style.display = 'flex';
         })();
