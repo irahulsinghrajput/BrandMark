@@ -318,7 +318,7 @@
                         type="text" 
                         id="certificateId" 
                         class="search-input" 
-                        placeholder="Enter certificate ID (e.g., CERT-C1E89F4D6E68)"
+                        placeholder="Enter certificate ID (e.g., BM-2026-ABC123XYZ or BM-FS-2026-ABC123XYZ)"
                         value=""
                     >
                     <button class="search-btn" id="searchBtn">
@@ -328,7 +328,7 @@
                 
                 <p class="text-white text-opacity-75 text-sm">
                     <i class="fas fa-info-circle mr-2"></i>
-                    Certificate ID is provided in the email confirmation after passing the course
+                    Certificate ID is provided on your certificate after passing the course
                 </p>
             </div>
         </section>
@@ -446,7 +446,7 @@
                     <i class="fas fa-exclamation-triangle text-4xl mb-4"></i>
                     <h2 class="text-2xl font-bold mb-3">Certificate Not Found</h2>
                     <p class="mb-4">The certificate ID you entered could not be verified. Please check the ID and try again.</p>
-                    <p class="text-sm mb-6">Certificate IDs are case-sensitive and follow the format: CERT-XXXXXXXX</p>
+                    <p class="text-sm mb-6">Certificate IDs are case-sensitive and usually follow BM-YYYY-XXXXXXXXX or BM-FS-YYYY-XXXXXXXXX.</p>
                     <a href="quiz.html" class="download-btn" style="display: inline-block; text-decoration: none;">
                         <i class="fas fa-arrow-left mr-2"></i>Take the Quiz
                     </a>
@@ -476,22 +476,21 @@
         const searchBtn = document.getElementById('searchBtn');
         const certificateInput = document.getElementById('certificateId');
 
-        // Sample certificate data (in production, this would come from backend)
         const sampleCertificates = {
-            'C1E89F4D6E68': {
-                studentName: 'John Doe',
+            'BM-2026-DEMO12345': {
+                studentName: 'Demo Student',
                 course: 'Digital Marketing Mastery with Gen AI',
-                score: 85,
+                score: 84,
                 issueDate: 'January 15, 2026',
-                certificateId: 'CERT-C1E89F4D6E68',
+                certificateId: 'BM-2026-DEMO12345',
                 status: 'valid'
             },
-            'CERT-C1E89F4D6E68': {
-                studentName: 'Jane Smith',
-                course: 'Digital Marketing Mastery with Gen AI',
-                score: 92,
-                issueDate: 'January 10, 2026',
-                certificateId: 'CERT-C1E89F4D6E68',
+            'BM-FS-2026-DEMO98765': {
+                studentName: 'Demo Full Stack Student',
+                course: 'Full Stack Web Development with MERN + GenAI',
+                score: 88,
+                issueDate: 'February 20, 2026',
+                certificateId: 'BM-FS-2026-DEMO98765',
                 status: 'valid'
             }
         };
@@ -528,30 +527,89 @@
             }, 1500);
         }
 
+        function getApiBaseUrl() {
+            const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            return isLocalhost ? 'http://localhost:5001/api' : 'https://brandmark-api-2026.onrender.com/api';
+        }
+
+        function readCertificateRegistry() {
+            try {
+                const raw = localStorage.getItem('BRANDMARK_CERTIFICATES');
+                if (!raw) return [];
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (error) {
+                console.warn('Unable to read certificate registry', error);
+                return [];
+            }
+        }
+
+        function verifyFromLocalRegistry(certId) {
+            const registry = readCertificateRegistry();
+            const fromRegistry = registry.find((entry) => String(entry.certificateId || '').toUpperCase() === certId);
+            if (fromRegistry) {
+                return fromRegistry;
+            }
+
+            // Legacy fallback for existing issued certificates stored outside registry.
+            const dmId = (localStorage.getItem('CERTIFICATE_ID') || '').toUpperCase();
+            if (dmId && dmId === certId) {
+                return {
+                    certificateId: dmId,
+                    studentName: localStorage.getItem('STUDENT_NAME') || 'Student Name',
+                    course: 'Digital Marketing Mastery with Gen AI',
+                    score: Number(localStorage.getItem('QUIZ_SCORE') || '80'),
+                    issueDate: localStorage.getItem('CERTIFICATE_DATE') || localStorage.getItem('QUIZ_COMPLETION_DATE') || new Date().toLocaleDateString(),
+                    status: 'valid'
+                };
+            }
+
+            const fsId = (localStorage.getItem('FS_CERTIFICATE_ID') || '').toUpperCase();
+            if (fsId && fsId === certId) {
+                return {
+                    certificateId: fsId,
+                    studentName: localStorage.getItem('STUDENT_NAME') || 'Student Name',
+                    course: 'Full Stack Web Development with MERN + GenAI',
+                    score: Number(localStorage.getItem('FS_QUIZ_SCORE') || '80'),
+                    issueDate: localStorage.getItem('FS_CERTIFICATE_DATE') || new Date().toLocaleDateString(),
+                    status: 'valid'
+                };
+            }
+
+            return null;
+        }
+
         async function verifyFromBackend(certId) {
             try {
-                // Try the actual API endpoint first
-                const response = await fetch(`/api/quiz/verify-certificate/${certId}`);
+                const apiBaseUrl = getApiBaseUrl();
+                const response = await fetch(`${apiBaseUrl}/quiz/verify-certificate/${encodeURIComponent(certId)}`);
                 
                 if (response.ok) {
                     const data = await response.json();
-                    displayCertificate(data);
+                    displayCertificate({
+                        certificateId: data.certificateId || certId,
+                        studentName: data.studentName || data.name || 'Student Name',
+                        course: data.course || data.courseName || 'BrandMark Course',
+                        score: Number(data.score || data.quizScore || 80),
+                        issueDate: data.issueDate || data.certificateDate || new Date().toLocaleDateString(),
+                        status: 'valid'
+                    });
                 } else {
-                    // Fallback to sample data for demo
-                    if (certId in sampleCertificates || certId === 'C1E89F4D6E68') {
-                        const cert = sampleCertificates[certId] || sampleCertificates['C1E89F4D6E68'];
-                        displayCertificate(cert);
-                    } else {
-                        showNotFound();
-                    }
-                }
-            } catch (error) {
-                console.log('Backend not available, using sample data');
-                if (certificateInput.value.toUpperCase() === 'C1E89F4D6E68') {
-                    displayCertificate(sampleCertificates['C1E89F4D6E68']);
-                } else {
+                    const localMatch = verifyFromLocalRegistry(certId);
+                    if (localMatch) return displayCertificate(localMatch);
+
+                    if (certId in sampleCertificates) return displayCertificate(sampleCertificates[certId]);
+
                     showNotFound();
                 }
+            } catch (error) {
+                console.log('Backend not available, trying local registry');
+                const localMatch = verifyFromLocalRegistry(certId);
+                if (localMatch) return displayCertificate(localMatch);
+
+                if (certId in sampleCertificates) return displayCertificate(sampleCertificates[certId]);
+
+                showNotFound();
             }
         }
 

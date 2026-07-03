@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Module 2: Gen AI for Marketing | BrandMark Course</title>
-    <meta name="description" content="Master Generative AI tools and applications for digital marketing. Learn ChatGPT, Claude, DALL-E and how to leverage them for marketing success.">
+    <meta name="description" content="Understand generative AI tools, marketing use cases, ethics, and practical workflows for modern marketing teams.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -14,10 +14,7 @@
                         'brand-navy': '#0B2C4D',
                         'brand-navy-dark': '#081F36',
                         'brand-orange': '#F26A21',
-                        'brand-orange-dark': '#E65C17',
-                        'brand-black': '#0a0a0a',
-                        'brand-dark': '#121212',
-                        'brand-gray': '#2a2a2a'
+                        'brand-orange-dark': '#E65C17'
                     }
                 }
             }
@@ -28,604 +25,81 @@
     <link rel="stylesheet" href="course-premium-theme.css">
     <link rel="stylesheet" href="course-module-theme.css">
     <style>
-        .lesson-content {
-            background: white;
-            color: #1f2937;
-            padding: 2rem;
-            border-radius: 8px;
-        }
-        
-        .lesson-content h2 {
-            color: #F26A21;
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .lesson-content h3 {
-            color: #1f2937;
-            margin-top: 1.25rem;
-            margin-bottom: 0.75rem;
-        }
-        
-        .lesson-content ul, .lesson-content ol {
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .lesson-content li {
-            margin-bottom: 0.5rem;
-            line-height: 1.6;
-        }
-        
-        .highlight-box {
-            background: #f0f9ff;
-            border-left: 4px solid #F26A21;
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 4px;
-        }
-        
-        .ai-tool-card {
-            background: #f3f4f6;
-            border: 2px solid #dbeafe;
-            padding: 1.25rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-        }
-        
-        .module-nav {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid #e5e7eb;
-        }
-        
-        .module-nav a {
-            padding: 0.75rem 1.5rem;
-            background: #F26A21;
-            color: white;
-            border-radius: 4px;
-            text-decoration: none;
-            transition: background 0.3s;
-        }
-        
-        .module-nav a:hover {
-            background: #E65C17;
-        }
+        * { font-family: 'Outfit', sans-serif; }
+        body { background: linear-gradient(to bottom, #f0f4f8 0%, #ffffff 100%); min-height: 100vh; }
+        .lesson-content { background: white; color: #1f2937; padding: 3rem; border-radius: 16px; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08); }
+        .lesson-content h2 { color: #0B2C4D; margin-top: 2rem; margin-bottom: 1.25rem; font-size: 1.875rem; font-weight: 700; border-bottom: 2px solid #F26A21; padding-bottom: 0.75rem; }
+        .lesson-content h3 { color: #0B2C4D; margin-top: 1.5rem; margin-bottom: 1rem; font-size: 1.25rem; font-weight: 600; }
+        .lesson-content p { line-height: 1.8; color: #374151; margin-bottom: 1rem; }
+        .lesson-content ul, .lesson-content ol { margin-left: 1.5rem; margin-bottom: 1.5rem; }
+        .lesson-content li { margin-bottom: 0.75rem; line-height: 1.7; color: #374151; }
+        .highlight-box { background: linear-gradient(135deg, #FEF3F2, #FFF8F3); border-left: 5px solid #F26A21; padding: 1.5rem; margin: 1.5rem 0; border-radius: 8px; }
+        .ai-tool-card { background: #f8fafc; border: 1px solid #e5e7eb; padding: 1.25rem; border-radius: 12px; margin: 1rem 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+        .audio-player { background: linear-gradient(135deg, #0B2C4D 0%, #081F36 100%); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; color: white; box-shadow: 0 4px 15px rgba(11, 44, 77, 0.3); }
+        .audio-controls { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+        .play-btn { background: linear-gradient(135deg, #F26A21, #E65C17); border: none; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem; }
+        .play-btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(242, 106, 33, 0.4); }
+        .progress-bar { flex: 1; min-width: 200px; height: 6px; background: rgba(255, 255, 255, 0.2); border-radius: 3px; cursor: pointer; }
+        .progress-fill { height: 100%; background: #F26A21; border-radius: 3px; width: 0%; }
+        .speed-btn { background: rgba(255, 255, 255, 0.2); border: 2px solid rgba(255, 255, 255, 0.3); color: white; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.875rem; font-weight: 600; transition: all 0.3s ease; }
+        .speed-btn.active { background: #F26A21; border-color: #F26A21; }
+        .module-nav { display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #E5E7EB; }
+        .module-nav a { padding: 0.875rem 1.75rem; background: linear-gradient(135deg, #F26A21, #E65C17); color: white; border-radius: 8px; text-decoration: none; transition: all 0.3s ease; font-weight: 600; box-shadow: 0 4px 12px rgba(242, 106, 33, 0.3); border: none; cursor: pointer; }
+        .module-nav a:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(242, 106, 33, 0.4); }
     </style>
     <style id="bm-module-consistency-v1">
-        body.premium-course-page nav a,
-        body.premium-course-page header a,
-        body.premium-course-page #mobile-menu a {
-            color: #ffffff !important;
-        }
-
-        body.premium-course-page nav a:hover,
-        body.premium-course-page header a:hover,
-        body.premium-course-page #mobile-menu a:hover {
-            color: #F26A21 !important;
-        }
-
-        body.premium-course-page h1,
-        body.premium-course-page .module-hero h1,
-        body.premium-course-page section h1 {
-            color: #ffffff !important;
-        }
-
-        body.premium-course-page a[href="courses.html"],
-        body.premium-course-page a[href="digital-marketing-course.html"] {
-            color: #ffffff !important;
-        }
-
-        body.premium-course-page footer {
-            background: #081F36 !important;
-            color: #d1d5db !important;
-            border-top: 4px solid #F26A21 !important;
-            padding-top: 2rem !important;
-            padding-bottom: 2rem !important;
-        }
-
-        body.premium-course-page footer p,
-        body.premium-course-page footer span,
-        body.premium-course-page footer a {
-            color: #d1d5db !important;
-        }
-
-        body.premium-course-page footer a:hover {
-            color: #F26A21 !important;
-        }
-    
-        .bm-module-top-links {
-            display: flex;
-            align-items: center;
-            gap: 1.25rem;
-            margin-left: auto;
-        }
-
-        .bm-module-top-links a {
-            color: #ffffff !important;
-            font-weight: 600;
-            text-decoration: none;
-            transition: color .2s ease;
-        }
-
-        .bm-module-top-links a:hover {
-            color: #F26A21 !important;
-        }
-
-        @media (max-width: 768px) {
-            .bm-module-top-links {
-                display: none;
-            }
-        }
-</style>
+        body.premium-course-page nav a, body.premium-course-page header a, body.premium-course-page #mobile-menu a { color: #ffffff !important; }
+        body.premium-course-page nav a:hover, body.premium-course-page header a:hover, body.premium-course-page #mobile-menu a:hover { color: #F26A21 !important; }
+        body.premium-course-page h1, body.premium-course-page .module-hero h1, body.premium-course-page section h1 { color: #ffffff !important; }
+        body.premium-course-page a[href="courses.html"], body.premium-course-page a[href="digital-marketing-course.html"] { color: #ffffff !important; }
+        body.premium-course-page footer { background: #081F36 !important; color: #d1d5db !important; border-top: 4px solid #F26A21 !important; padding-top: 2rem !important; padding-bottom: 2rem !important; }
+        body.premium-course-page footer p, body.premium-course-page footer span, body.premium-course-page footer a { color: #d1d5db !important; }
+        body.premium-course-page footer a:hover { color: #F26A21 !important; }
+        .bm-module-top-links { display: flex; align-items: center; gap: 1.25rem; margin-left: auto; }
+        .bm-module-top-links a { color: #ffffff !important; font-weight: 600; text-decoration: none; transition: color .2s ease; }
+        .bm-module-top-links a:hover { color: #F26A21 !important; }
+        @media (max-width: 768px) { .bm-module-top-links { display: none; } }
+    </style>
 </head>
 <body class="bg-brand-black text-white font-[Outfit] premium-course-page" data-course-id="digital-marketing-001">
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glass-nav backdrop-blur-md bg-brand-black/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <a href="index.html" class="flex items-center space-x-2">
-                    <img src="brandmark-logo-new.png.png" alt="BrandMark" class="h-10 w-10 rounded-full">
-                    <span class="font-bold text-xl hidden sm:inline text-white">BrandMark</span>
+    <header class="sticky top-0 z-50 bg-brand-navy shadow-lg border-b-4 border-brand-orange">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+            <a href="index.html" class="flex items-center cursor-pointer no-underline hover:opacity-90 transition-opacity">
+                <img src="brandmark-logo-new.png.png" alt="BrandMark Solutions logo" class="h-12 w-12 rounded-full object-cover mr-3">
+                <span class="text-2xl font-bold tracking-tighter text-white">
+                    Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">&reg;</span>
+                </span>
+            </a>
+
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="index.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium">Home</a>
+                <a href="courses.html" class="text-brand-orange font-medium transition-colors">My Courses</a>
+                <a href="student-login.html" class="bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold py-2 px-6 rounded-lg transition-colors">
+                    Logout
                 </a>
-                
-                <button id="mobile-menu-btn" class="md:hidden text-xl">
-                    <i class="fas fa-bars"></i>
-                </button>
-                
-                <div id="mobile-menu" class="hidden md:flex md:items-center space-x-6">
-                    <a href="courses.html" class="hover:text-brand-orange transition">Courses</a>
-                    <a href="digital-marketing-course.html" class="hover:text-brand-orange transition">Back to Course</a>
-                    <a href="index.html" class="hover:text-brand-orange transition">Home</a>
-                </div>
             </div>
         </div>
     </nav>
-
-    <!-- Module Header -->
-    <section class="relative overflow-hidden bg-gradient-to-r from-brand-navy via-brand-navy to-brand-navy-dark pt-24 pb-20 px-4 sm:px-6 lg:px-8">
-        <div class="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
-            <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-brand-orange rounded-full mix-blend-multiply filter blur-3xl"></div>
-        </div>
-        <div class="max-w-6xl mx-auto relative z-10">
-            <div class="mb-6">
-                <a href="digital-marketing-course.html" class="inline-flex items-center text-brand-orange hover:text-brand-orange-dark transition text-lg font-semibold">
-                    <i class="fas fa-arrow-left mr-2"></i>Back to Course
-                </a>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <!-- Left Content -->
-                <div>
-                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold tracking-wider mb-6">
-                        <i class="fas fa-graduation-cap mr-2"></i> MODULE 2
-                    </div>
-                    <h1 class="text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight text-white">
-                        Gen AI for <br/>
-                        <span class="text-brand-orange">Marketing</span>
-                    </h1>
-                    <p class="text-xl text-gray-300 leading-relaxed mb-8">
-                        Discover how Generative AI is transforming marketing strategies. Learn to leverage AI tools for content creation, personalization, and automation.
-                    </p>
-                    <div class="flex items-center gap-6 text-gray-200 mb-8">
-                        <div class="flex items-center gap-2">
-                            <i class="fas fa-clock text-brand-orange text-lg"></i>
-                            <span class="font-semibold">5 hours</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="fas fa-bookmark text-brand-orange text-lg"></i>
-                            <span class="font-semibold">6 lessons</span>
-                        </div>
-                        <div class="inline-flex items-center px-4 py-2 bg-green-500/20 border border-green-500/30 text-green-300 rounded-full text-sm font-semibold">
-                            <i class="fas fa-star mr-2"></i>Beginner Level
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Logo -->
-                <div class="relative">
-                    <div class="relative">
-                        <img src="brandmark-logo-new.png.png" 
-                             alt="Gen AI for Marketing Module" 
-                             class="w-full h-auto rounded-2xl shadow-2xl border-4 border-brand-orange/20 transform hover:scale-105 transition duration-500 object-cover">
-                        <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-brand-orange rounded-full opacity-20 blur-3xl"></div>
-                        <div class="absolute -top-6 -left-6 w-40 h-40 bg-blue-500 rounded-full opacity-10 blur-3xl"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Learning Objectives -->
-    <section class="bg-gray-900 px-4 sm:px-6 lg:px-8 py-8">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-2xl font-bold mb-4 text-white">Learning Objectives</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
-                    <p class="flex items-start text-white font-medium"><i class="fas fa-check text-green-400 mr-3 mt-1"></i> Understand what Generative AI is</p>
-                </div>
-                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
-                    <p class="flex items-start text-white font-medium"><i class="fas fa-check text-green-400 mr-3 mt-1"></i> Learn major Gen AI tools and their capabilities</p>
-                </div>
-                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
-                    <p class="flex items-start text-white font-medium"><i class="fas fa-check text-green-400 mr-3 mt-1"></i> Explore marketing applications of AI</p>
-                </div>
-                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
-                    <p class="flex items-start text-white font-medium"><i class="fas fa-check text-green-400 mr-3 mt-1"></i> Understand AI ethics and responsible use</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Main Content -->
-    <section class="px-4 sm:px-6 lg:px-8 py-12">
-        <div class="max-w-4xl mx-auto">
-            <div class="lesson-content">
-                <h2>1. What is Generative AI?</h2>
-                <p>Generative AI refers to artificial intelligence systems that can generate new content - text, images, videos, code, and more - based on patterns learned from training data.</p>
-                
-                <h3>Key Characteristics</h3>
-                <ul>
-                    <li><strong>Trained on large datasets:</strong> Models learn from billions of data points</li>
-                    <li><strong>Pattern recognition:</strong> Understand language, visual concepts, and relationships</li>
-                    <li><strong>Content generation:</strong> Create new, original content based on prompts</li>
-                    <li><strong>Contextual understanding:</strong> Understand nuance, tone, and intent</li>
-                    <li><strong>Continuously improving:</strong> Models get better with updates and feedback</li>
-                </ul>
-
-                <div class="highlight-box">
-                    <p><strong>How Gen AI differs from Traditional AI:</strong> Traditional AI is often rule-based (if X, then Y). Gen AI uses large language models to understand patterns and generate human-like responses.</p>
-                </div>
-
-                <h2>2. Major Gen AI Tools for Marketers</h2>
-
-                <h3>Text Generation Tools</h3>
-
-                <div class="ai-tool-card">
-                    <h4 style="margin-top: 0; color: #1f2937;"><strong>ChatGPT (OpenAI)</strong></h4>
-                    <p><strong>Best for:</strong> Content creation, copywriting, brainstorming, customer service</p>
-                    <p><strong>Strengths:</strong> Conversational, versatile, constantly updated, good at long-form content</p>
-                    <p><strong>Cost:</strong> Free (ChatGPT 3.5), Plus subscription ($20/month), API pricing</p>
-                </div>
-
-                <div class="ai-tool-card">
-                    <h4 style="margin-top: 0; color: #1f2937;"><strong>Claude (Anthropic)</strong></h4>
-                    <p><strong>Best for:</strong> Research, summarization, in-depth analysis, nuanced writing</p>
-                    <p><strong>Strengths:</strong> Excellent at understanding context, longer context window, ethical AI focus</p>
-                    <p><strong>Cost:</strong> Free (Claude 3 Haiku), Paid via API, Claude.ai subscription</p>
-                </div>
-
-                <div class="ai-tool-card">
-                    <h4 style="margin-top: 0; color: #1f2937;"><strong>Google Gemini</strong></h4>
-                    <p><strong>Best for:</strong> Multimodal tasks, integration with Google Workspace</p>
-                    <p><strong>Strengths:</strong> Can process text, images, videos; integrated with Gmail, Docs, Sheets</p>
-                    <p><strong>Cost:</strong> Free tier available, Gemini Ultra subscription</p>
-                </div>
-
-                <h3>Image Generation Tools</h3>
-
-                <div class="ai-tool-card">
-                    <h4 style="margin-top: 0; color: #1f2937;"><strong>DALL-E (OpenAI)</strong></h4>
-                    <p><strong>Best for:</strong> Marketing visuals, social media graphics, product mockups</p>
-                    <p><strong>Strengths:</strong> Excellent image quality, fine details, consistent style</p>
-                    <p><strong>Cost:</strong> $15 monthly credits (~115 images), pay-as-you-go also available</p>
-                </div>
-
-                <div class="ai-tool-card">
-                    <h4 style="margin-top: 0; color: #1f2937;"><strong>Midjourney</strong></h4>
-                    <p><strong>Best for:</strong> High-quality artistic visuals, brand imagery, campaigns</p>
-                    <p><strong>Strengths:</strong> Superior image quality, artistic control, active community</p>
-                    <p><strong>Cost:</strong> Starting at $10/month (10 hours GPU), up to $120/month unlimited</p>
-                </div>
-
-                <div class="ai-tool-card">
-                    <h4 style="margin-top: 0; color: #1f2937;"><strong>Adobe Firefly</strong></h4>
-                    <p><strong>Best for:</strong> Integration with design tools, quick graphics, variations</p>
-                    <p><strong>Strengths:</strong> Built into Creative Cloud, easy for designers</p>
-                    <p><strong>Cost:</strong> Included with Adobe subscriptions ($/month for Creative Cloud)</p>
-                </div>
-
-                <h3>Specialized Marketing AI Tools</h3>
-
-                <div class="ai-tool-card">
-                    <h4 style="margin-top: 0; color: #1f2937;"><strong>Copy.ai & Jasper</strong></h4>
-                    <p><strong>Best for:</strong> Marketing copy, ad headlines, blog intros, email subject lines</p>
-                    <p><strong>Cost:</strong> Jasper starts at $39/month, Copy.ai similar pricing</p>
-                </div>
-
-                <div class="ai-tool-card">
-                    <h4 style="margin-top: 0; color: #1f2937;"><strong>HubSpot AI</strong></h4>
-                    <p><strong>Best for:</strong> Sales emails, chatbots, content recommendations</p>
-                    <p><strong>Cost:</strong> Included in HubSpot subscriptions</p>
-                </div>
-
-                <h2>3. Marketing Applications of Gen AI</h2>
-
-                <h3>Content Creation</h3>
-                <ul>
-                    <li>Write blog posts, articles, and long-form content</li>
-                    <li>Generate social media posts and captions</li>
-                    <li>Create ad headlines and descriptions</li>
-                    <li>Draft email campaigns and newsletters</li>
-                    <li>Generate video scripts and podcast outlines</li>
-                </ul>
-
-                <h3>Visual Content</h3>
-                <ul>
-                    <li>Design social media graphics and banners</li>
-                    <li>Create product mockups and visualizations</li>
-                    <li>Generate brand imagery and illustrations</li>
-                    <li>Make variations of existing designs</li>
-                    <li>Create infographics and data visualizations</li>
-                </ul>
-
-                <h3>Customer Service & Engagement</h3>
-                <ul>
-                    <li>Build AI chatbots for customer support</li>
-                    <li>Auto-respond to customer inquiries</li>
-                    <li>Generate personalized customer messages</li>
-                    <li>Create FAQs and knowledge bases</li>
-                </ul>
-
-                <h3>Research & Analytics</h3>
-                <ul>
-                    <li>Analyze competitor content and strategies</li>
-                    <li>Summarize market research and reports</li>
-                    <li>Generate insights from customer feedback</li>
-                    <li>Identify trends and opportunities</li>
-                </ul>
-
-                <h3>Campaign Planning</h3>
-                <ul>
-                    <li>Brainstorm campaign ideas and themes</li>
-                    <li>Create campaign briefs and strategies</li>
-                    <li>Generate A/B test variations</li>
-                    <li>Plan content calendars</li>
-                </ul>
-
-                <h2>4. Real-World Examples</h2>
-
-                <div class="highlight-box">
-                    <p><strong>Example 1: Blog Post in Minutes</strong>
-                    Instead of spending 4-5 hours researching and writing, marketers use ChatGPT to generate a draft blog post (1 hour) then refine and customize it. Time saved: 3-4 hours.</p>
-                </div>
-
-                <div class="highlight-box">
-                    <p><strong>Example 2: Ad Copy Variations</strong>
-                    Need 50 variations of ad headlines? Ask ChatGPT to generate them in seconds, then test which performs best. Instead of brainstorming for hours, you have dozens of options in minutes.</p>
-                </div>
-
-                <div class="highlight-box">
-                    <p><strong>Example 3: Personalized Emails</strong>
-                    Use AI to personalize emails to each customer based on their behavior, purchase history, and preferences. Generate subject lines, body copy, and CTAs that resonate with each segment.</p>
-                </div>
-
-                <h2>5. AI Ethics & Responsible Use</h2>
-
-                <h3>Important Considerations</h3>
-                <ul>
-                    <li><strong>Authenticity:</strong> Disclose when content is AI-generated</li>
-                    <li><strong>Accuracy:</strong> AI can make mistakes; always fact-check before publishing</li>
-                    <li><strong>Bias:</strong> AI models can reflect biases in training data</li>
-                    <li><strong>Privacy:</strong> Don't share sensitive customer data with AI tools</li>
-                    <li><strong>Human Touch:</strong> Always review and personalize AI content; don't publish as-is</li>
-                    <li><strong>Copyright:</strong> Be aware of IP and copyright issues with training data</li>
-                </ul>
-
-                <h3>Best Practices</h3>
-                <ol>
-                    <li><strong>Use AI as a starting point, not a finish line</strong> - Always review, edit, and personalize</li>
-                    <li><strong>Combine AI with human creativity</strong> - AI excels at generating options; humans excel at refining</li>
-                    <li><strong>Be transparent</strong> - If you disclose AI use, it often builds trust</li>
-                    <li><strong>Fact-check everything</strong> - AI can "hallucinate" or make up facts</li>
-                    <li><strong>Use for efficiency, not replacement</strong> - Save time on repetitive tasks, invest in strategy</li>
-                </ol>
-
-                <h2>6. Getting Started with Gen AI</h2>
-
-                <h3>Action Steps</h3>
-                <ol>
-                    <li><strong>Sign up for free tools:</strong> ChatGPT, Claude, Gemini (all have free tiers)</li>
-                    <li><strong>Experiment with prompts:</strong> Try different writing styles and tasks</li>
-                    <li><strong>Test one tool for your use case:</strong> Pick 1-2 tools and master them first</li>
-                    <li><strong>Create prompting templates:</strong> Build reusable prompts for your common tasks</li>
-                    <li><strong>Measure impact:</strong> Track time saved and quality improvements</li>
-                    <li><strong>Learn advanced techniques:</strong> Prompt engineering, fine-tuning, chaining tasks</li>
-                </ol>
-
-                <div class="highlight-box">
-                    <p><strong>Pro Tip:</strong> The best marketers aren't those who use AI perfectly - they're the ones who learn AI tools quickly and combine them with marketing expertise. Start experimenting today!</p>
-                </div>
-
-                <h2>Key Takeaways</h2>
-                <div class="bg-blue-900 bg-opacity-20 p-4 rounded-lg">
-                    <ul>
-                        <li>Generative AI can quickly create text, images, code, and more based on prompts</li>
-                        <li>Major tools include ChatGPT, Claude, Gemini, DALL-E, and Midjourney</li>
-                        <li>Marketing applications span content creation, visuals, customer service, and strategy</li>
-                        <li>Always review, fact-check, and add human touch to AI-generated content</li>
-                        <li>Responsible use means transparency, accuracy, and respecting privacy/ethics</li>
-                        <li>Start with free tools and experiment to find your workflow</li>
-                    </ul>
-                </div>
-
-                <!-- Module Navigation -->
-                <div class="module-nav">
-                    <a href="course-module-1.html">
-                        <i class="fas fa-arrow-left mr-2"></i>Previous
-                    </a>
-                    <a href="course-module-3.html">
-                        Next Module<i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Lesson Resources -->
-            <div class="mt-8 bg-brand-dark p-6 rounded-lg border border-gray-800">
-                <h3 class="text-xl font-bold mb-4">Downloads & Resources</h3>
-                <div class="space-y-3">
-                    <a href="#" class="flex items-center p-3 bg-white rounded-lg border border-slate-200 hover:bg-slate-50 transition">
-                        <i class="fas fa-file-pdf text-red-400 mr-3"></i>
-                        <div>
-                            <p class="font-semibold">Complete Gen AI Tools Comparison</p>
-                            <p class="text-sm text-slate-600">PDF - 3.2 MB</p>
-                        </div>
-                    </a>
-                    <a href="#" class="flex items-center p-3 bg-white rounded-lg border border-slate-200 hover:bg-slate-50 transition">
-                        <i class="fas fa-file-excel text-green-400 mr-3"></i>
-                        <div>
-                            <p class="font-semibold">AI Tools Cost & Features Matrix</p>
-                            <p class="text-sm text-slate-600">XLSX - 1.8 MB</p>
-                        </div>
-                    </a>
-                    <a href="#" class="flex items-center p-3 bg-white rounded-lg border border-slate-200 hover:bg-slate-50 transition">
-                        <i class="fas fa-file-word text-blue-400 mr-3"></i>
-                        <div>
-                            <p class="font-semibold">Prompt Templates for Marketers</p>
-                            <p class="text-sm text-slate-600">DOCX - 2.1 MB</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Module Completion Section -->
-    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div class="max-w-4xl mx-auto">
-            <div class="bg-white rounded-lg shadow-lg p-8">
-                <h3 class="text-2xl font-bold text-brand-navy mb-4">Lesson Complete?</h3>
-                <p class="text-gray-600 mb-6">Track your progress through the course. Mark this lesson as complete to continue to the next module.</p>
-                
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <button onclick="markAsComplete('module-2')" class="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold py-3 px-6 rounded-lg transition flex items-center justify-center gap-2">
-                        <i class="fas fa-check-circle"></i>Mark as Complete
-                    </button>
-                    <a href="course-module-3.html" class="flex-1 bg-brand-navy hover:bg-brand-navy-dark text-white font-semibold py-3 px-6 rounded-lg transition flex items-center justify-center gap-2 text-decoration-none">
-                        <i class="fas fa-arrow-right"></i>Next Module (3)
-                    </a>
-                </div>
-                
-                <div id="completionMessage" style="display: none;" class="mt-4 p-4 bg-green-100 text-green-700 rounded-lg flex items-center gap-2">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Great! Module 2 marked as complete. Your progress has been saved.</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-brand-dark border-t border-gray-800 py-12 px-4 sm:px-6 lg:px-8 mt-12">
-        <div class="max-w-6xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div>
-                    <h4 class="font-bold mb-2">BrandMark Digital Marketing Course</h4>
-                    <p class="text-gray-400 text-sm">Master Gen AI for modern digital marketing</p>
-                </div>
-                <div class="mt-4 md:mt-0 text-center text-gray-400 text-sm">
-                    <p>&copy; 2025 BrandMark Solutions. All rights reserved.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
+</header>
+    <section class="relative min-h-[40vh] flex flex-col justify-center items-center text-center py-16 bg-brand-navy"><div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"><h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Gen AI for Marketing</h1><p class="text-lg md:text-xl text-gray-200">Discover how generative AI transforms content, visuals, automation, and campaign strategy for marketers.</p></div></section>
+    <section class="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 lg:px-8 py-12"><div class="max-w-4xl mx-auto"><div class="text-center mb-10"><h2 class="text-3xl font-bold text-brand-navy mb-3"><i class="fas fa-bullseye text-brand-orange mr-3"></i>Learning Objectives</h2></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md"><p class="flex items-start text-brand-navy font-semibold"><i class="fas fa-check-circle text-brand-orange mr-3 flex-shrink-0"></i> Understand what Generative AI is</p></div><div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md"><p class="flex items-start text-brand-navy font-semibold"><i class="fas fa-check-circle text-brand-orange mr-3 flex-shrink-0"></i> Learn major Gen AI tools and their capabilities</p></div><div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md"><p class="flex items-start text-brand-navy font-semibold"><i class="fas fa-check-circle text-brand-orange mr-3 flex-shrink-0"></i> Explore marketing applications of AI</p></div><div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md"><p class="flex items-start text-brand-navy font-semibold"><i class="fas fa-check-circle text-brand-orange mr-3 flex-shrink-0"></i> Understand AI ethics and responsible use</p></div></div></div></section>
+    <section class="bg-white px-4 sm:px-6 lg:px-8 py-8"><div class="max-w-4xl mx-auto"><div class="audio-player"><div class="flex items-center justify-between mb-4"><h3 class="text-xl font-bold flex items-center gap-2 text-white"><i class="fas fa-headphones text-brand-orange"></i>Listen to This Module</h3><span class="text-sm text-white">Click play to listen</span></div><div class="audio-controls"><button id="audioPlayBtn" class="play-btn" onclick="toggleAudio()"><i class="fas fa-play"></i><span id="playBtnText">Play</span></button><div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div><span id="audioTime" class="text-sm">0:00</span><div class="speed-control" style="display: flex; gap: 0.5rem;"><span class="text-sm">Speed:</span><button class="speed-btn active" onclick="setAudioSpeed(1)">1x</button><button class="speed-btn" onclick="setAudioSpeed(1.5)">1.5x</button><button class="speed-btn" onclick="setAudioSpeed(2)">2x</button></div></div></div></div></section>
+    <section class="bg-gradient-to-b from-white to-gray-50 px-4 sm:px-6 lg:px-8 py-16"><div class="max-w-4xl mx-auto"><div class="lesson-content"><h2>1. What is Generative AI?</h2><p>Generative AI refers to artificial intelligence systems that can generate new content - text, images, videos, code, and more - based on patterns learned from training data.</p><h3>Key Characteristics</h3><ul><li><strong>Trained on large datasets:</strong> Models learn from billions of data points</li><li><strong>Pattern recognition:</strong> Understand language, visual concepts, and relationships</li><li><strong>Content generation:</strong> Create new, original content based on prompts</li><li><strong>Contextual understanding:</strong> Understand nuance, tone, and intent</li><li><strong>Continuously improving:</strong> Models get better with updates and feedback</li></ul><div class="highlight-box"><p><strong>How Gen AI differs from Traditional AI:</strong> Traditional AI is often rule-based (if X, then Y). Gen AI uses large language models to understand patterns and generate human-like responses.</p></div><h2>2. Major Gen AI Tools for Marketers</h2><h3>Text Generation Tools</h3><div class="ai-tool-card"><h4 style="margin-top: 0; color: #1f2937;"><strong>ChatGPT (OpenAI)</strong></h4><p><strong>Best for:</strong> Content creation, copywriting, brainstorming, customer service</p><p><strong>Strengths:</strong> Conversational, versatile, constantly updated, good at long-form content</p><p><strong>Cost:</strong> Free (ChatGPT 3.5), Plus subscription ($20/month), API pricing</p></div><div class="ai-tool-card"><h4 style="margin-top: 0; color: #1f2937;"><strong>Claude (Anthropic)</strong></h4><p><strong>Best for:</strong> Research, summarization, in-depth analysis, nuanced writing</p><p><strong>Strengths:</strong> Excellent at understanding context, longer context window, ethical AI focus</p><p><strong>Cost:</strong> Free (Claude 3 Haiku), Paid via API, Claude.ai subscription</p></div><div class="ai-tool-card"><h4 style="margin-top: 0; color: #1f2937;"><strong>Google Gemini</strong></h4><p><strong>Best for:</strong> Multimodal tasks, integration with Google Workspace</p><p><strong>Strengths:</strong> Can process text, images, videos; integrated with Gmail, Docs, Sheets</p><p><strong>Cost:</strong> Free tier available, Gemini Ultra subscription</p></div><h3>Image Generation Tools</h3><div class="ai-tool-card"><h4 style="margin-top: 0; color: #1f2937;"><strong>DALL-E (OpenAI)</strong></h4><p><strong>Best for:</strong> Marketing visuals, social media graphics, product mockups</p><p><strong>Strengths:</strong> Excellent image quality, fine details, consistent style</p><p><strong>Cost:</strong> $15 monthly credits (~115 images), pay-as-you-go also available</p></div><div class="ai-tool-card"><h4 style="margin-top: 0; color: #1f2937;"><strong>Midjourney</strong></h4><p><strong>Best for:</strong> High-quality artistic visuals, brand imagery, campaigns</p><p><strong>Strengths:</strong> Superior image quality, artistic control, active community</p><p><strong>Cost:</strong> Starting at $10/month (10 hours GPU), up to $120/month unlimited</p></div><div class="ai-tool-card"><h4 style="margin-top: 0; color: #1f2937;"><strong>Adobe Firefly</strong></h4><p><strong>Best for:</strong> Integration with design tools, quick graphics, variations</p><p><strong>Strengths:</strong> Built into Creative Cloud, easy for designers</p><p><strong>Cost:</strong> Included with Adobe subscriptions ($/month for Creative Cloud)</p></div><h3>Specialized Marketing AI Tools</h3><div class="ai-tool-card"><h4 style="margin-top: 0; color: #1f2937;"><strong>Copy.ai & Jasper</strong></h4><p><strong>Best for:</strong> Marketing copy, ad headlines, blog intros, email subject lines</p><p><strong>Cost:</strong> Jasper starts at $39/month, Copy.ai similar pricing</p></div><div class="ai-tool-card"><h4 style="margin-top: 0; color: #1f2937;"><strong>HubSpot AI</strong></h4><p><strong>Best for:</strong> Sales emails, chatbots, content recommendations</p><p><strong>Cost:</strong> Included in HubSpot subscriptions</p></div><h2>3. Marketing Applications of Gen AI</h2><h3>Content Creation</h3><ul><li>Write blog posts, articles, and long-form content</li><li>Generate social media posts and captions</li><li>Create ad headlines and descriptions</li><li>Draft email campaigns and newsletters</li><li>Generate video scripts and podcast outlines</li></ul><h3>Visual Content</h3><ul><li>Design social media graphics and banners</li><li>Create product mockups and visualizations</li><li>Generate brand imagery and illustrations</li><li>Make variations of existing designs</li><li>Create infographics and data visualizations</li></ul><h3>Customer Service & Engagement</h3><ul><li>Build AI chatbots for customer support</li><li>Auto-respond to customer inquiries</li><li>Generate personalized customer messages</li><li>Create FAQs and knowledge bases</li></ul><h3>Research & Analytics</h3><ul><li>Analyze competitor content and strategies</li><li>Summarize market research and reports</li><li>Generate insights from customer feedback</li><li>Identify trends and opportunities</li></ul><h3>Campaign Planning</h3><ul><li>Brainstorm campaign ideas and themes</li><li>Create campaign briefs and strategies</li><li>Generate A/B test variations</li><li>Plan content calendars</li></ul><h2>4. Real-World Examples</h2><div class="highlight-box"><p><strong>Example 1: Blog Post in Minutes</strong> Instead of spending 4-5 hours researching and writing, marketers use ChatGPT to generate a draft blog post (1 hour) then refine and customize it. Time saved: 3-4 hours.</p></div><div class="highlight-box"><p><strong>Example 2: Ad Copy Variations</strong> Need 50 variations of ad headlines? Ask ChatGPT to generate them in seconds, then test which performs best. Instead of brainstorming for hours, you have dozens of options in minutes.</p></div><div class="highlight-box"><p><strong>Example 3: Personalized Emails</strong> Use AI to personalize emails to each customer based on their behavior, purchase history, and preferences. Generate subject lines, body copy, and CTAs that resonate with each segment.</p></div><h2>5. AI Ethics & Responsible Use</h2><h3>Important Considerations</h3><ul><li><strong>Authenticity:</strong> Disclose when content is AI-generated</li><li><strong>Accuracy:</strong> AI can make mistakes; always fact-check before publishing</li><li><strong>Bias:</strong> AI models can reflect biases in training data</li><li><strong>Privacy:</strong> Don't share sensitive customer data with AI tools</li><li><strong>Human Touch:</strong> Always review and personalize AI content; don't publish as-is</li><li><strong>Copyright:</strong> Be aware of IP and copyright issues with training data</li></ul><h3>Best Practices</h3><ol><li><strong>Use AI as a starting point, not a finish line</strong> - Always review, edit, and personalize</li><li><strong>Combine AI with human creativity</strong> - AI excels at generating options; humans excel at refining</li><li><strong>Be transparent</strong> - If you disclose AI use, it often builds trust</li><li><strong>Fact-check everything</strong> - AI can hallucinate or make up facts</li><li><strong>Use for efficiency, not replacement</strong> - Save time on repetitive tasks, invest in strategy</li></ol><h2>6. Getting Started with Gen AI</h2><h3>Action Steps</h3><ol><li><strong>Sign up for free tools:</strong> ChatGPT, Claude, Gemini (all have free tiers)</li><li><strong>Experiment with prompts:</strong> Try different writing styles and tasks</li><li><strong>Test one tool for your use case:</strong> Pick 1-2 tools and master them first</li><li><strong>Create prompting templates:</strong> Build reusable prompts for your common tasks</li><li><strong>Measure impact:</strong> Track time saved and quality improvements</li><li><strong>Learn advanced techniques:</strong> Prompt engineering, fine-tuning, chaining tasks</li></ol><div class="highlight-box"><p><strong>Pro Tip:</strong> The best marketers aren't those who use AI perfectly - they're the ones who learn AI tools quickly and combine them with marketing expertise. Start experimenting today!</p></div><h2>Key Takeaways</h2><div class="bg-blue-900 bg-opacity-20 p-4 rounded-lg text-white"><ul><li>Generative AI can quickly create text, images, code, and more based on prompts</li><li>Major tools include ChatGPT, Claude, Gemini, DALL-E, and Midjourney</li><li>Marketing applications span content creation, visuals, customer service, and strategy</li><li>Always review, fact-check, and add human touch to AI-generated content</li><li>Responsible use means transparency, accuracy, and respecting privacy/ethics</li><li>Start with free tools and experiment to find your workflow</li></ul></div></div></div></section>
+    <section class="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 lg:px-8 py-16"><div class="max-w-4xl mx-auto"><div class="bg-white rounded-2xl shadow-lg p-8 mb-8 border-t-4 border-brand-orange"><h3 class="text-2xl font-bold text-brand-navy mb-2 flex items-center gap-3"><i class="fas fa-download text-brand-orange text-3xl"></i>Downloads & Resources</h3><p class="text-gray-600 mb-6">Download course materials and templates for your learning</p><div class="space-y-3 grid grid-cols-1 md:grid-cols-2 gap-4"><a href="#" class="flex items-center p-4 bg-gradient-to-r from-red-50 to-orange-50 rounded-lg hover:shadow-lg transition border-l-4 border-red-400"><i class="fas fa-file-pdf text-red-500 mr-4 text-2xl"></i><div><p class="font-semibold text-brand-navy">Complete Gen AI Tools Comparison</p><p class="text-sm text-gray-500">PDF  -  3.2 MB</p></div><i class="fas fa-arrow-right text-gray-400 ml-auto"></i></a><a href="#" class="flex items-center p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg hover:shadow-lg transition border-l-4 border-green-400"><i class="fas fa-file-excel text-green-500 mr-4 text-2xl"></i><div><p class="font-semibold text-brand-navy">AI Tools Cost & Features Matrix</p><p class="text-sm text-gray-500">XLSX  -  1.8 MB</p></div><i class="fas fa-arrow-right text-gray-400 ml-auto"></i></a><a href="#" class="flex items-center p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg hover:shadow-lg transition border-l-4 border-blue-400 md:col-span-2"><i class="fas fa-file-word text-blue-500 mr-4 text-2xl"></i><div><p class="font-semibold text-brand-navy">Prompt Templates for Marketers</p><p class="text-sm text-gray-500">DOCX  -  2.1 MB</p></div><i class="fas fa-arrow-right text-gray-400 ml-auto"></i></a></div></div><div class="bg-gradient-to-r from-brand-navy to-brand-navy-dark rounded-2xl shadow-xl p-10 text-white"><div class="flex items-start gap-4 mb-6"><div class="flex-shrink-0"><i class="fas fa-check-circle text-brand-orange text-4xl"></i></div><div><h3 class="text-2xl font-bold mb-2 text-white" style="color: #ffffff !important; text-transform: none;">Module 2 Complete!</h3><p class="text-lg text-white" style="color: #ffffff !important;">You've mastered Gen AI for marketing. Move on to Module 3 to explore Analytics & Metrics.</p></div></div></div></div></section>
+    <section class="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 lg:px-8 py-8"><div class="max-w-4xl mx-auto"><div class="module-nav"><a href="course-module-1.html"><i class="fas fa-arrow-left mr-2"></i>Previous</a><a href="course-module-3.html">Next Module<i class="fas fa-arrow-right ml-2"></i></a></div></div></section>
+    <footer class="bg-brand-navy text-white mt-16 py-8 border-t-4 border-brand-orange"><div class="max-w-7xl mx-auto px-4 text-center"><p class="text-gray-400">&copy; 2025 BrandMark Solutions. All rights reserved.</p></div></footer>
     <script src="brandmark.js?v=20260704"></script>
-    <script>
-        async function markAsComplete(moduleName) {
-            try {
-                const enrollmentId = localStorage.getItem('enrollmentId');
-                
-                if (!enrollmentId) {
-                    alert('Please enroll in the course first to track your progress.');
-                    window.location.href = 'courses.html';
-                    return;
-                }
-
-                const btn = event.target.closest('button');
-                const originalText = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
-                btn.disabled = true;
-
-                const response = await fetch('/api/courses/digital-marketing-001/progress', {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        enrollmentId: enrollmentId,
-                        courseId: 'digital-marketing-001',
-                        completedLessons: [moduleName]
-                    })
-                });
-
-                const data = await response.json();
-
-                if (data.success) {
-                    document.getElementById('completionMessage').style.display = 'flex';
-                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
-                    btn.classList.add('opacity-75');
-                    document.getElementById('completionMessage').scrollIntoView({ behavior: 'smooth' });
-                } else {
-                    let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
-                    if (!completedLessons.includes(moduleName)) {
-                        completedLessons.push(moduleName);
-                    }
-                    localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
-                    
-                    document.getElementById('completionMessage').style.display = 'flex';
-                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
-                    btn.classList.add('opacity-75');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                let completedLessons = JSON.parse(localStorage.getItem('completedLessons') || '[]');
-                if (!completedLessons.includes(moduleName)) {
-                    completedLessons.push(moduleName);
-                }
-                localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
-                
-                document.getElementById('completionMessage').style.display = 'flex';
-                event.target.closest('button').innerHTML = '<i class="fas fa-check-circle"></i> Completed';
-                event.target.closest('button').classList.add('opacity-75');
-            }
-        }
-    </script>
     <script src="ai-tutor-widget.js?v=20260704"></script>
+    <script>
+        let utterance = null, isSpeaking = false, currentSpeed = 1;
+        function initAudio() { const content = document.querySelector('.lesson-content').innerText; utterance = new SpeechSynthesisUtterance(content); utterance.rate = currentSpeed; utterance.onend = () => { isSpeaking = false; updatePlayButton(); }; }
+        function toggleAudio() { if (!utterance) initAudio(); if (isSpeaking) { speechSynthesis.pause(); isSpeaking = false; } else { if (speechSynthesis.paused) { speechSynthesis.resume(); } else { speechSynthesis.cancel(); initAudio(); speechSynthesis.speak(utterance); } isSpeaking = true; } updatePlayButton(); }
+        function setAudioSpeed(speed) { currentSpeed = speed; document.querySelectorAll('.speed-btn').forEach(btn => btn.classList.remove('active')); event.target.classList.add('active'); if (utterance) { utterance.rate = speed; if (isSpeaking) { speechSynthesis.cancel(); initAudio(); speechSynthesis.speak(utterance); } } }
+        function updatePlayButton() { const btn = document.getElementById('audioPlayBtn'); const text = document.getElementById('playBtnText'); btn.innerHTML = isSpeaking ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>'; text.textContent = isSpeaking ? 'Pause' : 'Play'; }
+    </script>
     <script src="course-multilingual-learning.js"></script>
     <script src="course-access-guard.js"></script>
-<script id="bm-module-consistency-nav-v1">
-(function () {
-    function ensureTopLinks() {
-        var nav = document.querySelector('header nav') || document.querySelector('nav');
-        if (!nav) return;
-        if (nav.querySelector('.bm-module-top-links')) return;
-
-        var links = document.createElement('div');
-        links.className = 'bm-module-top-links';
-        links.innerHTML = '' +
-            '<a href="courses.html">Courses</a>' +
-            '<a href="digital-marketing-course.html">Back to Course Home</a>' +
-            '<a href="index.html">Home</a>';
-
-        nav.appendChild(links);
-    }
-
-    document.addEventListener('DOMContentLoaded', ensureTopLinks);
-})();
-</script>
+    
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-

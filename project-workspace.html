@@ -359,11 +359,11 @@
         <div class="bg-white rounded-2xl p-8 max-w-md w-full text-center shadow-2xl border-4 border-green-400">
             <div class="text-6xl mb-4">🏆</div>
             <h2 class="text-2xl font-extrabold text-gray-800 mb-2">All Steps Complete!</h2>
-            <p class="text-gray-600 mb-5">You've passed the quiz <strong>and</strong> completed the project. Your certificate is ready!</p>
+            <p class="text-gray-600 mb-5">You've passed the 20-question mock test <strong>and</strong> completed the project. Your certificate is ready!</p>
             <div class="bg-green-50 rounded-xl p-4 mb-6 text-left border border-green-200">
                 <div class="flex items-center gap-2 mb-2">
                     <span class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">✓</span>
-                    <span class="text-gray-700 text-sm font-semibold">Mock Quiz (15 questions) — Passed ✅</span>
+                    <span class="text-gray-700 text-sm font-semibold">Mock Quiz (20 questions) — Passed with 80%+ ✅</span>
                 </div>
                 <div class="flex items-center gap-2">
                     <span class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">✓</span>
@@ -387,6 +387,27 @@
 
     <script>
         let projectProgress = { 1: 0, 2: 0, 3: 0 };
+
+        function verifyProjectAccess() {
+            const modulesCompleted = localStorage.getItem('MODULES_1_TO_15_COMPLETED') === 'true';
+            const quizCompleted = localStorage.getItem('QUIZ_COMPLETED') === 'true';
+            const quizPassed = localStorage.getItem('QUIZ_PASSED') === 'true';
+            const quizScore = Number(localStorage.getItem('QUIZ_SCORE') || '0');
+
+            if (!modulesCompleted) {
+                alert('Please complete Modules 1 to 15 first.');
+                window.location.replace('course-module-15.html');
+                return false;
+            }
+
+            if (!quizCompleted || !quizPassed || quizScore < 80) {
+                alert('Please pass the 20-question mock test with at least 80% first.');
+                window.location.replace('quiz.html');
+                return false;
+            }
+
+            return true;
+        }
 
         function switchTab(tabNum) {
             // Hide all tabs
@@ -425,17 +446,18 @@
                 // Save project completion
                 localStorage.setItem('PROJECT_COMPLETED', 'true');
 
-                const quizDone = localStorage.getItem('QUIZ_COMPLETED') === 'true';
+                const quizDone = localStorage.getItem('QUIZ_COMPLETED') === 'true' && localStorage.getItem('QUIZ_PASSED') === 'true';
                 if (quizDone) {
                     // Both done — go to certificate
+                    localStorage.setItem('CERTIFICATION_ELIGIBLE', 'true');
                     document.getElementById('projectCompleteModal').style.display = 'flex';
                 } else {
-                    alert('✅ Project complete! You still need to pass the 15-question Mock Quiz first. Redirecting to the quiz now...');
+                    alert('✅ Project complete! You still need to pass the 20-question Mock Quiz with at least 80%. Redirecting to quiz now...');
                     window.location.href = 'quiz.html';
                 }
             } else {
                 const completed = Object.values(projectProgress).filter(p => p === 100).length;
-                alert(`✅ Great work! Deliverable ${num} marked as complete!\n\n${completed}/3 deliverables done. Complete all 3 to unlock the quiz!`);
+                alert(`✅ Great work! Deliverable ${num} marked as complete!\n\n${completed}/3 deliverables done. Complete all 3 to unlock certification.`);
             }
         }
 
@@ -445,8 +467,10 @@
             document.getElementById(`bar-${num}`).style.width = percent + '%';
         }
 
-        // Initialize first tab
-        switchTab(1);
+        // Initialize page only if learner has completed required prior step
+        if (verifyProjectAccess()) {
+            switchTab(1);
+        }
 
     </script>
 </body>

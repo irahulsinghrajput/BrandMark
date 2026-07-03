@@ -15,6 +15,11 @@ body.premium-course-page nav {
   background: linear-gradient(135deg, #0B2C4D 0%, #081F36 100%) !important;
 }
 
+body.premium-course-page #mobile-menu-btn,
+body.premium-course-page #mobile-menu {
+  display: none !important;
+}
+
 body.premium-course-page nav a,
 body.premium-course-page header a,
 body.premium-course-page #mobile-menu a {
@@ -60,18 +65,18 @@ body.premium-course-page .course-hero p {
   color: #ffffff !important;
 }
 
-body.premium-course-page > section:nth-of-type(2) {
-  background: #0B2C4D !important;
-  color: #ffffff !important;
-  padding-top: 2rem !important;
-  padding-bottom: 2rem !important;
+body.premium-course-page section:not(:first-of-type) {
+  color: #1f2937 !important;
 }
 
-body.premium-course-page > section:nth-of-type(2) h1,
-body.premium-course-page > section:nth-of-type(2) h2,
-body.premium-course-page > section:nth-of-type(2) h3,
-body.premium-course-page > section:nth-of-type(2) p {
-  color: #ffffff !important;
+body.premium-course-page section:not(:first-of-type) h1,
+body.premium-course-page section:not(:first-of-type) h2,
+body.premium-course-page section:not(:first-of-type) h3,
+body.premium-course-page section:not(:first-of-type) p,
+body.premium-course-page section:not(:first-of-type) li,
+body.premium-course-page section:not(:first-of-type) span,
+body.premium-course-page section:not(:first-of-type) a {
+  color: inherit;
 }
 
 body.premium-course-page .lesson-content {
@@ -111,6 +116,102 @@ body.premium-course-page .lesson-content ul,
 body.premium-course-page .lesson-content ol {
   color: #374151 !important;
   line-height: 1.8 !important;
+}
+
+body.premium-course-page .bg-white h1,
+body.premium-course-page .bg-white h2,
+body.premium-course-page .bg-white h3,
+body.premium-course-page .bg-white h4,
+body.premium-course-page .bg-white p,
+body.premium-course-page .bg-white span,
+body.premium-course-page .bg-white li,
+body.premium-course-page .bg-gray-50 h1,
+body.premium-course-page .bg-gray-50 h2,
+body.premium-course-page .bg-gray-50 h3,
+body.premium-course-page .bg-gray-50 h4,
+body.premium-course-page .bg-gray-50 p,
+body.premium-course-page .bg-gray-50 span,
+body.premium-course-page .bg-gray-50 li,
+body.premium-course-page .bg-slate-50 h1,
+body.premium-course-page .bg-slate-50 h2,
+body.premium-course-page .bg-slate-50 h3,
+body.premium-course-page .bg-slate-50 h4,
+body.premium-course-page .bg-slate-50 p,
+body.premium-course-page .bg-slate-50 span,
+body.premium-course-page .bg-slate-50 li,
+body.premium-course-page .bg-gradient-to-b.from-gray-50.to-white h1,
+body.premium-course-page .bg-gradient-to-b.from-gray-50.to-white h2,
+body.premium-course-page .bg-gradient-to-b.from-gray-50.to-white h3,
+body.premium-course-page .bg-gradient-to-b.from-gray-50.to-white h4,
+body.premium-course-page .bg-gradient-to-b.from-gray-50.to-white p,
+body.premium-course-page .bg-gradient-to-b.from-gray-50.to-white span,
+body.premium-course-page .bg-gradient-to-b.from-gray-50.to-white li,
+body.premium-course-page .bg-gradient-to-b.from-white.to-gray-50 h1,
+body.premium-course-page .bg-gradient-to-b.from-white.to-gray-50 h2,
+body.premium-course-page .bg-gradient-to-b.from-white.to-gray-50 h3,
+body.premium-course-page .bg-gradient-to-b.from-white.to-gray-50 h4,
+body.premium-course-page .bg-gradient-to-b.from-white.to-gray-50 p,
+body.premium-course-page .bg-gradient-to-b.from-white.to-gray-50 span,
+body.premium-course-page .bg-gradient-to-b.from-white.to-gray-50 li {
+  color: #1f2937 !important;
+}
+
+body.premium-course-page .bg-white,
+body.premium-course-page .bg-gray-50,
+body.premium-course-page .bg-slate-50,
+body.premium-course-page .bg-gradient-to-b.from-gray-50.to-white,
+body.premium-course-page .bg-gradient-to-b.from-white.to-gray-50 {
+  color: #1f2937 !important;
+}
+
+body.premium-course-page .bg-brand-navy,
+body.premium-course-page .bg-brand-navy-dark,
+body.premium-course-page .audio-player,
+body.premium-course-page .module-nav a,
+body.premium-course-page footer,
+body.premium-course-page [class*="from-brand-navy"],
+body.premium-course-page [class*="to-brand-navy-dark"],
+body.premium-course-page [class*="bg-brand-navy"] {
+  color: #ffffff !important;
+}
+
+body.premium-course-page .bg-brand-navy h1,
+body.premium-course-page .bg-brand-navy h2,
+body.premium-course-page .bg-brand-navy h3,
+body.premium-course-page .bg-brand-navy p,
+body.premium-course-page .bg-brand-navy li,
+body.premium-course-page .bg-brand-navy span,
+body.premium-course-page .bg-brand-navy a,
+body.premium-course-page .bg-brand-navy-dark h1,
+body.premium-course-page .bg-brand-navy-dark h2,
+body.premium-course-page .bg-brand-navy-dark h3,
+body.premium-course-page .bg-brand-navy-dark p,
+body.premium-course-page .bg-brand-navy-dark li,
+body.premium-course-page .bg-brand-navy-dark span,
+body.premium-course-page .bg-brand-navy-dark a,
+body.premium-course-page .audio-player h1,
+body.premium-course-page .audio-player h2,
+body.premium-course-page .audio-player h3,
+body.premium-course-page .audio-player p,
+body.premium-course-page .audio-player span,
+body.premium-course-page footer h1,
+body.premium-course-page footer h2,
+body.premium-course-page footer h3,
+body.premium-course-page footer p,
+body.premium-course-page footer span,
+body.premium-course-page footer a,
+body.premium-course-page .module-nav a,
+body.premium-course-page [class*="from-brand-navy"] h1,
+body.premium-course-page [class*="from-brand-navy"] h2,
+body.premium-course-page [class*="from-brand-navy"] h3,
+body.premium-course-page [class*="from-brand-navy"] p,
+body.premium-course-page [class*="from-brand-navy"] span,
+body.premium-course-page [class*="to-brand-navy-dark"] h1,
+body.premium-course-page [class*="to-brand-navy-dark"] h2,
+body.premium-course-page [class*="to-brand-navy-dark"] h3,
+body.premium-course-page [class*="to-brand-navy-dark"] p,
+body.premium-course-page [class*="to-brand-navy-dark"] span {
+  color: #ffffff !important;
 }
 
 body.premium-course-page .lesson-content ul,

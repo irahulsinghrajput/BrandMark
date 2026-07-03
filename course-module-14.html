@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -94,9 +94,26 @@
 </style>
 </head>
 <body class="text-white premium-course-page" data-course-id="digital-marketing-001">
-    <header class="sticky top-0 z-50 bg-gradient-to-r from-brand-navy to-brand-navy-dark border-b-4 border-brand-orange">
-        <nav class="max-w-7xl mx-auto px-4 py-6 flex justify-between relative"><a href="index.html" class="flex items-center gap-2"><img src="brandmark-logo-new.png.png" class="h-12 w-12 rounded-full border-2 border-brand-orange"><span class="font-bold text-white">Brand<span class="text-brand-orange">Mark</span></span></a></nav>
-    </header>
+    <header class="sticky top-0 z-50 bg-brand-navy shadow-lg border-b-4 border-brand-orange">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+            <a href="index.html" class="flex items-center cursor-pointer no-underline hover:opacity-90 transition-opacity">
+                <img src="brandmark-logo-new.png.png" alt="BrandMark Solutions logo" class="h-12 w-12 rounded-full object-cover mr-3">
+                <span class="text-2xl font-bold tracking-tighter text-white">
+                    Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">&reg;</span>
+                </span>
+            </a>
+
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="index.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium">Home</a>
+                <a href="courses.html" class="text-brand-orange font-medium transition-colors">My Courses</a>
+                <a href="student-login.html" class="bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold py-2 px-6 rounded-lg transition-colors">
+                    Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
 
     <section class="min-h-[40vh] flex justify-center items-center text-center bg-brand-navy py-16"><div class="max-w-4xl"><h1 class="text-5xl font-bold mb-4 text-white">MarTech Stack & AI Integration</h1><p class="text-xl text-gray-200">Build and integrate your marketing tech stack with AI</p></div></section>
 
@@ -202,26 +219,7 @@
 
     <script src="course-multilingual-learning.js"></script>
     <script src="course-access-guard.js"></script>
-<script id="bm-module-consistency-nav-v1">
-(function () {
-    function ensureTopLinks() {
-        var nav = document.querySelector('header nav') || document.querySelector('nav');
-        if (!nav) return;
-        if (nav.querySelector('.bm-module-top-links')) return;
 
-        var links = document.createElement('div');
-        links.className = 'bm-module-top-links';
-        links.innerHTML = '' +
-            '<a href="courses.html">Courses</a>' +
-            '<a href="digital-marketing-course.html">Back to Course Home</a>' +
-            '<a href="index.html">Home</a>';
-
-        nav.appendChild(links);
-    }
-
-    document.addEventListener('DOMContentLoaded', ensureTopLinks);
-})();
-</script>
 </body>
 </html>
 

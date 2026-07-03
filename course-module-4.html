@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Module 4: AI-Powered Content Creation | BrandMark Course</title>
-    <meta name="description" content="Master AI tools like ChatGPT and Claude for creating engaging blog posts, emails, and ads. Learn content strategy and copywriting with AI.">
+    <meta name="description" content="Learn how to use AI tools for content strategy, email copy, blog writing, prompts, and campaign asset generation.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -14,10 +14,7 @@
                         'brand-navy': '#0B2C4D',
                         'brand-navy-dark': '#081F36',
                         'brand-orange': '#F26A21',
-                        'brand-orange-dark': '#E65C17',
-                        'brand-black': '#0a0a0a',
-                        'brand-dark': '#121212',
-                        'brand-gray': '#2a2a2a'
+                        'brand-orange-dark': '#E65C17'
                     }
                 }
             }
@@ -28,643 +25,80 @@
     <link rel="stylesheet" href="course-premium-theme.css">
     <link rel="stylesheet" href="course-module-theme.css">
     <style>
-        * {
-            font-family: 'Outfit', sans-serif;
-        }
-
-        body {
-            background: linear-gradient(to bottom, #f0f4f8 0%, #ffffff 100%);
-            min-height: 100vh;
-        }
-
-        .lesson-content {
-            background: white;
-            color: #1f2937;
-            padding: 3rem;
-            border-radius: 16px;
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-        }
-        
-        .lesson-content:hover {
-            box-shadow: 0 12px 32px rgba(242, 106, 33, 0.1);
-        }
-        
-        .lesson-content h2 {
-            color: #0B2C4D;
-            margin-top: 2rem;
-            margin-bottom: 1.25rem;
-            font-size: 1.875rem;
-            font-weight: 700;
-            border-bottom: 2px solid #F26A21;
-            padding-bottom: 0.75rem;
-        }
-        
-        .lesson-content h3 {
-            color: #0B2C4D;
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-        
-        .lesson-content p {
-            line-height: 1.8;
-            color: #374151;
-            margin-bottom: 1rem;
-        }
-        
-        .lesson-content ul, .lesson-content ol {
-            margin-left: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .lesson-content li {
-            margin-bottom: 0.75rem;
-            line-height: 1.7;
-            color: #374151;
-        }
-        
-        .highlight-box {
-            background: linear-gradient(135deg, #FEF3F2, #FFF8F3);
-            border-left: 5px solid #F26A21;
-            border-right: 1px solid #FFE8DD;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(242, 106, 33, 0.1);
-        }
-        
-        .highlight-box p {
-            color: #0B2C4D;
-            font-weight: 500;
-            margin: 0;
-        }
-
-        .audio-player {
-            background: linear-gradient(135deg, #0B2C4D 0%, #081F36 100%);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            color: white;
-            box-shadow: 0 4px 15px rgba(11, 44, 77, 0.3);
-        }
-
-        .audio-controls {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .play-btn {
-            background: linear-gradient(135deg, #F26A21, #E65C17);
-            border: none;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .play-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(242, 106, 33, 0.4);
-        }
-
-        .play-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .progress-bar {
-            flex: 1;
-            min-width: 200px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 3px;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: #F26A21;
-            border-radius: 3px;
-            transition: width 0.1s linear;
-        }
-
-        .speed-control {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .speed-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.875rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .speed-btn.active {
-            background: #F26A21;
-            border-color: #F26A21;
-        }
-
-        .speed-btn:hover {
-            border-color: #F26A21;
-        }
-
-        .module-nav {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 2px solid #E5E7EB;
-        }
-        
-        .module-nav a {
-            padding: 0.875rem 1.75rem;
-            background: linear-gradient(135deg, #F26A21, #E65C17);
-            color: white;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(242, 106, 33, 0.3);
-            border: none;
-            cursor: pointer;
-        }
-        
-        .module-nav a:hover {
-            background: linear-gradient(135deg, #E65C17, #D44D0F);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(242, 106, 33, 0.4);
-        }
-
-        .module-nav a:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
+        * { font-family: 'Outfit', sans-serif; }
+        body { background: linear-gradient(to bottom, #f0f4f8 0%, #ffffff 100%); min-height: 100vh; }
+        .lesson-content { background: white; color: #1f2937; padding: 3rem; border-radius: 16px; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08); }
+        .lesson-content h2 { color: #0B2C4D; margin-top: 2rem; margin-bottom: 1.25rem; font-size: 1.875rem; font-weight: 700; border-bottom: 2px solid #F26A21; padding-bottom: 0.75rem; }
+        .lesson-content h3 { color: #0B2C4D; margin-top: 1.5rem; margin-bottom: 1rem; font-size: 1.25rem; font-weight: 600; }
+        .lesson-content p { line-height: 1.8; color: #374151; margin-bottom: 1rem; }
+        .lesson-content ul, .lesson-content ol { margin-left: 1.5rem; margin-bottom: 1.5rem; }
+        .lesson-content li { margin-bottom: 0.75rem; line-height: 1.7; color: #374151; }
+        .highlight-box { background: linear-gradient(135deg, #FEF3F2, #FFF8F3); border-left: 5px solid #F26A21; padding: 1.5rem; margin: 1.5rem 0; border-radius: 8px; }
+        .audio-player { background: linear-gradient(135deg, #0B2C4D 0%, #081F36 100%); border-radius: 12px; padding: 1.5rem; margin: 2rem 0; color: white; box-shadow: 0 4px 15px rgba(11, 44, 77, 0.3); }
+        .audio-controls { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+        .play-btn { background: linear-gradient(135deg, #F26A21, #E65C17); border: none; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem; }
+        .play-btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(242, 106, 33, 0.4); }
+        .progress-bar { flex: 1; min-width: 200px; height: 6px; background: rgba(255, 255, 255, 0.2); border-radius: 3px; cursor: pointer; }
+        .progress-fill { height: 100%; background: #F26A21; border-radius: 3px; width: 0%; }
+        .speed-btn { background: rgba(255, 255, 255, 0.2); border: 2px solid rgba(255, 255, 255, 0.3); color: white; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.875rem; font-weight: 600; transition: all 0.3s ease; }
+        .speed-btn.active { background: #F26A21; border-color: #F26A21; }
+        .module-nav { display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #E5E7EB; }
+        .module-nav a { padding: 0.875rem 1.75rem; background: linear-gradient(135deg, #F26A21, #E65C17); color: white; border-radius: 8px; text-decoration: none; transition: all 0.3s ease; font-weight: 600; box-shadow: 0 4px 12px rgba(242, 106, 33, 0.3); border: none; cursor: pointer; }
+        .module-nav a:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(242, 106, 33, 0.4); }
     </style>
     <style id="bm-module-consistency-v1">
-        body.premium-course-page nav a,
-        body.premium-course-page header a,
-        body.premium-course-page #mobile-menu a {
-            color: #ffffff !important;
-        }
-
-        body.premium-course-page nav a:hover,
-        body.premium-course-page header a:hover,
-        body.premium-course-page #mobile-menu a:hover {
-            color: #F26A21 !important;
-        }
-
-        body.premium-course-page h1,
-        body.premium-course-page .module-hero h1,
-        body.premium-course-page section h1 {
-            color: #ffffff !important;
-        }
-
-        body.premium-course-page a[href="courses.html"],
-        body.premium-course-page a[href="digital-marketing-course.html"] {
-            color: #ffffff !important;
-        }
-
-        body.premium-course-page footer {
-            background: #081F36 !important;
-            color: #d1d5db !important;
-            border-top: 4px solid #F26A21 !important;
-            padding-top: 2rem !important;
-            padding-bottom: 2rem !important;
-        }
-
-        body.premium-course-page footer p,
-        body.premium-course-page footer span,
-        body.premium-course-page footer a {
-            color: #d1d5db !important;
-        }
-
-        body.premium-course-page footer a:hover {
-            color: #F26A21 !important;
-        }
-    
-        .bm-module-top-links {
-            display: flex;
-            align-items: center;
-            gap: 1.25rem;
-            margin-left: auto;
-        }
-
-        .bm-module-top-links a {
-            color: #ffffff !important;
-            font-weight: 600;
-            text-decoration: none;
-            transition: color .2s ease;
-        }
-
-        .bm-module-top-links a:hover {
-            color: #F26A21 !important;
-        }
-
-        @media (max-width: 768px) {
-            .bm-module-top-links {
-                display: none;
-            }
-        }
-</style>
+        body.premium-course-page nav a, body.premium-course-page header a, body.premium-course-page #mobile-menu a { color: #ffffff !important; }
+        body.premium-course-page nav a:hover, body.premium-course-page header a:hover, body.premium-course-page #mobile-menu a:hover { color: #F26A21 !important; }
+        body.premium-course-page h1, body.premium-course-page .module-hero h1, body.premium-course-page section h1 { color: #ffffff !important; }
+        body.premium-course-page a[href="courses.html"], body.premium-course-page a[href="digital-marketing-course.html"] { color: #ffffff !important; }
+        body.premium-course-page footer { background: #081F36 !important; color: #d1d5db !important; border-top: 4px solid #F26A21 !important; padding-top: 2rem !important; padding-bottom: 2rem !important; }
+        body.premium-course-page footer p, body.premium-course-page footer span, body.premium-course-page footer a { color: #d1d5db !important; }
+        body.premium-course-page footer a:hover { color: #F26A21 !important; }
+        .bm-module-top-links { display: flex; align-items: center; gap: 1.25rem; margin-left: auto; }
+        .bm-module-top-links a { color: #ffffff !important; font-weight: 600; text-decoration: none; transition: color .2s ease; }
+        .bm-module-top-links a:hover { color: #F26A21 !important; }
+        @media (max-width: 768px) { .bm-module-top-links { display: none; } }
+    </style>
 </head>
 <body class="bg-brand-black text-white font-[Outfit] premium-course-page" data-course-id="digital-marketing-001">
-    <!-- Navigation Header -->
-    <header class="sticky top-0 z-50 bg-gradient-to-r from-brand-navy via-brand-navy to-brand-navy-dark shadow-2xl border-b-4 border-brand-orange">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-4 hover:opacity-90 transition group">
-                <div class="relative">
-                    <img src="brandmark-logo-new.png.png" alt="BrandMark Logo" class="h-14 w-14 rounded-full object-cover shadow-lg border-2 border-brand-orange group-hover:shadow-xl transition">
-                    <div class="absolute inset-0 rounded-full bg-brand-orange opacity-0 group-hover:opacity-10 transition"></div>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-3xl font-extrabold text-white tracking-tight">Brand<span class="text-brand-orange font-light">Mark</span><span class="text-xs align-top">(R)</span></span>
-                    <span class="text-xs text-gray-300 tracking-widest font-semibold">DIGITAL MASTERY</span>
-                </div>
+    <header class="sticky top-0 z-50 bg-brand-navy shadow-lg border-b-4 border-brand-orange">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+            <a href="index.html" class="flex items-center cursor-pointer no-underline hover:opacity-90 transition-opacity">
+                <img src="brandmark-logo-new.png.png" alt="BrandMark Solutions logo" class="h-12 w-12 rounded-full object-cover mr-3">
+                <span class="text-2xl font-bold tracking-tighter text-white">
+                    Brand<span class="font-light text-brand-orange">Mark</span><span class="text-xs align-top">&reg;</span>
+                </span>
             </a>
-        </nav>
-    </header>
 
-    <!-- Module Header Section -->
-    <section class="relative min-h-[40vh] flex flex-col justify-center items-center text-center py-16 bg-brand-navy">
-        <div class="absolute inset-0 bg-gradient-to-b from-brand-navy/90 to-brand-navy/100 z-0"></div>
-        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">AI-Powered Content Creation</h1>
-            <p class="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">Use ChatGPT, Claude and other AI tools to create engaging blog posts, emails, and ad copy</p>
-        </div>
-    </section>
-
-    <!-- Learning Objectives -->
-    <section class="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 lg:px-8 py-12">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold text-brand-navy mb-3">
-                    <i class="fas fa-bullseye text-brand-orange mr-3"></i>Learning Objectives
-                </h2>
-                <p class="text-gray-600">What you'll master in this module</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md hover:shadow-lg transition">
-                    <p class="flex items-start text-brand-navy font-semibold text-lg"><i class="fas fa-check-circle text-brand-orange mr-3 mt-1 text-xl flex-shrink-0"></i> <span>Master ChatGPT and Claude for marketing</span></p>
-                </div>
-                <div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md hover:shadow-lg transition">
-                    <p class="flex items-start text-brand-navy font-semibold text-lg"><i class="fas fa-check-circle text-brand-orange mr-3 mt-1 text-xl flex-shrink-0"></i> <span>Create high-converting email copy</span></p>
-                </div>
-                <div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md hover:shadow-lg transition">
-                    <p class="flex items-start text-brand-navy font-semibold text-lg"><i class="fas fa-check-circle text-brand-orange mr-3 mt-1 text-xl flex-shrink-0"></i> <span>Write blog posts with AI assistance</span></p>
-                </div>
-                <div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md hover:shadow-lg transition">
-                    <p class="flex items-start text-brand-navy font-semibold text-lg"><i class="fas fa-check-circle text-brand-orange mr-3 mt-1 text-xl flex-shrink-0"></i> <span>Use AI prompts effectively for better results</span></p>
-                </div>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="index.html" class="text-gray-200 hover:text-brand-orange transition-colors text-sm font-medium">Home</a>
+                <a href="courses.html" class="text-brand-orange font-medium transition-colors">My Courses</a>
+                <a href="student-login.html" class="bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold py-2 px-6 rounded-lg transition-colors">
+                    Logout
+                </a>
             </div>
         </div>
-    </section>
-
-    <!-- Audio Player -->
-    <section class="bg-white px-4 sm:px-6 lg:px-8 py-8">
-        <div class="max-w-4xl mx-auto">
-            <div class="audio-player">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-xl font-bold flex items-center gap-2 text-white">
-                        <i class="fas fa-headphones text-brand-orange"></i>Listen to This Module
-                    </h3>
-                    <span class="text-sm text-white">Click play to listen to the entire lesson</span>
-                </div>
-                <div class="audio-controls">
-                    <button id="audioPlayBtn" class="play-btn" onclick="toggleAudio()">
-                        <i class="fas fa-play"></i>
-                        <span id="playBtnText">Play</span>
-                    </button>
-                    <div class="progress-bar" onclick="seekAudio(event)">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
-                    <span id="audioTime" class="text-sm whitespace-nowrap">0:00 / --:--</span>
-                    <div class="speed-control">
-                        <span class="text-sm">Speed:</span>
-                        <button class="speed-btn active" onclick="setAudioSpeed(1)">1x</button>
-                        <button class="speed-btn" onclick="setAudioSpeed(1.5)">1.5x</button>
-                        <button class="speed-btn" onclick="setAudioSpeed(2)">2x</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Main Content -->
-    <section class="bg-gradient-to-b from-white to-gray-50 px-4 sm:px-6 lg:px-8 py-16">
-        <div class="max-w-4xl mx-auto">
-            <div class="lesson-content bg-white rounded-2xl shadow-lg border-l-4 border-brand-orange">
-                <h2>1. Introduction to AI Content Creation</h2>
-                <p>AI-powered content creation has revolutionized how marketers produce high-quality content at scale. Tools like ChatGPT, Claude, and others can generate blog posts, email campaigns, ad copy, and social media content in seconds.</p>
-                
-                <h3>Benefits of AI Content Creation</h3>
-                <ul>
-                    <li><strong>Speed:</strong> Generate content 10x faster than manual writing</li>
-                    <li><strong>Scalability:</strong> Create multiple variations and versions easily</li>
-                    <li><strong>Consistency:</strong> Maintain brand voice across all channels</li>
-                    <li><strong>Cost-Effective:</strong> Reduce content creation costs significantly</li>
-                    <li><strong>Personalization:</strong> Create tailored content for different segments</li>
-                </ul>
-
-                <h2>2. Key AI Tools for Content Marketing</h2>
-                
-                <h3>ChatGPT (OpenAI)</h3>
-                <div class="highlight-box">
-                    <p><strong>Best for: Blog posts, social media, email drafts, brainstorming</strong></p>
-                    <p>ChatGPT is a versatile AI model that can generate high-quality written content. It understands context and can maintain consistent tone and style.</p>
-                </div>
-                <ul>
-                    <li>Excellent at creative writing and brainstorming ideas</li>
-                    <li>Can write in multiple styles and formats</li>
-                    <li>Available for free and premium versions</li>
-                    <li>Supports role-based prompting for specific outputs</li>
-                </ul>
-
-                <h3>Claude (Anthropic)</h3>
-                <div class="highlight-box">
-                    <p><strong>Best for: Long-form content, analysis, complex writing</strong></p>
-                    <p>Claude excels at understanding nuance, maintaining consistency, and creating detailed content. It's known for being more thoughtful and careful.</p>
-                </div>
-
-                <h3>Other Popular Tools</h3>
-                <ul>
-                    <li><strong>Jasper:</strong> Specialized for marketing copy and brand voice</li>
-                    <li><strong>Copy.ai:</strong> Quick sales pages and landing page copy</li>
-                    <li><strong>Writesonic:</strong> Blog posts, ads, product descriptions</li>
-                    <li><strong>Surfer SEO:</strong> SEO-optimized content generation</li>
-                </ul>
-
-                <h2>3. Crafting Effective AI Prompts</h2>
-                <p>The quality of AI output depends heavily on the quality of your prompts. Here's how to write prompts that get great results:</p>
-                
-                <div class="highlight-box">
-                    <p><strong>The Formula for Great Prompts:</strong></p>
-                    <p>ROLE + CONTEXT + TASK + FORMAT + TONE + CONSTRAINTS</p>
-                </div>
-
-                <h3>Example Prompt Breakdown</h3>
-                <div class="bg-gray-100 p-6 rounded-lg mb-6">
-                    <p style="margin: 0; color: #1f2937;"><strong>Prompt:</strong> "You are an expert email marketer specializing in SaaS. Write a cold email to a startup CEO about our project management software. The email should be under 150 words, have a hook in the first line, and use a professional but friendly tone. Include a clear call-to-action."</p>
-                </div>
-
-                <h2>4. Creating Blog Posts with AI</h2>
-                
-                <h3>The Blog Writing Process</h3>
-                <ol>
-                    <li><strong>Keyword Research:</strong> Identify target keywords and topics</li>
-                    <li><strong>Outline Generation:</strong> Use AI to create a detailed outline</li>
-                    <li><strong>Content Draft:</strong> Ask AI to write each section with specific prompts</li>
-                    <li><strong>Editing:</strong> Refine, personalize, and add your expertise</li>
-                    <li><strong>Optimization:</strong> Ensure SEO best practices and readability</li>
-                    <li><strong>Publication:</strong> Format and publish on your blog</li>
-                </ol>
-
-                <h3>Sample Blog Prompt</h3>
-                <div class="bg-blue-50 p-6 rounded-lg">
-                    <p style="color: #1f2937;"><strong>Example:</strong> "Write a comprehensive blog post about '5 Email Marketing Strategies for E-commerce Brands' targeting small business owners. Include practical tips, statistics, and examples. Write in a conversational but authoritative tone. The post should be approximately 2000 words."</p>
-                </div>
-
-                <h2>5. Email Copy with AI</h2>
-                
-                <h3>Types of Emails to Create</h3>
-                <ul>
-                    <li><strong>Welcome Series:</strong> Introduce new subscribers to your brand</li>
-                    <li><strong>Educational Emails:</strong> Provide value and build authority</li>
-                    <li><strong>Promotional Emails:</strong> Drive conversions with compelling copy</li>
-                    <li><strong>Cart Abandonment:</strong> Recover lost sales</li>
-                    <li><strong>Re-engagement Campaigns:</strong> Win back inactive subscribers</li>
-                </ul>
-
-                <h3>Email Template Prompt</h3>
-                <div class="bg-green-50 p-6 rounded-lg">
-                    <p style="color: #1f2937;"><strong>Example:</strong> "Write an email for a fashion brand announcing a 20% off sale. The subject line should be attention-grabbing. The body should include product benefits, urgency (sale ends Friday), and a clear call-to-action button. Keep it under 200 words and use a tone that's friendly and hip."</p>
-                </div>
-
-                <h2>6. Ad Copy Generation</h2>
-                
-                <p>AI can generate multiple variations of ad copy for A/B testing. This helps you find what resonates with your audience.</p>
-                
-                <h3>Multi-Variation Prompt</h3>
-                <div class="bg-purple-50 p-6 rounded-lg mb-6">
-                    <p style="color: #1f2937;"><strong>Example:</strong> "Generate 5 different versions of Google Ads copy for a fitness app targeting weight loss. Each version should have a different angle (e.g., motivation, results, community, science, affordability). Keep each under 30 characters for the headline."</p>
-                </div>
-
-                <h2>7. Best Practices for AI Content</h2>
-                
-                <h3>Always Remember</h3>
-                <ul>
-                    <li><strong>Edit and Verify:</strong> AI can make mistakes. Always review and fact-check</li>
-                    <li><strong>Add Your Voice:</strong> Personalize AI content with your unique perspective</li>
-                    <li><strong>Include Data:</strong> Support claims with real statistics and examples</li>
-                    <li><strong>Optimize for SEO:</strong> Ensure content includes target keywords naturally</li>
-                    <li><strong>Test and Learn:</strong> Track what works and iterate</li>
-                    <li><strong>Ethical Use:</strong> Disclose AI usage where appropriate</li>
-                </ul>
-
-                <h2>Key Takeaways</h2>
-                <div class="bg-blue-900 bg-opacity-20 p-4 rounded-lg text-white">
-                    <ul>
-                        <li>AI tools like ChatGPT and Claude can generate high-quality marketing content quickly</li>
-                        <li>Well-crafted prompts produce significantly better results than generic requests</li>
-                        <li>Combine AI generation with human editing for best results</li>
-                        <li>Use AI for multiple variations to test what works best</li>
-                        <li>Always verify accuracy and maintain brand consistency</li>
-                    </ul>
-                </div>
-
-    <!-- Resources & Completion Section -->
-    <section class="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 lg:px-8 py-16">
-        <div class="max-w-4xl mx-auto">
-            <!-- Resources -->
-            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8 border-t-4 border-brand-orange">
-                <h3 class="text-2xl font-bold text-brand-navy mb-2 flex items-center gap-3">
-                    <i class="fas fa-download text-brand-orange text-3xl"></i>Downloads & Resources
-                </h3>
-                <p class="text-gray-600 mb-6">Download course materials and templates for your learning</p>
-                <div class="space-y-3 grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <a href="#" class="flex items-center p-4 bg-gradient-to-r from-red-50 to-orange-50 rounded-lg hover:shadow-lg transition border-l-4 border-red-400">
-                        <i class="fas fa-file-pdf text-red-500 mr-4 text-2xl"></i>
-                        <div>
-                            <p class="font-semibold text-brand-navy">Digital Marketing Setup Checklist</p>
-                            <p class="text-sm text-gray-500">PDF  -  2.4 MB</p>
-                        </div>
-                        <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
-                    </a>
-                    <a href="#" class="flex items-center p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg hover:shadow-lg transition border-l-4 border-green-400">
-                        <i class="fas fa-file-excel text-green-500 mr-4 text-2xl"></i>
-                        <div>
-                            <p class="font-semibold text-brand-navy">Buyer Persona Template</p>
-                            <p class="text-sm text-gray-500">XLSX  -  512 KB</p>
-                        </div>
-                        <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
-                    </a>
-                    <a href="#" class="flex items-center p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg hover:shadow-lg transition border-l-4 border-blue-400 md:col-span-2">
-                        <i class="fas fa-file-word text-blue-500 mr-4 text-2xl"></i>
-                        <div>
-                            <p class="font-semibold text-brand-navy">Marketing Strategy Template</p>
-                            <p class="text-sm text-gray-500">DOCX  -  3.1 MB</p>
-                        </div>
-                        <i class="fas fa-arrow-right text-gray-400 ml-auto"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Completion Card -->
-            <div class="bg-gradient-to-r from-brand-navy to-brand-navy-dark rounded-2xl shadow-xl p-10 text-white">
-                <div class="flex items-start gap-4 mb-6">
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-check-circle text-brand-orange text-4xl"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-bold mb-2 text-white" style="color: #ffffff !important; text-transform: none;">Module 4 Complete!</h3>
-                        <p class="text-lg text-white" style="color: #ffffff !important;">You've mastered AI-powered content creation. Move on to Module 5 to learn about Data Analytics & Performance Metrics!</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Module Navigation -->
-    <section class="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 lg:px-8 py-8">
-        <div class="max-w-4xl mx-auto">
-            <div class="module-nav">
-                    <a href="course-module-3.html">
-                        <i class="fas fa-arrow-left mr-2"></i>Previous
-                    </a>
-                    <a href="course-module-5.html">
-                        Next Module<i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-brand-navy text-white mt-16 py-8 border-t-4 border-brand-orange">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-gray-400">&copy; 2025 BrandMark Solutions. All rights reserved.</p>
-        </div>
-    </footer>
-
+    </nav>
+</header>
+    <section class="relative min-h-[40vh] flex flex-col justify-center items-center text-center py-16 bg-brand-navy"><div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"><h1 class="text-4xl md:text-5xl font-bold text-white mb-4">AI-Powered Content Creation</h1><p class="text-lg md:text-xl text-gray-200">Learn how to create high-quality content using AI tools like ChatGPT and Claude.</p></div></section>
+    <section class="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 lg:px-8 py-12"><div class="max-w-4xl mx-auto"><div class="text-center mb-10"><h2 class="text-3xl font-bold text-brand-navy mb-3"><i class="fas fa-bullseye text-brand-orange mr-3"></i>Learning Objectives</h2></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md"><p class="flex items-start text-brand-navy font-semibold"><i class="fas fa-check-circle text-brand-orange mr-3 flex-shrink-0"></i> Create AI prompts that produce better content</p></div><div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md"><p class="flex items-start text-brand-navy font-semibold"><i class="fas fa-check-circle text-brand-orange mr-3 flex-shrink-0"></i> Generate blog posts and social content with AI</p></div><div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md"><p class="flex items-start text-brand-navy font-semibold"><i class="fas fa-check-circle text-brand-orange mr-3 flex-shrink-0"></i> Write effective email marketing copy</p></div><div class="bg-white p-6 rounded-xl border-l-4 border-brand-orange shadow-md"><p class="flex items-start text-brand-navy font-semibold"><i class="fas fa-check-circle text-brand-orange mr-3 flex-shrink-0"></i> Apply AI to ad copy and content strategy</p></div></div></div></section>
+    <section class="bg-white px-4 sm:px-6 lg:px-8 py-8"><div class="max-w-4xl mx-auto"><div class="audio-player"><div class="flex items-center justify-between mb-4"><h3 class="text-xl font-bold flex items-center gap-2 text-white"><i class="fas fa-headphones text-brand-orange"></i>Listen to This Module</h3><span class="text-sm text-white">Click play to listen</span></div><div class="audio-controls"><button id="audioPlayBtn" class="play-btn" onclick="toggleAudio()"><i class="fas fa-play"></i><span id="playBtnText">Play</span></button><div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div><span id="audioTime" class="text-sm">0:00</span><div class="speed-control" style="display: flex; gap: 0.5rem;"><span class="text-sm">Speed:</span><button class="speed-btn active" onclick="setAudioSpeed(1)">1x</button><button class="speed-btn" onclick="setAudioSpeed(1.5)">1.5x</button><button class="speed-btn" onclick="setAudioSpeed(2)">2x</button></div></div></div></div></section>
+    <section class="bg-gradient-to-b from-white to-gray-50 px-4 sm:px-6 lg:px-8 py-16"><div class="max-w-4xl mx-auto"><div class="lesson-content bg-white rounded-2xl shadow-lg border-l-4 border-brand-orange"><h2>1. Introduction to AI Content Creation</h2><p>AI-powered content creation has revolutionized how marketers produce high-quality content at scale. Tools like ChatGPT, Claude, and others can generate blog posts, email campaigns, ad copy, and social media content in seconds.</p><h3>Benefits of AI Content Creation</h3><ul><li><strong>Speed:</strong> Generate content 10x faster than manual writing</li><li><strong>Scalability:</strong> Create multiple variations and versions easily</li><li><strong>Consistency:</strong> Maintain brand voice across all channels</li><li><strong>Cost-Effective:</strong> Reduce content creation costs significantly</li><li><strong>Personalization:</strong> Create tailored content for different segments</li></ul><h2>2. Key AI Tools for Content Marketing</h2><h3>ChatGPT (OpenAI)</h3><div class="highlight-box"><p><strong>Best for: Blog posts, social media, email drafts, brainstorming</strong></p><p>ChatGPT is a versatile AI model that can generate high-quality written content. It understands context and can maintain consistent tone and style.</p></div><ul><li>Excellent at creative writing and brainstorming ideas</li><li>Can write in multiple styles and formats</li><li>Available for free and premium versions</li><li>Supports role-based prompting for specific outputs</li></ul><h3>Claude (Anthropic)</h3><div class="highlight-box"><p><strong>Best for: Long-form content, analysis, complex writing</strong></p><p>Claude excels at understanding nuance, maintaining consistency, and creating detailed content. It's known for being more thoughtful and careful.</p></div><h3>Other Popular Tools</h3><ul><li><strong>Jasper:</strong> Specialized for marketing copy and brand voice</li><li><strong>Copy.ai:</strong> Quick sales pages and landing page copy</li><li><strong>Writesonic:</strong> Blog posts, ads, product descriptions</li><li><strong>Surfer SEO:</strong> SEO-optimized content generation</li></ul><h2>3. Crafting Effective AI Prompts</h2><p>The quality of AI output depends heavily on the quality of your prompts. Here's how to write prompts that get great results:</p><div class="highlight-box"><p><strong>The Formula for Great Prompts:</strong></p><p>ROLE + CONTEXT + TASK + FORMAT + TONE + CONSTRAINTS</p></div><h3>Example Prompt Breakdown</h3><div class="bg-gray-100 p-6 rounded-lg mb-6"><p style="margin: 0; color: #1f2937;"><strong>Prompt:</strong> "You are an expert email marketer specializing in SaaS. Write a cold email to a startup CEO about our project management software. The email should be under 150 words, have a hook in the first line, and use a professional but friendly tone. Include a clear call-to-action."</p></div><h2>4. Creating Blog Posts with AI</h2><h3>The Blog Writing Process</h3><ol><li><strong>Keyword Research:</strong> Identify target keywords and topics</li><li><strong>Outline Generation:</strong> Use AI to create a detailed outline</li><li><strong>Content Draft:</strong> Ask AI to write each section with specific prompts</li><li><strong>Editing:</strong> Refine, personalize, and add your expertise</li><li><strong>Optimization:</strong> Ensure SEO best practices and readability</li><li><strong>Publication:</strong> Format and publish on your blog</li></ol><h3>Sample Blog Prompt</h3><div class="bg-blue-50 p-6 rounded-lg"><p style="color: #1f2937;"><strong>Example:</strong> "Write a comprehensive blog post about '5 Email Marketing Strategies for E-commerce Brands' targeting small business owners. Include practical tips, statistics, and examples. Write in a conversational but authoritative tone. The post should be approximately 2000 words."</p></div><h2>5. Email Copy with AI</h2><h3>Types of Emails to Create</h3><ul><li><strong>Welcome Series:</strong> Introduce new subscribers to your brand</li><li><strong>Educational Emails:</strong> Provide value and build authority</li><li><strong>Promotional Emails:</strong> Drive conversions with compelling copy</li><li><strong>Cart Abandonment:</strong> Recover lost sales</li><li><strong>Re-engagement Campaigns:</strong> Win back inactive subscribers</li></ul><h3>Email Template Prompt</h3><div class="bg-green-50 p-6 rounded-lg"><p style="color: #1f2937;"><strong>Example:</strong> "Write an email for a fashion brand announcing a 20% off sale. The subject line should be attention-grabbing. The body should include product benefits, urgency (sale ends Friday), and a clear call-to-action button. Keep it under 200 words and use a tone that's friendly and hip."</p></div><h2>6. Ad Copy Generation</h2><p>AI can generate multiple variations of ad copy for A/B testing. This helps you find what resonates with your audience.</p><h3>Multi-Variation Prompt</h3><div class="bg-purple-50 p-6 rounded-lg mb-6"><p style="color: #1f2937;"><strong>Example:</strong> "Generate 5 different versions of Google Ads copy for a fitness app targeting weight loss. Each version should have a different angle (e.g., motivation, results, community, science, affordability). Keep each under 30 characters for the headline."</p></div><h2>7. Best Practices for AI Content</h2><h3>Always Remember</h3><ul><li><strong>Edit and Verify:</strong> AI can make mistakes. Always review and fact-check</li><li><strong>Add Your Voice:</strong> Personalize AI content with your unique perspective</li><li><strong>Include Data:</strong> Support claims with real statistics and examples</li><li><strong>Optimize for SEO:</strong> Ensure content includes target keywords naturally</li><li><strong>Test and Learn:</strong> Track what works and iterate</li><li><strong>Ethical Use:</strong> Disclose AI usage where appropriate</li></ul><h2>Key Takeaways</h2><div class="bg-blue-900 bg-opacity-20 p-4 rounded-lg text-white"><ul><li>AI tools like ChatGPT and Claude can generate high-quality marketing content quickly</li><li>Well-crafted prompts produce significantly better results than generic requests</li><li>Combine AI generation with human editing for best results</li><li>Use AI for multiple variations to test what works best</li><li>Always verify accuracy and maintain brand consistency</li></ul></div></div></div></section>
+    <section class="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 lg:px-8 py-16"><div class="max-w-4xl mx-auto"><div class="bg-white rounded-2xl shadow-lg p-8 mb-8 border-t-4 border-brand-orange"><h3 class="text-2xl font-bold text-brand-navy mb-2 flex items-center gap-3"><i class="fas fa-download text-brand-orange text-3xl"></i>Downloads & Resources</h3><p class="text-gray-600 mb-6">Download course materials and templates for your learning</p><div class="space-y-3 grid grid-cols-1 md:grid-cols-2 gap-4"><a href="#" class="flex items-center p-4 bg-gradient-to-r from-red-50 to-orange-50 rounded-lg hover:shadow-lg transition border-l-4 border-red-400"><i class="fas fa-file-pdf text-red-500 mr-4 text-2xl"></i><div><p class="font-semibold text-brand-navy">Digital Marketing Setup Checklist</p><p class="text-sm text-gray-500">PDF  -  2.4 MB</p></div><i class="fas fa-arrow-right text-gray-400 ml-auto"></i></a><a href="#" class="flex items-center p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg hover:shadow-lg transition border-l-4 border-green-400"><i class="fas fa-file-excel text-green-500 mr-4 text-2xl"></i><div><p class="font-semibold text-brand-navy">Buyer Persona Template</p><p class="text-sm text-gray-500">XLSX  -  512 KB</p></div><i class="fas fa-arrow-right text-gray-400 ml-auto"></i></a><a href="#" class="flex items-center p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg hover:shadow-lg transition border-l-4 border-blue-400 md:col-span-2"><i class="fas fa-file-word text-blue-500 mr-4 text-2xl"></i><div><p class="font-semibold text-brand-navy">Marketing Strategy Template</p><p class="text-sm text-gray-500">DOCX  -  3.1 MB</p></div><i class="fas fa-arrow-right text-gray-400 ml-auto"></i></a></div></div><div class="bg-gradient-to-r from-brand-navy to-brand-navy-dark rounded-2xl shadow-xl p-10 text-white"><div class="flex items-start gap-4 mb-6"><div class="flex-shrink-0"><i class="fas fa-check-circle text-brand-orange text-4xl"></i></div><div><h3 class="text-2xl font-bold mb-2 text-white" style="color: #ffffff !important; text-transform: none;">Module 4 Complete!</h3><p class="text-lg text-white" style="color: #ffffff !important;">You've mastered AI-powered content creation. Move on to Module 5 to learn about SEO & AI-Enhanced Copywriting.</p></div></div></div></div></section>
+    <section class="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 lg:px-8 py-8"><div class="max-w-4xl mx-auto"><div class="module-nav"><a href="course-module-3.html"><i class="fas fa-arrow-left mr-2"></i>Previous</a><a href="course-module-5.html">Next Module<i class="fas fa-arrow-right ml-2"></i></a></div></div></section>
+    <footer class="bg-brand-navy text-white mt-16 py-8 border-t-4 border-brand-orange"><div class="max-w-7xl mx-auto px-4 text-center"><p class="text-gray-400">&copy; 2025 BrandMark Solutions. All rights reserved.</p></div></footer>
     <script src="brandmark.js?v=20260704"></script>
     <script src="ai-tutor-widget.js?v=20260704"></script>
     <script>
-        let utterance = null;
-        let isSpeaking = false;
-        let currentSpeed = 1;
-
-        function initAudio() {
-            const content = document.querySelector('.lesson-content').innerText;
-            utterance = new SpeechSynthesisUtterance(content);
-            utterance.rate = currentSpeed;
-            utterance.onend = () => {
-                isSpeaking = false;
-                updatePlayButton();
-            };
-        }
-
-        function toggleAudio() {
-            if (!utterance) initAudio();
-            
-            if (isSpeaking) {
-                speechSynthesis.pause();
-                isSpeaking = false;
-            } else {
-                if (speechSynthesis.paused) {
-                    speechSynthesis.resume();
-                } else {
-                    speechSynthesis.cancel();
-                    initAudio();
-                    speechSynthesis.speak(utterance);
-                }
-                isSpeaking = true;
-            }
-            updatePlayButton();
-        }
-
-        function setAudioSpeed(speed) {
-            currentSpeed = speed;
-            document.querySelectorAll('.speed-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            if (utterance) {
-                utterance.rate = speed;
-                if (isSpeaking) {
-                    speechSynthesis.cancel();
-                    initAudio();
-                    speechSynthesis.speak(utterance);
-                }
-            }
-        }
-
-        function updatePlayButton() {
-            const btn = document.getElementById('audioPlayBtn');
-            const text = document.getElementById('playBtnText');
-            if (isSpeaking) {
-                btn.innerHTML = '<i class="fas fa-pause"></i>';
-                text.textContent = 'Pause';
-            } else {
-                btn.innerHTML = '<i class="fas fa-play"></i>';
-                text.textContent = 'Play';
-            }
-        }
+        let utterance = null, isSpeaking = false, currentSpeed = 1;
+        function initAudio() { const content = document.querySelector('.lesson-content').innerText; utterance = new SpeechSynthesisUtterance(content); utterance.rate = currentSpeed; utterance.onend = () => { isSpeaking = false; updatePlayButton(); }; }
+        function toggleAudio() { if (!utterance) initAudio(); if (isSpeaking) { speechSynthesis.pause(); isSpeaking = false; } else { if (speechSynthesis.paused) { speechSynthesis.resume(); } else { speechSynthesis.cancel(); initAudio(); speechSynthesis.speak(utterance); } isSpeaking = true; } updatePlayButton(); }
+        function setAudioSpeed(speed) { currentSpeed = speed; document.querySelectorAll('.speed-btn').forEach(btn => btn.classList.remove('active')); event.target.classList.add('active'); if (utterance) { utterance.rate = speed; if (isSpeaking) { speechSynthesis.cancel(); initAudio(); speechSynthesis.speak(utterance); } } }
+        function updatePlayButton() { const btn = document.getElementById('audioPlayBtn'); const text = document.getElementById('playBtnText'); btn.innerHTML = isSpeaking ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>'; text.textContent = isSpeaking ? 'Pause' : 'Play'; }
+    </script>
     <script src="course-multilingual-learning.js"></script>
     <script src="course-access-guard.js"></script>
-<script id="bm-module-consistency-nav-v1">
-(function () {
-    function ensureTopLinks() {
-        var nav = document.querySelector('header nav') || document.querySelector('nav');
-        if (!nav) return;
-        if (nav.querySelector('.bm-module-top-links')) return;
-
-        var links = document.createElement('div');
-        links.className = 'bm-module-top-links';
-        links.innerHTML = '' +
-            '<a href="courses.html">Courses</a>' +
-            '<a href="digital-marketing-course.html">Back to Course Home</a>' +
-            '<a href="index.html">Home</a>';
-
-        nav.appendChild(links);
-    }
-
-    document.addEventListener('DOMContentLoaded', ensureTopLinks);
-})();
-</script>
+    
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

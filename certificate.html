@@ -3,201 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Certificate - BrandMark</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <title>Certificate of Completion - BrandMark Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@400;600;700&family=Great+Vibes:wght@400&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
-            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            background: linear-gradient(135deg, #0B2C4D 0%, #081F36 100%);
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
         }
 
-        .certificate-container {
-            max-width: 900px;
-            margin: 0 auto;
+        .page-wrap {
+            width: 100%;
+            max-width: 1260px;
         }
 
-        .certificate-card {
-            background: linear-gradient(135deg, #FFF8E7 0%, #FFFAF0 100%);
-            border: 4px solid #D4A574;
-            box-shadow: 
-                0 0 0 2px #F26A21,
-                0 20px 60px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        .certificate-container {
+            width: 100%;
+            background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
             position: relative;
-            overflow: hidden;
-            aspect-ratio: 16 / 11;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            aspect-ratio: 16 / 9;
+            padding: 25px 40px;
             display: flex;
             flex-direction: column;
-            padding: 60px 50px;
+            justify-content: space-between;
             text-align: center;
+            overflow: hidden;
+            border: 8px solid #0B2C4D;
+            border-radius: 15px;
         }
 
-        .certificate-card::before {
+        .certificate-container::before {
             content: '';
             position: absolute;
-            top: 25px;
-            left: 25px;
-            width: 35px;
-            height: 35px;
-            border: 3px solid #D4A574;
-            border-right: none;
-            border-bottom: none;
-            z-index: 10;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            border: 2px double #D4AF37;
+            border-radius: 12px;
+            pointer-events: none;
+            z-index: 1;
+            box-shadow: inset 0 0 0 1px #0B2C4D;
         }
 
-        .certificate-card::after {
+        .certificate-container::after {
             content: '';
             position: absolute;
-            bottom: 25px;
-            right: 25px;
-            width: 35px;
-            height: 35px;
-            border: 3px solid #D4A574;
-            border-left: none;
-            border-top: none;
-            z-index: 10;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            background: url('Brandmark logo transparent.png') center / cover;
+            opacity: 0.08;
+            z-index: 0;
         }
 
-        .certificate-corners {
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            width: 35px;
-            height: 35px;
-            border: 3px solid #D4A574;
-            border-left: none;
-            border-bottom: none;
-            z-index: 10;
+        @supports (border-style: ridge) {
+            .certificate-container {
+                border-style: ridge;
+                border-width: 5px;
+            }
         }
 
-        .certificate-corner-bottom-left {
+        .corner-shield {
             position: absolute;
-            bottom: 25px;
-            left: 25px;
-            width: 35px;
-            height: 35px;
-            border: 3px solid #D4A574;
-            border-right: none;
-            border-top: none;
+            width: 80px;
+            height: 80px;
             z-index: 10;
+            filter: drop-shadow(0 2px 5px rgba(11, 44, 77, 0.15));
         }
+
+        .corner-shield.top-left { top: 10px; left: 10px; }
+        .corner-shield.top-right { top: 10px; right: 10px; transform: scaleX(-1); }
+        .corner-shield.bottom-right { bottom: 10px; right: 10px; transform: scaleX(-1) scaleY(-1); }
+        .corner-shield.bottom-left { bottom: 10px; left: 10px; transform: scaleY(-1); }
+
+        .corner-shield svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .corner-arrow {
+            position: absolute;
+            font-size: 42px;
+            color: #FF6B35;
+            z-index: 10;
+            font-weight: bold;
+            text-shadow: 0 1px 3px rgba(11, 44, 77, 0.1);
+        }
+
+        .corner-arrow.top-left { top: 40px; left: 100px; }
+        .corner-arrow.top-right { top: 40px; right: 100px; transform: scaleX(-1); }
+        .corner-arrow.bottom-right { bottom: 40px; right: 100px; transform: scaleX(-1) scaleY(-1); }
+        .corner-arrow.bottom-left { bottom: 40px; left: 100px; transform: scaleY(-1); }
 
         .certificate-content {
             position: relative;
             z-index: 5;
-            flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            height: 100%;
         }
 
         .certificate-header {
-            margin-bottom: 20px;
+            margin-bottom: 2px;
+            background: linear-gradient(90deg, rgba(255, 107, 53, 0.05) 0%, transparent 50%, rgba(11, 44, 77, 0.05) 100%);
+            padding: 8px 0;
+            border-bottom: 2px solid #FF6B35;
         }
 
-        .certificate-logo {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 15px;
-            background: linear-gradient(135deg, #0B2C4D, #081F36);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 30px;
-            box-shadow: 0 4px 15px rgba(11, 44, 77, 0.3);
+        .logo-img {
+            width: 240px;
+            height: 240px;
+            margin: 0 auto 2px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 8px rgba(11, 44, 77, 0.1));
         }
 
-        .certificate-title {
-            font-size: 42px;
-            font-weight: 700;
+        h1 {
+            font-size: 28px;
+            font-weight: 900;
             color: #0B2C4D;
-            margin: 10px 0;
-            letter-spacing: 3px;
-            text-transform: uppercase;
+            margin-bottom: 1px;
+            letter-spacing: 0.5px;
+            font-style: italic;
+            font-family: 'Dancing Script', cursive;
         }
 
-        .certificate-subtitle {
-            font-size: 16px;
-            color: #666;
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-
-        .certificate-course-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #F26A21, #E65C17);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-weight: 700;
-            font-size: 14px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .certificate-body {
-            margin: 20px 0;
-            line-height: 1.8;
-        }
-
-        .certificate-body-text {
-            color: #333;
-            font-size: 15px;
-            margin-bottom: 8px;
-        }
-
-        .certificate-recipient {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 5px;
-        }
-
-        .certificate-name {
+        .student-name {
+            font-family: 'Dancing Script', cursive;
             font-size: 36px;
             font-weight: 700;
-            color: #0B2C4D;
-            margin: 10px 0 15px;
-            text-decoration: underline;
-            text-decoration-color: #F26A21;
-            text-decoration-thickness: 3px;
-            text-underline-offset: 8px;
+            color: #FF6B35;
+            margin: 0 0 2px;
+            font-style: italic;
         }
 
-        .certificate-course-name {
-            font-size: 18px;
-            color: #F26A21;
+        p {
+            font-size: 12px;
+            color: #333;
+            line-height: 1.4;
+            margin: 4px 0;
+        }
+
+        .course-completed {
+            font-size: 14px;
+            color: #0B2C4D;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+
+        h2 {
+            font-size: 24px;
             font-weight: 700;
-            margin: 10px 0 15px;
-            text-transform: uppercase;
+            color: #0B2C4D;
+            margin: 2px 0;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, #FF6B35 0%, #0B2C4D 50%, #FF6B35 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .course-modules {
+            list-style: none;
+            margin: 1px 0;
+            font-size: 9px;
+            color: #333;
+            padding: 4px;
+            background: rgba(255, 107, 53, 0.08);
+            border-radius: 4px;
+        }
+
+        .course-modules li {
+            display: inline;
+            margin: 0 8px;
+        }
+
+        .course-modules li::before {
+            content: '• ';
+            color: #FF6B35;
+            font-weight: bold;
+            margin-right: 4px;
+        }
+
+        .achievement-text {
+            font-size: 9px;
+            color: #0B2C4D;
+            font-style: italic;
+            margin: 2px 0;
+            font-weight: 500;
+        }
+
+        .certificate-meta {
+            font-size: 10px;
+            color: #0B2C4D;
+            margin: 2px 0;
+            padding: 3px;
+            background: linear-gradient(90deg, rgba(11, 44, 77, 0.05) 0%, rgba(255, 107, 53, 0.05) 100%);
+            border-left: 3px solid #FF6B35;
+            border-radius: 3px;
+        }
+
+        .provider-text {
+            font-size: 11px;
+            color: #FF6B35;
+            font-weight: 700;
+            margin-top: 3px;
             letter-spacing: 0.5px;
         }
 
-        .certificate-achievement-text {
-            color: #333;
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .certificate-footer {
+        .signature-section {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 30px;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px solid #D4A574;
+            gap: 10px;
+            margin-top: 6px;
+            align-items: flex-end;
+            padding-top: 6px;
+            border-top: 2px solid #FF6B35;
         }
 
         .signature-block {
@@ -205,77 +242,200 @@
         }
 
         .signature-line {
-            border-top: 2px solid #0B2C4D;
-            margin-bottom: 8px;
-            height: 40px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #0B2C4D, transparent);
+            margin-bottom: 2px;
+            width: 100%;
         }
 
         .signature-name {
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 700;
             color: #0B2C4D;
-            text-transform: uppercase;
+            margin-top: 1px;
+        }
+
+        .signature-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 24px;
+            color: #0B2C4D;
+            margin: 2px 0;
+            font-weight: 400;
         }
 
         .signature-title {
-            font-size: 10px;
-            color: #666;
-            margin-top: 3px;
+            font-size: 8px;
+            color: #FF6B35;
+            margin-top: 0;
+            font-weight: 600;
         }
 
-        .certificate-seal {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto;
-            background: conic-gradient(from 0deg, #0B2C4D 0deg, #F26A21 120deg, #0B2C4D 240deg, #0B2C4D 360deg);
+        .certificate-stamp {
+            position: absolute;
+            right: 160px;
+            top: 175px;
+            width: 130px;
+            height: 130px;
+            border: 3px solid #FF6B35;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            box-shadow: 0 6px 20px rgba(11, 44, 77, 0.2);
+            z-index: 8;
+            transform: rotate(-25deg);
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, rgba(11, 44, 77, 0.05) 100%);
+            box-shadow: 0 4px 15px rgba(11, 44, 77, 0.2);
         }
 
-        .certificate-seal::before {
+        .certificate-stamp::before {
             content: '';
-            width: 85px;
-            height: 85px;
-            background: white;
-            border-radius: 50%;
             position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            border: 2px dashed #FF6B35;
+            border-radius: 50%;
         }
 
-        .certificate-seal-content {
+        .stamp-text {
             position: relative;
-            z-index: 10;
+            z-index: 2;
             text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            color: #FF6B35;
+            font-size: 18px;
+            letter-spacing: 2px;
+            line-height: 1.2;
         }
 
-        .seal-icon {
-            font-size: 30px;
+        .stamp-text-inner {
+            font-size: 11px;
             color: #0B2C4D;
-            margin-bottom: 3px;
+            margin-top: 3px;
+            font-weight: 600;
         }
 
-        .seal-text {
+        .border-ornament {
+            position: absolute;
+            z-index: 3;
+        }
+
+        .border-top {
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #FF6B35, transparent);
+            box-shadow: 0 2px 5px rgba(255, 107, 53, 0.3);
+        }
+
+        .border-bottom {
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #FF6B35, transparent);
+            box-shadow: 0 -2px 5px rgba(255, 107, 53, 0.3);
+        }
+
+        .border-left {
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 120px;
+            background: linear-gradient(180deg, transparent, #D4AF37, transparent);
+            box-shadow: 2px 0 5px rgba(212, 175, 55, 0.3);
+        }
+
+        .border-right {
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 120px;
+            background: linear-gradient(180deg, transparent, #D4AF37, transparent);
+            box-shadow: -2px 0 5px rgba(212, 175, 55, 0.3);
+        }
+
+        .corner-flourish {
+            position: absolute;
+            z-index: 9;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #FF6B35;
+        }
+
+        .flourish-top-left {
+            top: 15px;
+            left: 15px;
+            border-right: none;
+            border-bottom: none;
+            border-radius: 0 0 15px 0;
+        }
+
+        .flourish-top-right {
+            top: 15px;
+            right: 15px;
+            border-left: none;
+            border-bottom: none;
+            border-radius: 0 0 0 15px;
+        }
+
+        .flourish-bottom-left {
+            bottom: 15px;
+            left: 15px;
+            border-right: none;
+            border-top: none;
+            border-radius: 0 15px 0 0;
+        }
+
+        .flourish-bottom-right {
+            bottom: 15px;
+            right: 15px;
+            border-left: none;
+            border-top: none;
+            border-radius: 15px 0 0 0;
+        }
+
+        .certificate-footer {
+            margin-top: 3px;
+            padding-top: 3px;
+            border-top: 1px dashed #FF6B35;
+            font-size: 7px;
+            color: #0B2C4D;
+            line-height: 1.2;
+            background: linear-gradient(90deg, rgba(255, 107, 53, 0.03) 0%, rgba(11, 44, 77, 0.03) 100%);
+            padding: 3px;
+            border-radius: 3px;
+        }
+
+        .certificate-footer p {
+            margin: 0;
+            font-size: 7px;
+        }
+
+        .footer-website {
+            font-size: 8px;
+            color: #FF6B35;
+            font-weight: 700;
+            margin: 0 !important;
+        }
+
+        .footer-company {
             font-size: 8px;
             font-weight: 700;
             color: #0B2C4D;
-            text-transform: uppercase;
             letter-spacing: 0.5px;
+            margin: 0 !important;
         }
 
-        .certificate-reference {
-            font-size: 10px;
-            color: #999;
-            margin-top: 8px;
-            font-style: italic;
-        }
-
-        .actions-section {
+        .action-buttons {
             display: flex;
             gap: 15px;
             justify-content: center;
@@ -283,256 +443,371 @@
             flex-wrap: wrap;
         }
 
-        .action-btn {
-            padding: 12px 28px;
+        .btn {
+            padding: 12px 24px;
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .btn-download {
-            background: linear-gradient(135deg, #F26A21, #E65C17);
+            background: #FF6B35;
             color: white;
         }
 
         .btn-download:hover {
+            background: #E65C17;
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(242, 106, 33, 0.3);
         }
 
-        .btn-share {
+        .btn-dashboard {
             background: #0B2C4D;
             color: white;
         }
 
-        .btn-share:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(11, 44, 77, 0.3);
-        }
-
-        .btn-dashboard {
-            background: #E8E8E8;
-            color: #0B2C4D;
-        }
-
         .btn-dashboard:hover {
-            background: #D4D4D4;
+            background: #081F36;
             transform: translateY(-2px);
-        }
-
-        .success-banner {
-            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-            border: 2px solid #155724;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 30px;
-            text-align: center;
-            color: #155724;
-        }
-
-        .success-banner-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .success-banner-text {
-            font-size: 14px;
         }
 
         @media print {
             body {
                 background: white;
+                padding: 0;
             }
-            .actions-section,
-            .success-banner {
+
+            .certificate-container {
+                box-shadow: none;
+                max-width: 100%;
+                aspect-ratio: auto;
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+            }
+
+            .action-buttons {
                 display: none !important;
             }
-            .certificate-card {
-                box-shadow: none;
-                margin: 0;
+        }
+
+        @media (max-width: 1024px) {
+            .certificate-container {
+                padding: 20px 30px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .student-name {
+                font-size: 32px;
+            }
+
+            .logo-img {
+                width: 200px;
+                height: 200px;
+            }
+
+            .corner-shield {
+                width: 65px;
+                height: 65px;
+            }
+
+            .corner-arrow {
+                font-size: 36px;
+            }
+
+            .signature-section {
+                gap: 12px;
+                margin-top: 8px;
+            }
+
+            .signature-text {
+                font-size: 20px;
+            }
+
+            .certificate-stamp {
+                width: 110px;
+                height: 110px;
+                top: 145px;
+                right: 150px;
+            }
+
+            .certificate-stamp::before {
+                width: 100px;
+                height: 100px;
+            }
+
+            .stamp-text {
+                font-size: 15px;
+            }
+
+            .stamp-text-inner {
+                font-size: 9px;
             }
         }
 
         @media (max-width: 768px) {
-            .certificate-card {
-                padding: 40px 30px;
+            .certificate-container {
                 aspect-ratio: auto;
                 min-height: auto;
-            }
-            
-            .certificate-title {
-                font-size: 28px;
+                padding: 20px 15px;
+                border: 5px solid #0B2C4D;
             }
 
-            .certificate-name {
+            h2 {
+                font-size: 16px;
+            }
+
+            .student-name {
                 font-size: 24px;
             }
 
-            .certificate-footer {
+            .logo-img {
+                width: 150px;
+                height: 150px;
+            }
+
+            .corner-shield {
+                width: 50px;
+                height: 50px;
+            }
+
+            .corner-arrow {
+                font-size: 28px;
+            }
+
+            .signature-section {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 12px;
+                margin-top: 8px;
+            }
+
+            .signature-text {
+                font-size: 16px;
+            }
+
+            .certificate-stamp {
+                width: 90px;
+                height: 90px;
+                top: 115px;
+                right: 135px;
+            }
+
+            .certificate-stamp::before {
+                width: 80px;
+                height: 80px;
+            }
+
+            .stamp-text {
+                font-size: 12px;
+            }
+
+            .stamp-text-inner {
+                font-size: 7px;
+            }
+
+            .course-modules li {
+                display: block;
+                margin: 3px 0;
             }
         }
     </style>
 </head>
 <body>
-    <div class="certificate-container py-12 px-4">
-        <!-- Success Banner -->
-        <div class="success-banner">
-            <div class="success-banner-title">
-                <i class="fas fa-check-circle mr-2"></i> Congratulations!
+    <div class="page-wrap">
+        <div class="certificate-container" id="certificateRoot">
+            <div class="corner-shield top-left">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 70">
+                    <path d="M 30 10 L 50 20 L 50 45 Q 30 60 30 60 Q 10 45 10 20 Z" stroke="#0B2C4D" stroke-width="2" fill="none"/>
+                    <path d="M 30 10 L 50 20 L 50 45 Q 30 60 30 60 Q 10 45 10 20 Z" stroke="#FF6B35" stroke-width="1.5" fill="none" opacity="0.7"/>
+                </svg>
             </div>
-            <div class="success-banner-text">
-                You have successfully completed the course and earned your certificate!
+            <div class="corner-shield top-right">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 70">
+                    <path d="M 30 10 L 50 20 L 50 45 Q 30 60 30 60 Q 10 45 10 20 Z" stroke="#0B2C4D" stroke-width="2" fill="none"/>
+                    <path d="M 30 10 L 50 20 L 50 45 Q 30 60 30 60 Q 10 45 10 20 Z" stroke="#FF6B35" stroke-width="1.5" fill="none" opacity="0.7"/>
+                </svg>
             </div>
-        </div>
+            <div class="corner-shield bottom-right">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 70">
+                    <path d="M 30 10 L 50 20 L 50 45 Q 30 60 30 60 Q 10 45 10 20 Z" stroke="#0B2C4D" stroke-width="2" fill="none"/>
+                    <path d="M 30 10 L 50 20 L 50 45 Q 30 60 30 60 Q 10 45 10 20 Z" stroke="#FF6B35" stroke-width="1.5" fill="none" opacity="0.7"/>
+                </svg>
+            </div>
+            <div class="corner-shield bottom-left">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 70">
+                    <path d="M 30 10 L 50 20 L 50 45 Q 30 60 30 60 Q 10 45 10 20 Z" stroke="#0B2C4D" stroke-width="2" fill="none"/>
+                    <path d="M 30 10 L 50 20 L 50 45 Q 30 60 30 60 Q 10 45 10 20 Z" stroke="#FF6B35" stroke-width="1.5" fill="none" opacity="0.7"/>
+                </svg>
+            </div>
 
-        <!-- Certificate -->
-        <div id="certificate" class="certificate-card">
-            <div class="certificate-corners"></div>
-            <div class="certificate-corner-bottom-left"></div>
+            <div class="corner-arrow top-left">-></div>
+            <div class="corner-arrow top-right">-></div>
+            <div class="corner-arrow bottom-right">-></div>
+            <div class="corner-arrow bottom-left">-></div>
+
+            <div class="border-ornament border-top"></div>
+            <div class="border-ornament border-bottom"></div>
+            <div class="border-ornament border-left"></div>
+            <div class="border-ornament border-right"></div>
+
+            <div class="corner-flourish flourish-top-left"></div>
+            <div class="corner-flourish flourish-top-right"></div>
+            <div class="corner-flourish flourish-bottom-left"></div>
+            <div class="corner-flourish flourish-bottom-right"></div>
+
+            <div class="certificate-stamp">
+                <div class="stamp-text">
+                    CERTIFIED
+                    <div class="stamp-text-inner">APPROVED</div>
+                </div>
+            </div>
 
             <div class="certificate-content">
-                <!-- Header -->
-                <div class="certificate-header">
-                    <div class="certificate-logo">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="certificate-subtitle">This is to certify that</div>
-                </div>
+                <header class="certificate-header">
+                    <img src="Brandmark logo transparent.png" alt="BrandMark Solutions Logo" class="logo-img">
+                    <h1>This is to certify that</h1>
+                </header>
 
-                <!-- Body -->
-                <div class="certificate-body">
-                    <div class="certificate-name" id="recipientName">Your Name</div>
-                    
-                    <div class="certificate-body-text">
-                        has successfully completed the
-                    </div>
-                    
-                    <div class="certificate-course-badge">Fundamentals of Digital Marketing</div>
-                    
-                    <div class="certificate-achievement-text">
-                        This certificate acknowledges the successful completion and mastery of all course modules, 
-                        demonstrating proficiency in digital marketing fundamentals, strategies, and best practices.
-                    </div>
+                <main>
+                    <div class="student-name" id="studentName">[Student's Full Name]</div>
 
-                    <div style="font-size: 12px; color: #999; margin-top: 10px;">
-                        Completed on <span id="completionDate">Date</span>
-                    </div>
-                </div>
+                    <p class="course-completed">has successfully completed the comprehensive</p>
 
-                <!-- Footer with signatures and seal -->
-                <div class="certificate-footer">
-                    <!-- Signature 1 -->
-                    <div class="signature-block">
-                        <div class="signature-line"></div>
-                        <div class="signature-name">Rishi Jain</div>
-                        <div class="signature-title">Co-Founder<br>BrandMark Solutions</div>
+                    <h2>Professional Course in Digital Marketing</h2>
+
+                    <ul class="course-modules">
+                        <li>SEO, SEM</li>
+                        <li>SMM</li>
+                        <li>Content Strategy</li>
+                        <li>SMM and Marketing</li>
+                        <li>CBP+ Content Modules</li>
+                    </ul>
+
+                    <p class="achievement-text">Demonstrating proficiency in essential digital marketing strategies and tools.</p>
+
+                    <div class="certificate-meta">
+                        <p>Awarded on this day: <strong id="completionDate">[Date]</strong></p>
+                        <p>Certificate ID: <strong id="certId">[Unique Certificate ID]</strong></p>
                     </div>
 
-                    <!-- Seal -->
-                    <div style="display: flex; flex-direction: column; align-items: center;">
-                        <div class="certificate-seal">
-                            <div class="certificate-seal-content">
-                                <div class="seal-icon">★</div>
-                                <div class="seal-text">BrandMark<br>VERIFIED</div>
-                            </div>
+                    <p class="provider-text">provided by BrandMark Solutions</p>
+
+                    <div class="signature-section">
+                        <div class="signature-block">
+                            <div class="signature-text">Rajeshree Shekhar</div>
+                            <div class="signature-line"></div>
+                            <div class="signature-name">Rajeshree Shekhar</div>
+                            <div class="signature-title">Co-Founder</div>
                         </div>
-                        <div class="certificate-reference">Cert ID: <span id="certId">BM-2025-XXXXX</span></div>
-                    </div>
 
-                    <!-- Signature 2 -->
-                    <div class="signature-block">
-                        <div class="signature-line"></div>
-                        <div class="signature-name">Sorav Jain</div>
-                        <div class="signature-title">Founder<br>BrandMark Solutions</div>
+                        <div class="signature-block"></div>
+
+                        <div class="signature-block">
+                            <div class="signature-text">Rahul Singh Rajput</div>
+                            <div class="signature-line"></div>
+                            <div class="signature-name">Rahul Singh Rajput</div>
+                            <div class="signature-title">Co-Founder</div>
+                        </div>
                     </div>
-                </div>
+                </main>
+
+                <footer class="certificate-footer">
+                    <p>For more information, visit our website:</p>
+                    <p class="footer-website">www.brandmarksolutions.site</p>
+                    <p>Copyright BrandMark Solutions. All Rights Reserved.</p>
+                    <p class="footer-company">BrandMark Solutions</p>
+                </footer>
             </div>
         </div>
 
-        <!-- Action Buttons -->
-        <div class="actions-section">
-            <button class="action-btn btn-download" onclick="downloadCertificate()">
-                <i class="fas fa-download"></i> Download Certificate
+        <div class="action-buttons">
+            <button class="btn btn-download" onclick="printCertificate()">
+                <i class="fas fa-download"></i> Download
             </button>
-            <button class="action-btn btn-share" onclick="shareCertificate()">
-                <i class="fas fa-share-alt"></i> Share on LinkedIn
-            </button>
-            <button class="action-btn btn-dashboard" onclick="goToDashboard()">
+            <button class="btn btn-dashboard" onclick="goToDashboard()">
                 <i class="fas fa-home"></i> Back to Dashboard
             </button>
         </div>
     </div>
 
     <script>
-        // Populate certificate with user data from localStorage
-        document.addEventListener('DOMContentLoaded', function() {
-            const enrolledStudent = localStorage.getItem('STUDENT_NAME') || 'Your Name';
-            const enrollmentDate = localStorage.getItem('ENROLLMENT_DATE') || new Date().toLocaleDateString();
-            
-            // Set completion date to today
-            const today = new Date();
-            const completionDate = today.toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
-            
-            // Generate certificate ID
-            const certId = generateCertificateId(enrolledStudent);
-            
-            // Update certificate
-            document.getElementById('recipientName').textContent = enrolledStudent;
-            document.getElementById('completionDate').textContent = completionDate;
-            document.getElementById('certId').textContent = certId;
-            
-            // Store certificate ID for later verification
-            localStorage.setItem('CERTIFICATE_ID', certId);
-            localStorage.setItem('CERTIFICATE_DATE', completionDate);
-        });
-
-        function generateCertificateId(studentName) {
-            // Format: BM-YYYY-XXXXX (BrandMark-Year-RandomCode)
-            const year = new Date().getFullYear();
-            const randomCode = Math.random().toString(36).substring(2, 7).toUpperCase();
-            return `BM-${year}-${randomCode}`;
-        }
-
-        function downloadCertificate() {
-            const certificateElement = document.getElementById('certificate');
-            const studentName = document.getElementById('recipientName').textContent;
-            
-            const options = {
-                margin: 10,
-                filename: `Certificate_${studentName.replace(/\s+/g, '_')}.pdf`,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { orientation: 'landscape', unit: 'mm', format: 'a4' }
-            };
-            
-            html2pdf().set(options).from(certificateElement).save();
-        }
-
-        function shareCertificate() {
-            const studentName = document.getElementById('recipientName').textContent;
-            const certId = document.getElementById('certId').textContent;
-            const shareText = `🎓 I successfully completed the "Fundamentals of Digital Marketing" course by @BrandMark Solutions! Certificate ID: ${certId}`;
-            const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${window.location.href}`;
-            
-            window.open(linkedinUrl, '_blank');
+        function printCertificate() {
+            window.print();
         }
 
         function goToDashboard() {
             window.location.href = 'course-dashboard.html';
         }
+
+        function generateCertificateId() {
+            const year = new Date().getFullYear();
+            const randomCode = Math.random().toString(36).slice(2, 11).toUpperCase();
+            return `BM-${year}-${randomCode}`;
+        }
+
+        function saveCertificateRecord(record) {
+            try {
+                const raw = localStorage.getItem('BRANDMARK_CERTIFICATES');
+                const records = raw ? JSON.parse(raw) : [];
+                const safeRecords = Array.isArray(records) ? records : [];
+                const index = safeRecords.findIndex((item) => item.certificateId === record.certificateId);
+                if (index >= 0) {
+                    safeRecords[index] = { ...safeRecords[index], ...record };
+                } else {
+                    safeRecords.push(record);
+                }
+                localStorage.setItem('BRANDMARK_CERTIFICATES', JSON.stringify(safeRecords));
+            } catch (error) {
+                console.warn('Unable to save certificate record', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const modulesCompleted = localStorage.getItem('MODULES_1_TO_15_COMPLETED') === 'true';
+            const projectCompleted = localStorage.getItem('PROJECT_COMPLETED') === 'true';
+            const quizCompleted = localStorage.getItem('QUIZ_COMPLETED') === 'true';
+            const quizPassed = localStorage.getItem('QUIZ_PASSED') === 'true';
+            const quizScore = Number(localStorage.getItem('QUIZ_SCORE') || '0');
+
+            if (!(modulesCompleted && projectCompleted && quizCompleted && quizPassed && quizScore >= 80)) {
+                alert('Certificate is available only after completing Modules 1-15, passing the 20-question mock test with 80%+, and completing the Full Gen AI project.');
+                window.location.replace('course-dashboard.html');
+                return;
+            }
+
+            const studentName = localStorage.getItem('STUDENT_NAME') || 'Student Name';
+            const completionDate = localStorage.getItem('QUIZ_COMPLETION_DATE') || new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            let certId = localStorage.getItem('CERTIFICATE_ID');
+            if (!certId) {
+                certId = generateCertificateId();
+                localStorage.setItem('CERTIFICATE_ID', certId);
+            }
+
+            localStorage.setItem('CERTIFICATE_DATE', completionDate);
+
+            document.getElementById('studentName').textContent = studentName;
+            document.getElementById('completionDate').textContent = completionDate;
+            document.getElementById('certId').textContent = certId;
+
+            saveCertificateRecord({
+                certificateId: certId,
+                studentName,
+                course: 'Digital Marketing Mastery with Gen AI',
+                score: quizScore,
+                issueDate: completionDate,
+                status: 'valid'
+            });
+        });
     </script>
 </body>
 </html>
