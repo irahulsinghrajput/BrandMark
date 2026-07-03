@@ -1,361 +1,404 @@
 /**
- * BrandMark Full Stack AI Tutor Floating Widget
- * Drop into any page: <script src="fullstack-ai-tutor-widget.js"></script>
- * Shows a floating button → small chat window. No backend, 100% free.
- * Topics: MERN Stack, React, Node.js, MongoDB, JWT, GenAI Integration
+ * BrandMark Full Stack Learning Assistant Widget
  */
 (function () {
-  // ── Knowledge Base ─────────────────────────────────────────────────────────
-  const KB = {
+  if (window.__bmFsAssistantLoaded) return;
+  window.__bmFsAssistantLoaded = true;
+
+  var COURSE = 'fullstack';
+  var STORAGE_KEY = 'bm-assistant-fs-v2';
+  var MAX_HISTORY = 24;
+  var API_BASE_URLS = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? ['http://localhost:5000/api', 'http://localhost:5001/api']
+    : ['https://brandmark-api-2026.onrender.com/api'];
+
+  var state = {
+    lang: 'en',
+    busy: false,
+    opened: false,
+    history: loadHistory()
+  };
+
+  var TEXT = {
     en: {
-      // JavaScript & Core Concepts
-      'jsx': 'JSX (JavaScript XML) is a syntax extension for React that lets you write HTML-like code inside JavaScript. JSX gets compiled to React.createElement() calls. Example: const el = <h1>Hello</h1>; — this compiles to React.createElement("h1", null, "Hello").',
-      'event loop': 'The Node.js Event Loop is a single-threaded, non-blocking mechanism. It processes asynchronous operations: Call Stack → Web APIs → Callback Queue → Microtask Queue. Promises go to the microtask queue (higher priority) while setTimeout goes to the callback queue.',
-      'async': 'async/await is syntactic sugar over Promises. async marks a function as asynchronous; await pauses execution until the Promise resolves. Use try/catch for error handling. Example: const data = await fetch(url); const json = await data.json();',
-      'promise': 'A Promise represents a future value. States: pending → fulfilled or rejected. Chain with .then() / .catch() / .finally(). Use Promise.all() to run multiple promises in parallel.',
-      'closure': 'A closure is a function that retains access to its outer scope variables even after the outer function returns. Closures are heavily used in React hooks, event handlers, and module patterns.',
-      'hoisting': 'Hoisting moves function declarations and var declarations to the top of their scope at compile time. let and const are hoisted but stay in the "temporal dead zone" until declared. Always use const/let over var.',
-      
-      // React
-      'react': 'React is a JavaScript library for building UIs using a component-based architecture. Key concepts: JSX, Virtual DOM, Components, Props, State, Hooks. React re-renders efficiently using a diffing algorithm on the Virtual DOM.',
-      'virtual dom': 'The Virtual DOM is a lightweight in-memory copy of the real DOM. React compares (diffs) the new virtual DOM with the previous one and updates only the changed parts in the real DOM — this is called reconciliation.',
-      'component': 'React components are reusable UI pieces. Functional components: const MyComp = (props) => <div>{props.name}</div>. Always start component names with uppercase. Components receive props (data in) and manage state (data within).',
-      'props': 'Props (properties) pass data from parent to child components — they are read-only. Destructure them: const Card = ({ title, desc }) => <div><h2>{title}</h2></div>. For dynamic lists, always add a unique key prop.',
-      'usestate': 'useState is a React Hook for managing component state. const [count, setCount] = useState(0); — count is the value, setCount updates it. State updates trigger re-renders. Never mutate state directly — always use the setter function.',
-      'useeffect': 'useEffect runs side effects (API calls, subscriptions, timers) after render. useEffect(() => { fetchData(); }, [dependency]) — the dependency array controls when it runs. Empty array [] = runs once on mount. Return a cleanup function to avoid memory leaks.',
-      'usecontext': 'useContext shares global state without prop-drilling. Create context: const ThemeCtx = createContext(). Provide: <ThemeCtx.Provider value={theme}>. Consume: const theme = useContext(ThemeCtx). Use with useReducer for complex state.',
-      'hooks': 'React Hooks let you use state and lifecycle features in functional components. Built-in: useState, useEffect, useContext, useReducer, useMemo, useCallback, useRef. Rule: only call hooks at the top level and inside React functions.',
-      'custom hook': 'Custom Hooks are JavaScript functions starting with "use" that call other hooks. They extract reusable stateful logic. Example: useFetch(url) can handle loading, data, error state — reused across any component.',
-      'react router': 'React Router v6 handles client-side navigation. Key: <BrowserRouter>, <Routes>, <Route path="/about" element={<About />} />. Use useNavigate() to redirect programmatically and useParams() to read URL parameters.',
-      'redux': 'Redux Toolkit manages global application state. Core: store (single source of truth), reducers (pure functions updating state), actions, and dispatch. Use createSlice() for reducers and configureStore() to set up the store.',
-
-      // Node.js & Express
-      'node': 'Node.js is a JavaScript runtime built on Chrome\'s V8 engine. It runs JavaScript server-side using non-blocking, event-driven I/O. Core modules: fs, http, path, os. Start a server: const http = require("http"); http.createServer(handler).listen(3000).',
-      'express': 'Express.js is a minimal Node.js web framework. const app = express(); app.get("/api/users", (req, res) => res.json(users)); app.listen(5000). Use middleware with app.use(). Install: npm install express.',
-      'middleware': 'Middleware functions have access to req, res, and next. They run in sequence before the route handler. Types: built-in (express.json()), third-party (cors, morgan), custom (auth guards). Call next() to pass to the next middleware.',
-      'routing': 'Express routing: app.get(), app.post(), app.put(), app.delete(). Use Router for modular routes: const router = express.Router(); router.get("/", handler); app.use("/api/users", router). Use :id for URL params: req.params.id.',
-      'rest': 'REST (Representational State Transfer) API principles: Stateless, Client-Server, Uniform Interface. HTTP methods: GET (read), POST (create), PUT/PATCH (update), DELETE (remove). Use proper status codes: 200, 201, 400, 401, 403, 404, 500.',
-      'mvc': 'MVC (Model-View-Controller) separates concerns: Model = data/database logic (Mongoose schema), View = frontend (React), Controller = request handling logic. In Node/Express: routes call controllers which use models.',
-      'cors': 'CORS (Cross-Origin Resource Sharing) allows/restricts web apps from requesting resources from a different origin. Install: npm install cors; app.use(cors({ origin: "https://yourfrontend.com" })). Never use cors() with wildcard * in production.',
-      
-      // Authentication & Security
-      'jwt': 'JWT (JSON Web Token) is a compact token for authentication. Structure: header.payload.signature (Base64 encoded). Flow: Login → server signs JWT with secret → client stores in localStorage → sends in Authorization: Bearer <token> header with every request.',
-      'bcrypt': 'bcrypt hashes passwords securely. Never store plain-text passwords! const hash = await bcrypt.hash(password, 10); // 10 = salt rounds. Verify: const match = await bcrypt.compare(password, hash). Use 10-12 salt rounds in production.',
-      'authentication': 'Auth flow: 1) User registers → hash password → save to DB. 2) User logs in → compare hash → generate JWT. 3) Protected routes → middleware verifies JWT → attaches user to req.user. 4) Client stores token in localStorage or httpOnly cookie.',
-      'authorization': 'Authorization checks what an authenticated user can do. After verifying JWT (authentication), check the user\'s role: if (req.user.role !== "admin") return res.status(403).json({ error: "Forbidden" }). Always authorize after authenticating.',
-      'security': 'OWASP Top 10 in Node.js: 1) Use helmet.js for HTTP headers. 2) Validate all inputs (express-validator). 3) Rate-limit APIs (express-rate-limit). 4) Hash passwords (bcrypt). 5) Parameterize queries (Mongoose prevents injection). 6) Use HTTPS. 7) Avoid eval().',
-
-      // MongoDB & Mongoose
-      'mongodb': 'MongoDB is a NoSQL document database. Data is stored as BSON (Binary JSON) documents in collections (like SQL tables). Key concepts: database → collection → document. Use MongoDB Atlas for free cloud hosting. Connect: mongoose.connect(process.env.MONGO_URI).',
-      'mongoose': 'Mongoose provides schema-based modeling for MongoDB. Define a schema: const userSchema = new Schema({ name: String, email: { type: String, required: true, unique: true } }). Model: const User = mongoose.model("User", userSchema). Use async/await for all operations.',
-      'schema': 'Mongoose Schema defines the shape of documents. Types: String, Number, Boolean, Date, ObjectId, Array. Add validation: required, unique, min, max, enum, match. Virtual fields, pre/post hooks (middleware) add powerful business logic.',
-      'crud': 'MongoDB CRUD with Mongoose: Create: await User.create({ name }). Read: await User.find({ role: "admin" }) or User.findById(id). Update: await User.findByIdAndUpdate(id, { name }, { new: true }). Delete: await User.findByIdAndDelete(id).',
-      'aggregation': 'MongoDB Aggregation pipeline processes documents through stages: $match (filter), $group (group by), $sort, $project (select fields), $lookup (join), $limit. Example: db.orders.aggregate([{ $match: { status: "paid" } }, { $group: { _id: "$userId", total: { $sum: "$amount" } } }]).',
-      'indexing': 'MongoDB indexes speed up queries. Single field: userSchema.index({ email: 1 }). Compound: { email: 1, role: -1 }. Text: { name: "text" }. Always index fields used in .find() queries. Use explain() to analyze query performance.',
-      
-      // GenAI Integration
-      'openai': 'OpenAI API integration: npm install openai. const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY }). const response = await client.chat.completions.create({ model: "gpt-4o-mini", messages: [{ role: "user", content: prompt }] }). Always store API keys server-side only.',
-      'gemini': 'Google Gemini API: npm install @google/generative-ai. const genAI = new GoogleGenerativeAI(apiKey). const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" }). const result = await model.generateContent(prompt). Free tier available.',
-      'genai': 'GenAI Integration in MERN: Keep API keys in backend .env — NEVER expose to frontend. Frontend sends prompt to your Express API. Express calls OpenAI/Gemini. Returns response to frontend. This protects your API key and lets you add rate-limiting and caching.',
-      'langchain': 'LangChain.js simplifies building AI apps with chains, agents, and tools. Install: npm install langchain @langchain/openai. Use for: RAG (Retrieval Augmented Generation), chatbots with memory, document Q&A, and structured outputs.',
-      'rag': 'RAG (Retrieval Augmented Generation) adds your own data to AI responses. Steps: 1) Split documents into chunks. 2) Embed chunks as vectors. 3) Store in vector DB (Pinecone, pgvector). 4) On query, find similar chunks. 5) Send chunks + question to LLM for accurate answers.',
-      
-      // Deployment & DevOps
-      'deployment': 'Full Stack deployment: Frontend (React) → Vercel or Netlify (free). Backend (Node/Express) → Render.com (free tier, auto-deploys from GitHub). Database → MongoDB Atlas (free 512MB). Set environment variables on each platform dashboard.',
-      'vercel': 'Deploy React to Vercel: npm install -g vercel; vercel in project root. Or connect GitHub repo → auto-deploys on push. Set environment variables in Vercel dashboard. Build command: npm run build. Output: dist/ or build/.',
-      'render': 'Deploy Node.js to Render: Connect GitHub, set Build Command: npm install, Start Command: node server.js. Add environment variables in dashboard. Free tier spins down after 15min inactivity — use a health check to keep it alive.',
-      'git': 'Git workflow: git init → git add . → git commit -m "message" → git push. Branches: git checkout -b feature/auth. PRs: merge branch into main. .gitignore: always ignore node_modules/, .env, dist/. Commit messages: feat:, fix:, chore:, docs:.',
-      'environment': 'Environment variables (.env) store secrets: MONGO_URI, JWT_SECRET, OPENAI_API_KEY. Install: npm install dotenv; require("dotenv").config() at top of server.js. Never commit .env to git — add to .gitignore. Use .env.example for documentation.',
-
-      // General Help
-      'hello': 'Hello! I\'m your BrandMark Full Stack AI Tutor 🤖 Ask me about React, Node.js, MongoDB, JWT, APIs, GenAI, or Deployment!',
-      'hi': 'Hi there! 👋 I cover MERN Stack, React Hooks, Express Middleware, JWT Auth, MongoDB Schemas, and GenAI Integration. What do you want to learn?',
-      'help': 'Topics I cover: JSX, React Hooks, Virtual DOM, Node.js Event Loop, Express Middleware, REST APIs, MVC, JWT Auth, bcrypt, MongoDB, Mongoose, CRUD, Aggregation, OpenAI API, Gemini API, RAG, Deployment (Render/Vercel), Git. Ask me anything!',
-      'default': 'Great question! Try asking about: "What is JSX?", "How does useEffect work?", "What is middleware?", "Explain JWT authentication", "How to connect MongoDB?", or "How to integrate OpenAI API?".'
+      title: 'Full Stack Learning Assistant',
+      subtitle: 'MERN-focused practical guidance',
+      greeting: 'Hi, I am your Full Stack Learning Assistant. Ask me about React, Node, Express, MongoDB, APIs, auth, and deployment.',
+      placeholder: 'Ask your coding question...',
+      typing: 'Thinking',
+      offline: 'I could not reach the server, so I gave you a quick offline answer.',
+      chips: ['Explain useEffect', 'JWT auth flow', 'Fix CORS error', 'MongoDB schema design']
     },
     hi: {
-      'jsx': 'JSX (JavaScript XML) React का syntax extension है जो HTML-जैसा code JavaScript में लिखने देता है। Babel इसे React.createElement() calls में compile करता है। Example: const el = <h1>Hello</h1>',
-      'react': 'React एक JavaScript library है जो component-based architecture से UI बनाती है। मुख्य concepts: JSX, Virtual DOM, Components, Props, State, और Hooks।',
-      'usestate': 'useState React Hook state manage करता है। const [count, setCount] = useState(0); — count value है, setCount उसे update करता है। State update करने पर component re-render होता है।',
-      'useeffect': 'useEffect side effects (API calls, timers) handle करता है। useEffect(() => { fetchData(); }, []) — empty array से यह सिर्फ mount पर run होता है।',
-      'node': 'Node.js एक JavaScript runtime है जो server-side code run करता है। Non-blocking I/O और Event Loop इसे fast बनाते हैं। Express.js से server बनाएं।',
-      'express': 'Express.js minimal Node.js framework है। app.get("/api/users", handler) से routes define करें। Middleware जोड़ने के लिए app.use() use करें।',
-      'middleware': 'Middleware functions req, res, और next access करते हैं। Authentication check, logging, और CORS के लिए use होते हैं। next() call करने से अगला middleware चलता है।',
-      'jwt': 'JWT (JSON Web Token) authentication के लिए है। Login पर server token बनाता है। Client हर request में Authorization: Bearer <token> header भेजता है।',
-      'mongodb': 'MongoDB NoSQL document database है। Data JSON-जैसे documents में store होता है। MongoDB Atlas free cloud hosting देता है। Mongoose से Node.js में use करें।',
-      'mongoose': 'Mongoose MongoDB के लिए schema-based modeling देता है। Schema define करें, Model बनाएं, फिर CRUD operations करें। Async/await use करें।',
-      'openai': 'OpenAI API server-side integrate करें — API key को frontend पर कभी expose न करें। Express API से call करें और result frontend को भेजें।',
-      'hello': 'नमस्ते! मैं BrandMark Full Stack AI Tutor हूँ 🤖 React, Node.js, MongoDB, JWT, या GenAI के बारे में कुछ भी पूछें!',
-      'hi': 'नमस्ते! 👋 MERN Stack, React Hooks, Express, JWT Auth, MongoDB के बारे में पूछें!',
-      'default': 'अच्छा सवाल! पूछें: "JSX क्या है?", "useEffect कैसे काम करता है?", "JWT authentication explain करो", "MongoDB से connect कैसे करें?"'
+      title: 'फुल स्टैक लर्निंग असिस्टेंट',
+      subtitle: 'MERN आधारित व्यावहारिक मार्गदर्शन',
+      greeting: 'नमस्ते, मैं आपका Full Stack Learning Assistant हूँ। React, Node, Express, MongoDB, API, Auth और Deployment पूछें।',
+      placeholder: 'अपना coding सवाल पूछें...',
+      typing: 'सोच रहा हूँ',
+      offline: 'सर्वर नहीं मिला, इसलिए मैंने ऑफलाइन त्वरित उत्तर दिया।',
+      chips: ['useEffect समझाएँ', 'JWT flow', 'CORS error fix', 'MongoDB schema']
     },
     ar: {
-      'jsx': 'JSX هو امتداد لـ JavaScript يتيح كتابة HTML داخل JavaScript في React. يُحوّله Babel إلى React.createElement(). مثال: const el = <h1>مرحبا</h1>',
-      'react': 'React مكتبة JavaScript لبناء واجهات المستخدم بالمكونات. المفاهيم الأساسية: JSX، Virtual DOM، Components، Props، State، Hooks.',
-      'usestate': 'useState هو React Hook لإدارة الحالة. const [count, setCount] = useState(0); — count القيمة، setCount تحدّثها. التحديث يُعيد رسم المكوّن.',
-      'useeffect': 'useEffect يُعالج التأثيرات الجانبية (طلبات API، مؤقتات). المصفوفة الفارغة [] تعني التشغيل مرة واحدة عند التحميل.',
-      'node': 'Node.js بيئة تشغيل JavaScript من جانب الخادم. يعمل بنموذج I/O غير متزامن. استخدم Express.js لإنشاء خادم ويب.',
-      'express': 'Express.js إطار Node.js خفيف. عرّف المسارات: app.get("/api/users", handler). أضف middleware باستخدام app.use().',
-      'middleware': 'Middleware هي دوال تصل إلى req و res و next. تُستخدم للمصادقة والتسجيل وCORS. استدعِ next() للانتقال لـ middleware التالي.',
-      'jwt': 'JWT (JSON Web Token) للمصادقة. عند تسجيل الدخول يُنشئ الخادم token. العميل يرسله في كل طلب بالترويسة: Authorization: Bearer <token>.',
-      'mongodb': 'MongoDB قاعدة بيانات NoSQL تخزّن البيانات كمستندات JSON. MongoDB Atlas للاستضافة المجانية. استخدم Mongoose مع Node.js.',
-      'openai': 'ادمج OpenAI API في الخادم فقط — لا تكشف مفتاح API للواجهة الأمامية. أرسل الطلبات عبر Express API وأعد النتيجة للواجهة.',
-      'hello': 'مرحباً! أنا معلم Full Stack الذكي من BrandMark 🤖 اسألني عن React أو Node.js أو MongoDB أو JWT أو GenAI!',
-      'hi': 'مرحباً! 👋 اسألني عن MERN Stack وReact Hooks وExpress وJWT وMongoDB!',
-      'default': 'سؤال رائع! جرّب: "ما هو JSX؟" أو "كيف يعمل useEffect؟" أو "شرح JWT" أو "كيفية الاتصال بـ MongoDB".'
+      title: 'مساعد تعلم Full Stack',
+      subtitle: 'إرشاد عملي يركز على MERN',
+      greeting: 'مرحباً، أنا مساعدك لتعلم Full Stack. اسألني عن React وNode وExpress وMongoDB وAPIs والمصادقة والنشر.',
+      placeholder: 'اكتب سؤالك البرمجي...',
+      typing: 'جاري التفكير',
+      offline: 'تعذر الوصول للخادم، لذلك قدمت إجابة سريعة بدون اتصال.',
+      chips: ['شرح useEffect', 'تدفق JWT', 'حل خطأ CORS', 'تصميم MongoDB schema']
     }
   };
 
-  function getAnswer(question, lang) {
-    const q = question.toLowerCase();
-    const kb = KB[lang] || KB.en;
-    for (const [kw, ans] of Object.entries(kb)) {
-      if (kw !== 'default' && q.includes(kw)) return ans;
+  var FALLBACK = {
+    en: {
+      react: 'For React, keep components small, lift shared state up, and use useEffect only for side effects with clean dependency arrays.',
+      auth: 'JWT auth flow: login validates credentials, server signs token, client sends Bearer token, middleware verifies and attaches user.',
+      cors: 'Fix CORS by allowing only your frontend origin, required methods, and headers. Handle preflight OPTIONS and avoid wildcard in production.',
+      mongo: 'Start MongoDB schema with required fields, indexes for common queries, and validation for business rules before writing routes.',
+      default: 'Ask a more specific coding question, for example: fix CORS in Express, explain useEffect dependencies, or structure MERN auth.'
+    },
+    hi: {
+      default: 'कृपया specific coding सवाल पूछें, जैसे useEffect, JWT auth, CORS fix, या MongoDB schema design.'
+    },
+    ar: {
+      default: 'يرجى إرسال سؤال برمجي محدد مثل useEffect أو JWT أو CORS أو تصميم MongoDB schema.'
     }
-    if (lang !== 'en') {
-      for (const [kw, ans] of Object.entries(KB.en)) {
-        if (kw !== 'default' && q.includes(kw)) return ans;
+  };
+
+  injectStyles();
+  var ui = buildUi();
+  hydrateMessages();
+  bindEvents(ui);
+
+  function loadHistory() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      var parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed.slice(-MAX_HISTORY) : [];
+    } catch (_e) {
+      return [];
+    }
+  }
+
+  function saveHistory() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.history.slice(-MAX_HISTORY)));
+    } catch (_e) {
+      // Ignore storage write errors
+    }
+  }
+
+  function injectStyles() {
+    if (document.getElementById('bm-assistant-fs-style')) return;
+    var style = document.createElement('style');
+    style.id = 'bm-assistant-fs-style';
+    style.textContent = '' +
+      '#bm-fs-assist-fab{position:fixed;right:24px;bottom:24px;z-index:9999;width:58px;height:58px;border:0;border-radius:50%;background:linear-gradient(145deg,#0f4d89,#0a3a67);color:#fff;font-size:24px;cursor:pointer;box-shadow:0 10px 30px rgba(10,58,103,.35);transition:transform .18s ease,box-shadow .18s ease}' +
+      '#bm-fs-assist-fab:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 14px 36px rgba(10,58,103,.45)}' +
+      '#bm-fs-assist-panel{position:fixed;right:24px;bottom:94px;z-index:9999;width:390px;max-width:calc(100vw - 20px);height:570px;max-height:74vh;background:#fff;border:1px solid #cfe0f0;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 70px rgba(9,17,33,.2);transform-origin:right bottom;transition:opacity .18s ease,transform .18s ease}' +
+      '#bm-fs-assist-panel.hidden{opacity:0;transform:scale(.92);pointer-events:none}' +
+      '#bm-fs-assist-head{background:linear-gradient(130deg,#0c2a49,#184d7e);padding:14px 14px 12px 14px;color:#fff;display:flex;align-items:center;gap:10px}' +
+      '.bm-fs-icon{width:36px;height:36px;border-radius:11px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:18px}' +
+      '.bm-fs-t1{font:700 13px/1.2 Outfit,sans-serif}.bm-fs-t2{font:500 11px/1.2 Outfit,sans-serif;opacity:.9;margin-top:2px}' +
+      '#bm-fs-assist-close{margin-left:auto;border:0;background:rgba(255,255,255,.12);color:#fff;width:30px;height:30px;border-radius:8px;cursor:pointer}' +
+      '#bm-fs-assist-tools{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#f6faff;border-bottom:1px solid #e0ebf5}' +
+      '.bm-fs-lang{border:1px solid #0f4d89;background:#fff;color:#0f4d89;padding:4px 10px;border-radius:99px;font:600 11px Outfit,sans-serif;cursor:pointer}' +
+      '.bm-fs-lang.active{background:#0f4d89;color:#fff}' +
+      '#bm-fs-assist-clear{margin-left:auto;border:0;background:#e6f0fb;color:#184b78;padding:5px 10px;border-radius:8px;font:600 11px Outfit,sans-serif;cursor:pointer}' +
+      '#bm-fs-assist-msgs{flex:1;overflow:auto;padding:12px;background:radial-gradient(circle at 100% 0%,#eef6ff 0,#fff 40%),#fff}' +
+      '.bm-fs-row{display:flex;margin:8px 0}.bm-fs-row.user{justify-content:flex-end}' +
+      '.bm-fs-bubble{max-width:85%;padding:10px 12px;border-radius:14px;font:500 13px/1.45 Outfit,sans-serif;white-space:pre-wrap;word-break:break-word}' +
+      '.bm-fs-row.user .bm-fs-bubble{background:linear-gradient(145deg,#0f4d89,#0a3a67);color:#fff;border-bottom-right-radius:6px}' +
+      '.bm-fs-row.bot .bm-fs-bubble{background:#f4f9ff;color:#123047;border:1px solid #dbe8f5;border-bottom-left-radius:6px}' +
+      '.bm-fs-row.bot.warn .bm-fs-bubble{background:#fff8f0;border:1px solid #ffd7b6;color:#7a3b11}' +
+      '#bm-fs-assist-chips{padding:8px 10px;display:flex;gap:6px;flex-wrap:wrap;border-top:1px solid #f1f2f4;background:#fff}' +
+      '.bm-fs-chip{border:1px solid #d0dfef;background:#f4f9ff;color:#17466f;padding:4px 9px;border-radius:999px;font:600 11px Outfit,sans-serif;cursor:pointer}' +
+      '#bm-fs-assist-input{display:flex;gap:8px;padding:10px;background:#fff;border-top:1px solid #eceef2}' +
+      '#bm-fs-assist-text{flex:1;min-width:0;border:1px solid #dfe6ee;border-radius:10px;padding:10px 11px;font:500 13px Outfit,sans-serif;outline:0}' +
+      '#bm-fs-assist-text:focus{border-color:#0f4d89;box-shadow:0 0 0 3px rgba(15,77,137,.12)}' +
+      '.bm-fs-btn{border:0;border-radius:10px;width:38px;height:38px;cursor:pointer;font-size:16px}' +
+      '#bm-fs-assist-voice{background:#123f6a;color:#fff}#bm-fs-assist-send{background:#0f4d89;color:#fff}' +
+      '.bm-fs-typing{display:inline-flex;align-items:center;gap:5px}.bm-fs-typing i{display:block;width:6px;height:6px;border-radius:50%;background:#0f4d89;animation:bmFsA 1s infinite}.bm-fs-typing i:nth-child(2){animation-delay:.15s}.bm-fs-typing i:nth-child(3){animation-delay:.3s}@keyframes bmFsA{0%,80%,100%{transform:translateY(0);opacity:.5}40%{transform:translateY(-4px);opacity:1}}' +
+      '@media (max-width:540px){#bm-fs-assist-panel{right:10px;bottom:84px;width:calc(100vw - 20px);height:70vh}#bm-fs-assist-fab{right:14px;bottom:16px}}';
+    document.head.appendChild(style);
+  }
+
+  function buildUi() {
+    var root = document.createElement('div');
+    root.id = 'bm-fs-assistant-root';
+    root.innerHTML = '' +
+      '<button id="bm-fs-assist-fab" title="Open Learning Assistant" aria-label="Open Learning Assistant">FS</button>' +
+      '<div id="bm-fs-assist-panel" class="hidden">' +
+      '  <div id="bm-fs-assist-head">' +
+      '    <div class="bm-fs-icon">FS</div>' +
+      '    <div><div class="bm-fs-t1"></div><div class="bm-fs-t2"></div></div>' +
+      '    <button id="bm-fs-assist-close" title="Close">x</button>' +
+      '  </div>' +
+      '  <div id="bm-fs-assist-tools">' +
+      '    <button class="bm-fs-lang active" data-lang="en">EN</button>' +
+      '    <button class="bm-fs-lang" data-lang="hi">HI</button>' +
+      '    <button class="bm-fs-lang" data-lang="ar">AR</button>' +
+      '    <button id="bm-fs-assist-clear" title="Clear chat">Clear</button>' +
+      '  </div>' +
+      '  <div id="bm-fs-assist-msgs"></div>' +
+      '  <div id="bm-fs-assist-chips"></div>' +
+      '  <div id="bm-fs-assist-input">' +
+      '    <input id="bm-fs-assist-text" type="text" />' +
+      '    <button id="bm-fs-assist-voice" class="bm-fs-btn" title="Voice">🎤</button>' +
+      '    <button id="bm-fs-assist-send" class="bm-fs-btn" title="Send">➜</button>' +
+      '  </div>' +
+      '</div>';
+    document.body.appendChild(root);
+
+    return {
+      root: root,
+      fab: root.querySelector('#bm-fs-assist-fab'),
+      panel: root.querySelector('#bm-fs-assist-panel'),
+      close: root.querySelector('#bm-fs-assist-close'),
+      title: root.querySelector('.bm-fs-t1'),
+      subtitle: root.querySelector('.bm-fs-t2'),
+      langButtons: root.querySelectorAll('.bm-fs-lang'),
+      clear: root.querySelector('#bm-fs-assist-clear'),
+      msgs: root.querySelector('#bm-fs-assist-msgs'),
+      chips: root.querySelector('#bm-fs-assist-chips'),
+      input: root.querySelector('#bm-fs-assist-text'),
+      send: root.querySelector('#bm-fs-assist-send'),
+      voice: root.querySelector('#bm-fs-assist-voice')
+    };
+  }
+
+  function bindEvents(ui) {
+    refreshStaticText(ui);
+
+    ui.fab.addEventListener('click', function () {
+      state.opened = !state.opened;
+      ui.panel.classList.toggle('hidden', !state.opened);
+      ui.fab.textContent = state.opened ? 'x' : 'FS';
+      if (state.opened) setTimeout(function () { ui.input.focus(); }, 30);
+    });
+
+    ui.close.addEventListener('click', function () {
+      state.opened = false;
+      ui.panel.classList.add('hidden');
+      ui.fab.textContent = 'FS';
+    });
+
+    ui.send.addEventListener('click', function () { sendMessage(ui); });
+    ui.input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') sendMessage(ui);
+    });
+
+    ui.clear.addEventListener('click', function () {
+      state.history = [];
+      saveHistory();
+      ui.msgs.innerHTML = '';
+      appendBot(ui, TEXT[state.lang].greeting, false);
+    });
+
+    ui.langButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        state.lang = button.getAttribute('data-lang');
+        ui.langButtons.forEach(function (b) { b.classList.remove('active'); });
+        button.classList.add('active');
+        refreshStaticText(ui);
+      });
+    });
+
+    ui.chips.addEventListener('click', function (e) {
+      var chip = e.target.closest('.bm-fs-chip');
+      if (!chip) return;
+      ui.input.value = chip.getAttribute('data-q') || '';
+      sendMessage(ui);
+    });
+
+    ui.voice.addEventListener('click', function () {
+      var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) return;
+      var recog = new SR();
+      recog.lang = state.lang === 'hi' ? 'hi-IN' : state.lang === 'ar' ? 'ar-SA' : 'en-US';
+      ui.voice.textContent = '◼';
+      recog.onresult = function (event) {
+        var transcript = Array.from(event.results).map(function (x) { return x[0].transcript; }).join(' ');
+        ui.input.value = transcript;
+      };
+      recog.onerror = function () { ui.voice.textContent = '🎤'; };
+      recog.onend = function () { ui.voice.textContent = '🎤'; };
+      recog.start();
+    });
+  }
+
+  function refreshStaticText(ui) {
+    var t = TEXT[state.lang] || TEXT.en;
+    ui.title.textContent = t.title;
+    ui.subtitle.textContent = t.subtitle;
+    ui.input.placeholder = t.placeholder;
+    renderChips(ui, t.chips);
+
+    if (!ui.msgs.children.length) {
+      appendBot(ui, t.greeting, false);
+    }
+  }
+
+  function renderChips(ui, chips) {
+    ui.chips.innerHTML = chips.map(function (chip) {
+      return '<button class="bm-fs-chip" data-q="' + escapeHtml(chip) + '">' + escapeHtml(chip) + '</button>';
+    }).join('');
+  }
+
+  function hydrateMessages() {
+    var msgs = document.getElementById('bm-fs-assist-msgs');
+    if (!msgs) return;
+
+    if (!state.history.length) {
+      appendBot({ msgs: msgs }, TEXT[state.lang].greeting, false);
+      return;
+    }
+
+    state.history.forEach(function (item) {
+      if (item.role === 'user') {
+        appendUser({ msgs: msgs }, item.content);
+      } else {
+        appendBot({ msgs: msgs }, item.content, !!item.warning);
+      }
+    });
+  }
+
+  function appendUser(ui, text) {
+    var wrap = document.createElement('div');
+    wrap.className = 'bm-fs-row user';
+    wrap.innerHTML = '<div class="bm-fs-bubble">' + escapeHtml(text) + '</div>';
+    ui.msgs.appendChild(wrap);
+    ui.msgs.scrollTop = ui.msgs.scrollHeight;
+  }
+
+  function appendBot(ui, text, warning) {
+    var wrap = document.createElement('div');
+    wrap.className = 'bm-fs-row bot' + (warning ? ' warn' : '');
+    wrap.innerHTML = '<div class="bm-fs-bubble"></div>';
+    var bubble = wrap.querySelector('.bm-fs-bubble');
+    typeText(bubble, text);
+    ui.msgs.appendChild(wrap);
+    ui.msgs.scrollTop = ui.msgs.scrollHeight;
+  }
+
+  function showTyping(ui) {
+    var wrap = document.createElement('div');
+    wrap.className = 'bm-fs-row bot';
+    wrap.id = 'bm-fs-typing';
+    wrap.innerHTML = '<div class="bm-fs-bubble"><span class="bm-fs-typing"><span style="font-size:12px;color:#617689">' +
+      escapeHtml((TEXT[state.lang] || TEXT.en).typing) + '</span><i></i><i></i><i></i></span></div>';
+    ui.msgs.appendChild(wrap);
+    ui.msgs.scrollTop = ui.msgs.scrollHeight;
+  }
+
+  function hideTyping() {
+    var el = document.getElementById('bm-fs-typing');
+    if (el) el.remove();
+  }
+
+  function typeText(node, text) {
+    var safe = escapeHtml(text);
+    var i = 0;
+    var chunk = 3;
+    node.innerHTML = '';
+
+    function paint() {
+      i += chunk;
+      node.innerHTML = safe.slice(0, i).replace(/\n/g, '<br>');
+      if (i < safe.length) {
+        requestAnimationFrame(paint);
       }
     }
-    return kb['default'] || KB.en.default;
+
+    requestAnimationFrame(paint);
   }
 
-  // ── Inject Styles ───────────────────────────────────────────────────────────
-  const style = document.createElement('style');
-  style.textContent = `
-    #bm-fs-fab {
-      position: fixed; bottom: 28px; right: 28px; z-index: 9998;
-      width: 60px; height: 60px; border-radius: 50%;
-      background: linear-gradient(135deg, #F26A21, #E65C17);
-      color: #fff; border: none; cursor: pointer;
-      font-size: 26px; box-shadow: 0 4px 20px rgba(242,106,33,0.5);
-      transition: transform 0.2s, box-shadow 0.2s;
-      display: flex; align-items: center; justify-content: center;
-    }
-    #bm-fs-fab:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(242,106,33,0.7); }
-    #bm-fs-chat {
-      position: fixed; bottom: 100px; right: 28px; z-index: 9999;
-      width: 360px; max-height: 520px; border-radius: 16px;
-      background: #fff; box-shadow: 0 8px 40px rgba(11,44,77,0.25);
-      display: flex; flex-direction: column; overflow: hidden;
-      font-family: 'Outfit', sans-serif; border: 2px solid #0B2C4D;
-    }
-    #bm-fs-header {
-      background: linear-gradient(135deg, #0B2C4D, #081F36);
-      color: #fff; padding: 12px 16px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    #bm-fs-header h4 { margin: 0; font-size: 14px; font-weight: 700; }
-    #bm-fs-header span { font-size: 11px; color: #F26A21; }
-    #bm-fs-close { background: none; border: none; color: #fff; font-size: 18px; cursor: pointer; padding: 0 4px; }
-    #bm-fs-lang {
-      background: #f8fafc; padding: 8px 12px;
-      display: flex; gap: 6px; border-bottom: 1px solid #e5e7eb;
-    }
-    #bm-fs-lang button {
-      padding: 4px 10px; border-radius: 20px; border: 2px solid #0B2C4D;
-      font-size: 11px; font-weight: 600; cursor: pointer;
-      background: #fff; color: #0B2C4D; transition: all 0.2s;
-    }
-    #bm-fs-lang button.bm-active { background: #F26A21; border-color: #F26A21; color: #fff; }
-    #bm-fs-messages {
-      flex: 1; overflow-y: auto; padding: 12px; display: flex;
-      flex-direction: column; gap: 8px;
-    }
-    .bm-fs-msg { max-width: 85%; padding: 10px 14px; border-radius: 12px; font-size: 13px; line-height: 1.5; }
-    .bm-fs-bot { background: #f0f4ff; color: #0B2C4D; align-self: flex-start; border-bottom-left-radius: 4px; border-left: 3px solid #F26A21; }
-    .bm-fs-user { background: linear-gradient(135deg, #F26A21, #E65C17); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
-    .bm-fs-thinking { color: #6b7280; font-style: italic; font-size: 12px; align-self: flex-start; }
-    #bm-fs-chips { padding: 6px 12px; display: flex; gap: 6px; flex-wrap: wrap; border-top: 1px solid #e5e7eb; background: #fafafa; }
-    .bm-fs-chip {
-      padding: 4px 10px; border-radius: 14px; font-size: 11px; font-weight: 600;
-      background: #e8f0fe; color: #0B2C4D; border: 1px solid #c7d7f9;
-      cursor: pointer; transition: all 0.2s;
-    }
-    .bm-fs-chip:hover { background: #0B2C4D; color: #fff; }
-    #bm-fs-input-row {
-      padding: 10px 12px; display: flex; gap: 8px;
-      border-top: 1px solid #e5e7eb; background: #fff;
-    }
-    #bm-fs-input {
-      flex: 1; padding: 9px 12px; border: 2px solid #e5e7eb;
-      border-radius: 8px; font-size: 13px; outline: none;
-      font-family: 'Outfit', sans-serif;
-    }
-    #bm-fs-input:focus { border-color: #F26A21; }
-    #bm-fs-send, #bm-fs-voice {
-      padding: 9px 12px; border-radius: 8px; border: none;
-      cursor: pointer; font-size: 14px; transition: all 0.2s;
-    }
-    #bm-fs-send { background: #F26A21; color: #fff; }
-    #bm-fs-send:hover { background: #E65C17; }
-    #bm-fs-voice { background: #0B2C4D; color: #fff; }
-    #bm-fs-voice:hover { background: #081F36; }
-    #bm-fs-voice.bm-recording { background: #dc2626; animation: bm-fs-pulse 1s infinite; }
-    @keyframes bm-fs-pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
-    @media(max-width:420px){ #bm-fs-chat{width:calc(100vw - 32px); right:16px; bottom:90px;} }
-  `;
-  document.head.appendChild(style);
+  function escapeHtml(text) {
+    return String(text || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
 
-  // ── Inject HTML ─────────────────────────────────────────────────────────────
-  const wrapper = document.createElement('div');
-  wrapper.innerHTML = `
-    <button id="bm-fs-fab" title="Full Stack AI Tutor">⚡</button>
-    <div id="bm-fs-chat" style="display:none">
-      <div id="bm-fs-header">
-        <div>
-          <h4>⚡ Full Stack AI Tutor</h4>
-          <span>MERN · React · Node · MongoDB · GenAI</span>
-        </div>
-        <button id="bm-fs-close">✕</button>
-      </div>
-      <div id="bm-fs-lang">
-        <button class="bm-active" data-lang="en">EN 🇬🇧</button>
-        <button data-lang="hi">HI 🇮🇳</button>
-        <button data-lang="ar">AR 🇸🇦</button>
-      </div>
-      <div id="bm-fs-messages">
-        <div class="bm-fs-msg bm-fs-bot">👋 Hi! I'm your Full Stack AI Tutor. Ask me about <strong>React, Node.js, MongoDB, JWT, REST APIs,</strong> or <strong>GenAI integration!</strong></div>
-      </div>
-      <div id="bm-fs-chips">
-        <span class="bm-fs-chip" data-q="What is JSX?">JSX</span>
-        <span class="bm-fs-chip" data-q="Explain useEffect hook">useEffect</span>
-        <span class="bm-fs-chip" data-q="What is middleware?">Middleware</span>
-        <span class="bm-fs-chip" data-q="How does JWT work?">JWT Auth</span>
-        <span class="bm-fs-chip" data-q="How to use MongoDB?">MongoDB</span>
-        <span class="bm-fs-chip" data-q="How to integrate OpenAI API?">OpenAI API</span>
-      </div>
-      <div id="bm-fs-input-row">
-        <input id="bm-fs-input" type="text" placeholder="Ask about MERN stack..." />
-        <button id="bm-fs-voice" title="Voice Input">🎤</button>
-        <button id="bm-fs-send">➤</button>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(wrapper);
+  function getLocalFallback(question, lang) {
+    var q = String(question || '').toLowerCase();
+    var map = FALLBACK[lang] || FALLBACK.en;
+    if (q.indexOf('react') !== -1 || q.indexOf('useeffect') !== -1 || q.indexOf('component') !== -1) return map.react || FALLBACK.en.react;
+    if (q.indexOf('jwt') !== -1 || q.indexOf('auth') !== -1 || q.indexOf('token') !== -1) return map.auth || FALLBACK.en.auth;
+    if (q.indexOf('cors') !== -1 || q.indexOf('origin') !== -1 || q.indexOf('preflight') !== -1) return map.cors || FALLBACK.en.cors;
+    if (q.indexOf('mongo') !== -1 || q.indexOf('schema') !== -1 || q.indexOf('mongoose') !== -1) return map.mongo || FALLBACK.en.mongo;
+    return map.default || FALLBACK.en.default;
+  }
 
-  // ── State ───────────────────────────────────────────────────────────────────
-  let lang = 'en';
-  const conversationHistory = [];
-  const fab   = document.getElementById('bm-fs-fab');
-  const chat  = document.getElementById('bm-fs-chat');
-  const close = document.getElementById('bm-fs-close');
-  const msgs  = document.getElementById('bm-fs-messages');
-  const input = document.getElementById('bm-fs-input');
-  const send  = document.getElementById('bm-fs-send');
-  const voiceBtn = document.getElementById('bm-fs-voice');
-
-  // ── FAB Toggle ──────────────────────────────────────────────────────────────
-  fab.addEventListener('click', () => {
-    chat.style.display = chat.style.display === 'none' ? 'flex' : 'none';
-    if (chat.style.display === 'flex') input.focus();
-  });
-  close.addEventListener('click', () => { chat.style.display = 'none'; });
-
-  // ── Language Switcher ───────────────────────────────────────────────────────
-  document.querySelectorAll('#bm-fs-lang button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      lang = btn.dataset.lang;
-      document.querySelectorAll('#bm-fs-lang button').forEach(b => b.classList.remove('bm-active'));
-      btn.classList.add('bm-active');
-      input.placeholder = lang === 'hi' ? 'MERN stack के बारे में पूछें...' : lang === 'ar' ? 'اسأل عن MERN Stack...' : 'Ask about MERN stack...';
+  async function fetchAnswer(question) {
+    var shortHistory = state.history.slice(-8).map(function (item) {
+      return { role: item.role, content: item.content };
     });
-  });
 
-  // ── Topic Chips ─────────────────────────────────────────────────────────────
-  document.querySelectorAll('.bm-fs-chip').forEach(chip => {
-    chip.addEventListener('click', () => sendMessage(chip.dataset.q));
-  });
+    for (var i = 0; i < API_BASE_URLS.length; i += 1) {
+      var url = API_BASE_URLS[i] + '/ai-tutor';
+      var controller = new AbortController();
+      var timer = setTimeout(function () { controller.abort(); }, 12000);
 
-  // ── TTS ─────────────────────────────────────────────────────────────────────
-  function speak(text) {
-    if (!window.speechSynthesis) return;
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = lang === 'hi' ? 'hi-IN' : lang === 'ar' ? 'ar-SA' : 'en-US';
-    u.rate = 0.9;
-    window.speechSynthesis.speak(u);
-  }
-
-  // ── Append Message ──────────────────────────────────────────────────────────
-  function appendMsg(text, type) {
-    const d = document.createElement('div');
-    d.className = `bm-fs-msg bm-fs-${type}`;
-    d.textContent = text;
-    msgs.appendChild(d);
-    msgs.scrollTop = msgs.scrollHeight;
-    return d;
-  }
-
-  async function fetchTutorReply(question, language) {
-    const API_BASE_URLS = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-      ? ['http://localhost:5000/api', 'http://localhost:5001/api']
-      : ['https://brandmark-api-2026.onrender.com/api'];
-
-    const historySlice = conversationHistory.slice(-6).map((item) => ({
-      role: item.role,
-      content: item.content
-    }));
-
-    for (const baseUrl of API_BASE_URLS) {
       try {
-        const response = await fetch(`${baseUrl}/ai-tutor`, {
+        var response = await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            question,
-            language,
-            course: 'fullstack',
-            history: historySlice
-          })
+            question: question,
+            language: state.lang,
+            course: COURSE,
+            history: shortHistory
+          }),
+          signal: controller.signal
         });
 
-        const data = await response.json();
-        if (response.ok && data && data.success && data.answer) {
-          return data.answer;
+        clearTimeout(timer);
+
+        if (!response.ok) continue;
+        var data = await response.json();
+        if (data && data.success && data.answer) {
+          return {
+            answer: String(data.answer),
+            warning: !!data.restricted,
+            fromServer: true
+          };
         }
-      } catch (_err) {
-        // Try next API endpoint
+      } catch (_e) {
+        clearTimeout(timer);
       }
     }
 
-    return getAnswer(question, language);
+    return {
+      answer: getLocalFallback(question, state.lang) + '\n\n' + (TEXT[state.lang] || TEXT.en).offline,
+      warning: false,
+      fromServer: false
+    };
   }
 
-  function getThinkingLabel() {
-    if (lang === 'hi') return 'सोच रहा हूँ...';
-    if (lang === 'ar') return 'جاري التفكير...';
-    return 'Thinking...';
+  async function sendMessage(ui) {
+    if (state.busy) return;
+
+    var question = ui.input.value.trim();
+    if (!question) return;
+
+    state.busy = true;
+    ui.input.value = '';
+    appendUser(ui, question);
+    state.history.push({ role: 'user', content: question });
+    saveHistory();
+
+    showTyping(ui);
+    var result = await fetchAnswer(question);
+    hideTyping();
+
+    appendBot(ui, result.answer, result.warning);
+    state.history.push({ role: 'assistant', content: result.answer, warning: result.warning ? 1 : 0 });
+    state.history = state.history.slice(-MAX_HISTORY);
+    saveHistory();
+
+    state.busy = false;
   }
-
-  // ── Send Message ─────────────────────────────────────────────────────────────
-  async function sendMessage(text) {
-    const q = (text || input.value).trim();
-    if (!q) return;
-    input.value = '';
-    appendMsg(q, 'user');
-    conversationHistory.push({ role: 'user', content: q });
-    const thinking = appendMsg(getThinkingLabel(), 'thinking');
-    const answer = await fetchTutorReply(q, lang);
-    msgs.removeChild(thinking);
-    appendMsg(answer, 'bot');
-    conversationHistory.push({ role: 'assistant', content: answer });
-    speak(answer);
-  }
-
-  send.addEventListener('click', () => sendMessage());
-  input.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
-
-  // ── Voice Input ─────────────────────────────────────────────────────────────
-  voiceBtn.addEventListener('click', () => {
-    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SR) { alert('Voice input requires Chrome browser.'); return; }
-    const r = new SR();
-    r.lang = lang === 'hi' ? 'hi-IN' : lang === 'ar' ? 'ar-SA' : 'en-US';
-    r.onstart = () => { voiceBtn.classList.add('bm-recording'); voiceBtn.textContent = '⏹'; };
-    r.onend   = () => { voiceBtn.classList.remove('bm-recording'); voiceBtn.textContent = '🎤'; };
-    r.onresult = e => { input.value = e.results[0][0].transcript; sendMessage(); };
-    r.start();
-  });
-
 })();

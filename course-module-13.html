@@ -23,6 +23,72 @@
         .module-nav { display: flex; gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #E5E7EB; }
         .module-nav a { padding: 0.875rem 1.75rem; background: linear-gradient(135deg, #F26A21, #E65C17); color: white; border-radius: 8px; text-decoration: none; font-weight: 600; }
     </style>
+    <style id="bm-module-consistency-v1">
+        body.premium-course-page nav a,
+        body.premium-course-page header a,
+        body.premium-course-page #mobile-menu a {
+            color: #ffffff !important;
+        }
+
+        body.premium-course-page nav a:hover,
+        body.premium-course-page header a:hover,
+        body.premium-course-page #mobile-menu a:hover {
+            color: #F26A21 !important;
+        }
+
+        body.premium-course-page h1,
+        body.premium-course-page .module-hero h1,
+        body.premium-course-page section h1 {
+            color: #ffffff !important;
+        }
+
+        body.premium-course-page a[href="courses.html"],
+        body.premium-course-page a[href="digital-marketing-course.html"] {
+            color: #ffffff !important;
+        }
+
+        body.premium-course-page footer {
+            background: #081F36 !important;
+            color: #d1d5db !important;
+            border-top: 4px solid #F26A21 !important;
+            padding-top: 2rem !important;
+            padding-bottom: 2rem !important;
+        }
+
+        body.premium-course-page footer p,
+        body.premium-course-page footer span,
+        body.premium-course-page footer a {
+            color: #d1d5db !important;
+        }
+
+        body.premium-course-page footer a:hover {
+            color: #F26A21 !important;
+        }
+    
+        .bm-module-top-links {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            margin-left: auto;
+        }
+
+        .bm-module-top-links a {
+            color: #ffffff !important;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color .2s ease;
+        }
+
+        .bm-module-top-links a:hover {
+            color: #F26A21 !important;
+        }
+
+        @media (max-width: 768px) {
+            .bm-module-top-links {
+                display: none;
+            }
+        }
+</style>
 </head>
 <body class="text-white premium-course-page" data-course-id="digital-marketing-001">
     <header class="sticky top-0 z-50 bg-gradient-to-r from-brand-navy to-brand-navy-dark border-b-4 border-brand-orange">
@@ -116,13 +182,37 @@
     </div></div></section>
 
     <footer class="bg-brand-navy text-white py-8 border-t-4 border-brand-orange"><div class="text-center"><p class="text-gray-400">&copy; 2025 BrandMark Solutions.</p></div></footer>
-    <script src="brandmark.js"></script>
-    <script src="ai-tutor-widget.js"></script>
+    <script src="brandmark.js?v=20260701"></script>
+    <script src="ai-tutor-widget.js?v=20260704"></script>
     <script>let u = null, s = false, sp = 1; function init() { const c = document.querySelector('.lesson-content').innerText; u = new SpeechSynthesisUtterance(c); u.rate = sp; u.onend = () => { s = false; }; } function toggleAudio() { if (!u) init(); s ? speechSynthesis.pause() : (speechSynthesis.paused ? speechSynthesis.resume() : (speechSynthesis.cancel(), init(), speechSynthesis.speak(u))); s = !s; } function setAudioSpeed(speed) { sp = speed; document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active')); event.target.classList.add('active'); if (u) u.rate = speed; }</script>
     <script src="course-multilingual-learning.js"></script>
     <script src="course-access-guard.js"></script>
+<script id="bm-module-consistency-nav-v1">
+(function () {
+    function ensureTopLinks() {
+        var nav = document.querySelector('header nav') || document.querySelector('nav');
+        if (!nav) return;
+        if (nav.querySelector('.bm-module-top-links')) return;
+
+        var links = document.createElement('div');
+        links.className = 'bm-module-top-links';
+        links.innerHTML = '' +
+            '<a href="courses.html">Courses</a>' +
+            '<a href="digital-marketing-course.html">Back to Course Home</a>' +
+            '<a href="index.html">Home</a>';
+
+        nav.appendChild(links);
+    }
+
+    document.addEventListener('DOMContentLoaded', ensureTopLinks);
+})();
+</script>
 </body>
 </html>
+
+
+
+
 
 
 
