@@ -169,9 +169,9 @@
                 <a href="brandmarkservices.html" class="px-8 py-4 bg-brand-orange text-white rounded-full font-bold hover:bg-brand-orange-dark transition duration-300 shadow-lg">
                     Explore Services
                 </a>
-                <a href="#contact" class="px-8 py-4 border border-brand-navy text-brand-navy rounded-full font-medium hover:bg-brand-navy hover:text-white transition duration-300">
-                    Book a Strategy Call
-                </a>
+                <button id="talkToMarkBtn" onclick="startMarkCall()" class="px-8 py-4 border border-brand-navy text-brand-navy rounded-full font-medium hover:bg-brand-navy hover:text-white transition duration-300 flex items-center gap-2 justify-center">
+                    <i class="fas fa-microphone"></i> Talk to Mark &amp; Book a Strategy Call
+                </button>
             </div>
         </div>
         </main>
@@ -636,6 +636,83 @@
        aria-label="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
+
+        <!-- End Call Button (shown only during active Vapi call) -->
+        <button id="endCallBtn" onclick="endMarkCall()" style="display:none; position:fixed; bottom:95px; right:24px; z-index:10001; background:#d32f2f; color:white; border:none; border-radius:9999px; padding:12px 18px; font-weight:700; box-shadow:0 8px 24px rgba(211,47,47,.35); cursor:pointer;">
+                <i class="fas fa-phone-slash" style="margin-right:8px;"></i>End Call
+        </button>
+
+        <script>
+            (function (d, t) {
+                var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+                g.src = "https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js";
+                g.defer = true;
+                g.async = true;
+                s.parentNode.insertBefore(g, s);
+
+                g.onload = function () {
+                    window.vapiInstance = window.vapiSDK.run({
+                        apiKey: "28589150-3565-41df-b341-660e7b6cca0e",
+                        assistant: "877a4d12-a5f3-45bc-a660-85a7e7c92c19",
+                        config: {
+                            position: "bottom-right",
+                            offset: "-9999px",
+                            width: "1px",
+                            height: "1px",
+                            idle: {
+                                color: "#1e3a8a",
+                                type: "round",
+                                title: "Talk to Mark",
+                                subtitle: "AI Voice Assistant",
+                                icon: "https://unpkg.com/lucide-static@0.321.0/icons/phone.svg"
+                            },
+                            loading: {
+                                color: "#3b82f6",
+                                type: "round",
+                                title: "Connecting...",
+                                subtitle: "Please wait",
+                                icon: "https://unpkg.com/lucide-static@0.321.0/icons/loader-2.svg"
+                            },
+                            active: {
+                                color: "#d32f2f",
+                                type: "round",
+                                title: "Call in progress",
+                                subtitle: "Tap to end",
+                                icon: "https://unpkg.com/lucide-static@0.321.0/icons/phone-off.svg"
+                            }
+                        }
+                    });
+
+                    var style = document.createElement('style');
+                    style.textContent = '.vapi-btn, [class*="vapi-"] { display: none !important; visibility: hidden !important; pointer-events: none !important; }';
+                    document.head.appendChild(style);
+
+                    window.vapiInstance.on('call-start', function () {
+                        var btn = document.getElementById('endCallBtn');
+                        if (btn) btn.style.display = 'flex';
+                    });
+
+                    window.vapiInstance.on('call-end', function () {
+                        var btn = document.getElementById('endCallBtn');
+                        if (btn) btn.style.display = 'none';
+                    });
+                };
+            })(document, "script");
+
+            function startMarkCall() {
+                if (window.vapiInstance) {
+                    window.vapiInstance.start('877a4d12-a5f3-45bc-a660-85a7e7c92c19');
+                } else {
+                    alert('Voice assistant is loading, please try again in a moment.');
+                }
+            }
+
+            function endMarkCall() {
+                if (window.vapiInstance) {
+                    window.vapiInstance.stop();
+                }
+            }
+        </script>
 
     <script src="brandmark.js?v=20260704"></script>
 </body>

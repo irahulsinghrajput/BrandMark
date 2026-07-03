@@ -250,10 +250,10 @@
             <div class="bg-gradient-to-br from-brand-navy to-brand-navy-dark rounded-2xl p-10 text-white text-center shadow-xl">
                 <i class="fas fa-certificate text-brand-orange text-5xl mb-5"></i>
                 <h3 class="text-3xl font-extrabold mb-3">Earn Your Certificate</h3>
-                <p class="text-gray-300 text-lg mb-8 max-w-xl mx-auto">Complete all 15 modules, pass the Mock Test (80%), and submit your Final Project to unlock your <strong class="text-brand-orange">Professional Certification in Full Stack Development with GenAI</strong>.</p>
+                <p class="text-gray-300 text-lg mb-8 max-w-xl mx-auto">Complete all 15 modules, pass the 20-question Mock Test (80%+), and submit your Final Project to unlock your <strong class="text-brand-orange">Professional Certification in Full Stack Development with GenAI</strong>.</p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="fullstack-quiz.html" class="cta-button text-base px-8 py-4">
-                        <i class="fas fa-list-check"></i> Take Mock Test
+                        <i class="fas fa-list-check"></i> Take 20-Question Mock Test
                     </a>
                     <a href="fullstack-certificate.html" class="inline-flex items-center gap-2 px-8 py-4 bg-white/20 hover:bg-white/30 text-white font-semibold rounded-lg transition border-2 border-white/30">
                         <i class="fas fa-award"></i> View Certificate
@@ -292,8 +292,8 @@
         function logout() {
             if (confirm('Are you sure you want to logout?')) {
                 ['enrollmentId','userEmail','studentToken','studentName','studentEmail',
-                 'enrolledCourses','STUDENT_NAME','ACTIVE_ENROLLMENT_COURSE','FS_QUIZ_COMPLETED','FS_PROJECT_COMPLETED',
-                 'FS_CERTIFICATE_SCORE','FS_CERTIFICATE_CORRECT','FS_CERTIFICATE_DATE','FS_CERTIFICATE_ID']
+                 'enrolledCourses','STUDENT_NAME','ACTIVE_ENROLLMENT_COURSE','FS_MODULES_1_TO_15_COMPLETED','FS_QUIZ_COMPLETED','FS_QUIZ_PASSED','FS_QUIZ_SCORE','FS_QUIZ_TOTAL_QUESTIONS','FS_PROJECT_COMPLETED',
+                 'FS_CERTIFICATION_ELIGIBLE','FS_CERTIFICATE_SCORE','FS_CERTIFICATE_CORRECT','FS_CERTIFICATE_DATE','FS_CERTIFICATE_ID']
                 .forEach(function(k){ localStorage.removeItem(k); });
                 window.location.href = 'student-login.html?course=fullstack-mern-001';
             }

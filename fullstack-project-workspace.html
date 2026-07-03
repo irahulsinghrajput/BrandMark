@@ -311,11 +311,11 @@ module.exports = mongoose.model('Task', taskSchema);</div>
         <div class="bg-white rounded-2xl p-8 max-w-md w-full text-center shadow-2xl border-4 border-green-400">
             <div class="text-6xl mb-4">[TROPHY]</div>
             <h2 class="text-2xl font-extrabold text-gray-800 mb-2">All Steps Complete!</h2>
-            <p class="text-gray-600 mb-5">You've passed the quiz <strong>and</strong> completed the project. Your certificate is ready!</p>
+            <p class="text-gray-600 mb-5">You've passed the 20-question mock test <strong>and</strong> completed the project. Your certificate is ready!</p>
             <div class="bg-green-50 rounded-xl p-4 mb-6 text-left border border-green-200">
                 <div class="flex items-center gap-2 mb-2">
                     <span class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">[OK]</span>
-                    <span class="text-gray-700 text-sm font-semibold">Mock Test (15 questions)  -  Passed [OK]</span>
+                    <span class="text-gray-700 text-sm font-semibold">Mock Test (20 questions, 80%+)  -  Passed [OK]</span>
                 </div>
                 <div class="flex items-center gap-2">
                     <span class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">[OK]</span>
@@ -339,6 +339,27 @@ module.exports = mongoose.model('Task', taskSchema);</div>
     <script>
         let projectProgress = { 1: 0, 2: 0, 3: 0 };
 
+        function verifyProjectAccess() {
+            const modulesCompleted = localStorage.getItem('FS_MODULES_1_TO_15_COMPLETED') === 'true';
+            const quizCompleted = localStorage.getItem('FS_QUIZ_COMPLETED') === 'true';
+            const quizPassed = localStorage.getItem('FS_QUIZ_PASSED') === 'true';
+            const quizScore = Number(localStorage.getItem('FS_QUIZ_SCORE') || '0');
+
+            if (!modulesCompleted) {
+                alert('Please complete Full Stack Modules 1 to 15 first.');
+                window.location.replace('fullstack-module-15.html');
+                return false;
+            }
+
+            if (!quizCompleted || !quizPassed || quizScore < 80) {
+                alert('Please pass the 20-question mock test with at least 80% first.');
+                window.location.replace('fullstack-quiz.html');
+                return false;
+            }
+
+            return true;
+        }
+
         function switchTab(n) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
@@ -361,11 +382,12 @@ module.exports = mongoose.model('Task', taskSchema);</div>
 
             if (allComplete) {
                 localStorage.setItem('FS_PROJECT_COMPLETED', 'true');
-                const quizDone = localStorage.getItem('FS_QUIZ_COMPLETED') === 'true';
+                const quizDone = localStorage.getItem('FS_QUIZ_COMPLETED') === 'true' && localStorage.getItem('FS_QUIZ_PASSED') === 'true';
                 if (quizDone) {
+                    localStorage.setItem('FS_CERTIFICATION_ELIGIBLE', 'true');
                     document.getElementById('projectCompleteModal').style.display = 'flex';
                 } else {
-                    alert('[OK] Project complete! You still need to pass the Mock Test first. Redirecting to the quiz...');
+                    alert('[OK] Project complete! You still need to pass the 20-question mock test with at least 80%. Redirecting to the quiz...');
                     window.location.href = 'fullstack-quiz.html';
                 }
             } else {
@@ -375,7 +397,9 @@ module.exports = mongoose.model('Task', taskSchema);</div>
             }
         }
 
-        switchTab(1);
+        if (verifyProjectAccess()) {
+            switchTab(1);
+        }
     </script>
     <script src="brandmark.js?v=20260704"></script>
     <script src="fullstack-ai-tutor-widget.js?v=20260704"></script>

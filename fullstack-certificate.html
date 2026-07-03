@@ -1,317 +1,678 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificate of Completion  -  Full Stack Development | BrandMark</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'brand-navy': '#0B2C4D', 'brand-navy-dark': '#081F36',
-                        'brand-orange': '#F26A21', 'brand-orange-dark': '#E65C17'
-                    }
-                }
+    <title>Certificate of Completion - BrandMark Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@400;600;700&family=Great+Vibes:wght@400&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .page-wrap {
+            width: 100%;
+            max-width: 1260px;
+        }
+
+        .certificate-container {
+            width: 100%;
+            background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            aspect-ratio: 16 / 9;
+            padding: 25px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            overflow: hidden;
+            border: 8px solid #0B2C4D;
+            border-radius: 15px;
+        }
+
+        .certificate-container::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            border: 2px double #D4AF37;
+            border-radius: 12px;
+            pointer-events: none;
+            z-index: 1;
+            box-shadow: inset 0 0 0 1px #0B2C4D;
+        }
+
+        .certificate-container::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            background: url('Brandmark logo transparent.png') center / cover;
+            opacity: 0.08;
+            z-index: 0;
+        }
+
+        @supports (border-style: ridge) {
+            .certificate-container {
+                border-style: ridge;
+                border-width: 5px;
             }
         }
-    </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="brandmark.css">
-    <style>
-        * { font-family: 'Outfit', sans-serif; }
-        body { background: linear-gradient(135deg, #0B2C4D 0%, #081F36 50%, #0B2C4D 100%); min-height: 100vh; }
 
-        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-        @keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
-        @keyframes fadeInUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes spin-slow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+        .corner-shield {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            z-index: 10;
+            filter: drop-shadow(0 2px 5px rgba(11, 44, 77, 0.15));
+        }
 
-        .cert-float { animation: float 4s ease-in-out infinite; }
-        .cert-fade { animation: fadeInUp 0.8s ease forwards; }
+        .corner-shield.top-left { top: 10px; left: 10px; }
+        .corner-shield.top-right { top: 10px; right: 10px; transform: scaleX(-1); }
+        .corner-shield.bottom-right { bottom: 10px; right: 10px; transform: scaleX(-1) scaleY(-1); }
+        .corner-shield.bottom-left { bottom: 10px; left: 10px; transform: scaleY(-1); }
 
-        #certificateCard {
-            background: white;
-            border-radius: 24px;
-            box-shadow: 0 30px 90px rgba(0,0,0,0.5), 0 0 0 6px #F26A21, 0 0 0 10px #0B2C4D, 0 0 0 12px #F26A21;
-            max-width: 900px;
-            width: 100%;
+        .corner-shield svg { width: 100%; height: 100%; }
+
+        .corner-arrow {
+            position: absolute;
+            font-size: 42px;
+            color: #FF6B35;
+            z-index: 10;
+            font-weight: bold;
+            text-shadow: 0 1px 3px rgba(11, 44, 77, 0.1);
+        }
+
+        .corner-arrow.top-left { top: 40px; left: 100px; }
+        .corner-arrow.top-right { top: 40px; right: 100px; transform: scaleX(-1); }
+        .corner-arrow.bottom-right { bottom: 40px; right: 100px; transform: scaleX(-1) scaleY(-1); }
+        .corner-arrow.bottom-left { bottom: 40px; left: 100px; transform: scaleY(-1); }
+
+        .certificate-content {
             position: relative;
-            overflow: hidden;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
         }
-        .cert-header { background: linear-gradient(135deg, #0B2C4D 0%, #133a66 100%); color: white; padding: 2.5rem 3rem; text-align: center; position: relative; }
-        .cert-header::after { content:''; position:absolute; bottom:0; left:0; right:0; height:4px; background:linear-gradient(to right,#F26A21,#ff8c42,#F26A21); }
-        .cert-title-main { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: white; line-height: 1.2; }
-        .cert-body { padding: 3rem 3rem 2rem; text-align: center; }
-        .cert-name { font-family: 'Playfair Display', serif; font-style: italic; font-size: 3rem; font-weight: 700; color: #0B2C4D; border-bottom: 3px solid #F26A21; padding-bottom: 0.5rem; display: inline-block; margin: 0.5rem 0 1.5rem; }
-        .cert-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: #6b7280; font-weight: 600; }
-        .cert-course { font-size: 1.4rem; font-weight: 800; color: #0B2C4D; margin: 0.5rem 0 1.5rem; }
-        .cert-footer { background: #f8fafc; border-top: 3px solid #F26A21; padding: 1.5rem 3rem; }
 
-        .shimmer-badge {
-            background: linear-gradient(90deg, #F26A21, #ffa040, #F26A21);
-            background-size: 200% 100%;
-            animation: shimmer 2.5s infinite;
-            color: white; font-weight: 700; font-size: 0.7rem;
-            padding: 4px 14px; border-radius: 20px; letter-spacing: 1px;
+        .certificate-header {
+            margin-bottom: 2px;
+            background: linear-gradient(90deg, rgba(255, 107, 53, 0.05) 0%, transparent 50%, rgba(11, 44, 77, 0.05) 100%);
+            padding: 8px 0;
+            border-bottom: 2px solid #FF6B35;
         }
-        .skill-chip { background: #EFF6FF; color: #0B2C4D; border: 1.5px solid #93C5FD; font-size: 0.75rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; display: inline-block; margin: 3px; }
-        .print-btn { background: linear-gradient(135deg, #F26A21, #E65C17); color: white; padding: 0.875rem 2.5rem; border-radius: 12px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.75rem; font-size: 1rem; transition: all 0.3s; }
-        .print-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(242,106,33,0.4); }
-        .share-btn { background: transparent; color: white; padding: 0.875rem 2rem; border-radius: 12px; font-weight: 700; border: 2px solid rgba(255,255,255,0.3); cursor: pointer; display: flex; align-items: center; gap: 0.75rem; font-size: 0.95rem; transition: all 0.3s; }
-        .share-btn:hover { background: rgba(255,255,255,0.1); }
+
+        .logo-img {
+            width: 240px;
+            height: 240px;
+            margin: 0 auto 2px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 8px rgba(11, 44, 77, 0.1));
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 900;
+            color: #0B2C4D;
+            margin-bottom: 1px;
+            letter-spacing: 0.5px;
+            font-style: italic;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .student-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 36px;
+            font-weight: 700;
+            color: #FF6B35;
+            margin: 0 0 2px;
+            font-style: italic;
+        }
+
+        p {
+            font-size: 12px;
+            color: #333;
+            line-height: 1.4;
+            margin: 4px 0;
+        }
+
+        .course-completed {
+            font-size: 14px;
+            color: #0B2C4D;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+
+        h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0B2C4D;
+            margin: 2px 0;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, #FF6B35 0%, #0B2C4D 50%, #FF6B35 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .course-modules {
+            list-style: none;
+            margin: 1px 0;
+            font-size: 9px;
+            color: #333;
+            padding: 4px;
+            background: rgba(255, 107, 53, 0.08);
+            border-radius: 4px;
+        }
+
+        .course-modules li {
+            display: inline;
+            margin: 0 8px;
+        }
+
+        .course-modules li::before {
+            content: '• ';
+            color: #FF6B35;
+            font-weight: bold;
+            margin-right: 4px;
+        }
+
+        .achievement-text {
+            font-size: 9px;
+            color: #0B2C4D;
+            font-style: italic;
+            margin: 2px 0;
+            font-weight: 500;
+        }
+
+        .certificate-meta {
+            font-size: 10px;
+            color: #0B2C4D;
+            margin: 2px 0;
+            padding: 3px;
+            background: linear-gradient(90deg, rgba(11, 44, 77, 0.05) 0%, rgba(255, 107, 53, 0.05) 100%);
+            border-left: 3px solid #FF6B35;
+            border-radius: 3px;
+        }
+
+        .provider-text {
+            font-size: 11px;
+            color: #FF6B35;
+            font-weight: 700;
+            margin-top: 3px;
+            letter-spacing: 0.5px;
+        }
+
+        .signature-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 6px;
+            align-items: flex-end;
+            padding-top: 6px;
+            border-top: 2px solid #FF6B35;
+        }
+
+        .signature-block { text-align: center; }
+
+        .signature-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #0B2C4D, transparent);
+            margin-bottom: 2px;
+            width: 100%;
+        }
+
+        .signature-name {
+            font-size: 10px;
+            font-weight: 700;
+            color: #0B2C4D;
+            margin-top: 1px;
+        }
+
+        .signature-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 24px;
+            color: #0B2C4D;
+            margin: 2px 0;
+            font-weight: 400;
+        }
+
+        .signature-title {
+            font-size: 8px;
+            color: #FF6B35;
+            margin-top: 0;
+            font-weight: 600;
+        }
+
+        .certificate-stamp {
+            position: absolute;
+            right: 160px;
+            top: 175px;
+            width: 130px;
+            height: 130px;
+            border: 3px solid #FF6B35;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 8;
+            transform: rotate(-25deg);
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, rgba(11, 44, 77, 0.05) 100%);
+            box-shadow: 0 4px 15px rgba(11, 44, 77, 0.2);
+        }
+
+        .certificate-stamp::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            border: 2px dashed #FF6B35;
+            border-radius: 50%;
+        }
+
+        .stamp-text {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            color: #FF6B35;
+            font-size: 18px;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+
+        .stamp-text-inner {
+            font-size: 11px;
+            color: #0B2C4D;
+            margin-top: 3px;
+            font-weight: 600;
+        }
+
+        .border-ornament {
+            position: absolute;
+            z-index: 3;
+        }
+
+        .border-top {
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #FF6B35, transparent);
+            box-shadow: 0 2px 5px rgba(255, 107, 53, 0.3);
+        }
+
+        .border-bottom {
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #FF6B35, transparent);
+            box-shadow: 0 -2px 5px rgba(255, 107, 53, 0.3);
+        }
+
+        .border-left {
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 120px;
+            background: linear-gradient(180deg, transparent, #D4AF37, transparent);
+            box-shadow: 2px 0 5px rgba(212, 175, 55, 0.3);
+        }
+
+        .border-right {
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 120px;
+            background: linear-gradient(180deg, transparent, #D4AF37, transparent);
+            box-shadow: -2px 0 5px rgba(212, 175, 55, 0.3);
+        }
+
+        .corner-flourish {
+            position: absolute;
+            z-index: 9;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #FF6B35;
+        }
+
+        .flourish-top-left {
+            top: 15px;
+            left: 15px;
+            border-right: none;
+            border-bottom: none;
+            border-radius: 0 0 15px 0;
+        }
+
+        .flourish-top-right {
+            top: 15px;
+            right: 15px;
+            border-left: none;
+            border-bottom: none;
+            border-radius: 0 0 0 15px;
+        }
+
+        .flourish-bottom-left {
+            bottom: 15px;
+            left: 15px;
+            border-right: none;
+            border-top: none;
+            border-radius: 0 15px 0 0;
+        }
+
+        .flourish-bottom-right {
+            bottom: 15px;
+            right: 15px;
+            border-left: none;
+            border-top: none;
+            border-radius: 15px 0 0 0;
+        }
+
+        .certificate-footer {
+            margin-top: 3px;
+            padding-top: 3px;
+            border-top: 1px dashed #FF6B35;
+            font-size: 7px;
+            color: #0B2C4D;
+            line-height: 1.2;
+            background: linear-gradient(90deg, rgba(255, 107, 53, 0.03) 0%, rgba(11, 44, 77, 0.03) 100%);
+            padding: 3px;
+            border-radius: 3px;
+        }
+
+        .certificate-footer p {
+            margin: 0;
+            font-size: 7px;
+        }
+
+        .footer-website {
+            font-size: 8px;
+            color: #FF6B35;
+            font-weight: 700;
+            margin: 0 !important;
+        }
+
+        .footer-company {
+            font-size: 8px;
+            font-weight: 700;
+            color: #0B2C4D;
+            letter-spacing: 0.5px;
+            margin: 0 !important;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-download {
+            background: #FF6B35;
+            color: white;
+        }
+
+        .btn-download:hover {
+            background: #E65C17;
+            transform: translateY(-2px);
+        }
+
+        .btn-dashboard {
+            background: #0B2C4D;
+            color: white;
+        }
+
+        .btn-dashboard:hover {
+            background: #081F36;
+            transform: translateY(-2px);
+        }
 
         @media print {
-            body { background: white !important; padding: 0 !important; }
-            header, footer, .action-area, .no-print { display: none !important; }
-            #certificateCard { box-shadow: none !important; border: 2px solid #0B2C4D !important; max-width: 100% !important; page-break-inside: avoid; }
-            .cert-float { animation: none !important; }
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .certificate-container {
+                box-shadow: none;
+                max-width: 100%;
+                aspect-ratio: auto;
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+            }
+
+            .action-buttons {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .certificate-container {
+                aspect-ratio: auto;
+                min-height: auto;
+                padding: 20px 15px;
+                border: 5px solid #0B2C4D;
+            }
+
+            .signature-section {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .course-modules li {
+                display: block;
+                margin: 3px 0;
+            }
         }
     </style>
 </head>
-<body class="text-white font-[Outfit]">
+<body>
+    <div class="page-wrap">
+        <div class="certificate-container" id="certificateRoot">
+            <div class="corner-shield top-left"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 70"><path d="M 30 10 L 50 20 L 50 45 Q 30 60 30 60 Q 10 45 10 20 Z" stroke="#0B2C4D" stroke-width="2" fill="none"/><path d="M 30 10 L 50 20 L 50 45 Q 30 60 30 60 Q 10 45 10 20 Z" stroke="#FF6B35" stroke-width="1.5" fill="none" opacity="0.7"/></svg></div>
+            <div class="corner-shield top-right"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 70"><path d="M 30 10 L 50 20 L 50 45 Q 30 60 30 60 Q 10 45 10 20 Z" stroke="#0B2C4D" stroke-width="2" fill="none"/><path d="M 30 10 L 50 20 L 50 45 Q 30 60 30 60 Q 10 45 10 20 Z" stroke="#FF6B35" stroke-width="1.5" fill="none" opacity="0.7"/></svg></div>
+            <div class="corner-shield bottom-right"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 70"><path d="M 30 10 L 50 20 L 50 45 Q 30 60 30 60 Q 10 45 10 20 Z" stroke="#0B2C4D" stroke-width="2" fill="none"/><path d="M 30 10 L 50 20 L 50 45 Q 30 60 30 60 Q 10 45 10 20 Z" stroke="#FF6B35" stroke-width="1.5" fill="none" opacity="0.7"/></svg></div>
+            <div class="corner-shield bottom-left"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 70"><path d="M 30 10 L 50 20 L 50 45 Q 30 60 30 60 Q 10 45 10 20 Z" stroke="#0B2C4D" stroke-width="2" fill="none"/><path d="M 30 10 L 50 20 L 50 45 Q 30 60 30 60 Q 10 45 10 20 Z" stroke="#FF6B35" stroke-width="1.5" fill="none" opacity="0.7"/></svg></div>
 
-    <!-- Header  -  no-print -->
-    <header class="no-print sticky top-0 z-50 bg-brand-navy-dark/90 backdrop-blur border-b border-brand-orange/30 shadow-xl">
-        <nav class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-3">
-                <img src="brandmark-logo-new.png.png" alt="BrandMark" class="h-12 w-12 rounded-full border-2 border-brand-orange">
-                <div>
-                    <span class="text-xl font-extrabold">Brand<span class="text-brand-orange font-light">Mark</span></span>
-                    <p class="text-xs text-gray-300 font-semibold tracking-widest">FULL STACK CERTIFICATE</p>
-                </div>
-            </a>
-            <div class="flex items-center gap-4">
-                <a href="fullstack-dashboard.html" class="text-gray-300 hover:text-white transition text-sm font-semibold">Dashboard</a>
-                <a href="index.html" class="text-gray-300 hover:text-white transition text-sm font-semibold">Home</a>
-            </div>
-        </nav>
-    </header>
+            <div class="corner-arrow top-left">-></div>
+            <div class="corner-arrow top-right">-></div>
+            <div class="corner-arrow bottom-right">-></div>
+            <div class="corner-arrow bottom-left">-></div>
 
-    <!-- Access Denied Panel -->
-    <div id="accessDeniedPanel" style="display:none" class="flex flex-col items-center justify-center min-h-[70vh] px-4 no-print">
-        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-10 text-center max-w-md border border-white/20">
-            <i class="fas fa-lock text-brand-orange text-5xl mb-5"></i>
-            <h2 class="text-2xl font-bold text-white mb-3">Certificate Locked</h2>
-            <p id="accessDeniedMsg" class="text-gray-300 mb-6"></p>
-            <div id="accessDeniedLink" class="flex flex-col gap-3"></div>
-        </div>
-    </div>
+            <div class="border-ornament border-top"></div>
+            <div class="border-ornament border-bottom"></div>
+            <div class="border-ornament border-left"></div>
+            <div class="border-ornament border-right"></div>
 
-    <!-- Certificate Content -->
-    <div id="certContent" class="min-h-screen flex flex-col items-center justify-center py-12 px-4">
+            <div class="corner-flourish flourish-top-left"></div>
+            <div class="corner-flourish flourish-top-right"></div>
+            <div class="corner-flourish flourish-bottom-left"></div>
+            <div class="corner-flourish flourish-bottom-right"></div>
 
-        <!-- Celebration Text -->
-        <div class="text-center mb-8 no-print cert-fade">
-            <div class="text-6xl mb-3">[SUCCESS]</div>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-2">Congratulations, <span id="heroName" class="text-brand-orange"></span>!</h1>
-            <p class="text-gray-300 text-lg">You have successfully completed the Full Stack Web Development Course</p>
-        </div>
-
-        <!-- Certificate Card -->
-        <div id="certificateCard" class="cert-float cert-fade mb-8" style="animation-delay:0.2s">
-            <!-- CERT HEADER -->
-            <div class="cert-header">
-                <div class="flex items-center justify-center gap-4 mb-4">
-                    <img src="brandmark-logo-new.png.png" alt="BrandMark" class="h-20 w-20 rounded-full border-3 border-brand-orange shadow-lg">
-                    <div class="text-left">
-                        <div class="text-2xl font-extrabold text-white">BrandMark Solutions</div>
-                        <div class="text-xs text-gray-300 tracking-widest font-semibold">EMPOWERING MSME GROWTH</div>
-                    </div>
-                </div>
-                <div class="cert-title-main mb-2">Certificate of Completion</div>
-                <div class="shimmer-badge inline-block">VERIFIED  -  FULL STACK DEVELOPMENT</div>
-            </div>
-
-            <!-- CERT BODY -->
-            <div class="cert-body">
-                <div class="cert-label">This certifies that</div>
-                <div id="certName" class="cert-name">Student Name</div>
-                <div class="cert-label mb-1">has successfully completed</div>
-                <div class="cert-course">Professional Certification in Full Stack Development with GenAI</div>
-
-                <p class="text-gray-500 text-sm mb-6 max-w-lg mx-auto leading-relaxed">
-                    Covering <strong>React 18</strong>, <strong>Node.js & Express</strong>, <strong>MongoDB & Mongoose</strong>,
-                    <strong>JWT Authentication</strong>, and <strong>GenAI Integration (OpenAI / Gemini)</strong>
-                     -  15 comprehensive modules, a technical mock test, and a capstone project.
-                </p>
-
-                <div class="mb-6 flex flex-wrap justify-center">
-                    <span class="skill-chip"><i class="fab fa-react mr-1"></i>React 18</span>
-                    <span class="skill-chip"><i class="fab fa-node-js mr-1"></i>Node.js</span>
-                    <span class="skill-chip">Express.js</span>
-                    <span class="skill-chip"><i class="fas fa-database mr-1"></i>MongoDB</span>
-                    <span class="skill-chip">Mongoose ORM</span>
-                    <span class="skill-chip"><i class="fas fa-shield-alt mr-1"></i>JWT Auth</span>
-                    <span class="skill-chip"><i class="fas fa-robot mr-1"></i>GenAI API</span>
-                    <span class="skill-chip">REST APIs</span>
-                    <span class="skill-chip">OWASP Security</span>
-                    <span class="skill-chip">Tailwind CSS</span>
-                </div>
-
-                <!-- Scores Row -->
-                <div class="grid grid-cols-3 gap-4 mb-6 max-w-xs mx-auto text-center">
-                    <div>
-                        <div id="certScore" class="text-2xl font-extrabold text-brand-navy"> - </div>
-                        <div class="text-xs text-gray-500 font-semibold">QUIZ SCORE</div>
-                    </div>
-                    <div>
-                        <div id="certCorrect" class="text-2xl font-extrabold text-brand-navy"> - </div>
-                        <div class="text-xs text-gray-500 font-semibold">CORRECT</div>
-                    </div>
-                    <div>
-                        <div class="text-2xl font-extrabold text-green-600">[OK]</div>
-                        <div class="text-xs text-gray-500 font-semibold">PROJECT</div>
-                    </div>
+            <div class="certificate-stamp">
+                <div class="stamp-text">
+                    CERTIFIED
+                    <div class="stamp-text-inner">APPROVED</div>
                 </div>
             </div>
 
-            <!-- CERT FOOTER -->
-            <div class="cert-footer">
-                <div class="grid grid-cols-3 gap-4 items-end text-center">
-                    <!-- Date -->
-                    <div>
-                        <div id="certDate" class="text-brand-navy font-extrabold text-sm mb-1"> - </div>
-                        <div class="h-px bg-gray-300 mb-1"></div>
-                        <div class="text-xs text-gray-500 font-semibold">DATE OF ISSUE</div>
+            <div class="certificate-content">
+                <header class="certificate-header">
+                    <img src="Brandmark logo transparent.png" alt="BrandMark Solutions Logo" class="logo-img">
+                    <h1>This is to certify that</h1>
+                </header>
+
+                <main>
+                    <div class="student-name" id="studentName">[Student's Full Name]</div>
+                    <p class="course-completed">has successfully completed the comprehensive</p>
+                    <h2>Professional Certification in Full Stack Development with GenAI</h2>
+
+                    <ul class="course-modules">
+                        <li>React, Router, Redux</li>
+                        <li>Node.js, Express</li>
+                        <li>MongoDB, Mongoose</li>
+                        <li>JWT Auth, Security</li>
+                        <li>GenAI Integration</li>
+                    </ul>
+
+                    <p class="achievement-text">Demonstrating proficiency in essential full stack engineering, API architecture, and AI-powered product development.</p>
+
+                    <div class="certificate-meta">
+                        <p>Awarded on this day: <strong id="completionDate">[Date]</strong></p>
+                        <p>Certificate ID: <strong id="certId">[Unique Certificate ID]</strong></p>
                     </div>
-                    <!-- Seal -->
-                    <div class="flex flex-col items-center">
-                        <div class="w-16 h-16 rounded-full flex items-center justify-center border-4 border-brand-orange" style="background: linear-gradient(135deg, #0B2C4D, #133a66);">
-                            <i class="fas fa-graduation-cap text-brand-orange text-2xl"></i>
+
+                    <p class="provider-text">provided by BrandMark Solutions</p>
+
+                    <div class="signature-section">
+                        <div class="signature-block">
+                            <div class="signature-text">Rajeshree Shekhar</div>
+                            <div class="signature-line"></div>
+                            <div class="signature-name">Rajeshree Shekhar</div>
+                            <div class="signature-title">Co-Founder</div>
                         </div>
-                        <div class="text-xs text-gray-500 mt-1 font-semibold">OFFICIAL SEAL</div>
-                    </div>
-                    <!-- Certificate ID -->
-                    <div>
-                        <div id="certId" class="text-brand-navy font-extrabold text-xs mb-1 break-all"> - </div>
-                        <div class="h-px bg-gray-300 mb-1"></div>
-                        <div class="text-xs text-gray-500 font-semibold">CERTIFICATE ID</div>
-                    </div>
-                </div>
 
-                <!-- Registrations -->
-                <div class="text-center mt-4 pt-4 border-t border-gray-200">
-                    <p class="text-xs text-gray-400 font-semibold tracking-widest">
-                        UDYAM: UDYAM-BR-26-0213927 &nbsp;|&nbsp; GST: 10LCTPS4278Q1ZD &nbsp;|&nbsp; BrandMark Solutions &copy; 2025
-                    </p>
-                </div>
+                        <div class="signature-block"></div>
+
+                        <div class="signature-block">
+                            <div class="signature-text">Rahul Singh Rajput</div>
+                            <div class="signature-line"></div>
+                            <div class="signature-name">Rahul Singh Rajput</div>
+                            <div class="signature-title">Co-Founder</div>
+                        </div>
+                    </div>
+                </main>
+
+                <footer class="certificate-footer">
+                    <p>For more information, visit our website:</p>
+                    <p class="footer-website">www.brandmarksolutions.site</p>
+                    <p>Copyright BrandMark Solutions. All Rights Reserved.</p>
+                    <p class="footer-company">BrandMark Solutions</p>
+                </footer>
             </div>
         </div>
 
-        <!-- Action Buttons -->
-        <div class="action-area no-print flex flex-wrap gap-4 justify-center mb-8 cert-fade" style="animation-delay:0.4s">
-            <button onclick="window.print()" class="print-btn">
-                <i class="fas fa-print text-lg"></i>Download / Print Certificate
-            </button>
-            <button onclick="copyShareLink()" class="share-btn">
-                <i class="fas fa-link text-lg"></i>Copy Certificate Link
-            </button>
-            <a href="fullstack-course.html" class="share-btn" style="text-decoration:none">
-                <i class="fas fa-arrow-left"></i>Back to Course
-            </a>
-        </div>
-
-        <!-- What's Next -->
-        <div class="no-print max-w-3xl w-full px-4 mb-10 cert-fade" style="animation-delay:0.6s">
-            <div class="bg-white/5 backdrop-blur rounded-2xl p-6 border border-white/10">
-                <h3 class="text-lg font-bold text-white mb-5 text-center"><i class="fas fa-road text-brand-orange mr-2"></i>What's Next in Your Career</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="bg-white/5 rounded-xl p-4 text-center border border-white/10">
-                        <i class="fab fa-github text-white text-2xl mb-2"></i>
-                        <p class="text-white font-bold text-sm mb-1">Build Your Portfolio</p>
-                        <p class="text-gray-400 text-xs">Push the Task Management SaaS project to GitHub with a great README</p>
-                    </div>
-                    <div class="bg-white/5 rounded-xl p-4 text-center border border-white/10">
-                        <i class="fab fa-linkedin text-blue-400 text-2xl mb-2"></i>
-                        <p class="text-white font-bold text-sm mb-1">Update LinkedIn</p>
-                        <p class="text-gray-400 text-xs">Add this certification to your LinkedIn profile and connect with developers</p>
-                    </div>
-                    <div class="bg-white/5 rounded-xl p-4 text-center border border-white/10">
-                        <i class="fas fa-rocket text-brand-orange text-2xl mb-2"></i>
-                        <p class="text-white font-bold text-sm mb-1">Apply for Roles</p>
-                        <p class="text-gray-400 text-xs">You're ready for Junior Full Stack Developer and React Developer roles</p>
-                    </div>
-                </div>
-            </div>
+        <div class="action-buttons">
+            <button class="btn btn-download" onclick="printCertificate()"><i class="fas fa-download"></i> Download</button>
+            <button class="btn btn-dashboard" onclick="goToDashboard()"><i class="fas fa-home"></i> Back to Dashboard</button>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer class="no-print border-t border-white/10 bg-brand-navy-dark/70 py-8 px-4">
-        <div class="max-w-7xl mx-auto text-center text-gray-400 text-sm">
-            <p>&copy; 2025 BrandMark Solutions  -  UDYAM: UDYAM-BR-26-0213927 | GST: 10LCTPS4278Q1ZD</p>
-        </div>
-    </footer>
 
     <script>
-        function copyShareLink() {
-            navigator.clipboard.writeText(window.location.href)
-                .then(() => alert('Certificate link copied to clipboard!'))
-                .catch(() => alert('Copy manually: ' + window.location.href));
+        function printCertificate() {
+            window.print();
         }
 
-        (function init() {
-            const quizDone    = localStorage.getItem('FS_QUIZ_COMPLETED') === 'true';
-            const projectDone = localStorage.getItem('FS_PROJECT_COMPLETED') === 'true';
+        function goToDashboard() {
+            window.location.href = 'fullstack-dashboard.html';
+        }
 
-            if (!quizDone && !projectDone) {
-                showAccessDenied('You need to complete both the Mock Test and the Final Project to earn your certificate.', [
-                    { label: '[TEST] Take Mock Test', href: 'fullstack-quiz.html' },
-                    { label: '[WORKSPACE] Go to Project Workspace', href: 'fullstack-project-workspace.html' }
-                ]);
+        function generateCertificateId() {
+            const year = new Date().getFullYear();
+            const randomCode = Math.random().toString(36).slice(2, 11).toUpperCase();
+            return `BM-FS-${year}-${randomCode}`;
+        }
+
+        function saveCertificateRecord(record) {
+            try {
+                const raw = localStorage.getItem('BRANDMARK_CERTIFICATES');
+                const records = raw ? JSON.parse(raw) : [];
+                const safeRecords = Array.isArray(records) ? records : [];
+                const index = safeRecords.findIndex((item) => item.certificateId === record.certificateId);
+                if (index >= 0) {
+                    safeRecords[index] = { ...safeRecords[index], ...record };
+                } else {
+                    safeRecords.push(record);
+                }
+                localStorage.setItem('BRANDMARK_CERTIFICATES', JSON.stringify(safeRecords));
+            } catch (error) {
+                console.warn('Unable to save certificate record', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const modulesCompleted = localStorage.getItem('FS_MODULES_1_TO_15_COMPLETED') === 'true';
+            const projectCompleted = localStorage.getItem('FS_PROJECT_COMPLETED') === 'true';
+            const quizCompleted = localStorage.getItem('FS_QUIZ_COMPLETED') === 'true';
+            const quizPassed = localStorage.getItem('FS_QUIZ_PASSED') === 'true';
+            const quizScore = Number(localStorage.getItem('FS_QUIZ_SCORE') || '0');
+
+            if (!(modulesCompleted && projectCompleted && quizCompleted && quizPassed && quizScore >= 80)) {
+                alert('Certificate is available only after completing Modules 1-15, passing the 20-question mock test with 80%+, and completing the Full Stack final project.');
+                window.location.replace('fullstack-dashboard.html');
                 return;
             }
-            if (!quizDone) {
-                showAccessDenied('You need to pass the Mock Test first.', [
-                    { label: '[TEST] Take Mock Test Now', href: 'fullstack-quiz.html' }
-                ]);
-                return;
-            }
-            if (!projectDone) {
-                showAccessDenied('You need to complete the Final Project first.', [
-                    { label: '[WORKSPACE] Go to Project Workspace', href: 'fullstack-project-workspace.html' }
-                ]);
-                return;
-            }
 
-            // All gates passed  -  populate certificate
-            const name    = localStorage.getItem('STUDENT_NAME') || 'Full Stack Developer';
-            const date    = localStorage.getItem('FS_CERTIFICATE_DATE') || new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
-            const id      = localStorage.getItem('FS_CERTIFICATE_ID') || ('BM-FS-' + Date.now().toString(36).toUpperCase());
-            const score   = localStorage.getItem('FS_CERTIFICATE_SCORE') || ' - ';
-            const correct = localStorage.getItem('FS_CERTIFICATE_CORRECT') || ' - ';
-
-            document.getElementById('heroName').textContent = name.split(' ')[0];
-            document.getElementById('certName').textContent = name;
-            document.getElementById('certDate').textContent = date;
-            document.getElementById('certId').textContent = id;
-            document.getElementById('certScore').textContent = score !== ' - ' ? score + '%' : ' - ';
-            document.getElementById('certCorrect').textContent = correct !== ' - ' ? correct + '/15' : ' - ';
-
-            document.getElementById('certContent').style.display = 'flex';
-        })();
-
-        function showAccessDenied(msg, links) {
-            document.getElementById('certContent').style.display = 'none';
-            const panel = document.getElementById('accessDeniedPanel');
-            panel.style.display = 'flex';
-            document.getElementById('accessDeniedMsg').textContent = msg;
-            const linksContainer = document.getElementById('accessDeniedLink');
-            links.forEach(l => {
-                const a = document.createElement('a');
-                a.href = l.href;
-                a.className = 'block w-full py-3 px-6 text-white font-bold rounded-xl text-center hover:opacity-90 transition';
-                a.style.background = 'linear-gradient(to right, #F26A21, #E65C17)';
-                a.textContent = l.label;
-                linksContainer.appendChild(a);
+            const studentName = localStorage.getItem('STUDENT_NAME') || 'Student Name';
+            const completionDate = localStorage.getItem('FS_CERTIFICATE_DATE') || new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
             });
-        }
+
+            let certId = localStorage.getItem('FS_CERTIFICATE_ID');
+            if (!certId) {
+                certId = generateCertificateId();
+                localStorage.setItem('FS_CERTIFICATE_ID', certId);
+            }
+
+            localStorage.setItem('FS_CERTIFICATE_DATE', completionDate);
+
+            document.getElementById('studentName').textContent = studentName;
+            document.getElementById('completionDate').textContent = completionDate;
+            document.getElementById('certId').textContent = certId;
+
+            saveCertificateRecord({
+                certificateId: certId,
+                studentName,
+                course: 'Full Stack Web Development with MERN + GenAI',
+                score: quizScore,
+                issueDate: completionDate,
+                status: 'valid'
+            });
+        });
     </script>
-    <script src="brandmark.js?v=20260704"></script>
 </body>
 </html>
-
-

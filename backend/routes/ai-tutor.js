@@ -18,6 +18,36 @@ const COURSE_TEACHER_PERSONA = {
   default: 'You are a senior teacher for Digital Marketing and Full Stack subjects.'
 };
 
+const COURSE_TOPICS = {
+  'digital-marketing': [
+    'digital marketing', 'seo', 'sem', 'ppc', 'google ads', 'meta ads', 'facebook ads',
+    'instagram ads', 'youtube ads', 'campaign', 'ad copy', 'landing page', 'conversion',
+    'ctr', 'cpc', 'cpa', 'roas', 'analytics', 'ga4', 'google analytics', 'keyword',
+    'backlink', 'on-page', 'off-page', 'technical seo', 'content strategy', 'funnel',
+    'lead generation', 'email marketing', 'newsletter', 'automation', 'retention',
+    'remarketing', 'retargeting', 'audience', 'branding', 'social media', 'engagement'
+  ],
+  fullstack: [
+    'full stack', 'fullstack', 'mern', 'react', 'node', 'nodejs', 'express', 'mongodb',
+    'mongoose', 'javascript', 'typescript', 'api', 'rest', 'jwt', 'authentication',
+    'authorization', 'crud', 'frontend', 'backend', 'database', 'schema', 'deployment',
+    'debug', 'bug', 'cors', 'routing', 'state', 'redux', 'component', 'hook', 'useeffect',
+    'html', 'css', 'git', 'github', 'docker', 'testing', 'jest', 'postman'
+  ]
+};
+
+const CROSS_COURSE_TOPICS = {
+  'digital-marketing': COURSE_TOPICS.fullstack,
+  fullstack: COURSE_TOPICS['digital-marketing']
+};
+
+const NON_DOMAIN_HINTS = [
+  'weather', 'movie', 'movies', 'song', 'songs', 'poem', 'poetry', 'joke', 'jokes',
+  'recipe', 'cook', 'cooking', 'travel', 'trip', 'astrology', 'horoscope', 'cricket',
+  'football', 'politics', 'dating', 'relationship', 'medical', 'health', 'legal advice',
+  'stock market', 'crypto', 'bitcoin'
+];
+
 const COURSE_KNOWLEDGE = {
   'digital-marketing': {
     seo: {
@@ -46,7 +76,7 @@ const COURSE_KNOWLEDGE = {
 };
 
 // FREE endpoint using Hugging Face API (5000 free requests/month)
-router.post('/', async (req, res) => {
+async function tutorHandler(req, res) {
   try {
     const { question, language, course, history } = req.body;
 
@@ -57,6 +87,17 @@ router.post('/', async (req, res) => {
     const normalizedLanguage = SUPPORTED_LANGUAGES.includes(language) ? language : 'en';
     const normalizedCourse = course === 'fullstack' ? 'fullstack' : 'digital-marketing';
     const safeHistory = Array.isArray(history) ? history.slice(-6) : [];
+
+    const guardrailCheck = validateCourseDomain(question, normalizedCourse);
+    if (!guardrailCheck.allowed) {
+      return res.json({
+        success: true,
+        answer: getGuardrailResponse(normalizedLanguage, normalizedCourse, guardrailCheck.reason),
+        language: normalizedLanguage,
+        course: normalizedCourse,
+        restricted: true
+      });
+    }
 
     // First, check if answer is in local knowledge base
     let answer = findInKnowledgeBase(question, normalizedLanguage, normalizedCourse);
@@ -84,7 +125,9 @@ router.post('/', async (req, res) => {
       error: 'Unable to process your question. Please try again.'
     });
   }
-});
+}
+
+router.post('/', tutorHandler);
 
 // Search knowledge base
 function findInKnowledgeBase(question, language, course) {
@@ -98,6 +141,95 @@ function findInKnowledgeBase(question, language, course) {
   }
 
   return null;
+}
+
+function hasAnyTopic(text, topics) {
+  return topics.some((topic) => text.includes(topic));
+}
+
+function validateCourseDomain(question, course) {
+  const q = String(question || '').toLowerCase().trim();
+  if (!q) {
+    return { allowed: false, reason: 'empty' };
+  }
+
+  if (q.length <= 3) {
+    return { allowed: false, reason: 'vague' };
+  }
+
+  const greetings = ['hi', 'hello', 'hey', 'good morning', 'good evening'];
+  if (greetings.some((greet) => q === greet || q.startsWith(`${greet} `))) {
+    return { allowed: false, reason: 'greeting' };
+  }
+
+  const courseTopics = COURSE_TOPICS[course] || [];
+  const otherTopics = CROSS_COURSE_TOPICS[course] || [];
+
+  if (hasAnyTopic(q, NON_DOMAIN_HINTS)) {
+    return { allowed: false, reason: 'outside-domain' };
+  }
+
+  if (hasAnyTopic(q, otherTopics) && !hasAnyTopic(q, courseTopics)) {
+    return { allowed: false, reason: 'wrong-course' };
+  }
+
+  if (!hasAnyTopic(q, courseTopics)) {
+    return { allowed: false, reason: 'unclear-course-topic' };
+  }
+
+  return { allowed: true };
+}
+
+function getGuardrailResponse(language, course, reason) {
+  const isFullStack = course === 'fullstack';
+
+  if (language === 'hi') {
+    if (reason === 'greeting') {
+      return isFullStack
+        ? 'नमस्ते! मैं सिर्फ Full Stack (MERN) कोर्स के सवालों में मदद करता हूँ। कृपया अपना coding सवाल भेजें, जैसे React, Node, Express, MongoDB, API, JWT या CORS।'
+        : 'नमस्ते! मैं सिर्फ Digital Marketing कोर्स के सवालों में मदद करता हूँ। कृपया अपना सवाल भेजें, जैसे SEO, Ads, Funnel, Analytics, Content Strategy या Lead Generation।';
+    }
+    if (reason === 'wrong-course') {
+      return isFullStack
+        ? 'यह सवाल Full Stack कोर्स से बाहर लगता है। मैं अभी सिर्फ Full Stack (MERN) topics पर मदद कर सकता हूँ। अगर चाहें तो अपना coding सवाल भेजें।'
+        : 'यह सवाल Digital Marketing कोर्स से बाहर लगता है। मैं अभी सिर्फ Digital Marketing topics पर मदद कर सकता हूँ। कृपया course-related सवाल भेजें।';
+    }
+    return isFullStack
+      ? 'मैं केवल Full Stack (MERN) कोर्स से जुड़े सवालों का जवाब दे सकता हूँ। कृपया React, Node, Express, MongoDB, APIs, Auth, Debugging या Deployment से जुड़ा specific सवाल पूछें।'
+      : 'मैं केवल Digital Marketing कोर्स से जुड़े सवालों का जवाब दे सकता हूँ। कृपया SEO, PPC, Social Media, Email Marketing, Funnel, Analytics या Campaign Optimization से जुड़ा specific सवाल पूछें।';
+  }
+
+  if (language === 'ar') {
+    if (reason === 'greeting') {
+      return isFullStack
+        ? 'مرحباً! أنا أساعد فقط في أسئلة دورة Full Stack (MERN). أرسل سؤالك البرمجي حول React أو Node أو Express أو MongoDB أو APIs أو JWT أو CORS.'
+        : 'مرحباً! أنا أساعد فقط في أسئلة دورة التسويق الرقمي. أرسل سؤالك حول SEO أو الإعلانات أو القمع التسويقي أو التحليلات أو استراتيجية المحتوى أو توليد العملاء المحتملين.';
+    }
+    if (reason === 'wrong-course') {
+      return isFullStack
+        ? 'يبدو أن هذا السؤال خارج نطاق دورة Full Stack. أستطيع المساعدة فقط في موضوعات Full Stack (MERN) حالياً.'
+        : 'يبدو أن هذا السؤال خارج نطاق دورة التسويق الرقمي. أستطيع المساعدة فقط في موضوعات التسويق الرقمي حالياً.';
+    }
+    return isFullStack
+      ? 'يمكنني الإجابة فقط على أسئلة دورة Full Stack (MERN). من فضلك اسأل سؤالاً محدداً عن React أو Node أو Express أو MongoDB أو APIs أو المصادقة أو النشر.'
+      : 'يمكنني الإجابة فقط على أسئلة دورة التسويق الرقمي. من فضلك اسأل سؤالاً محدداً عن SEO أو PPC أو السوشال ميديا أو البريد الإلكتروني أو القمع أو التحليلات أو تحسين الحملات.';
+  }
+
+  if (reason === 'greeting') {
+    return isFullStack
+      ? 'Hi! I can help only with Full Stack (MERN) course questions. Ask me about React, Node, Express, MongoDB, APIs, JWT, CORS, debugging, or deployment.'
+      : 'Hi! I can help only with Digital Marketing course questions. Ask me about SEO, ads, funnels, analytics, content strategy, or lead generation.';
+  }
+
+  if (reason === 'wrong-course') {
+    return isFullStack
+      ? 'This looks outside the current Full Stack course scope. I can help with Full Stack (MERN) topics only right now. Share a coding question and I will guide you step by step.'
+      : 'This looks outside the current Digital Marketing course scope. I can help with Digital Marketing topics only right now. Share a campaign or growth question and I will guide you step by step.';
+  }
+
+  return isFullStack
+    ? 'I can answer only Full Stack (MERN) course questions. Please ask a specific question on React, Node, Express, MongoDB, APIs, auth, debugging, or deployment.'
+    : 'I can answer only Digital Marketing course questions. Please ask a specific question on SEO, PPC, social media, email marketing, funnel strategy, analytics, or campaign optimization.';
 }
 
 // FREE Hugging Face API (completely free)
@@ -116,13 +248,12 @@ async function getAnswerFromHuggingFace(question, language, course, history) {
     const prompt = [
       teacherPersona,
       `Reply only in ${responseLanguage}.`,
-      'Act like a warm human teacher, not a bot.',
-      'Response format:',
-      '1) Brief understanding of the student question.',
-      '2) Clear explanation in simple words.',
-      '3) One practical example.',
-      '4) One short follow-up question to check understanding.',
-      'Keep answer concise (120-180 words).',
+      'Sound like a natural, warm mentor with human conversation style.',
+      'Keep the response concise but helpful (90-170 words).',
+      'Use simple language, short paragraphs, and practical clarity.',
+      'Include one concrete example from real projects or campaigns.',
+      'End with one short follow-up question to check understanding.',
+      `If the question is not about ${course === 'fullstack' ? 'Full Stack (MERN)' : 'Digital Marketing'}, politely refuse and ask for a course-related question.`,
       historyText ? `Recent conversation:\n${historyText}` : 'No previous conversation.',
       `Student question: ${question}`
     ].join('\n\n');
@@ -214,3 +345,4 @@ function getTeacherFallback(question, language, course) {
 }
 
 module.exports = router;
+module.exports.tutorHandler = tutorHandler;
