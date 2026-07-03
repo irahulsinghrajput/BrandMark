@@ -179,6 +179,8 @@ app.use('/api/blog', require('./routes/blog'));
 console.log('✅ Blog routes loaded');
 app.use('/api/ai-tutor', require('./routes/ai-tutor'));
 console.log('✅ AI Tutor routes loaded');
+app.use('/api/tutor', require('./routes/tutor'));
+console.log('✅ Tutor compatibility route loaded');
 app.use('/api/generate-voice', require('./routes/generate-voice'));
 console.log('✅ Voice generation routes loaded');
 app.use('/api/admin', require('./routes/admin'));

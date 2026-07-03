@@ -46,7 +46,7 @@ const COURSE_KNOWLEDGE = {
 };
 
 // FREE endpoint using Hugging Face API (5000 free requests/month)
-router.post('/', async (req, res) => {
+async function tutorHandler(req, res) {
   try {
     const { question, language, course, history } = req.body;
 
@@ -84,7 +84,9 @@ router.post('/', async (req, res) => {
       error: 'Unable to process your question. Please try again.'
     });
   }
-});
+}
+
+router.post('/', tutorHandler);
 
 // Search knowledge base
 function findInKnowledgeBase(question, language, course) {
@@ -214,3 +216,4 @@ function getTeacherFallback(question, language, course) {
 }
 
 module.exports = router;
+module.exports.tutorHandler = tutorHandler;
