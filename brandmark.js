@@ -553,6 +553,19 @@ const CHAT_API_URL = `${API_URL}/chat`;
 function createChatWidget() {
     if (document.getElementById('bm-chat-widget')) return;
 
+    const path = window.location.pathname.toLowerCase();
+    const isCourseArea = path.includes('digital-marketing-course.html') ||
+        path.includes('fullstack-course.html') ||
+        path.includes('course-dashboard.html') ||
+        path.includes('fullstack-dashboard.html') ||
+        path.includes('course-module-') ||
+        path.includes('fullstack-module-') ||
+        path.includes('fullstack-project-workspace.html');
+
+    if (isCourseArea) {
+        return;
+    }
+
     const widget = document.createElement('div');
     widget.id = 'bm-chat-widget';
     widget.style.cssText = 'position:fixed !important; bottom:30px !important; right:30px !important; z-index:1100 !important;';
