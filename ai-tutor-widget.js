@@ -16,6 +16,7 @@
     lang: 'en',
     busy: false,
     opened: false,
+    audioEnabled: true,
     history: loadHistory()
   };
 
@@ -118,6 +119,7 @@
       '#bm-assist-text{flex:1;min-width:0;border:1px solid #dfe6ee;border-radius:10px;padding:10px 11px;font:500 13px Outfit,sans-serif;outline:0}' +
       '#bm-assist-text:focus{border-color:#f26a21;box-shadow:0 0 0 3px rgba(242,106,33,.12)}' +
       '.bm-a-btn{border:0;border-radius:10px;width:38px;height:38px;cursor:pointer;font-size:16px}' +
+      '#bm-assist-audio{background:#0b2c4d;color:#fff}#bm-assist-audio.off{background:#9ca3af;color:#fff}' +
       '#bm-assist-voice{background:#193c62;color:#fff}#bm-assist-send{background:#f26a21;color:#fff}' +
       '.bm-a-typing{display:inline-flex;align-items:center;gap:5px}.bm-a-typing i{display:block;width:6px;height:6px;border-radius:50%;background:#f26a21;animation:bmA 1s infinite}.bm-a-typing i:nth-child(2){animation-delay:.15s}.bm-a-typing i:nth-child(3){animation-delay:.3s}@keyframes bmA{0%,80%,100%{transform:translateY(0);opacity:.5}40%{transform:translateY(-4px);opacity:1}}' +
       '@media (max-width:540px){#bm-assist-panel{right:10px;bottom:84px;width:calc(100vw - 20px);height:70vh}#bm-assist-fab{right:14px;bottom:16px}}';
@@ -145,6 +147,7 @@
       '  <div id="bm-assist-chips"></div>' +
       '  <div id="bm-assist-input">' +
       '    <input id="bm-assist-text" type="text" />' +
+      '    <button id="bm-assist-audio" class="bm-a-btn" title="Toggle voice output">🔊</button>' +
       '    <button id="bm-assist-voice" class="bm-a-btn" title="Voice">🎤</button>' +
       '    <button id="bm-assist-send" class="bm-a-btn" title="Send">➜</button>' +
       '  </div>' +
@@ -163,6 +166,7 @@
       msgs: root.querySelector('#bm-assist-msgs'),
       chips: root.querySelector('#bm-assist-chips'),
       input: root.querySelector('#bm-assist-text'),
+      audio: root.querySelector('#bm-assist-audio'),
       send: root.querySelector('#bm-assist-send'),
       voice: root.querySelector('#bm-assist-voice')
     };
@@ -170,6 +174,7 @@
 
   function bindEvents(ui) {
     refreshStaticText(ui);
+    refreshAudioButton(ui);
 
     ui.fab.addEventListener('click', function () {
       state.opened = !state.opened;
@@ -190,10 +195,17 @@
     });
 
     ui.clear.addEventListener('click', function () {
+      stopSpeaking();
       state.history = [];
       saveHistory();
       ui.msgs.innerHTML = '';
       appendBot(ui, TEXT[state.lang].greeting, false);
+    });
+
+    ui.audio.addEventListener('click', function () {
+      state.audioEnabled = !state.audioEnabled;
+      refreshAudioButton(ui);
+      if (!state.audioEnabled) stopSpeaking();
     });
 
     ui.langButtons.forEach(function (button) {
@@ -226,6 +238,31 @@
       recog.onend = function () { ui.voice.textContent = '🎤'; };
       recog.start();
     });
+  }
+
+  function refreshAudioButton(ui) {
+    if (!ui.audio) return;
+    ui.audio.textContent = state.audioEnabled ? '🔊' : '🔇';
+    ui.audio.classList.toggle('off', !state.audioEnabled);
+  }
+
+  function stopSpeaking() {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+  }
+
+  function speakAnswer(text) {
+    if (!state.audioEnabled || !('speechSynthesis' in window)) return;
+
+    var clean = String(text || '').replace(/\s+/g, ' ').trim();
+    if (!clean) return;
+
+    stopSpeaking();
+    var utterance = new SpeechSynthesisUtterance(clean);
+    utterance.lang = state.lang === 'hi' ? 'hi-IN' : state.lang === 'ar' ? 'ar-SA' : 'en-US';
+    utterance.rate = 1;
+    utterance.pitch = 1;
+    window.speechSynthesis.speak(utterance);
   }
 
   function refreshStaticText(ui) {
@@ -396,6 +433,7 @@
     hideTyping();
 
     appendBot(ui, result.answer, result.warning);
+    speakAnswer(result.answer);
     state.history.push({ role: 'assistant', content: result.answer, warning: result.warning ? 1 : 0 });
     state.history = state.history.slice(-MAX_HISTORY);
     saveHistory();
