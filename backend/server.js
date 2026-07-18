@@ -61,7 +61,7 @@ const allowedOrigins = [
     'null'
 ];
 
-const CORS_ALLOWED_HEADERS = 'Content-Type, Authorization, X-CSRF-Token';
+const CORS_ALLOWED_HEADERS = 'Content-Type, Authorization, X-CSRF-Token, X-API-Key';
 const CORS_ALLOWED_METHODS = 'GET,POST,PUT,DELETE,PATCH,OPTIONS';
 
 // Ensure file:// (Origin: null) requests always get explicit CORS headers.
@@ -137,11 +137,18 @@ function validateCsrfToken(req, res, next) {
     next();
 }
 
+// ─── Meta Webhooks (MUST be mounted BEFORE CSRF — Meta does not send CSRF tokens) ───
+// Raw body is needed for Meta signature verification
+app.use('/api/webhooks', require('./routes/webhookRoutes'));
+console.log('✅ Meta webhook routes loaded (pre-CSRF)');
+
 // Apply CSRF protection to form routes
 app.use('/api/contact', validateCsrfToken);
 app.use('/api/careers', validateCsrfToken);
 app.use('/api/newsletter', validateCsrfToken);
 app.use('/api/quotes', validateCsrfToken);
+app.use('/api/audit', validateCsrfToken);
+
 
 // Apply CSRF protection to admin endpoints
 app.post('/api/admin/login', validateCsrfToken);
@@ -199,15 +206,61 @@ app.use('/api/students', require('./routes/students'));
 console.log('✅ Students routes loaded');
 app.use('/api/analytics', require('./routes/analytics'));
 console.log('✅ Analytics routes loaded');
+app.use('/api/audit', require('./routes/audit'));
+console.log('✅ Audit routes loaded');
+app.use('/api/social', require('./routes/socialRoutes'));
+console.log('✅ Social automation routes loaded');
+
 
 // Health Check
 app.get('/api/health', (req, res) => {
     res.json({ 
         status: 'OK', 
         message: 'BrandMark API is running',
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV || 'development'
     });
 });
+
+// N8N Connectivity Diagnostic
+app.get('/api/health/n8n', async (req, res) => {
+    try {
+        const { pingN8n } = require('./services/n8nWebhookService');
+        const webhookUrl = process.env.N8N_WEBHOOK_URL || 'not configured';
+        const reachable = await pingN8n();
+        res.json({
+            n8n_reachable: reachable,
+            webhook_configured: webhookUrl !== 'not configured',
+            webhook_host: webhookUrl.replace(/\/webhook.*$/, '') || 'N/A',
+            timestamp: new Date().toISOString()
+        });
+    } catch (err) {
+        res.status(500).json({ n8n_reachable: false, error: err.message });
+    }
+});
+
+// Social Ecosystem Health Check
+app.get('/api/health/social', async (req, res) => {
+    try {
+        const geminiConfigured = !!(process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'your_gemini_api_key_here');
+        const metaConfigured   = !!process.env.META_ACCESS_TOKEN;
+        const linkedinConfigured = !!process.env.LINKEDIN_ACCESS_TOKEN;
+        const webhookConfigured  = !!process.env.META_VERIFY_TOKEN;
+        res.json({
+            status: 'OK',
+            services: {
+                gemini_ai:    { configured: geminiConfigured, model: 'gemini-1.5-flash', tier: 'free-15rpm' },
+                meta_cloud:   { configured: metaConfigured,   channels: ['whatsapp', 'instagram', 'facebook'] },
+                linkedin:     { configured: linkedinConfigured, tier: 'free' },
+                meta_webhook: { configured: webhookConfigured, path: '/api/webhooks/meta' }
+            },
+            timestamp: new Date().toISOString()
+        });
+    } catch (err) {
+        res.status(500).json({ status: 'ERROR', error: err.message });
+    }
+});
+
 
 // Debug: Test order route
 app.get('/api/test-order-route', (req, res) => {

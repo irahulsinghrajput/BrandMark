@@ -6,21 +6,62 @@ services:
     buildCommand: npm install
     startCommand: npm start
     envVars:
+      # ── Core ────────────────────────────────────────────────────────
       - key: MONGODB_URI
         sync: false
       - key: JWT_SECRET
         sync: false
-      - key: EMAIL_USER
-        sync: false
-      - key: EMAIL_PASS
-        sync: false
-      - key: GEMINI_API_KEY
-        sync: false
-      - key: GEMINI_MODEL
-        value: gemini-1.5-flash
-      - key: FRONTEND_URL
-        value: https://brandmarksolutions.site
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 10000
+      - key: FRONTEND_URL
+        value: https://brandmarksolutions.site
+
+      # ── Email ────────────────────────────────────────────────────────
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+
+      # ── N8N Automation ───────────────────────────────────────────────
+      # Set these in Render Dashboard → Environment tab
+      - key: N8N_WEBHOOK_URL
+        sync: false
+      - key: N8N_WEBHOOK_SECRET
+        sync: false
+
+      # ── Gemini 1.5 Flash AI (Free: 15 RPM) ──────────────────────────
+      # Get API key FREE at: https://aistudio.google.com/app/apikey
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-1.5-flash
+
+      # ── Meta Cloud API (WhatsApp / Instagram / Facebook) ─────────────
+      # Create app at: https://developers.facebook.com
+      # Webhook URL: https://brandmark-backend.onrender.com/api/webhooks/meta
+      - key: META_VERIFY_TOKEN
+        sync: false
+      - key: META_ACCESS_TOKEN
+        sync: false
+      - key: META_PHONE_NUMBER_ID
+        sync: false
+      - key: INSTAGRAM_PAGE_ID
+        sync: false
+      - key: FACEBOOK_PAGE_TOKEN
+        sync: false
+
+      # ── LinkedIn Developer API (Free Tier) ───────────────────────────
+      # Create app at: https://www.linkedin.com/developers/
+      - key: LINKEDIN_ACCESS_TOKEN
+        sync: false
+      - key: LINKEDIN_PERSON_URN
+        sync: false
+      - key: LINKEDIN_ORG_URN
+        sync: false
+
+      # ── Internal API Key (protects /api/social/* endpoints) ──────────
+      # Generate: openssl rand -hex 32
+      - key: INTERNAL_API_KEY
+        sync: false
