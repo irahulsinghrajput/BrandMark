@@ -1,11 +1,11 @@
 const nodemailer = require('nodemailer');
 
-// Create transporter
-const createTransporter = () => {
+// Transporter for internal alerts (Gmail)
+const createInternalTransporter = () => {
     return nodemailer.createTransport({
         host: process.env.EMAIL_HOST || 'smtp.gmail.com',
         port: process.env.EMAIL_PORT || 587,
-        secure: false, // true for 465, false for other ports
+        secure: false, 
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS
@@ -13,16 +13,27 @@ const createTransporter = () => {
     });
 };
 
+// Transporter for public-facing client emails (Namecheap Private Email)
+const createClientTransporter = () => {
+    return nodemailer.createTransport({
+        host: process.env.CLIENT_EMAIL_HOST || 'mail.privateemail.com',
+        port: process.env.CLIENT_EMAIL_PORT || 465,
+        secure: true, 
+        auth: {
+            user: process.env.CLIENT_EMAIL_USER || process.env.EMAIL_USER,
+            pass: process.env.CLIENT_EMAIL_PASS || process.env.EMAIL_PASS
+        }
+    });
+};
+
+// ─── INTERNAL ALERTS (Uses info... Gmail) ────────────────────────────────────
+
 // Send contact form email to admin
 const sendContactEmail = async (contactData) => {
     try {
-        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-            console.warn('⚠️ Email credentials not configured. Skipping email send.');
-            return { success: false, message: 'Email not configured' };
-        }
-
-        const transporter = createTransporter();
+        if (!process.env.EMAIL_USER) return { success: false, message: 'Email not configured' };
         
+        const transporter = createInternalTransporter();
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
@@ -43,7 +54,6 @@ const sendContactEmail = async (contactData) => {
                 </div>
             `
         };
-
         await transporter.sendMail(mailOptions);
         return { success: true, message: 'Email sent successfully' };
     } catch (error) {
@@ -52,53 +62,12 @@ const sendContactEmail = async (contactData) => {
     }
 };
 
-// Send auto-reply to contact form submitter
-const sendContactAutoReply = async (email, name) => {
-    try {
-        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-            return { success: false, message: 'Email not configured' };
-        }
-
-        const transporter = createTransporter();
-        
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: email,
-            subject: 'Thank you for contacting BrandMark Solutions',
-            html: `
-                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                    <h2 style="color: #F26A21;">Thank You for Reaching Out!</h2>
-                    <p>Dear ${name},</p>
-                    <p>Thank you for contacting BrandMark Solutions. We have received your message and will get back to you as soon as possible.</p>
-                    <p>Our team typically responds within 24-48 hours during business days.</p>
-                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                        <p style="margin: 0;"><strong>BrandMark Solutions</strong></p>
-                        <p style="margin: 5px 0;">Empowering MSMEs with Creative Solutions</p>
-                        <p style="margin: 5px 0;">Website: <a href="https://brandmarksolutions.site">brandmarksolutions.site</a></p>
-                    </div>
-                    <p style="color: #6c757d; font-size: 12px;">This is an automated message. Please do not reply directly to this email.</p>
-                </div>
-            `
-        };
-
-        await transporter.sendMail(mailOptions);
-        return { success: true, message: 'Auto-reply sent successfully' };
-    } catch (error) {
-        console.error('Error sending auto-reply:', error);
-        return { success: false, message: error.message };
-    }
-};
-
 // Send career application email to admin
 const sendCareerEmail = async (applicationData) => {
     try {
-        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-            console.warn('⚠️ Email credentials not configured. Skipping email send.');
-            return { success: false, message: 'Email not configured' };
-        }
+        if (!process.env.EMAIL_USER) return { success: false, message: 'Email not configured' };
 
-        const transporter = createTransporter();
-        
+        const transporter = createInternalTransporter();
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
@@ -122,7 +91,6 @@ const sendCareerEmail = async (applicationData) => {
                 </div>
             `
         };
-
         await transporter.sendMail(mailOptions);
         return { success: true, message: 'Email sent successfully' };
     } catch (error) {
@@ -131,64 +99,13 @@ const sendCareerEmail = async (applicationData) => {
     }
 };
 
-// Send newsletter welcome email
-const sendNewsletterWelcome = async (email) => {
-    try {
-        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-            return { success: false, message: 'Email not configured' };
-        }
-
-        const transporter = createTransporter();
-        
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: email,
-            subject: 'Welcome to BrandMark Solutions Newsletter!',
-            html: `
-                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                    <h2 style="color: #F26A21;">Welcome to Our Newsletter!</h2>
-                    <p>Thank you for subscribing to BrandMark Solutions newsletter.</p>
-                    <p>You'll now receive updates about:</p>
-                    <ul>
-                        <li>Latest branding trends and tips</li>
-                        <li>Marketing insights for MSMEs</li>
-                        <li>Company news and announcements</li>
-                        <li>Exclusive offers and opportunities</li>
-                    </ul>
-                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                        <p style="margin: 0;"><strong>BrandMark Solutions</strong></p>
-                        <p style="margin: 5px 0;">Empowering MSMEs with Creative Solutions</p>
-                        <p style="margin: 5px 0;">Website: <a href="https://brandmarksolutions.site">brandmarksolutions.site</a></p>
-                    </div>
-                    <p style="color: #6c757d; font-size: 12px;">If you wish to unsubscribe, please contact us at ${process.env.EMAIL_USER}</p>
-                </div>
-            `
-        };
-
-        await transporter.sendMail(mailOptions);
-        return { success: true, message: 'Welcome email sent successfully' };
-    } catch (error) {
-        console.error('Error sending welcome email:', error);
-        return { success: false, message: error.message };
-    }
-};
-
 // Send quote request email to admin
 const sendQuoteEmail = async (quoteData) => {
     try {
-        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-            console.warn('⚠️ Email credentials not configured. Skipping email send.');
-            return { success: false, message: 'Email not configured' };
-        }
+        if (!process.env.EMAIL_USER) return { success: false, message: 'Email not configured' };
 
-        const transporter = createTransporter();
-
-        const marketLabel = quoteData.market === 'us'
-            ? 'US'
-            : quoteData.market === 'europe'
-                ? 'Europe'
-                : 'Middle East';
-
+        const transporter = createInternalTransporter();
+        const marketLabel = quoteData.market === 'us' ? 'US' : quoteData.market === 'europe' ? 'Europe' : 'Middle East';
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
@@ -215,7 +132,6 @@ const sendQuoteEmail = async (quoteData) => {
                 </div>
             `
         };
-
         await transporter.sendMail(mailOptions);
         return { success: true, message: 'Quote email sent successfully' };
     } catch (error) {
@@ -224,18 +140,83 @@ const sendQuoteEmail = async (quoteData) => {
     }
 };
 
+// ─── CLIENT-FACING EMAILS (Uses contact@ Namecheap Private Email) ────────────
+
+// Send auto-reply to contact form submitter
+const sendContactAutoReply = async (email, name) => {
+    try {
+        if (!process.env.CLIENT_EMAIL_USER && !process.env.EMAIL_USER) return { success: false, message: 'Email not configured' };
+
+        const transporter = createClientTransporter();
+        const mailOptions = {
+            from: process.env.CLIENT_EMAIL_USER || process.env.EMAIL_USER,
+            to: email,
+            subject: 'Thank you for contacting BrandMark Solutions',
+            html: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                    <h2 style="color: #F26A21;">Thank You for Reaching Out!</h2>
+                    <p>Dear ${name},</p>
+                    <p>Thank you for contacting BrandMark Solutions. We have received your message and will get back to you as soon as possible.</p>
+                    <p>Our team typically responds within 24-48 hours during business days.</p>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <p style="margin: 0;"><strong>BrandMark Solutions</strong></p>
+                        <p style="margin: 5px 0;">Empowering MSMEs with Creative Solutions</p>
+                        <p style="margin: 5px 0;">Website: <a href="https://brandmarksolutions.site">brandmarksolutions.site</a></p>
+                    </div>
+                    <p style="color: #6c757d; font-size: 12px;">This is an automated message. Please do not reply directly to this email.</p>
+                </div>
+            `
+        };
+        await transporter.sendMail(mailOptions);
+        return { success: true, message: 'Auto-reply sent successfully' };
+    } catch (error) {
+        console.error('Error sending auto-reply:', error);
+        return { success: false, message: error.message };
+    }
+};
+
+// Send newsletter welcome email
+const sendNewsletterWelcome = async (email) => {
+    try {
+        const transporter = createClientTransporter();
+        const mailOptions = {
+            from: process.env.CLIENT_EMAIL_USER || process.env.EMAIL_USER,
+            to: email,
+            subject: 'Welcome to BrandMark Solutions Newsletter!',
+            html: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                    <h2 style="color: #F26A21;">Welcome to Our Newsletter!</h2>
+                    <p>Thank you for subscribing to BrandMark Solutions newsletter.</p>
+                    <p>You'll now receive updates about:</p>
+                    <ul>
+                        <li>Latest branding trends and tips</li>
+                        <li>Marketing insights for MSMEs</li>
+                        <li>Company news and announcements</li>
+                        <li>Exclusive offers and opportunities</li>
+                    </ul>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <p style="margin: 0;"><strong>BrandMark Solutions</strong></p>
+                        <p style="margin: 5px 0;">Empowering MSMEs with Creative Solutions</p>
+                        <p style="margin: 5px 0;">Website: <a href="https://brandmarksolutions.site">brandmarksolutions.site</a></p>
+                    </div>
+                </div>
+            `
+        };
+        await transporter.sendMail(mailOptions);
+        return { success: true, message: 'Welcome email sent successfully' };
+    } catch (error) {
+        console.error('Error sending welcome email:', error);
+        return { success: false, message: error.message };
+    }
+};
+
 // Send quote auto-reply to submitter
 const sendQuoteAutoReply = async ({ email, name, serviceLabel, quoteDisplay, market }) => {
     try {
-        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-            return { success: false, message: 'Email not configured' };
-        }
-
-        const transporter = createTransporter();
+        const transporter = createClientTransporter();
         const marketLabel = market === 'us' ? 'US' : market === 'europe' ? 'Europe' : 'Middle East';
-
         const mailOptions = {
-            from: process.env.EMAIL_USER,
+            from: process.env.CLIENT_EMAIL_USER || process.env.EMAIL_USER,
             to: email,
             subject: 'Your BrandMark Quote Estimate',
             html: `
@@ -254,11 +235,9 @@ const sendQuoteAutoReply = async ({ email, name, serviceLabel, quoteDisplay, mar
                         <p style="margin: 0;"><strong>BrandMark Solutions</strong></p>
                         <p style="margin: 5px 0;">Website: <a href="https://brandmarksolutions.site">brandmarksolutions.site</a></p>
                     </div>
-                    <p style="color: #6c757d; font-size: 12px;">This is an automated message. Please do not reply directly to this email.</p>
                 </div>
             `
         };
-
         await transporter.sendMail(mailOptions);
         return { success: true, message: 'Quote auto-reply sent successfully' };
     } catch (error) {
