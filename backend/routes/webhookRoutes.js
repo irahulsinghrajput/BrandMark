@@ -130,9 +130,12 @@ async function forwardToN8n(payload) {
 
 // ─── GET /api/webhooks/meta ─── Challenge Verification ───────────────────────
 router.get('/meta', (req, res) => {
-  const mode      = req.query['hub.mode'];
-  const token     = req.query['hub.verify_token'];
-  const challenge = req.query['hub.challenge'];
+  console.log('ENTIRE REQ.QUERY:', req.query);
+  console.log('RAW URL:', req.originalUrl);
+  const urlObj = new URL(req.originalUrl, `http://${req.headers.host || 'localhost'}`);
+  const mode      = urlObj.searchParams.get('hub.mode');
+  const token     = urlObj.searchParams.get('hub.verify_token');
+  const challenge = urlObj.searchParams.get('hub.challenge');
 
   console.log('[MetaWebhook] 🔐 Verification request — mode:', mode, '| token match:', token === VERIFY_TOKEN);
 
