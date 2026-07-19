@@ -8,6 +8,120 @@ const API_URL = isLocalhost
     ? 'http://localhost:5001/api'     // Local Backend
     : 'https://brandmark-api-2026.onrender.com/api'; // Production Backend
 
+// ============= GROWTH ATTRIBUTION HELPERS =============
+const ATTRIBUTION_KEY = 'BM_ATTRIBUTION_V1';
+
+function parseCurrentUtmParams() {
+    const params = new URLSearchParams(window.location.search);
+    const keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'];
+    const parsed = {};
+
+    keys.forEach((key) => {
+        const value = params.get(key);
+        if (value) {
+            parsed[key] = value;
+        }
+    });
+
+    return parsed;
+}
+
+function getStoredAttribution() {
+    try {
+        const raw = localStorage.getItem(ATTRIBUTION_KEY);
+        return raw ? JSON.parse(raw) : null;
+    } catch (error) {
+        return null;
+    }
+}
+
+function saveAttribution(state) {
+    try {
+        localStorage.setItem(ATTRIBUTION_KEY, JSON.stringify(state));
+    } catch (error) {
+        // Ignore storage failures and continue with page behavior.
+    }
+}
+
+function captureAttributionTouch() {
+    const now = new Date().toISOString();
+    const utm = parseCurrentUtmParams();
+    const hasUtm = Object.keys(utm).length > 0;
+    const referrer = document.referrer || '';
+    const currentPath = `${window.location.pathname}${window.location.search}`;
+
+    const existing = getStoredAttribution() || {};
+    const fallbackSource = hasUtm
+        ? utm.utm_source || 'utm'
+        : (referrer ? 'referral' : 'direct');
+    const fallbackMedium = hasUtm
+        ? utm.utm_medium || 'campaign'
+        : (referrer ? 'referral' : 'none');
+    const fallbackCampaign = hasUtm ? (utm.utm_campaign || '') : '';
+
+    const touch = {
+        source: fallbackSource,
+        medium: fallbackMedium,
+        campaign: fallbackCampaign,
+        referrer,
+        landingPath: currentPath,
+        capturedAt: now,
+        utm
+    };
+
+    const next = {
+        firstTouch: existing.firstTouch || touch,
+        lastTouch: touch,
+        updatedAt: now
+    };
+
+    saveAttribution(next);
+    return next;
+}
+
+function getAttributionPayload() {
+    const state = getStoredAttribution() || captureAttributionTouch();
+    return {
+        firstTouch: state.firstTouch || null,
+        lastTouch: state.lastTouch || null,
+        sessionPath: `${window.location.pathname}${window.location.search}`,
+        pageUrl: window.location.href,
+        userAgent: navigator.userAgent
+    };
+}
+
+function getLeadValueForEvent(eventName) {
+    if (eventName === 'generate_lead') return 100;
+    if (eventName === 'whatsapp_click') return 30;
+    if (eventName === 'newsletter_signup_success') return 10;
+    return 0;
+}
+
+function trackGrowthEvent(eventName, eventParams = {}) {
+    if (typeof gtag === 'undefined') return;
+
+    const attribution = getStoredAttribution() || captureAttributionTouch();
+    const first = attribution.firstTouch || {};
+    const last = attribution.lastTouch || {};
+    const value = getLeadValueForEvent(eventName);
+
+    gtag('event', eventName, {
+        event_category: eventParams.event_category || 'growth',
+        event_label: eventParams.event_label || window.location.pathname,
+        value,
+        currency: 'USD',
+        source: last.source || '(direct)',
+        medium: last.medium || '(none)',
+        campaign: last.campaign || '(not set)',
+        first_source: first.source || '(direct)',
+        first_medium: first.medium || '(none)',
+        first_campaign: first.campaign || '(not set)',
+        ...eventParams
+    });
+}
+
+captureAttributionTouch();
+
 // ============= SECURITY HELPERS =============
 // Generate CSRF Token (retrieved from meta tag set by server)
 function getCsrfToken() {
@@ -136,19 +250,18 @@ if (contactForm) {
         }
         
         // Track contact form submit in Google Analytics
-        if (typeof gtag !== 'undefined') {
-            gtag('event', 'contact_form_submit', {
-                'event_category': 'engagement',
-                'event_label': subject
-            });
-        }
+        trackGrowthEvent('contact_form_submit', {
+            event_category: 'engagement',
+            event_label: subject
+        });
         
         const formData = {
             name,
             email,
             phone: phone || '',
             subject,
-            message
+            message,
+            attribution: getAttributionPayload()
         };
         
         // Show enhanced loading state with cold-start warning
@@ -200,12 +313,14 @@ if (contactForm) {
 
             if (data.success) {
                 // Track successful contact form submission
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'contact_form_success', {
-                        'event_category': 'conversion',
-                        'event_label': 'contact_form'
-                    });
-                }
+                trackGrowthEvent('contact_form_success', {
+                    event_category: 'conversion',
+                    event_label: 'contact_form'
+                });
+                trackGrowthEvent('generate_lead', {
+                    event_category: 'conversion',
+                    event_label: 'contact_form'
+                });
                 
                 // Success message (SAFE)
                 const msg = createSafeMessage('success', data.message || 'Thank you! We will get back to you soon.');
@@ -273,19 +388,15 @@ if (seoAuditForm) {
             return;
         }
 
-        if (typeof gtag !== 'undefined') {
-            gtag('event', 'seo_audit_request', {
-                'event_category': 'engagement',
-                'event_label': website
-            });
-        }
+        trackGrowthEvent('seo_audit_request', {
+            event_category: 'engagement',
+            event_label: website
+        });
 
         const formData = {
-            name,
-            email,
-            phone: phone || '',
-            subject: 'Free SEO Audit Request',
-            message: `Website: ${website}\nNotes: ${notes || 'No additional notes provided.'}`
+            fullName: name,
+            email: email,
+            websiteUrl: website
         };
 
         btnText.textContent = 'Submitting...';
@@ -293,7 +404,7 @@ if (seoAuditForm) {
         btn.disabled = true;
 
         try {
-            const response = await fetch(`${API_URL}/contact`, {
+            const response = await fetch(`${API_URL}/audit`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -302,15 +413,18 @@ if (seoAuditForm) {
                 body: JSON.stringify(formData)
             });
 
+
             const data = await response.json();
 
             if (data.success) {
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'seo_audit_success', {
-                        'event_category': 'conversion',
-                        'event_label': 'free_seo_audit'
-                    });
-                }
+                trackGrowthEvent('seo_audit_success', {
+                    event_category: 'conversion',
+                    event_label: 'free_seo_audit'
+                });
+                trackGrowthEvent('generate_lead', {
+                    event_category: 'conversion',
+                    event_label: 'seo_audit'
+                });
 
                 const msg = createSafeMessage('success', data.message || 'Request sent! We will email your audit shortly.');
                 messageDiv.replaceChildren(msg);
@@ -352,11 +466,9 @@ newsletterForms.forEach(form => {
         }
         
         // Track newsletter signup attempt
-        if (typeof gtag !== 'undefined') {
-            gtag('event', 'newsletter_signup_attempt', {
-                'event_category': 'engagement'
-            });
-        }
+        trackGrowthEvent('newsletter_signup_attempt', {
+            event_category: 'engagement'
+        });
         
         btn.innerText = 'Subscribing...';
         btn.disabled = true;
@@ -368,19 +480,20 @@ newsletterForms.forEach(form => {
                     'Content-Type': 'application/json',
                     'X-CSRF-Token': getCsrfToken()  // SECURITY: Add CSRF token
                 },
-                body: JSON.stringify({ email: emailInput.value })
+                body: JSON.stringify({
+                    email: emailInput.value,
+                    attribution: getAttributionPayload()
+                })
             });
 
             const data = await response.json();
 
             if (data.success) {
                 // Track successful newsletter signup
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'newsletter_signup_success', {
-                        'event_category': 'conversion',
-                        'event_label': 'newsletter'
-                    });
-                }
+                trackGrowthEvent('newsletter_signup_success', {
+                    event_category: 'conversion',
+                    event_label: 'newsletter'
+                });
                 
                 alert('✅ ' + (data.message || 'Successfully subscribed to newsletter!'));
                 form.reset();
@@ -688,4 +801,24 @@ function createChatWidget() {
 
 document.addEventListener('DOMContentLoaded', () => {
     createChatWidget();
+
+    const talkToMarkBtn = document.getElementById('talkToMarkBtn');
+    if (talkToMarkBtn) {
+        talkToMarkBtn.addEventListener('click', () => {
+            trackGrowthEvent('book_strategy_call_click', {
+                event_category: 'conversion',
+                event_label: 'hero_talk_to_mark'
+            });
+        });
+    }
+
+    const whatsappFloatBtn = document.querySelector('.whatsapp-float');
+    if (whatsappFloatBtn) {
+        whatsappFloatBtn.addEventListener('click', () => {
+            trackGrowthEvent('whatsapp_click', {
+                event_category: 'conversion',
+                event_label: 'floating_whatsapp'
+            });
+        });
+    }
 });

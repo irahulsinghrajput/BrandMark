@@ -522,13 +522,15 @@
                                 <th>Phone</th>
                                 <th>Subject</th>
                                 <th>Message</th>
+                                <th>Source</th>
+                                <th>Campaign</th>
                                 <th>Status</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
                         <tbody id="contactsBody">
                             <tr>
-                                <td colspan="7" class="loading">
+                                <td colspan="9" class="loading">
                                     <i class="fas fa-spinner fa-spin"></i>
                                 </td>
                             </tr>
@@ -545,12 +547,13 @@
                             <tr>
                                 <th>Email</th>
                                 <th>Status</th>
+                                <th>Source</th>
                                 <th>Subscribed Date</th>
                             </tr>
                         </thead>
                         <tbody id="newsletterBody">
                             <tr>
-                                <td colspan="3" class="loading">
+                                <td colspan="4" class="loading">
                                     <i class="fas fa-spinner fa-spin"></i>
                                 </td>
                             </tr>
@@ -793,6 +796,8 @@
                             <td>${contact.phone}</td>
                             <td>${contact.subject}</td>
                             <td>${contact.message.substring(0, 50)}${contact.message.length > 50 ? '...' : ''}</td>
+                            <td>${contact.attribution?.lastTouch?.source || contact.attribution?.firstTouch?.source || 'direct'} / ${contact.attribution?.lastTouch?.medium || contact.attribution?.firstTouch?.medium || 'none'}</td>
+                            <td>${contact.attribution?.lastTouch?.campaign || contact.attribution?.firstTouch?.campaign || '-'}</td>
                             <td>
                                 <select class="status-select" onchange="updateStatus('contact', '${contact._id}', this.value)">
                                     <option value="new" ${contact.status === 'new' ? 'selected' : ''}>New</option>
@@ -807,7 +812,7 @@
                 } else {
                     tbody.innerHTML = `
                         <tr>
-                            <td colspan="7" class="empty-state">
+                            <td colspan="9" class="empty-state">
                                 <i class="fas fa-inbox"></i>
                                 <h3>No Contact Submissions</h3>
                                 <p>Contact form submissions will appear here.</p>
@@ -841,13 +846,14 @@
                                     ${subscriber.isActive ? 'Active' : 'Unsubscribed'}
                                 </span>
                             </td>
+                            <td>${subscriber.attribution?.lastTouch?.source || subscriber.attribution?.firstTouch?.source || 'direct'}</td>
                             <td>${new Date(subscriber.subscribedAt).toLocaleDateString()}</td>
                         </tr>
                     `).join('');
                 } else {
                     tbody.innerHTML = `
                         <tr>
-                            <td colspan="3" class="empty-state">
+                            <td colspan="4" class="empty-state">
                                 <i class="fas fa-inbox"></i>
                                 <h3>No Subscribers</h3>
                                 <p>Newsletter subscribers will appear here.</p>

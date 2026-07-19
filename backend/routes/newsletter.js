@@ -22,7 +22,7 @@ router.post('/',
                 });
             }
 
-            const { email } = req.body;
+            const { email, attribution } = req.body;
 
             // Check if already subscribed
             const existing = await Newsletter.findOne({ email });
@@ -38,10 +38,14 @@ router.post('/',
                 existing.isActive = true;
                 existing.subscribedAt = Date.now();
                 existing.unsubscribedAt = null;
+                existing.attribution = attribution || existing.attribution;
                 await existing.save();
             } else {
                 // Create new subscription
-                const subscriber = new Newsletter({ email });
+                const subscriber = new Newsletter({
+                    email,
+                    attribution: attribution || null
+                });
                 await subscriber.save();
             }
 

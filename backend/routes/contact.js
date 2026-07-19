@@ -24,7 +24,7 @@ router.post('/',
                 });
             }
 
-            const { name, email, phone, subject, message } = req.body;
+            const { name, email, phone, subject, message, attribution } = req.body;
 
             // Save to database
             const contact = new Contact({
@@ -32,7 +32,8 @@ router.post('/',
                 email,
                 phone,
                 subject,
-                message
+                message,
+                attribution: attribution || null
             });
 
             await contact.save();
