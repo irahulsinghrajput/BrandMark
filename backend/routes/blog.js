@@ -94,13 +94,57 @@ router.post('/',
             const { title, author, excerpt, content, category, tags, published } = req.body;
             const featuredImage = req.file ? req.file.path : null;
 
+            // BrandMark 50 SEO Keywords list for auto-tagging
+            const BRANDMARK_SEO_KEYWORDS = [
+                "digital marketing company in patna", "best digital marketing agency in patna", "social media marketing company in patna",
+                "seo services in patna", "web design company in patna", "branding agency in patna", "digital marketing agency in bihar",
+                "best marketing company in patna", "social media management patna", "web development services patna", "seo agency in bihar",
+                "online marketing company patna", "local seo services patna", "lead generation agency patna",
+                "digital marketing agency purvanchal", "social media marketing purvanchal up", "best seo company eastern up",
+                "web design services purvanchal up", "digital marketing agency eastern up", "branding company purvanchal up",
+                "business marketing agency eastern up", "local business promotion purvanchal", "conversion-focused web design",
+                "corporate branding bihar", "sme marketing consulting patna", "content writing services patna",
+                "ecommerce website developer patna", "google ads management patna", "facebook ads agency patna",
+                "performance marketing agency patna", "pay per click agency bihar", "b2b marketing services patna",
+                "brand identity design bihar", "search engine optimization bihar", "graphic design company patna",
+                "digital marketing for real estate patna", "school marketing agency bihar", "hospital digital marketing patna",
+                "branding for startups bihar", "small business marketing bihar", "brandmark solutions", "brandmark solutions patna",
+                "brandmark solutions bihar", "brandmark solutions website", "brandmark solutions seo audit",
+                "digital marketing agency near me", "website developers near me", "seo company near me", "social media manager bihar",
+                "top advertising agency patna"
+            ];
+
+            // Parse manually supplied tags
+            let finalTags = tags ? tags.split(',').map(tag => tag.trim()) : [];
+
+            // Automatically inject up to 4 matching target keywords based on title/excerpt/content
+            const scanText = `${title} ${excerpt} ${content}`.toLowerCase();
+            const matchedKeywords = BRANDMARK_SEO_KEYWORDS.filter(kw => scanText.includes(kw.toLowerCase()));
+            
+            matchedKeywords.forEach(kw => {
+                if (finalTags.length < 8 && !finalTags.some(t => t.toLowerCase() === kw.toLowerCase())) {
+                    finalTags.push(kw);
+                }
+            });
+
+            // If we still have very few tags, inject a couple of core local/brand tags at random
+            if (finalTags.length < 3) {
+                const fallbacks = BRANDMARK_SEO_KEYWORDS.filter(k => k.includes("patna") || k.includes("brandmark")).sort(() => 0.5 - Math.random());
+                while (finalTags.length < 4 && fallbacks.length > 0) {
+                    const fallback = fallbacks.pop();
+                    if (!finalTags.some(t => t.toLowerCase() === fallback.toLowerCase())) {
+                        finalTags.push(fallback);
+                    }
+                }
+            }
+
             const blog = new Blog({
                 title,
                 author,
                 excerpt,
                 content,
                 category,
-                tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
+                tags: finalTags,
                 featuredImage,
                 published: published === 'true'
             });
@@ -128,13 +172,63 @@ router.post('/',
 router.put('/:id', auth, upload.single('featuredImage'), async (req, res) => {
     try {
         const { title, author, excerpt, content, category, tags, published } = req.body;
+
+        // BrandMark 50 SEO Keywords list for auto-tagging
+        const BRANDMARK_SEO_KEYWORDS = [
+            "digital marketing company in patna", "best digital marketing agency in patna", "social media marketing company in patna",
+            "seo services in patna", "web design company in patna", "branding agency in patna", "digital marketing agency in bihar",
+            "best marketing company in patna", "social media management patna", "web development services patna", "seo agency in bihar",
+            "online marketing company patna", "local seo services patna", "lead generation agency patna",
+            "digital marketing agency purvanchal", "social media marketing purvanchal up", "best seo company eastern up",
+            "web design services purvanchal up", "digital marketing agency eastern up", "branding company purvanchal up",
+            "business marketing agency eastern up", "local business promotion purvanchal", "conversion-focused web design",
+            "corporate branding bihar", "sme marketing consulting patna", "content writing services patna",
+            "ecommerce website developer patna", "google ads management patna", "facebook ads agency patna",
+            "performance marketing agency patna", "pay per click agency bihar", "b2b marketing services patna",
+            "brand identity design bihar", "search engine optimization bihar", "graphic design company patna",
+            "digital marketing for real estate patna", "school marketing agency bihar", "hospital digital marketing patna",
+            "branding for startups bihar", "small business marketing bihar", "brandmark solutions", "brandmark solutions patna",
+            "brandmark solutions bihar", "brandmark solutions website", "brandmark solutions seo audit",
+            "digital marketing agency near me", "website developers near me", "seo company near me", "social media manager bihar",
+            "top advertising agency patna"
+        ];
+
+        // Parse manually supplied tags
+        let finalTags = tags ? tags.split(',').map(tag => tag.trim()) : [];
+
+        // Scan title, excerpt, and content (fall back to existing database values if fields are not in the update payload)
+        let scanText = '';
+        if (title) scanText += ` ${title}`;
+        if (excerpt) scanText += ` ${excerpt}`;
+        if (content) scanText += ` ${content}`;
+        scanText = scanText.toLowerCase();
+
+        const matchedKeywords = BRANDMARK_SEO_KEYWORDS.filter(kw => scanText.includes(kw.toLowerCase()));
+        
+        matchedKeywords.forEach(kw => {
+            if (finalTags.length < 8 && !finalTags.some(t => t.toLowerCase() === kw.toLowerCase())) {
+                finalTags.push(kw);
+            }
+        });
+
+        // If we still have very few tags, inject a couple of core local/brand tags at random
+        if (finalTags.length < 3) {
+            const fallbacks = BRANDMARK_SEO_KEYWORDS.filter(k => k.includes("patna") || k.includes("brandmark")).sort(() => 0.5 - Math.random());
+            while (finalTags.length < 4 && fallbacks.length > 0) {
+                const fallback = fallbacks.pop();
+                if (!finalTags.some(t => t.toLowerCase() === fallback.toLowerCase())) {
+                    finalTags.push(fallback);
+                }
+            }
+        }
+
         const updateData = {
             title,
             author,
             excerpt,
             content,
             category,
-            tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
+            tags: finalTags,
             published: published === 'true',
             updatedAt: Date.now()
         };
