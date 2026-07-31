@@ -76,8 +76,8 @@ export const AboutUs = () => {
             
             <div className="flex flex-wrap justify-center gap-10">
               {[
-                { name: 'Rahul Singh Rajput', role: 'Co-Founder', image: '/Rahul picture.jpeg' },
-                { name: 'Rajeshree Shekhar', role: 'Co-Founder', image: '/Rajeshree.Jpeg' },
+                { name: 'Rahul Singh Rajput', role: 'Chief Operational Officer', image: '/Rahul picture.jpeg' },
+                { name: 'Rajeshree Shekhar', role: 'Chief UI/UX Specialist', image: '/Rajeshree.Jpeg' },
                 { name: 'Lakshya', role: 'Director of Client Services', image: '/assets/lakshya.png' },
                 { name: 'Amisha Singh', role: 'Graphic Designer Specialist', image: '/assets/amisha.jpg' },
                 { name: 'Rishi Thakur', role: 'Production & Videography Specialist', image: '/assets/Rishi.jpg' }
