@@ -15,6 +15,11 @@ import { Careers } from './pages/Careers';
 import { Courses } from './pages/Courses';
 import { StudentDashboard } from './pages/StudentDashboard';
 import { StudentLogin } from './pages/StudentLogin';
+import { ContactPage } from './pages/ContactPage';
+import { Industries } from './pages/Industries';
+import { CaseStudies } from './pages/CaseStudies';
+import { LocationPage } from './pages/LocationPage';
+
 import { useLenis } from 'lenis/react';
 import { ModalProvider } from './contexts/ModalContext';
 import { StrategyModal } from './components/StrategyModal';
@@ -124,6 +129,12 @@ function App() {
             <Route path="/careers" element={<Careers />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/student-login" element={<StudentLogin />} />
+            
+            {/* New SEO Architecture Routes */}
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/industries" element={<Industries />} />
+            <Route path="/case-studies" element={<CaseStudies />} />
+            <Route path="/locations/:city" element={<LocationPage />} />
             
             {/* Protected Dashboard Route */}
             <Route 

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PageTransition } from '../components/PageTransition';
+import { SEO } from '../components/SEO';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -88,12 +89,43 @@ export const ServiceDetail = () => {
   }, [serviceId]);
 
   const handleStartProject = () => {
-    // Navigate to home and append query param for scrolling
-    navigate('/?scrollTo=contact');
+    navigate('/contact');
   };
 
   return (
     <PageTransition>
+      <SEO 
+        title={`${service.title} Agency in Patna | BrandMark Solutions`}
+        description={service.subtitle}
+        canonicalUrl={`https://www.brandmarksolutions.site/services/${serviceId}`}
+        schema={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": service.title,
+            "description": service.subtitle,
+            "provider": {
+              "@type": "LocalBusiness",
+              "name": "BrandMark Solutions Private Ltd.",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Patna",
+                "addressRegion": "Bihar",
+                "addressCountry": "IN"
+              }
+            }
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.brandmarksolutions.site/" },
+              { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.brandmarksolutions.site/services" },
+              { "@type": "ListItem", "position": 3, "name": service.title, "item": `https://www.brandmarksolutions.site/services/${serviceId}` }
+            ]
+          }
+        ]}
+      />
       <div className="pt-32 pb-20 bg-brand-bg-light min-h-screen relative overflow-hidden">
         
         {/* Decorative Background */}
