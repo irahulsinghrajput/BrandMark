@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>BrandMark Solutions Insights</title>
+  <link>https://www.brandmarksolutions.site/blog</link>
+  <description>Latest digital marketing insights, case studies, and tutorials.</description>
+  <atom:link href="https://www.brandmarksolutions.site/rss.xml" rel="self" type="application/rss+xml" />
+  
+  <item>
+    <title><![CDATA[The Ultimate Guide to Digital Marketing in Patna]]></title>
+    <link>https://www.brandmarksolutions.site/blog/digital-marketing-patna-guide</link>
+    <guid>https://www.brandmarksolutions.site/blog/digital-marketing-patna-guide</guid>
+    <pubDate>Sat, 01 Aug 2026 22:02:18 GMT</pubDate>
+    <description><![CDATA[The Ultimate Guide to Digital Marketing in Patna]]></description>
+  </item>
+  <item>
+    <title><![CDATA[Why Real Estate Developers in Bihar Need a 3D Walkthrough Website]]></title>
+    <link>https://www.brandmarksolutions.site/blog/real-estate-3d-walkthrough-websites-bihar</link>
+    <guid>https://www.brandmarksolutions.site/blog/real-estate-3d-walkthrough-websites-bihar</guid>
+    <pubDate>Sat, 01 Aug 2026 22:02:18 GMT</pubDate>
+    <description><![CDATA[Why Real Estate Developers in Bihar Need a 3D Walkthrough Website]]></description>
+  </item>
+</channel>
+</rss>

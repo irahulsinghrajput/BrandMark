@@ -22,8 +22,9 @@ const AboutUs = lazy(() => import('./pages/AboutUs').then(module => ({ default: 
 const ServicesHub = lazy(() => import('./pages/ServicesHub').then(module => ({ default: module.ServicesHub })));
 const ServiceDetail = lazy(() => import('./pages/ServiceDetail').then(module => ({ default: module.ServiceDetail })));
 const Portfolio = lazy(() => import('./pages/Portfolio').then(module => ({ default: module.Portfolio })));
-const Blog = lazy(() => import('./pages/Blog').then(module => ({ default: module.Blog })));
-const BlogPost = lazy(() => import('./pages/BlogPost').then(module => ({ default: module.BlogPost })));
+const BlogDirectory = lazy(() => import('./pages/BlogDirectory'));
+const BlogPost = lazy(() => import('./pages/BlogPost').then(module => ({ default: module.BlogPost || module.default })));
+const AuthorPage = lazy(() => import('./pages/AuthorPage').then(module => ({ default: module.AuthorPage || module.default })));
 const Careers = lazy(() => import('./pages/Careers').then(module => ({ default: module.Careers })));
 const Courses = lazy(() => import('./pages/Courses').then(module => ({ default: module.Courses })));
 const StudentDashboard = lazy(() => import('./pages/StudentDashboard').then(module => ({ default: module.StudentDashboard })));
@@ -134,8 +135,9 @@ function App() {
                 <Route path="/services" element={<ServicesHub />} />
                 <Route path="/services/:serviceId" element={<ServiceDetail />} />
                 <Route path="/portfolio" element={<Portfolio />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/blog/:id" element={<BlogPost />} />
+                <Route path="/blog" element={<BlogDirectory />} />
+                <Route path="/blog/:slug" element={<BlogPost />} />
+                <Route path="/authors/:slug" element={<AuthorPage />} />
                 <Route path="/careers" element={<Careers />} />
                 <Route path="/courses" element={<Courses />} />
                 <Route path="/student-login" element={<StudentLogin />} />

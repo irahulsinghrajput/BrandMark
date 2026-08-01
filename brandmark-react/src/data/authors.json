@@ -1,0 +1,28 @@
+[
+  {
+    "id": "rahul-singh-rajput",
+    "name": "Rahul Singh Rajput",
+    "role": "Chief Operational Officer & Lead Strategist",
+    "bio": "Rahul is the visionary behind BrandMark Solutions. With over 8 years of experience in performance marketing, technical SEO, and business automation, he has helped hundreds of local businesses across North India scale their revenue. He specializes in bridging the gap between cutting-edge technology (React, Node.js, AI) and practical business growth.",
+    "image": "/Rahul picture.jpeg",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/rahul-singh-rajput/",
+      "twitter": "https://twitter.com/rahulsingh",
+      "email": "kumarrahul85181@gmail.com"
+    },
+    "expertise": ["Technical SEO", "Performance Marketing", "Business Automation", "Web Architecture"]
+  },
+  {
+    "id": "rajeshree-shekhar",
+    "name": "Rajeshree Shekhar",
+    "role": "Chief UI/UX Specialist",
+    "bio": "Rajeshree is the creative force at BrandMark Solutions. Her expertise lies in crafting high-converting, user-centric digital experiences. She leads the design team, ensuring that every website not only ranks on Google but also converts visitors into loyal customers through intuitive, modern UI/UX principles.",
+    "image": "/Rajeshree.Jpeg",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/rajeshree-shekhar/",
+      "twitter": "https://twitter.com/rajeshree",
+      "email": "rajeshree@brandmarksolutions.site"
+    },
+    "expertise": ["UI/UX Design", "Conversion Rate Optimization", "Brand Identity", "Interactive Design"]
+  }
+]
