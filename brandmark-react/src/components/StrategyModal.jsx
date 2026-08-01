@@ -1,24 +1,63 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useModal } from '../contexts/ModalContext';
+import { API_URL } from '../config';
 
 export const StrategyModal = () => {
   const { isStrategyModalOpen, closeStrategyModal } = useModal();
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    goal: 'lead-gen'
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
+    setError(null);
+    
+    try {
+      const response = await fetch(`${API_URL}/quotes`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        setError(data.message || 'Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      setError('Network error. Please check your connection and try again.');
+    } finally {
       setLoading(false);
-      setSubmitted(true);
-    }, 1500);
+    }
   };
 
   const handleClose = () => {
     closeStrategyModal();
-    setTimeout(() => setSubmitted(false), 500); // Reset after animation
+    setTimeout(() => {
+      setSubmitted(false);
+      setError(null);
+      setFormData({ name: '', email: '', company: '', goal: 'lead-gen' });
+    }, 500); // Reset after animation
   };
 
   return (
@@ -73,22 +112,28 @@ export const StrategyModal = () => {
                 ) : (
                   <>
                     <h3 className="text-2xl font-bold text-brand-navy mb-6 md:hidden">Book a Strategy Call</h3>
-                    <form onSubmit={handleSubmit} action="mailto:kumarrahul85181@gmail.com" method="post" encType="text/plain" className="space-y-5">
+                    <form onSubmit={handleSubmit} className="space-y-5">
+                      {error && (
+                        <div className="bg-red-50 text-red-500 p-3 rounded-lg text-xs border border-red-100">
+                          {error}
+                        </div>
+                      )}
+                      
                       <div>
                         <label className="block text-xs font-bold uppercase tracking-wider text-brand-navy mb-2">Name *</label>
-                        <input type="text" required className="w-full px-4 py-3 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light text-sm" placeholder="John Doe" />
+                        <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full px-4 py-3 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light text-sm" placeholder="John Doe" />
                       </div>
                       <div>
                         <label className="block text-xs font-bold uppercase tracking-wider text-brand-navy mb-2">Email *</label>
-                        <input type="email" required className="w-full px-4 py-3 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light text-sm" placeholder="john@example.com" />
+                        <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-4 py-3 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light text-sm" placeholder="john@example.com" />
                       </div>
                       <div>
                         <label className="block text-xs font-bold uppercase tracking-wider text-brand-navy mb-2">Company / Website</label>
-                        <input type="text" className="w-full px-4 py-3 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light text-sm" placeholder="https://yourwebsite.com" />
+                        <input type="text" name="company" value={formData.company} onChange={handleChange} className="w-full px-4 py-3 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light text-sm" placeholder="https://yourwebsite.com" />
                       </div>
                       <div>
                         <label className="block text-xs font-bold uppercase tracking-wider text-brand-navy mb-2">Primary Goal</label>
-                        <select className="w-full px-4 py-3 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light text-sm text-brand-navy">
+                        <select name="goal" value={formData.goal} onChange={handleChange} className="w-full px-4 py-3 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light text-sm text-brand-navy">
                           <option value="lead-gen">Lead Generation (PPC/Ads)</option>
                           <option value="web-dev">Web Development / Redesign</option>
                           <option value="seo">SEO & Organic Growth</option>

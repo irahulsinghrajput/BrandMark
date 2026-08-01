@@ -1,17 +1,51 @@
 import React, { useState } from 'react';
+import { API_URL } from '../config';
 
 export const SEOAuditForm = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(null);
+  
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    websiteUrl: '',
+    goals: ''
+  });
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate network request
-    setTimeout(() => {
+    setError(null);
+    
+    try {
+      const response = await fetch(`${API_URL}/audit`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        setError(data.message || 'Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      setError('Network error. Please check your connection and try again.');
+    } finally {
       setLoading(false);
-      setSubmitted(true);
-    }, 1500);
+    }
   };
 
   return (
@@ -66,32 +100,34 @@ export const SEOAuditForm = () => {
                 <p className="text-brand-text-muted">Our team will analyze your site and get back to you shortly.</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} action="mailto:kumarrahul85181@gmail.com" method="post" encType="text/plain" className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-semibold text-brand-navy mb-2">Full Name *</label>
-                    <input type="text" required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all" placeholder="John Doe" />
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {error && (
+                  <div className="bg-red-50 text-red-500 p-4 rounded-xl text-sm mb-6 border border-red-100">
+                    {error}
                   </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-brand-navy mb-2">Email *</label>
-                    <input type="email" required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all" placeholder="john@company.com" />
-                  </div>
-                </div>
+                )}
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-brand-navy mb-2">Phone</label>
-                    <input type="tel" className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all" placeholder="+1 234 567 8900" />
+                    <label className="block text-sm font-semibold text-brand-navy mb-2">Full Name *</label>
+                    <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all" placeholder="John Doe" />
                   </div>
                   <div>
+                    <label className="block text-sm font-semibold text-brand-navy mb-2">Email *</label>
+                    <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all" placeholder="john@company.com" />
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 gap-6">
+                  <div>
                     <label className="block text-sm font-semibold text-brand-navy mb-2">Website URL *</label>
-                    <input type="url" required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all" placeholder="https://yourwebsite.com" />
+                    <input type="url" name="websiteUrl" value={formData.websiteUrl} onChange={handleChange} required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all" placeholder="https://yourwebsite.com" />
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-semibold text-brand-navy mb-2">Business Goals or Notes</label>
-                  <textarea rows="4" className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all resize-none" placeholder="Tell us what you want to improve..."></textarea>
+                  <textarea rows="4" name="goals" value={formData.goals} onChange={handleChange} className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all resize-none" placeholder="Tell us what you want to improve..."></textarea>
                 </div>
 
                 <button type="submit" disabled={loading} className="w-full py-5 bg-brand-navy text-white font-bold uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-colors duration-300 shadow-md flex justify-center items-center">

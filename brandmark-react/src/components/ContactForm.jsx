@@ -1,16 +1,52 @@
 import React, { useState } from 'react';
+import { API_URL } from '../config';
 
 export const ContactForm = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: ''
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
+    setError(null);
+    
+    try {
+      const response = await fetch(`${API_URL}/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        setError(data.message || 'Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      setError('Network error. Please check your connection and try again.');
+    } finally {
       setLoading(false);
-      setSubmitted(true);
-    }, 1500);
+    }
   };
 
   return (
@@ -33,31 +69,37 @@ export const ContactForm = () => {
                <p className="text-brand-text-muted">We'll get back to you shortly.</p>
              </div>
           ) : (
-            <form onSubmit={handleSubmit} action="mailto:kumarrahul85181@gmail.com" method="post" encType="text/plain" className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {error && (
+                <div className="bg-red-50 text-red-500 p-4 rounded-xl text-sm mb-6 border border-red-100">
+                  {error}
+                </div>
+              )}
+              
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-semibold text-brand-navy mb-2">Name *</label>
-                  <input type="text" required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light" placeholder="John Doe" />
+                  <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light" placeholder="John Doe" />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-brand-navy mb-2">Email *</label>
-                  <input type="email" required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light" placeholder="john@example.com" />
+                  <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light" placeholder="john@example.com" />
                 </div>
               </div>
               
               <div>
                 <label className="block text-sm font-semibold text-brand-navy mb-2">Phone (Optional)</label>
-                <input type="tel" className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light" placeholder="+91 1234567890" />
+                <input type="tel" name="phone" value={formData.phone} onChange={handleChange} className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light" placeholder="+91 1234567890" />
               </div>
               
               <div>
                 <label className="block text-sm font-semibold text-brand-navy mb-2">Subject (Optional)</label>
-                <input type="text" className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light" placeholder="What is this regarding?" />
+                <input type="text" name="subject" value={formData.subject} onChange={handleChange} className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light" placeholder="What is this regarding?" />
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-brand-navy mb-2">Message *</label>
-                <textarea rows="4" required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light resize-none" placeholder="Tell us about your project..."></textarea>
+                <textarea rows="4" name="message" value={formData.message} onChange={handleChange} required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light resize-none" placeholder="Tell us about your project..."></textarea>
               </div>
 
               <button type="submit" disabled={loading} className="w-full py-5 bg-brand-orange text-white font-bold uppercase tracking-widest rounded-xl hover:bg-brand-orange-dark transition-colors duration-300 shadow-md flex justify-center items-center">
