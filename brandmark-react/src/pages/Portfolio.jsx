@@ -59,6 +59,7 @@ export const Portfolio = () => {
                 <img 
                   src={p.image} 
                   alt={p.title} 
+                  loading="lazy"
                   className="w-full h-full object-cover scale-100 group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
                 />
                 

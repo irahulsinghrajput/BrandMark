@@ -1,25 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { Layout } from './Layout';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
-import { Home } from './pages/Home';
-import { AboutUs } from './pages/AboutUs';
-import { ServicesHub } from './pages/ServicesHub';
-import { ServiceDetail } from './pages/ServiceDetail';
-import { Portfolio } from './pages/Portfolio';
-import { Blog } from './pages/Blog';
-import { BlogPost } from './pages/BlogPost';
-import { Careers } from './pages/Careers';
-import { Courses } from './pages/Courses';
-import { StudentDashboard } from './pages/StudentDashboard';
-import { StudentLogin } from './pages/StudentLogin';
-import { ContactPage } from './pages/ContactPage';
-import { Industries } from './pages/Industries';
-import { CaseStudies } from './pages/CaseStudies';
-import { LocationPage } from './pages/LocationPage';
-
 import { useLenis } from 'lenis/react';
 import { ModalProvider } from './contexts/ModalContext';
 import { StrategyModal } from './components/StrategyModal';
@@ -31,6 +15,31 @@ import { Toaster } from 'react-hot-toast';
 import { WhatsAppButton } from './components/WhatsAppButton';
 import { ChatBotWidget } from './components/ChatBotWidget';
 import { ScrollToTopButton } from './components/ScrollToTopButton';
+
+// Lazy load pages for code splitting
+const Home = lazy(() => import('./pages/Home').then(module => ({ default: module.Home })));
+const AboutUs = lazy(() => import('./pages/AboutUs').then(module => ({ default: module.AboutUs })));
+const ServicesHub = lazy(() => import('./pages/ServicesHub').then(module => ({ default: module.ServicesHub })));
+const ServiceDetail = lazy(() => import('./pages/ServiceDetail').then(module => ({ default: module.ServiceDetail })));
+const Portfolio = lazy(() => import('./pages/Portfolio').then(module => ({ default: module.Portfolio })));
+const Blog = lazy(() => import('./pages/Blog').then(module => ({ default: module.Blog })));
+const BlogPost = lazy(() => import('./pages/BlogPost').then(module => ({ default: module.BlogPost })));
+const Careers = lazy(() => import('./pages/Careers').then(module => ({ default: module.Careers })));
+const Courses = lazy(() => import('./pages/Courses').then(module => ({ default: module.Courses })));
+const StudentDashboard = lazy(() => import('./pages/StudentDashboard').then(module => ({ default: module.StudentDashboard })));
+const StudentLogin = lazy(() => import('./pages/StudentLogin').then(module => ({ default: module.StudentLogin })));
+const ContactPage = lazy(() => import('./pages/ContactPage').then(module => ({ default: module.ContactPage })));
+const Industries = lazy(() => import('./pages/Industries').then(module => ({ default: module.Industries })));
+const IndustryPage = lazy(() => import('./pages/IndustryPage').then(module => ({ default: module.IndustryPage })));
+const CaseStudies = lazy(() => import('./pages/CaseStudies').then(module => ({ default: module.CaseStudies })));
+const LocationPage = lazy(() => import('./pages/LocationPage').then(module => ({ default: module.LocationPage })));
+
+// Loading Fallback
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-brand-bg-light">
+    <div className="w-16 h-16 border-4 border-brand-orange border-t-transparent rounded-full animate-spin"></div>
+  </div>
+);
 
 function App() {
   const location = useLocation();
@@ -118,35 +127,38 @@ function App() {
           {!isDashboard && <ChatBotWidget />}
           {!isDashboard && <ScrollToTopButton />}
           <AnimatePresence mode="wait" initial={false}>
-          <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/services" element={<ServicesHub />} />
-            <Route path="/services/:serviceId" element={<ServiceDetail />} />
-            <Route path="/portfolio" element={<Portfolio />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:id" element={<BlogPost />} />
-            <Route path="/careers" element={<Careers />} />
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/student-login" element={<StudentLogin />} />
-            
-            {/* New SEO Architecture Routes */}
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/industries" element={<Industries />} />
-            <Route path="/case-studies" element={<CaseStudies />} />
-            <Route path="/locations/:city" element={<LocationPage />} />
-            
-            {/* Protected Dashboard Route */}
-            <Route 
-              path="/dashboard" 
-              element={
-                <ProtectedRoute>
-                  <StudentDashboard />
-                </ProtectedRoute>
-              } 
-            />
-          </Routes>
-        </AnimatePresence>
+            <Suspense fallback={<PageLoader />}>
+              <Routes location={location} key={location.pathname}>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<AboutUs />} />
+                <Route path="/services" element={<ServicesHub />} />
+                <Route path="/services/:serviceId" element={<ServiceDetail />} />
+                <Route path="/portfolio" element={<Portfolio />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:id" element={<BlogPost />} />
+                <Route path="/careers" element={<Careers />} />
+                <Route path="/courses" element={<Courses />} />
+                <Route path="/student-login" element={<StudentLogin />} />
+                
+                {/* New SEO Architecture Routes */}
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/industries" element={<Industries />} />
+                <Route path="/industries/:industryId" element={<IndustryPage />} />
+                <Route path="/case-studies" element={<CaseStudies />} />
+                <Route path="/locations/:city" element={<LocationPage />} />
+                
+                {/* Protected Dashboard Route */}
+                <Route 
+                  path="/dashboard" 
+                  element={
+                    <ProtectedRoute>
+                      <StudentDashboard />
+                    </ProtectedRoute>
+                  } 
+                />
+              </Routes>
+            </Suspense>
+          </AnimatePresence>
         {!isDashboard && <Footer />}
       </Layout>
     </ModalProvider>
