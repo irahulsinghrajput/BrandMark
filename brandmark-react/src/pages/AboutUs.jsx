@@ -107,15 +107,19 @@ export const AboutUs = () => {
                 { name: 'Lakshya', role: 'Director of Client Services', image: '/assets/lakshya.png' },
                 { name: 'Amisha Singh', role: 'Graphic Designer Specialist', image: '/assets/amisha.jpg' },
                 { name: 'Rishi Thakur', role: 'Production & Videography Specialist', image: '/assets/Rishi.jpg' }
-              ].map((member, idx) => (
-                <div key={idx} className="group flex flex-col items-center text-center w-full sm:w-[calc(50%-1.25rem)] lg:w-[calc(25%-1.875rem)] max-w-sm">
+              ].map((member, i) => (
+                <div key={i} className="group flex flex-col items-center text-center w-full sm:w-[calc(50%-1.25rem)] lg:w-[calc(25%-1.875rem)] max-w-sm">
                   <div className="w-full aspect-[4/5] mb-6 overflow-hidden rounded-2xl shadow-sm group-hover:shadow-xl transition-shadow duration-500">
-                    <img 
-                      src={member.image} 
-                      alt={member.name} 
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105"
-                      onError={(e) => e.target.src = 'https://via.placeholder.com/400x500/0B0F19/FFFFFF?text=' + member.name.charAt(0)} 
-                    />
+                    <picture>
+                      <source srcSet={member.image.replace(/\.(png|jpeg|jpg|Jpeg)$/i, '.avif')} type="image/avif" />
+                      <source srcSet={member.image.replace(/\.(png|jpeg|jpg|Jpeg)$/i, '.webp')} type="image/webp" />
+                      <img 
+                        src={member.image} 
+                        alt={member.name} 
+                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105"
+                        onError={(e) => e.target.src = 'https://via.placeholder.com/400x500/0B0F19/FFFFFF?text=' + member.name.charAt(0)} 
+                      />
+                    </picture>
                   </div>
                   <h3 className="text-xl font-bold text-[#0B0F19] mb-1">
                     {member.name}

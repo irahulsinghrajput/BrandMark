@@ -38,8 +38,12 @@ export const TalkToMark = () => {
 
             <div className="flex-grow overflow-y-auto p-8">
               <div className="text-center mb-8">
-                <div className="w-24 h-24 rounded-full bg-brand-navy mx-auto mb-4 overflow-hidden border-4 border-brand-orange/20">
-                  <img src="/Rahul picture.jpeg" alt="Mark" className="w-full h-full object-cover" />
+                <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0 border-4 border-white shadow-md relative z-10">
+                  <picture>
+                    <source srcSet="/Rahul picture.avif" type="image/avif" />
+                    <source srcSet="/Rahul picture.webp" type="image/webp" />
+                    <img src="/Rahul picture.jpeg" alt="Mark" className="w-full h-full object-cover" loading="lazy" />
+                  </picture>
                 </div>
                 <h3 className="text-2xl font-bold text-brand-navy mb-1">Rahul "Mark" Rajput</h3>
                 <p className="text-brand-text-muted text-sm">Founder & Lead Strategist</p>

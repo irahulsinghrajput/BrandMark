@@ -69,7 +69,11 @@ export const Navbar = () => {
       >
         <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
           <Link to="/" className="flex items-center gap-3 relative z-[110]">
-            <img src="/brandmark-logo-new.png.png" alt="Brand Mark Logo" className="h-10 w-10 rounded-full object-cover" />
+            <picture>
+              <source srcSet="/brandmark-logo-new.png.avif" type="image/avif" />
+              <source srcSet="/brandmark-logo-new.png.webp" type="image/webp" />
+              <img src="/brandmark-logo-new.png.png" alt="Brand Mark Logo" className="h-10 w-10 rounded-full object-cover" />
+            </picture>
             <span className={`text-2xl font-extrabold tracking-tighter transition-colors duration-300 ${isMobileMenuOpen ? 'text-white' : 'text-brand-navy'}`}>
               Brand<span className="font-light text-brand-orange">Mark</span><span className="text-xs align-top">®</span>
             </span>

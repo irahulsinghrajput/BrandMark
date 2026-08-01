@@ -35,7 +35,11 @@ export const Footer = () => {
           {/* Column 1: Brand Info & Socials */}
           <div className="flex flex-col">
             <Link to="/" className="flex items-center gap-3 mb-6">
-              <img src="/brandmark-logo-new.png.png" alt="Brand Mark Logo" className="h-10 w-10 rounded-full object-cover" />
+              <picture>
+                <source srcSet="/brandmark-logo-new.png.avif" type="image/avif" />
+                <source srcSet="/brandmark-logo-new.png.webp" type="image/webp" />
+                <img src="/brandmark-logo-new.png.png" alt="Brand Mark Logo" className="h-10 w-10 rounded-full object-cover" loading="lazy" />
+              </picture>
               <span className="text-2xl font-extrabold tracking-tighter text-white">
                 Brand<span className="font-light text-[#F97316]">Mark</span><span className="text-xs align-top text-[#94A3B8]">®</span>
               </span>
