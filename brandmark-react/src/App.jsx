@@ -37,6 +37,7 @@ const LocationPage = lazy(() => import('./pages/LocationPage').then(module => ({
 const ClientProposalPortal = lazy(() => import('./pages/ClientProposalPortal').then(module => ({ default: module.ClientProposalPortal })));
 const ClientPortal = lazy(() => import('./pages/ClientPortal').then(module => ({ default: module.ClientPortal })));
 const ExecutiveDashboard = lazy(() => import('./pages/ExecutiveDashboard').then(module => ({ default: module.ExecutiveDashboard })));
+const KnowledgeBaseAdmin = lazy(() => import('./pages/KnowledgeBaseAdmin').then(module => ({ default: module.KnowledgeBaseAdmin })));
 
 // Loading Fallback
 const PageLoader = () => (
@@ -147,6 +148,7 @@ function App() {
                 <Route path="/proposal/:id" element={<ClientProposalPortal />} />
                 <Route path="/portal/:clientId" element={<ClientPortal />} />
                 <Route path="/admin/dashboard" element={<ExecutiveDashboard />} />
+                <Route path="/admin/knowledge" element={<KnowledgeBaseAdmin />} />
                 
                 {/* New SEO Architecture Routes */}
                 <Route path="/contact" element={<ContactPage />} />
