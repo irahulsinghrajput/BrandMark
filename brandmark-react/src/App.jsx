@@ -43,6 +43,7 @@ const MarketingAutomation = lazy(() => import('./pages/MarketingAutomation').the
 const FinanceDashboard = lazy(() => import('./pages/FinanceDashboard').then(module => ({ default: module.FinanceDashboard })));
 const ProjectOperations = lazy(() => import('./pages/ProjectOperations').then(module => ({ default: module.ProjectOperations })));
 const TeamCollaboration = lazy(() => import('./pages/TeamCollaboration').then(module => ({ default: module.TeamCollaboration })));
+const ClientPortalDashboard = lazy(() => import('./pages/ClientPortalDashboard').then(module => ({ default: module.ClientPortalDashboard })));
 
 // Loading Fallback
 const PageLoader = () => (
@@ -159,6 +160,7 @@ function App() {
                 <Route path="/admin/finance" element={<FinanceDashboard />} />
                 <Route path="/admin/projects" element={<ProjectOperations />} />
                 <Route path="/admin/team" element={<TeamCollaboration />} />
+                <Route path="/portal/dashboard" element={<ClientPortalDashboard />} />
                 
                 {/* New SEO Architecture Routes */}
                 <Route path="/contact" element={<ContactPage />} />
