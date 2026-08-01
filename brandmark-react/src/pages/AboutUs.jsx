@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PageTransition } from '../components/PageTransition';
+import { SEO } from '../components/SEO';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -30,6 +31,31 @@ export const AboutUs = () => {
 
   return (
     <PageTransition>
+      <SEO 
+        title="About BrandMark Solutions | Digital Agency North India"
+        description="Meet the leadership team at BrandMark Solutions. We help ambitious businesses across Patna, Bihar, and North India build stronger brands and predictable growth."
+        canonicalUrl="https://www.brandmarksolutions.site/about"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          "mainEntity": {
+            "@type": "Organization",
+            "name": "BrandMark Solutions Private Ltd.",
+            "founder": [
+              {
+                "@type": "Person",
+                "name": "Rahul Singh Rajput",
+                "jobTitle": "Chief Operational Officer"
+              },
+              {
+                "@type": "Person",
+                "name": "Rajeshree Shekhar",
+                "jobTitle": "Chief UI/UX Specialist"
+              }
+            ]
+          }
+        }}
+      />
       <div ref={containerRef} className="pt-20">
         
         {/* Hero Section */}

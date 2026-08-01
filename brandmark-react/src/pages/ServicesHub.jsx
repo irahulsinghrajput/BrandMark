@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PageTransition } from '../components/PageTransition';
 import { ServicesList } from '../components/ServicesList';
+import { SEO } from '../components/SEO';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,6 +19,32 @@ export const ServicesHub = () => {
 
   return (
     <PageTransition>
+      <SEO 
+        title="Our Services | Website Development & SEO Agency Patna | BrandMark"
+        description="From UI/UX design to Performance Marketing and Local SEO. BrandMark Solutions delivers comprehensive digital growth for businesses in Bihar and North India."
+        canonicalUrl="https://www.brandmarksolutions.site/services"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "serviceType": "Digital Marketing and Web Development",
+          "provider": {
+            "@type": "LocalBusiness",
+            "name": "BrandMark Solutions Private Ltd.",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Patna",
+              "addressRegion": "Bihar",
+              "addressCountry": "IN"
+            }
+          },
+          "areaServed": [
+            "Patna",
+            "Bihar",
+            "North India",
+            "India"
+          ]
+        }}
+      />
       <div className="pt-20">
         
         {/* Hub Hero */}
@@ -31,7 +58,7 @@ export const ServicesHub = () => {
               Our <span className="text-brand-orange">Services</span>
             </h1>
             <p className="services-hub-title mt-4 max-w-2xl mx-auto text-xl text-brand-text-muted font-light delay-100">
-              Comprehensive growth solutions tailored for international market dominance.
+              Comprehensive growth solutions tailored for local market dominance across Bihar and North India.
             </p>
           </div>
         </section>

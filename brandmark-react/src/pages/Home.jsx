@@ -7,6 +7,7 @@ import { Testimonials } from '../components/Testimonials';
 import { SEOAuditForm } from '../components/SEOAuditForm';
 import { ContactForm } from '../components/ContactForm';
 import { useLenis } from 'lenis/react';
+import { SEO } from '../components/SEO';
 
 export const Home = () => {
   const location = useLocation();
@@ -35,6 +36,18 @@ export const Home = () => {
 
   return (
     <PageTransition>
+      <SEO 
+        title="BrandMark Solutions | Creative & Digital Marketing Agency Patna"
+        description="Top-rated digital marketing, website design, and SEO company in Patna, Bihar. We help businesses across North India scale with AI and branding."
+        canonicalUrl="https://www.brandmarksolutions.site"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "BrandMark Solutions",
+          "url": "https://www.brandmarksolutions.site",
+          "description": "Top-rated digital marketing, website design, and SEO company in Patna, Bihar."
+        }}
+      />
       <div className="bg-brand-bg-light">
         <Hero />
         <ServicesList />
