@@ -41,6 +41,7 @@ const KnowledgeBaseAdmin = lazy(() => import('./pages/KnowledgeBaseAdmin').then(
 const BrandMarkGPT = lazy(() => import('./pages/BrandMarkGPT').then(module => ({ default: module.BrandMarkGPT })));
 const MarketingAutomation = lazy(() => import('./pages/MarketingAutomation').then(module => ({ default: module.MarketingAutomation })));
 const FinanceDashboard = lazy(() => import('./pages/FinanceDashboard').then(module => ({ default: module.FinanceDashboard })));
+const ProjectOperations = lazy(() => import('./pages/ProjectOperations').then(module => ({ default: module.ProjectOperations })));
 
 // Loading Fallback
 const PageLoader = () => (
@@ -155,6 +156,7 @@ function App() {
                 <Route path="/admin/ai" element={<BrandMarkGPT />} />
                 <Route path="/admin/campaigns" element={<MarketingAutomation />} />
                 <Route path="/admin/finance" element={<FinanceDashboard />} />
+                <Route path="/admin/projects" element={<ProjectOperations />} />
                 
                 {/* New SEO Architecture Routes */}
                 <Route path="/contact" element={<ContactPage />} />
