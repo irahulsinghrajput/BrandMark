@@ -1,35 +1,49 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useModal } from '../contexts/ModalContext';
 import Vapi from '@vapi-ai/web';
 
-// Initialize Vapi outside the component to prevent multiple instances
-// Wrap in try-catch to prevent app crash if initialization fails due to missing keys or network errors
 let vapi = null;
+let vapiConfigured = false;
+
 try {
-  vapi = new Vapi(import.meta.env.VITE_VAPI_PUBLIC_KEY || 'dummy_public_key');
+  const publicKey = import.meta.env.VITE_VAPI_PUBLIC_KEY || '';
+  const assistantId = import.meta.env.VITE_VAPI_ASSISTANT_ID || '';
+  const placeholderValues = ['dummy_public_key', 'your_vapi_public_key_here', 'dummy_assistant_id', 'your_vapi_assistant_id_here'];
+  const hasValidConfig = publicKey && assistantId && !placeholderValues.includes(publicKey) && !placeholderValues.includes(assistantId);
+
+  if (hasValidConfig && typeof Vapi === 'function') {
+    vapiConfigured = true;
+    vapi = new Vapi(publicKey);
+  }
 } catch (error) {
-  console.error("Vapi initialization failed. Check your VITE_VAPI_PUBLIC_KEY in .env:", error);
+  console.error('Vapi initialization failed. Falling back to the support experience:', error);
 }
 
 export const TalkToMarkVapi = () => {
   const { isTalkToMarkOpen, closeTalkToMark } = useModal();
-  const [callStatus, setCallStatus] = useState('inactive'); // inactive, loading, active
+  const [callStatus, setCallStatus] = useState('inactive');
   const [volumeLevel, setVolumeLevel] = useState(0);
-  
-  useEffect(() => {
-    if (!vapi) return;
+  const [statusMessage, setStatusMessage] = useState('Ready to talk');
+  const [fallbackMode, setFallbackMode] = useState(!vapiConfigured);
 
-    // Setup event listeners for Vapi
-    const onCallStart = () => setCallStatus('active');
+  useEffect(() => {
+    if (!vapi || !vapiConfigured) return;
+
+    const onCallStart = () => {
+      setCallStatus('active');
+      setStatusMessage('Connected');
+    };
     const onCallEnd = () => {
       setCallStatus('inactive');
       setVolumeLevel(0);
+      setStatusMessage('Ready to talk');
     };
     const onVolumeLevel = (level) => setVolumeLevel(level);
-    const onError = (e) => {
-      console.error(e);
+    const onError = () => {
       setCallStatus('inactive');
+      setStatusMessage('Voice call unavailable right now');
+      setFallbackMode(true);
     };
 
     vapi.on('call-start', onCallStart);
@@ -38,12 +52,10 @@ export const TalkToMarkVapi = () => {
     vapi.on('error', onError);
 
     return () => {
-      // Cleanup listeners
       vapi.removeAllListeners();
     };
   }, []);
 
-  // Ensure call ends if modal is closed unexpectedly
   useEffect(() => {
     if (!isTalkToMarkOpen && callStatus === 'active' && vapi) {
       vapi.stop();
@@ -51,29 +63,35 @@ export const TalkToMarkVapi = () => {
   }, [isTalkToMarkOpen, callStatus]);
 
   const toggleCall = async () => {
-    if (!vapi) {
-      alert("Vapi SDK failed to initialize. Please check your API keys.");
+    if (!vapi || !vapiConfigured) {
+      setFallbackMode(true);
+      setStatusMessage('Voice calling is unavailable right now. Please use chat or WhatsApp instead.');
+      window.open('https://brandmarksolutions.site/quote-request.html', '_blank', 'noopener,noreferrer');
       return;
     }
 
     if (callStatus === 'active') {
       setCallStatus('loading');
       vapi.stop();
-    } else {
-      setCallStatus('loading');
-      const assistantId = import.meta.env.VITE_VAPI_ASSISTANT_ID || 'dummy_assistant_id';
-      try {
-        await vapi.start(assistantId);
-      } catch (err) {
-        console.error("Failed to start Vapi call:", err);
-        setCallStatus('inactive');
-      }
+      return;
+    }
+
+    setCallStatus('loading');
+    setStatusMessage('Connecting...');
+    const assistantId = import.meta.env.VITE_VAPI_ASSISTANT_ID || '';
+
+    try {
+      await vapi.start(assistantId);
+    } catch (error) {
+      console.error('Failed to start Vapi call:', error);
+      setStatusMessage('Voice call unavailable right now');
+      setFallbackMode(true);
+      setCallStatus('inactive');
     }
   };
 
   const renderWaveform = () => {
     const bars = Array.from({ length: 5 }).map((_, i) => {
-      // Create an animated scale based on volumeLevel (0 to 1 range usually)
       const scale = callStatus === 'active' ? 1 + (volumeLevel * Math.random() * 2) : 1;
       return (
         <motion.div
@@ -92,8 +110,7 @@ export const TalkToMarkVapi = () => {
     <AnimatePresence>
       {isTalkToMarkOpen && (
         <div className="fixed inset-0 z-[100] flex justify-end">
-          {/* Backdrop */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -101,8 +118,7 @@ export const TalkToMarkVapi = () => {
             className="absolute inset-0 bg-brand-navy/60 backdrop-blur-md cursor-pointer"
           ></motion.div>
 
-          {/* Slide-out Panel */}
-          <motion.div 
+          <motion.div
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
@@ -114,7 +130,7 @@ export const TalkToMarkVapi = () => {
                 <div className="w-3 h-3 rounded-full bg-brand-orange animate-pulse"></div>
                 <h2 className="text-xl font-bold text-white">AI Voice Agent</h2>
               </div>
-              <button 
+              <button
                 onClick={closeTalkToMark}
                 className="w-8 h-8 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-brand-orange transition-colors"
               >
@@ -123,9 +139,8 @@ export const TalkToMarkVapi = () => {
             </div>
 
             <div className="flex-grow flex flex-col items-center justify-center p-8 relative overflow-hidden">
-              {/* Background ambient glow based on volume */}
-              <motion.div 
-                animate={{ 
+              <motion.div
+                animate={{
                   scale: callStatus === 'active' ? 1 + volumeLevel : 1,
                   opacity: callStatus === 'active' ? 0.3 + (volumeLevel * 0.3) : 0.1
                 }}
@@ -135,35 +150,34 @@ export const TalkToMarkVapi = () => {
               <div className="text-center z-10">
                 <div className="w-32 h-32 rounded-full bg-brand-navy mx-auto mb-6 overflow-hidden border-4 border-brand-orange/40 relative group shadow-[0_0_30px_rgba(242,106,33,0.3)]">
                   <img src="/assets/chatbot-icon.jpg" alt="Mark AI" className="w-full h-full object-cover" />
-                  
+
                   {callStatus === 'loading' && (
                     <div className="absolute inset-0 bg-brand-navy/80 flex items-center justify-center">
-                       <svg className="animate-spin h-8 w-8 text-brand-orange" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                       </svg>
+                      <svg className="animate-spin h-8 w-8 text-brand-orange" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
                     </div>
                   )}
                 </div>
-                
+
                 <h3 className="text-3xl font-bold text-white mb-2">Mark AI</h3>
                 <p className="text-brand-orange text-sm uppercase tracking-widest font-semibold mb-8">
-                  {callStatus === 'active' ? 'Connected' : callStatus === 'loading' ? 'Connecting...' : 'Ready to Talk'}
+                  {statusMessage}
                 </p>
 
-                {/* Vapi Audio Waveform */}
                 <div className="h-16 w-full flex items-center justify-center mb-10">
                   {callStatus === 'active' ? renderWaveform() : <div className="h-1 w-20 bg-white/20 rounded-full"></div>}
                 </div>
               </div>
 
               <div className="w-full z-10 mt-auto">
-                <button 
+                <button
                   onClick={toggleCall}
                   disabled={callStatus === 'loading'}
                   className={`w-full py-5 font-bold uppercase tracking-widest rounded-2xl transition-all duration-300 shadow-xl flex items-center justify-center gap-3 ${
-                    callStatus === 'active' 
-                      ? 'bg-red-500 hover:bg-red-600 text-white shadow-red-500/20' 
+                    callStatus === 'active'
+                      ? 'bg-red-500 hover:bg-red-600 text-white shadow-red-500/20'
                       : 'bg-brand-orange hover:bg-brand-orange-dark text-white shadow-brand-orange/20 hover:shadow-[0_0_20px_rgba(242,106,33,0.6)]'
                   }`}
                 >
@@ -171,6 +185,11 @@ export const TalkToMarkVapi = () => {
                     <>
                       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                       End Call
+                    </>
+                  ) : fallbackMode ? (
+                    <>
+                      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                      Continue with Chat
                     </>
                   ) : (
                     <>
@@ -180,7 +199,7 @@ export const TalkToMarkVapi = () => {
                   )}
                 </button>
                 <p className="text-xs text-center text-white/40 mt-4">
-                  Microphone access required. Please allow permissions when prompted.
+                  {fallbackMode ? 'Voice calling is not available right now, but you can still request a callback or continue through chat.' : 'Microphone access required. Please allow permissions when prompted.'}
                 </p>
               </div>
             </div>
