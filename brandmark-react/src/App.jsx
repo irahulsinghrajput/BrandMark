@@ -46,6 +46,7 @@ const TeamCollaboration = lazy(() => import('./pages/TeamCollaboration').then(mo
 const ClientPortalDashboard = lazy(() => import('./pages/ClientPortalDashboard').then(module => ({ default: module.ClientPortalDashboard })));
 const SystemAnalytics = lazy(() => import('./pages/SystemAnalytics').then(module => ({ default: module.SystemAnalytics })));
 const SystemAdministration = lazy(() => import('./pages/SystemAdministration').then(module => ({ default: module.SystemAdministration })));
+const SystemHealth = lazy(() => import('./pages/SystemHealth').then(module => ({ default: module.SystemHealth })));
 
 // Loading Fallback
 const PageLoader = () => (
@@ -165,6 +166,7 @@ function App() {
                 <Route path="/portal/dashboard" element={<ClientPortalDashboard />} />
                 <Route path="/admin/analytics" element={<SystemAnalytics />} />
                 <Route path="/admin/settings" element={<SystemAdministration />} />
+                <Route path="/admin/system-health" element={<SystemHealth />} />
                 
                 {/* New SEO Architecture Routes */}
                 <Route path="/contact" element={<ContactPage />} />
