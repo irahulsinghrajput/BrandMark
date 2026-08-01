@@ -36,6 +36,7 @@ const CaseStudies = lazy(() => import('./pages/CaseStudies').then(module => ({ d
 const LocationPage = lazy(() => import('./pages/LocationPage').then(module => ({ default: module.LocationPage })));
 const ClientProposalPortal = lazy(() => import('./pages/ClientProposalPortal').then(module => ({ default: module.ClientProposalPortal })));
 const ClientPortal = lazy(() => import('./pages/ClientPortal').then(module => ({ default: module.ClientPortal })));
+const ExecutiveDashboard = lazy(() => import('./pages/ExecutiveDashboard').then(module => ({ default: module.ExecutiveDashboard })));
 
 // Loading Fallback
 const PageLoader = () => (
@@ -145,6 +146,7 @@ function App() {
                 <Route path="/student-login" element={<StudentLogin />} />
                 <Route path="/proposal/:id" element={<ClientProposalPortal />} />
                 <Route path="/portal/:clientId" element={<ClientPortal />} />
+                <Route path="/admin/dashboard" element={<ExecutiveDashboard />} />
                 
                 {/* New SEO Architecture Routes */}
                 <Route path="/contact" element={<ContactPage />} />
