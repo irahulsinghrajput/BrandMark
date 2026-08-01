@@ -4,29 +4,7 @@ import { PageTransition } from '../components/PageTransition';
 import { SEO } from '../components/SEO';
 import { ContactForm } from '../components/ContactForm';
 import { RelatedLinks } from '../components/RelatedLinks';
-
-const industryData = {
-  'real-estate': {
-    name: 'Real Estate',
-    description: 'Lead generation and digital branding for real estate developers and agencies.',
-    services: ['Property Listing SEO', 'Lead Generation Ads', '3D Walkthrough Websites'],
-  },
-  'hotels': {
-    name: 'Hotels & Hospitality',
-    description: 'Direct booking optimization and social media branding for boutique hotels and resorts.',
-    services: ['Booking Engine Integration', 'Local SEO for Hotels', 'Instagram Marketing'],
-  },
-  'restaurants': {
-    name: 'Restaurants & Cafes',
-    description: 'Menu optimization, local search dominance, and aesthetic branding for the F&B sector.',
-    services: ['Local Search Optimization', 'Social Media Management', 'Food Photography Branding'],
-  },
-  default: {
-    name: 'Industry Specific',
-    description: 'Customized digital marketing and web development for your vertical.',
-    services: ['Digital Marketing', 'Web Design', 'SEO'],
-  }
-};
+import industryData from '../data/industries.json';
 
 export const IndustryPage = () => {
   const { industryId } = useParams();

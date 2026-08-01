@@ -107,7 +107,7 @@ export const Navbar = () => {
                   onClick={openStrategyModal}
                   className="px-6 py-2 bg-brand-orange text-white text-sm font-bold uppercase tracking-wide rounded-lg hover:bg-brand-orange-dark hover:shadow-[0_0_15px_rgba(242,106,33,0.5)] transition-all duration-300"
                 >
-                  Strategy Call
+                  Free Consultation
                 </button>
               </>
             )}

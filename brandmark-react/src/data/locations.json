@@ -1,0 +1,114 @@
+{
+  "patna": {
+    "name": "Patna",
+    "state": "Bihar",
+    "description": "Leading digital marketing and website design services in Patna. Elevate your local business with ROI-focused SEO and branding.",
+    "services": ["Local SEO", "Website Design", "Performance Marketing", "Social Media"],
+    "keywords": "SEO agency Patna, digital marketing Patna, best web design in Patna"
+  },
+  "bihar": {
+    "name": "Bihar",
+    "state": "India",
+    "description": "Empowering enterprises across Bihar with scalable web development and state-wide digital marketing campaigns.",
+    "services": ["Enterprise Web Development", "State-wide SEO", "Business Automation", "Brand Identity"],
+    "keywords": "IT company Bihar, best digital marketing agency in Bihar"
+  },
+  "ranchi": {
+    "name": "Ranchi",
+    "state": "Jharkhand",
+    "description": "Innovative web design and strategic digital marketing for Ranchi-based businesses aiming for exponential growth.",
+    "services": ["E-commerce Development", "Lead Generation Ads", "SEO Services", "Creative Design"],
+    "keywords": "web development Ranchi, digital marketing agency Ranchi"
+  },
+  "gaya": {
+    "name": "Gaya",
+    "state": "Bihar",
+    "description": "Specialized local SEO and tourism-focused digital marketing solutions for businesses in Gaya.",
+    "services": ["Tourism SEO", "Local Business Marketing", "Social Media Management", "Web Design"],
+    "keywords": "SEO services Gaya, marketing agency Gaya"
+  },
+  "muzaffarpur": {
+    "name": "Muzaffarpur",
+    "state": "Bihar",
+    "description": "Comprehensive digital strategies tailored for Muzaffarpur's growing commercial and retail sectors.",
+    "services": ["Retail Marketing", "Meta Ads", "Brand Strategy", "Website Development"],
+    "keywords": "digital marketing Muzaffarpur, web design Muzaffarpur"
+  },
+  "darbhanga": {
+    "name": "Darbhanga",
+    "state": "Bihar",
+    "description": "Accelerating digital transformation for Darbhanga businesses through modern web development and local SEO.",
+    "services": ["Local SEO", "Custom Web Apps", "Social Media Marketing", "Content Creation"],
+    "keywords": "digital marketing Darbhanga, IT company Darbhanga"
+  },
+  "bhagalpur": {
+    "name": "Bhagalpur",
+    "state": "Bihar",
+    "description": "Scaling Bhagalpur businesses with premium web design and conversion-focused marketing strategies.",
+    "services": ["Website Design", "SEO Optimization", "PPC Campaigns", "Branding"],
+    "keywords": "web development Bhagalpur, marketing agency Bhagalpur"
+  },
+  "purnia": {
+    "name": "Purnia",
+    "state": "Bihar",
+    "description": "Driving online visibility and lead generation for local businesses and institutions in Purnia.",
+    "services": ["Lead Generation", "Local SEO", "Social Media Branding", "Web Design"],
+    "keywords": "digital marketing Purnia, SEO Purnia"
+  },
+  "delhi": {
+    "name": "Delhi",
+    "state": "Delhi",
+    "description": "Aggressive, data-driven digital marketing and enterprise-grade web development for the highly competitive Delhi market.",
+    "services": ["Performance Marketing", "Enterprise SEO", "SaaS Web Development", "Corporate Branding"],
+    "keywords": "best digital marketing agency Delhi, top SEO company Delhi"
+  },
+  "noida": {
+    "name": "Noida",
+    "state": "Uttar Pradesh",
+    "description": "Tech-focused B2B marketing, advanced SEO, and custom web applications for Noida's startup and IT ecosystem.",
+    "services": ["B2B SaaS Marketing", "Advanced SEO", "React Development", "UI/UX Design"],
+    "keywords": "SEO agency Noida, web development Noida startups"
+  },
+  "ghaziabad": {
+    "name": "Ghaziabad",
+    "state": "Uttar Pradesh",
+    "description": "Targeted local marketing and lead generation solutions for manufacturing and retail businesses in Ghaziabad.",
+    "services": ["Manufacturing SEO", "Local Lead Gen", "Website Redesign", "Social Media Ads"],
+    "keywords": "digital marketing Ghaziabad, SEO company Ghaziabad"
+  },
+  "gurgaon": {
+    "name": "Gurgaon",
+    "state": "Haryana",
+    "description": "Premium corporate digital branding, enterprise SEO, and complex web solutions for Gurgaon's corporate hub.",
+    "services": ["Corporate Branding", "Enterprise SEO", "Full-stack Development", "LinkedIn Marketing"],
+    "keywords": "digital marketing agency Gurgaon, corporate web design Gurgaon"
+  },
+  "lucknow": {
+    "name": "Lucknow",
+    "state": "Uttar Pradesh",
+    "description": "Culturally resonant social media marketing and modern web design tailored for Lucknow's diverse business landscape.",
+    "services": ["Social Media Management", "E-commerce SEO", "Website Design", "Brand Identity"],
+    "keywords": "marketing agency Lucknow, web development Lucknow"
+  },
+  "varanasi": {
+    "name": "Varanasi",
+    "state": "Uttar Pradesh",
+    "description": "Hospitality and tourism SEO specialists driving direct bookings and visibility for Varanasi businesses.",
+    "services": ["Hotel SEO", "Tourism Marketing", "Website Development", "Local Maps Optimization"],
+    "keywords": "SEO Varanasi, digital marketing Varanasi"
+  },
+  "prayagraj": {
+    "name": "Prayagraj",
+    "state": "Uttar Pradesh",
+    "description": "Strategic digital marketing and educational sector web solutions for organizations in Prayagraj.",
+    "services": ["Education Marketing", "Local SEO", "Custom Web Design", "Social Media"],
+    "keywords": "digital marketing Prayagraj, web design Prayagraj"
+  },
+  "kanpur": {
+    "name": "Kanpur",
+    "state": "Uttar Pradesh",
+    "description": "B2B digital marketing and robust web platforms for Kanpur's manufacturing and industrial sectors.",
+    "services": ["B2B SEO", "Industrial Web Design", "Performance Marketing", "Corporate Branding"],
+    "keywords": "marketing agency Kanpur, web development Kanpur"
+  }
+}

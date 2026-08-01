@@ -1,0 +1,1 @@
+import"./rolldown-runtime-CNC7AqOf.js";import{c as e,g as t,u as n}from"./index--216k9we.js";t();var r=n(),i=({children:t})=>(0,r.jsx)(e.div,{initial:{opacity:0,y:20},animate:{opacity:1,y:0},exit:{opacity:0,y:-20},transition:{duration:.6,ease:[.16,1,.3,1]},children:t});export{i as t};

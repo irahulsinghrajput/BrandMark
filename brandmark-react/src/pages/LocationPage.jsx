@@ -4,23 +4,7 @@ import { PageTransition } from '../components/PageTransition';
 import { SEO } from '../components/SEO';
 import { ContactForm } from '../components/ContactForm';
 import { RelatedLinks } from '../components/RelatedLinks';
-
-const locationData = {
-  patna: { name: 'Patna', state: 'Bihar', description: 'The capital city driving digital transformation in Bihar.', services: ['Digital Marketing', 'Website Design', 'SEO Services', 'Branding'] },
-  bihar: { name: 'Bihar', state: 'India', description: 'Empowering businesses across the state with scalable tech solutions.', services: ['Web Development', 'Digital Marketing', 'Business Automation', 'UI/UX Design'] },
-  ranchi: { name: 'Ranchi', state: 'Jharkhand', description: 'Innovative web design and SEO strategies for Ranchi businesses.', services: ['Web Development', 'SEO', 'Lead Generation'] },
-  gaya: { name: 'Gaya', state: 'Bihar', description: 'Boosting local visibility for Gaya tourism and commerce.', services: ['Local SEO', 'Web Design', 'Social Media'] },
-  muzaffarpur: { name: 'Muzaffarpur', state: 'Bihar', description: 'Digital marketing tailored for Muzaffarpur enterprises.', services: ['Digital Strategy', 'Meta Ads', 'Branding'] },
-  bhagalpur: { name: 'Bhagalpur', state: 'Bihar', description: 'Scaling Bhagalpur businesses with modern web development.', services: ['Website Design', 'SEO', 'Content Creation'] },
-  delhi: { name: 'Delhi', state: 'Delhi', description: 'Aggressive digital marketing strategies for the competitive Delhi market.', services: ['Performance Marketing', 'SEO', 'Web App Development'] },
-  noida: { name: 'Noida', state: 'Uttar Pradesh', description: 'SaaS and tech-focused marketing for Noida startups.', services: ['B2B Marketing', 'UI/UX', 'SEO'] },
-  gurgaon: { name: 'Gurgaon', state: 'Haryana', description: 'Corporate digital branding and enterprise SEO for Gurgaon.', services: ['Corporate Branding', 'Enterprise SEO', 'Lead Gen'] },
-  lucknow: { name: 'Lucknow', state: 'Uttar Pradesh', description: 'Culturally resonant marketing and modern web design for Lucknow.', services: ['Social Media', 'Web Design', 'SEO'] },
-  varanasi: { name: 'Varanasi', state: 'Uttar Pradesh', description: 'Hospitality and tourism SEO specialists for Varanasi.', services: ['Hotel SEO', 'Website Design', 'Branding'] },
-  chandigarh: { name: 'Chandigarh', state: 'Punjab', description: 'High-end branding and web development for Chandigarh businesses.', services: ['Branding', 'Web Development', 'Meta Ads'] },
-  jaipur: { name: 'Jaipur', state: 'Rajasthan', description: 'E-commerce and boutique marketing strategies in Jaipur.', services: ['E-commerce Web Design', 'SEO', 'Social Media'] },
-  default: { name: 'North India', state: 'India', description: 'Delivering premium digital marketing and web development.', services: ['Digital Strategy', 'Web Design', 'SEO', 'Lead Generation'] }
-};
+import locationData from '../data/locations.json';
 
 export const LocationPage = () => {
   const { city } = useParams();
