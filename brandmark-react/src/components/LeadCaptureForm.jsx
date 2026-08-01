@@ -41,25 +41,24 @@ export const LeadCaptureForm = () => {
     setIsSubmitting(true);
 
     try {
-      // In production, this points to your n8n webhook URL
-      const WEBHOOK_URL = 'https://YOUR_N8N_INSTANCE/webhook/brandmark-lead-capture';
+      // Pointing to the production n8n webhook (injected via Vite env)
+      const WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL || 'http://localhost:5678/webhook/brandmark-lead-capture';
       
-      // Simulate network request for the demo
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      /* 
-      // Actual implementation:
-      await fetch(WEBHOOK_URL, {
+      const response = await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
-      */
+
+      if (!response.ok) {
+        throw new Error('Webhook failed');
+      }
 
       setIsSuccess(true);
       toast.success("Thank you! Our AI intelligence is analyzing your request.");
     } catch (error) {
-      toast.error("Something went wrong. Please try again.");
+      console.error(error);
+      toast.error("Something went wrong. Please ensure the automation server is running.");
     } finally {
       setIsSubmitting(false);
     }
