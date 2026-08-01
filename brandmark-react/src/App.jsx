@@ -141,6 +141,7 @@ function App() {
                 <Route path="/careers" element={<Careers />} />
                 <Route path="/courses" element={<Courses />} />
                 <Route path="/student-login" element={<StudentLogin />} />
+                <Route path="/proposal/:id" element={<ClientProposalPortal />} />
                 
                 {/* New SEO Architecture Routes */}
                 <Route path="/contact" element={<ContactPage />} />
