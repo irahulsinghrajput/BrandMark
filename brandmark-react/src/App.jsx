@@ -21,7 +21,7 @@ import { StrategyModal } from './components/StrategyModal';
 import { TalkToMarkVapi } from './components/TalkToMarkVapi';
 
 import { ProtectedRoute } from './components/ProtectedRoute';
-import { HelmetProvider } from 'react-helmet-async';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
 import { WhatsAppButton } from './components/WhatsAppButton';
 import { ChatBotWidget } from './components/ChatBotWidget';
@@ -46,10 +46,56 @@ function App() {
   // Hide Navbar/Footer on dashboard route for immersive experience
   const isDashboard = location.pathname.startsWith('/dashboard');
 
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "BrandMark Solutions Private Ltd.",
+    "image": "https://www.brandmarksolutions.site/brandmark-logo-new.png.png",
+    "@id": "https://www.brandmarksolutions.site",
+    "url": "https://www.brandmarksolutions.site",
+    "telephone": "+917091863003",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Gangotri, Buddha colony",
+      "addressLocality": "Patna",
+      "addressRegion": "Bihar",
+      "postalCode": "800001",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 25.6186,
+      "longitude": 85.1278
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "09:00",
+      "closes": "18:00"
+    },
+    "sameAs": [
+      "https://www.facebook.com/brandmarksolutions",
+      "https://www.instagram.com/brandmarksolutions/",
+      "https://www.linkedin.com/company/brandmarksolutions/"
+    ]
+  };
+
   return (
     <HelmetProvider>
       <ModalProvider>
         <Layout>
+          <Helmet>
+            <script type="application/ld+json">
+              {JSON.stringify(localBusinessSchema)}
+            </script>
+          </Helmet>
+          
           {!isDashboard && <Navbar />}
           <StrategyModal />
           <TalkToMarkVapi />
