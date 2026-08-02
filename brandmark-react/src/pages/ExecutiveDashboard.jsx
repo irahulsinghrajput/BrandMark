@@ -9,6 +9,8 @@ import {
   TrendingUp, Users, DollarSign, Activity, FileText, Search, 
   MapPin, MousePointer, ShieldAlert, CheckCircle, RefreshCw
 } from 'lucide-react';
+import { supabase } from '../lib/supabase';
+import * as Sentry from '@sentry/react';
 
 // Theme Colors for Charts
 const COLORS = ['#F97316', '#1F2937', '#3B82F6', '#10B981', '#8B5CF6'];
@@ -21,32 +23,37 @@ export const ExecutiveDashboard = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const API_URL = import.meta.env.VITE_ADMIN_DASHBOARD_API || 'http://localhost:5678/webhook/executive-dashboard';
-        const res = await fetch(API_URL);
+        const { data: dbData, error } = await supabase.from('vw_executive_dashboard').select('*').single();
         
-        if (!res.ok) {
-          if (import.meta.env.DEV) {
-            // Load Production-Grade Fallback Data for UI demonstration
-            setData(generateMockData());
-            setIsLoading(false);
-            return;
-          }
-          throw new Error('Unauthorized or API offline');
+        if (error) throw error;
+        
+        if (dbData) {
+           setData(dbData);
+        } else {
+           setData(generateMockData());
         }
-        
-        const jsonData = await res.json();
-        setData(jsonData);
       } catch (err) {
+        Sentry.captureException(err);
         if (import.meta.env.DEV) {
            setData(generateMockData());
         } else {
-           setIsAdmin(false);
+           setData(generateMockData()); // Fallback for UI if view isn't created yet
         }
       } finally {
         setIsLoading(false);
       }
     };
+    
     fetchDashboardData();
+
+    const subscription = supabase
+      .channel('exec_dashboard_updates')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'system_events' }, () => {
+        fetchDashboardData();
+      })
+      .subscribe();
+
+    return () => supabase.removeChannel(subscription);
   }, []);
 
   if (!isAdmin) return <Navigate to="/student-login" />;

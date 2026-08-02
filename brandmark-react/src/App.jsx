@@ -45,6 +45,7 @@ const FinanceDashboard = lazy(() => import('./pages/FinanceDashboard').then(modu
 const ProjectOperations = lazy(() => import('./pages/ProjectOperations').then(module => ({ default: module.ProjectOperations })));
 const TeamCollaboration = lazy(() => import('./pages/TeamCollaboration').then(module => ({ default: module.TeamCollaboration })));
 const ClientPortalDashboard = lazy(() => import('./pages/ClientPortalDashboard').then(module => ({ default: module.ClientPortalDashboard })));
+const SalesCRM = lazy(() => import('./pages/SalesCRM').then(module => ({ default: module.SalesCRM })));
 const SystemAnalytics = lazy(() => import('./pages/SystemAnalytics').then(module => ({ default: module.SystemAnalytics })));
 const SystemAdministration = lazy(() => import('./pages/SystemAdministration').then(module => ({ default: module.SystemAdministration })));
 const SystemHealth = lazy(() => import('./pages/SystemHealth').then(module => ({ default: module.SystemHealth })));
