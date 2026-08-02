@@ -8,6 +8,7 @@ import { useLenis } from 'lenis/react';
 import { ModalProvider } from './contexts/ModalContext';
 import { StrategyModal } from './components/StrategyModal';
 import { TalkToMarkVapi } from './components/TalkToMarkVapi';
+import { RealtimeProvider } from './context/RealtimeProvider';
 
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
@@ -47,6 +48,9 @@ const ClientPortalDashboard = lazy(() => import('./pages/ClientPortalDashboard')
 const SystemAnalytics = lazy(() => import('./pages/SystemAnalytics').then(module => ({ default: module.SystemAnalytics })));
 const SystemAdministration = lazy(() => import('./pages/SystemAdministration').then(module => ({ default: module.SystemAdministration })));
 const SystemHealth = lazy(() => import('./pages/SystemHealth').then(module => ({ default: module.SystemHealth })));
+
+import { AdminRoute } from './components/AdminRoute';
+import { ClientRoute } from './components/ClientRoute';
 
 // Loading Fallback
 const PageLoader = () => (
@@ -116,8 +120,9 @@ function App() {
 
   return (
     <HelmetProvider>
-      <ModalProvider>
-        <Layout>
+      <RealtimeProvider>
+        <ModalProvider>
+          <Layout>
           <Helmet>
             <script type="application/ld+json">
               {JSON.stringify(localBusinessSchema)}
@@ -156,17 +161,22 @@ function App() {
                 <Route path="/student-login" element={<StudentLogin />} />
                 <Route path="/proposal/:id" element={<ClientProposalPortal />} />
                 <Route path="/portal/:clientId" element={<ClientPortal />} />
-                <Route path="/admin/dashboard" element={<ExecutiveDashboard />} />
-                <Route path="/admin/knowledge" element={<KnowledgeBaseAdmin />} />
-                <Route path="/admin/ai" element={<BrandMarkGPT />} />
-                <Route path="/admin/campaigns" element={<MarketingAutomation />} />
-                <Route path="/admin/finance" element={<FinanceDashboard />} />
-                <Route path="/admin/projects" element={<ProjectOperations />} />
-                <Route path="/admin/team" element={<TeamCollaboration />} />
-                <Route path="/portal/dashboard" element={<ClientPortalDashboard />} />
-                <Route path="/admin/analytics" element={<SystemAnalytics />} />
-                <Route path="/admin/settings" element={<SystemAdministration />} />
-                <Route path="/admin/system-health" element={<SystemHealth />} />
+                {/* --- Protected Admin Routes --- */}
+                <Route path="/admin" element={<AdminRoute><ExecutiveDashboard /></AdminRoute>} />
+                <Route path="/admin/dashboard" element={<AdminRoute><ExecutiveDashboard /></AdminRoute>} />
+                <Route path="/admin/sales" element={<AdminRoute><SalesCRM /></AdminRoute>} />
+                <Route path="/admin/projects" element={<AdminRoute><ProjectOperations /></AdminRoute>} />
+                <Route path="/admin/team" element={<AdminRoute><TeamCollaboration /></AdminRoute>} />
+                <Route path="/admin/analytics" element={<AdminRoute><SystemAnalytics /></AdminRoute>} />
+                <Route path="/admin/settings" element={<AdminRoute><SystemAdministration /></AdminRoute>} />
+                <Route path="/admin/system-health" element={<AdminRoute><SystemHealth /></AdminRoute>} />
+                <Route path="/admin/knowledge" element={<AdminRoute><KnowledgeBaseAdmin /></AdminRoute>} />
+                <Route path="/admin/ai" element={<AdminRoute><BrandMarkGPT /></AdminRoute>} />
+                <Route path="/admin/campaigns" element={<AdminRoute><MarketingAutomation /></AdminRoute>} />
+                <Route path="/admin/finance" element={<AdminRoute><FinanceDashboard /></AdminRoute>} />
+
+                {/* --- Protected Client Routes --- */}
+                <Route path="/portal/dashboard" element={<ClientRoute><ClientPortalDashboard /></ClientRoute>} />
                 
                 {/* New SEO Architecture Routes */}
                 <Route path="/contact" element={<ContactPage />} />
@@ -188,8 +198,9 @@ function App() {
             </Suspense>
           </AnimatePresence>
         {!isDashboard && <Footer />}
-      </Layout>
-    </ModalProvider>
+          </Layout>
+        </ModalProvider>
+      </RealtimeProvider>
     </HelmetProvider>
   );
 }

@@ -8,25 +8,18 @@ import {
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
+import { useRealtimeChat, useActivityFeed } from '../hooks/realtimeHooks';
+
 export const TeamCollaboration = () => {
-  const [isAdmin, setIsAdmin] = useState(true);
   const [activeTab, setActiveTab] = useState('chat');
   const [activeChannel, setActiveChannel] = useState('general');
   const [message, setMessage] = useState('');
   
-  // Simulated data for UI demonstration
+  const { messages: chatLog, loading: chatLoading, sendMessage } = useRealtimeChat(activeChannel);
+  const { feed: liveFeed } = useActivityFeed();
+  
+  // Simulated fallback data for non-realtime sections
   const channels = ['general', 'marketing', 'engineering', 'leadership', 'project-acme'];
-  const [chatLog, setChatLog] = useState([
-    { id: 1, user: 'Rahul Rajput', avatar: 'RR', time: '10:45 AM', text: 'Hey team, the Q2 SEO audit for Acme is ready for review.', role: 'Admin' },
-    { id: 2, user: 'AI Assistant', avatar: 'AI', time: '10:46 AM', text: 'Automated milestone "Technical Audit" marked as complete in Project Ops.', role: 'Bot' },
-    { id: 3, user: 'Priya Sharma', avatar: 'PS', time: '11:02 AM', text: 'Looks good. @Rahul I left a few comments on the canonical tags section.', role: 'SEO Lead' }
-  ]);
-  const [timeline, setTimeline] = useState([
-    { id: 1, type: 'crm', title: 'Deal Won', desc: 'Acme Corp signed the Q2 Retainer.', time: '2 hours ago' },
-    { id: 2, type: 'project', title: 'Task Completed', desc: 'Technical SEO Audit finished.', time: '3 hours ago' },
-    { id: 3, type: 'finance', title: 'Invoice Paid', desc: 'Global Tech paid INV-1001 (₹25,000)', time: '5 hours ago' },
-    { id: 4, type: 'marketing', title: 'Campaign Live', desc: 'B2B LinkedIn outreach started.', time: '1 day ago' }
-  ]);
   const [wikiPages, setWikiPages] = useState([
     { id: 1, title: 'Client Onboarding SOP', updated: '2 days ago', author: 'Rahul Rajput' },
     { id: 2, title: 'SEO Pricing Guidelines 2026', updated: '1 week ago', author: 'Rahul Rajput' },
@@ -39,22 +32,12 @@ export const TeamCollaboration = () => {
     { name: 'Neha Gupta', role: 'Content Strategist', status: 'offline', avatar: 'NG' }
   ];
 
-  const handleSendMessage = (e) => {
+  const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!message.trim()) return;
-    setChatLog([...chatLog, { 
-      id: Date.now(), 
-      user: 'Rahul Rajput', 
-      avatar: 'RR', 
-      time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}), 
-      text: message, 
-      role: 'Admin' 
-    }]);
+    await sendMessage(message, 'admin-user-id');
     setMessage('');
-    // In prod, this fires Supabase insert which triggers realtime channel broadcast
   };
-
-  if (!isAdmin) return <Navigate to="/student-login" />;
 
   return (
     <div className="bg-gray-50 min-h-screen pt-24 pb-0 font-outfit h-screen flex flex-col overflow-hidden">
@@ -132,12 +115,12 @@ export const TeamCollaboration = () => {
                     </div>
                     <div>
                       <div className="flex items-baseline gap-2 mb-1">
-                        <span className="font-bold text-brand-navy">{msg.user}</span>
-                        <span className="text-[10px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded font-bold uppercase">{msg.role}</span>
-                        <span className="text-xs text-gray-400">{msg.time}</span>
+                        <span className="font-bold text-brand-navy">{msg.sender_id === 'admin-user-id' ? 'Rahul Rajput' : 'User'}</span>
+                        <span className="text-[10px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded font-bold uppercase">Admin</span>
+                        <span className="text-xs text-gray-400">{new Date(msg.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
                       </div>
                       <div className="text-gray-700 text-sm leading-relaxed max-w-2xl bg-white p-3 rounded-2xl rounded-tl-none border border-gray-100 shadow-sm relative group-hover:border-gray-200 transition-colors">
-                        {msg.text}
+                        {msg.content}
                         <div className="absolute -right-10 top-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
                           <Smile className="w-4 h-4 text-gray-400 cursor-pointer hover:text-yellow-500" />
                         </div>
@@ -179,7 +162,9 @@ export const TeamCollaboration = () => {
                 <Activity className="w-6 h-6 text-brand-orange" /> Unified Timeline
               </h2>
               <div className="max-w-2xl relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-gray-200 before:to-transparent">
-                {timeline.map((item, i) => (
+                {liveFeed.length === 0 ? (
+                  <div className="text-gray-500">No activity yet.</div>
+                ) : liveFeed.map((item, i) => (
                   <div key={item.id} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active mb-8">
                     <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
                        <Clock className={`w-4 h-4 ${
@@ -191,9 +176,9 @@ export const TeamCollaboration = () => {
                     <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded-xl border border-gray-100 shadow-sm group-hover:border-gray-200 transition-colors">
                       <div className="flex items-center justify-between mb-1">
                         <span className="font-bold text-brand-navy text-sm">{item.title}</span>
-                        <span className="text-xs text-gray-400 font-medium">{item.time}</span>
+                        <span className="text-xs text-gray-400 font-medium">{new Date(item.created_at).toLocaleTimeString()}</span>
                       </div>
-                      <p className="text-sm text-gray-600">{item.desc}</p>
+                      <p className="text-sm text-gray-600">{item.description}</p>
                     </div>
                   </div>
                 ))}
