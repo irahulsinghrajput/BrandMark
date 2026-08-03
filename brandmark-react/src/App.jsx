@@ -40,6 +40,8 @@ const ClientPortal = lazy(() => import('./pages/ClientPortal').then(module => ({
 const ExecutiveDashboard = lazy(() => import('./pages/ExecutiveDashboard').then(module => ({ default: module.ExecutiveDashboard })));
 const KnowledgeBaseAdmin = lazy(() => import('./pages/KnowledgeBaseAdmin').then(module => ({ default: module.KnowledgeBaseAdmin })));
 const BrandMarkGPT = lazy(() => import('./pages/BrandMarkGPT').then(module => ({ default: module.BrandMarkGPT })));
+const AgentDashboard = lazy(() => import('./pages/AgentDashboard').then(module => ({ default: module.AgentDashboard })));
+const AgentConversation = lazy(() => import('./pages/AgentConversation').then(module => ({ default: module.AgentConversation })));
 const MarketingAutomation = lazy(() => import('./pages/MarketingAutomation').then(module => ({ default: module.MarketingAutomation })));
 const FinanceDashboard = lazy(() => import('./pages/FinanceDashboard').then(module => ({ default: module.FinanceDashboard })));
 const ProjectOperations = lazy(() => import('./pages/ProjectOperations').then(module => ({ default: module.ProjectOperations })));
@@ -173,6 +175,8 @@ function App() {
                 <Route path="/admin/system-health" element={<AdminRoute><SystemHealth /></AdminRoute>} />
                 <Route path="/admin/knowledge" element={<AdminRoute><KnowledgeBaseAdmin /></AdminRoute>} />
                 <Route path="/admin/ai" element={<AdminRoute><BrandMarkGPT /></AdminRoute>} />
+                <Route path="/admin/agents" element={<AdminRoute><AgentDashboard /></AdminRoute>} />
+                <Route path="/admin/agents/:id" element={<AdminRoute><AgentConversation /></AdminRoute>} />
                 <Route path="/admin/campaigns" element={<AdminRoute><MarketingAutomation /></AdminRoute>} />
                 <Route path="/admin/finance" element={<AdminRoute><FinanceDashboard /></AdminRoute>} />
 

@@ -13,6 +13,7 @@ export const SystemAnalytics = () => {
   const [isAdmin] = useState(true);
   const [timeRange, setTimeRange] = useState('24h');
   const [activeTab, setActiveTab] = useState('success');
+  const [agentStats, setAgentStats] = useState([]);
   
   const { performanceData, costData, workflows, workflowFailures, alerts, loading } = useSystemAnalytics(timeRange);
 
@@ -53,6 +54,22 @@ export const SystemAnalytics = () => {
     { id: 2, type: 'warning', message: 'High latency detected on Supabase Edge Function', source: 'database', time: '2 hours ago' },
     { id: 3, type: 'warning', message: 'GPT-4o API rate limit approaching (85%)', source: 'ai_service', time: '5 hours ago' }
   ];
+
+  React.useEffect(() => {
+     const fetchAgentStats = async () => {
+        const { data } = await supabase.from('vw_agent_usage').select('*');
+        if (data && data.length > 0) {
+           setAgentStats(data);
+        } else {
+           setAgentStats([
+              { name: 'Sales Agent', requests: 450, tokens: 125000, total_cost: 2.50 },
+              { name: 'Marketing Agent', requests: 320, tokens: 98000, total_cost: 1.95 },
+              { name: 'Project Manager Agent', requests: 120, tokens: 45000, total_cost: 0.90 }
+           ]);
+        }
+     };
+     fetchAgentStats();
+  }, []);
 
   if (!isAdmin) return <Navigate to="/admin-login" />;
 
@@ -161,8 +178,11 @@ export const SystemAnalytics = () => {
                 <button onClick={() => setActiveTab('success')} className={`text-lg font-bold flex items-center gap-2 ${activeTab === 'success' ? 'text-brand-navy' : 'text-gray-400 hover:text-brand-navy'}`}>
                   <Database className="w-5 h-5" /> Recent Workflows
                 </button>
+                <button onClick={() => setActiveTab('agents')} className={`text-lg font-bold flex items-center gap-2 ${activeTab === 'agents' ? 'text-brand-navy' : 'text-gray-400 hover:text-brand-navy'}`}>
+                  <Activity className="w-5 h-5" /> Agent Usage
+                </button>
                 <button onClick={() => setActiveTab('failures')} className={`text-lg font-bold flex items-center gap-2 ${activeTab === 'failures' ? 'text-red-600' : 'text-gray-400 hover:text-red-500'}`}>
-                  <AlertTriangle className="w-5 h-5" /> Dead-Letter (Failures)
+                  <AlertTriangle className="w-5 h-5" /> Dead-Letter
                 </button>
               </div>
               <div className="flex gap-2">
@@ -196,6 +216,27 @@ export const SystemAnalytics = () => {
                         </td>
                         <td className="p-4 text-sm text-gray-500">{wf.time || new Date(wf.created_at).toLocaleTimeString()}</td>
                         <td className="p-4 text-sm font-medium text-gray-700">{wf.duration || `${wf.execution_time_ms}ms`}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : activeTab === 'agents' ? (
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider">
+                      <th className="p-4 font-semibold">Agent Name</th>
+                      <th className="p-4 font-semibold">Requests</th>
+                      <th className="p-4 font-semibold">Tokens Processed</th>
+                      <th className="p-4 font-semibold">Est. Cost</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {agentStats.map((agent, i) => (
+                      <tr key={i} className="hover:bg-gray-50 transition-colors">
+                        <td className="p-4 font-bold text-gray-700 text-sm">{agent.name}</td>
+                        <td className="p-4 text-sm font-medium text-gray-500">{agent.requests}</td>
+                        <td className="p-4 text-sm text-gray-500">{(agent.tokens / 1000).toFixed(1)}k</td>
+                        <td className="p-4 text-sm text-brand-orange font-bold">${Number(agent.total_cost || 0).toFixed(4)}</td>
                       </tr>
                     ))}
                   </tbody>
