@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { 
   Settings, Bot, Plug, ToggleLeft, Key, Shield, 
   DatabaseBackup, Activity, Save, RefreshCw, Server,
-  CheckCircle, XCircle, Edit3, Trash2, Plus, Play
+  CheckCircle, XCircle, Edit3, Trash2, Plus, Play, GitMerge
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { supabase } from '../lib/supabase';
@@ -115,6 +115,9 @@ export const SystemAdministration = () => {
              <NavButton active={activeTab==='overview'} onClick={()=>setActiveTab('overview')} icon={<Activity className="w-4 h-4"/>} text="Overview" />
              <NavButton active={activeTab==='ai_settings'} onClick={()=>setActiveTab('ai_settings')} icon={<Bot className="w-4 h-4"/>} text="AI & Prompts" />
              <NavButton active={activeTab==='integrations'} onClick={()=>setActiveTab('integrations')} icon={<Plug className="w-4 h-4"/>} text="Integrations" />
+             <Link to="/admin/workflows" className="flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-colors text-gray-500 hover:text-brand-navy hover:bg-gray-100">
+               <GitMerge className="w-4 h-4"/> Advanced Workflows ↗
+             </Link>
              <NavButton active={activeTab==='features'} onClick={()=>setActiveTab('features')} icon={<ToggleLeft className="w-4 h-4"/>} text="Feature Flags" />
              <NavButton active={activeTab==='security'} onClick={()=>setActiveTab('security')} icon={<Shield className="w-4 h-4"/>} text="Roles & Security" />
              <NavButton active={activeTab==='api_keys'} onClick={()=>setActiveTab('api_keys')} icon={<Key className="w-4 h-4"/>} text="API Keys" />

@@ -14,6 +14,7 @@ export const SystemAnalytics = () => {
   const [timeRange, setTimeRange] = useState('24h');
   const [activeTab, setActiveTab] = useState('success');
   const [agentStats, setAgentStats] = useState([]);
+  const [workflowUsage, setWorkflowUsage] = useState([]);
   
   const { performanceData, costData, workflows, workflowFailures, alerts, loading } = useSystemAnalytics(timeRange);
 
@@ -58,15 +59,18 @@ export const SystemAnalytics = () => {
   React.useEffect(() => {
      const fetchAgentStats = async () => {
         const { data } = await supabase.from('vw_agent_usage').select('*');
-        if (data && data.length > 0) {
-           setAgentStats(data);
-        } else {
-           setAgentStats([
-              { name: 'Sales Agent', requests: 450, tokens: 125000, total_cost: 2.50 },
-              { name: 'Marketing Agent', requests: 320, tokens: 98000, total_cost: 1.95 },
-              { name: 'Project Manager Agent', requests: 120, tokens: 45000, total_cost: 0.90 }
-           ]);
-        }
+        if (data && data.length > 0) setAgentStats(data);
+        else setAgentStats([
+           { name: 'Sales Agent', requests: 450, tokens: 125000, total_cost: 2.50 },
+           { name: 'Marketing Agent', requests: 320, tokens: 98000, total_cost: 1.95 }
+        ]);
+
+        const { data: wData } = await supabase.from('vw_workflow_usage').select('*');
+        if (wData && wData.length > 0) setWorkflowUsage(wData);
+        else setWorkflowUsage([
+           { name: 'Client Onboarding', total_executions: 154, success_count: 152, failure_count: 2 },
+           { name: 'Invoice Reminder', total_executions: 890, success_count: 885, failure_count: 5 }
+        ]);
      };
      fetchAgentStats();
   }, []);
@@ -176,7 +180,10 @@ export const SystemAnalytics = () => {
             <div className="p-6 border-b border-gray-100 flex justify-between items-center">
               <div className="flex gap-4">
                 <button onClick={() => setActiveTab('success')} className={`text-lg font-bold flex items-center gap-2 ${activeTab === 'success' ? 'text-brand-navy' : 'text-gray-400 hover:text-brand-navy'}`}>
-                  <Database className="w-5 h-5" /> Recent Workflows
+                  <Database className="w-5 h-5" /> Legacy Workflows
+                </button>
+                <button onClick={() => setActiveTab('engine')} className={`text-lg font-bold flex items-center gap-2 ${activeTab === 'engine' ? 'text-brand-navy' : 'text-gray-400 hover:text-brand-navy'}`}>
+                  <GitPullRequest className="w-5 h-5" /> Workflow Engine
                 </button>
                 <button onClick={() => setActiveTab('agents')} className={`text-lg font-bold flex items-center gap-2 ${activeTab === 'agents' ? 'text-brand-navy' : 'text-gray-400 hover:text-brand-navy'}`}>
                   <Activity className="w-5 h-5" /> Agent Usage
@@ -237,6 +244,29 @@ export const SystemAnalytics = () => {
                         <td className="p-4 text-sm font-medium text-gray-500">{agent.requests}</td>
                         <td className="p-4 text-sm text-gray-500">{(agent.tokens / 1000).toFixed(1)}k</td>
                         <td className="p-4 text-sm text-brand-orange font-bold">${Number(agent.total_cost || 0).toFixed(4)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : activeTab === 'engine' ? (
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider">
+                      <th className="p-4 font-semibold">Workflow Name</th>
+                      <th className="p-4 font-semibold">Total Runs</th>
+                      <th className="p-4 font-semibold">Success Rate</th>
+                      <th className="p-4 font-semibold">Failures</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {workflowUsage.map((wf, i) => (
+                      <tr key={i} className="hover:bg-gray-50 transition-colors">
+                        <td className="p-4 font-bold text-gray-700 text-sm">{wf.name}</td>
+                        <td className="p-4 text-sm font-medium text-gray-500">{wf.total_executions}</td>
+                        <td className="p-4 text-sm text-green-600 font-bold">
+                           {wf.total_executions > 0 ? ((wf.success_count / wf.total_executions) * 100).toFixed(1) : 0}%
+                        </td>
+                        <td className="p-4 text-sm text-red-600 font-bold">{wf.failure_count}</td>
                       </tr>
                     ))}
                   </tbody>

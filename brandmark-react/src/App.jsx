@@ -42,6 +42,12 @@ const KnowledgeBaseAdmin = lazy(() => import('./pages/KnowledgeBaseAdmin').then(
 const BrandMarkGPT = lazy(() => import('./pages/BrandMarkGPT').then(module => ({ default: module.BrandMarkGPT })));
 const AgentDashboard = lazy(() => import('./pages/AgentDashboard').then(module => ({ default: module.AgentDashboard })));
 const AgentConversation = lazy(() => import('./pages/AgentConversation').then(module => ({ default: module.AgentConversation })));
+const WorkflowDashboard = lazy(() => import('./pages/WorkflowDashboard').then(module => ({ default: module.WorkflowDashboard })));
+const WorkflowDesigner = lazy(() => import('./pages/WorkflowDesigner').then(module => ({ default: module.WorkflowDesigner })));
+const WorkflowExecutions = lazy(() => import('./pages/WorkflowExecutions').then(module => ({ default: module.WorkflowExecutions })));
+const WorkflowTemplates = lazy(() => import('./pages/WorkflowTemplates').then(module => ({ default: module.WorkflowTemplates })));
+const WorkflowSchedules = lazy(() => import('./pages/WorkflowSchedules').then(module => ({ default: module.WorkflowSchedules })));
+const WorkflowQueue = lazy(() => import('./pages/WorkflowQueue').then(module => ({ default: module.WorkflowQueue })));
 const MarketingAutomation = lazy(() => import('./pages/MarketingAutomation').then(module => ({ default: module.MarketingAutomation })));
 const FinanceDashboard = lazy(() => import('./pages/FinanceDashboard').then(module => ({ default: module.FinanceDashboard })));
 const ProjectOperations = lazy(() => import('./pages/ProjectOperations').then(module => ({ default: module.ProjectOperations })));
@@ -177,6 +183,12 @@ function App() {
                 <Route path="/admin/ai" element={<AdminRoute><BrandMarkGPT /></AdminRoute>} />
                 <Route path="/admin/agents" element={<AdminRoute><AgentDashboard /></AdminRoute>} />
                 <Route path="/admin/agents/:id" element={<AdminRoute><AgentConversation /></AdminRoute>} />
+                <Route path="/admin/workflows" element={<AdminRoute><WorkflowDashboard /></AdminRoute>} />
+                <Route path="/admin/workflows/designer" element={<AdminRoute><WorkflowDesigner /></AdminRoute>} />
+                <Route path="/admin/workflows/executions" element={<AdminRoute><WorkflowExecutions /></AdminRoute>} />
+                <Route path="/admin/workflows/templates" element={<AdminRoute><WorkflowTemplates /></AdminRoute>} />
+                <Route path="/admin/workflows/schedules" element={<AdminRoute><WorkflowSchedules /></AdminRoute>} />
+                <Route path="/admin/workflows/queue" element={<AdminRoute><WorkflowQueue /></AdminRoute>} />
                 <Route path="/admin/campaigns" element={<AdminRoute><MarketingAutomation /></AdminRoute>} />
                 <Route path="/admin/finance" element={<AdminRoute><FinanceDashboard /></AdminRoute>} />
 
