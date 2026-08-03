@@ -18,6 +18,7 @@ const COLORS = ['#F97316', '#1F2937', '#3B82F6', '#10B981', '#8B5CF6'];
 export const ExecutiveDashboard = () => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [isAdmin, setIsAdmin] = useState(true); // In production, verify JWT 'user_role' = 'admin'
 
   useEffect(() => {
@@ -26,19 +27,10 @@ export const ExecutiveDashboard = () => {
         const { data: dbData, error } = await supabase.from('vw_executive_dashboard').select('*').single();
         
         if (error) throw error;
-        
-        if (dbData) {
-           setData(dbData);
-        } else {
-           setData(generateMockData());
-        }
+        setData(dbData);
       } catch (err) {
         Sentry.captureException(err);
-        if (import.meta.env.DEV) {
-           setData(generateMockData());
-        } else {
-           setData(generateMockData()); // Fallback for UI if view isn't created yet
-        }
+        setError('Failed to load dashboard metrics. Database view might not exist.');
       } finally {
         setIsLoading(false);
       }
@@ -56,14 +48,26 @@ export const ExecutiveDashboard = () => {
     return () => supabase.removeChannel(subscription);
   }, []);
 
-  if (!isAdmin) return <Navigate to="/student-login" />;
+  if (!isAdmin) return <Navigate to="/admin-login" />;
 
-  if (isLoading || !data) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="flex flex-col items-center gap-4">
           <RefreshCw className="w-10 h-10 text-brand-orange animate-spin" />
           <p className="font-bold text-brand-navy">Aggregating Live APIs (HubSpot, GA4, GSC)...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !data) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-8">
+        <div className="bg-white p-8 rounded-2xl shadow-sm text-center max-w-lg">
+           <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+           <h2 className="text-xl font-bold text-brand-navy mb-2">Dashboard Unavailable</h2>
+           <p className="text-gray-500 mb-6">{error || 'No data found in vw_executive_dashboard.'}</p>
         </div>
       </div>
     );
@@ -278,57 +282,4 @@ const KpiCard = ({ title, value, icon, trend }) => (
   </div>
 );
 
-// Fallback logic so the UI is verifiable immediately in production 
-// before n8n populates the actual Supabase database over the next 24 hours.
-const generateMockData = () => ({
-  kpis: {
-    revenue_mtd: "₹8,45,000",
-    pipeline_value: "₹24,50,000",
-    active_clients: "18",
-    proposals_sent: "12"
-  },
-  ai_insights: {
-    summary: "Revenue is up 12% MTD driven primarily by new SEO retainers. Website conversion rate remains steady at 2.4%. Warning: 3 proposals are stalled in the 'Negotiation' stage for over 14 days.",
-    actions: ["Follow up on stalled proposals", "Increase Google Ads budget by 15%", "Upsell Web Design to active SEO clients"]
-  },
-  charts: {
-    revenue_trend: [
-      { month: 'Jan', actual: 400000, forecast: 420000 },
-      { month: 'Feb', actual: 450000, forecast: 430000 },
-      { month: 'Mar', actual: 520000, forecast: 480000 },
-      { month: 'Apr', actual: 610000, forecast: 550000 },
-      { month: 'May', actual: 750000, forecast: 650000 },
-      { month: 'Jun', actual: 845000, forecast: 780000 },
-    ],
-    pipeline_stages: [
-      { stage: 'Lead', value: 45 },
-      { stage: 'Meeting', value: 24 },
-      { stage: 'Proposal', value: 12 },
-      { stage: 'Negotiation', value: 5 },
-      { stage: 'Won', value: 8 }
-    ],
-    website_traffic: [
-      { day: '1', sessions: 240 }, { day: '5', sessions: 300 }, 
-      { day: '10', sessions: 280 }, { day: '15', sessions: 420 },
-      { day: '20', sessions: 390 }, { day: '25', sessions: 510 },
-      { day: '30', sessions: 480 }
-    ],
-    seo_clicks: [
-      { day: '1', clicks: 80 }, { day: '5', clicks: 95 }, 
-      { day: '10', clicks: 120 }, { day: '15', clicks: 110 },
-      { day: '20', clicks: 150 }, { day: '25', clicks: 180 },
-      { day: '30', clicks: 210 }
-    ],
-    revenue_by_service: [
-      { name: 'SEO', value: 45 },
-      { name: 'Web Dev', value: 30 },
-      { name: 'Meta Ads', value: 15 },
-      { name: 'Branding', value: 10 }
-    ]
-  },
-  proposals: [
-    { client: 'Apex Hotels', service: 'Full Stack Marketing', value: '₹1,50,000/mo', status: 'Accepted' },
-    { client: 'Zenith Real Estate', service: 'Google Ads Management', value: '₹80,000/mo', status: 'Draft' },
-    { client: 'EduTech India', service: 'SEO + Content', value: '₹60,000/mo', status: 'Draft' },
-  ]
-});
+export default ExecutiveDashboard;

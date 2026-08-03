@@ -348,3 +348,148 @@ export const useClientPortalData = (clientId) => {
 
   return { ...data, loading };
 };
+
+// 9. Finance Data Hook
+export const useFinanceData = () => {
+  const [data, setData] = useState({
+    metrics: null,
+    cashflowData: [],
+    expensesData: [],
+    invoices: []
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchFinanceData = async () => {
+      try {
+        const [
+          { data: metricsData },
+          { data: cashflow },
+          { data: expenses },
+          { data: invs }
+        ] = await Promise.all([
+          supabase.from('vw_finance_summary').select('*').single(),
+          supabase.from('revenue_reports').select('*').order('month', { ascending: true }).limit(6),
+          supabase.from('expenses').select('category, amount').order('amount', { ascending: false }),
+          supabase.from('invoices').select('*').order('created_at', { ascending: false }).limit(10)
+        ]);
+
+        setData({
+          metrics: metricsData,
+          cashflowData: cashflow || [],
+          expensesData: expenses || [],
+          invoices: invs || []
+        });
+      } catch (err) {
+        Sentry.captureException(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFinanceData();
+
+    const sub = supabase.channel('finance_updates')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'invoices' }, () => fetchFinanceData())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'expenses' }, () => fetchFinanceData())
+      .subscribe();
+
+    return () => supabase.removeChannel(sub);
+  }, []);
+
+  return { ...data, loading };
+};
+
+// 10. Marketing Data Hook
+export const useMarketingData = () => {
+  const [data, setData] = useState({
+    campaigns: [],
+    assets: []
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchMarketingData = async () => {
+      try {
+        const [
+          { data: camps },
+          { data: assts }
+        ] = await Promise.all([
+          supabase.from('campaigns').select('*').order('created_at', { ascending: false }),
+          supabase.from('marketing_assets').select('*').order('created_at', { ascending: false })
+        ]);
+
+        setData({
+          campaigns: camps || [],
+          assets: assts || []
+        });
+      } catch (err) {
+        Sentry.captureException(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMarketingData();
+
+    const sub = supabase.channel('marketing_updates')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'campaigns' }, () => fetchMarketingData())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'marketing_assets' }, () => fetchMarketingData())
+      .subscribe();
+
+    return () => supabase.removeChannel(sub);
+  }, []);
+
+  return { ...data, loading };
+};
+
+// 11. System Analytics Hook
+export const useSystemAnalytics = (timeRange) => {
+  const [data, setData] = useState({
+    performanceData: [],
+    costData: [],
+    workflows: [],
+    alerts: []
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAnalytics = async () => {
+      try {
+        const [
+          { data: perf },
+          { data: cost },
+          { data: wf },
+          { data: alrts }
+        ] = await Promise.all([
+          supabase.from('performance_metrics').select('*').order('time', { ascending: true }),
+          supabase.from('vw_cost_summary').select('*').order('date', { ascending: true }),
+          supabase.from('workflow_runs').select('*').order('created_at', { ascending: false }).limit(5),
+          supabase.from('system_alerts').select('*').eq('status', 'active').order('created_at', { ascending: false })
+        ]);
+
+        setData({
+          performanceData: perf || [],
+          costData: cost || [],
+          workflows: wf || [],
+          alerts: alrts || []
+        });
+      } catch (err) {
+        Sentry.captureException(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAnalytics();
+
+    const sub = supabase.channel('system_analytics_updates')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'workflow_runs' }, () => fetchAnalytics())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'system_alerts' }, () => fetchAnalytics())
+      .subscribe();
+
+    return () => supabase.removeChannel(sub);
+  }, [timeRange]);
+
+  return { ...data, loading };
+};
