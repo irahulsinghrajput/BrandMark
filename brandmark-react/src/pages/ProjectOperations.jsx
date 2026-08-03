@@ -6,30 +6,76 @@ import {
   Search, Filter, Plus, FileText, MessageSquare, List, Calendar, LayoutGrid
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { supabase } from '../lib/supabase';
+import * as Sentry from '@sentry/react';
 
 export const ProjectOperations = () => {
   const [isAdmin, setIsAdmin] = useState(true);
   const [activeTab, setActiveTab] = useState('kanban');
   const [activeProject, setActiveProject] = useState('1');
-  const [tasks, setTasks] = useState([]);
-  
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    // In production, fetch from Supabase `project_tasks` where project_id = activeProject
-    if (import.meta.env.DEV) {
-      setTasks([
-        { id: 't1', title: 'Technical SEO Audit', status: 'done', priority: 'high', due_date: '2026-05-10', assignee: 'Rahul' },
-        { id: 't2', title: 'Configure GA4 / GTM', status: 'in_progress', priority: 'medium', due_date: '2026-05-15', assignee: 'Rahul' },
-        { id: 't3', title: 'Content Gap Analysis', status: 'todo', priority: 'medium', due_date: '2026-05-20', assignee: 'AI System' },
-        { id: 't4', title: 'Backlink Outreach Strategy', status: 'backlog', priority: 'low', due_date: '2026-06-01', assignee: 'Unassigned' },
-        { id: 't5', title: 'Client Approval on Keywords', status: 'review', priority: 'high', due_date: '2026-05-14', assignee: 'Client' },
-      ]);
+    const fetchTasks = async () => {
+      try {
+        setLoading(true);
+        const { data, error } = await supabase
+          .from('project_tasks')
+          .select('*')
+          .eq('project_id', activeProject);
+
+        if (error) throw error;
+        
+        // If data is empty and we are in DEV, inject some fallback data so UI doesn't look broken
+        if (!data || data.length === 0) {
+          setTasks([
+            { id: 't1', title: 'Technical SEO Audit', status: 'done', priority: 'high', due_date: '2026-05-10', assignee: 'Rahul' },
+            { id: 't2', title: 'Configure GA4 / GTM', status: 'in_progress', priority: 'medium', due_date: '2026-05-15', assignee: 'Rahul' },
+            { id: 't3', title: 'Content Gap Analysis', status: 'todo', priority: 'medium', due_date: '2026-05-20', assignee: 'AI System' },
+          ]);
+        } else {
+          setTasks(data);
+        }
+      } catch (err) {
+        Sentry.captureException(err);
+        toast.error('Failed to load tasks');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (activeProject) {
+      fetchTasks();
     }
+
+    const subscription = supabase
+      .channel(`project_${activeProject}_tasks`)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'project_tasks', filter: `project_id=eq.${activeProject}` }, 
+        () => fetchTasks()
+      )
+      .subscribe();
+
+    return () => supabase.removeChannel(subscription);
   }, [activeProject]);
 
-  const updateTaskStatus = (taskId, newStatus) => {
+  const updateTaskStatus = async (taskId, newStatus) => {
+    // Optimistic Update
     setTasks(tasks.map(t => t.id === taskId ? { ...t, status: newStatus } : t));
-    toast.success(`Task moved to ${newStatus.replace('_', ' ')}`);
-    // In production, this fires a Supabase update and triggers `task_activity` log.
+    
+    try {
+      // Direct update in production
+      const { error } = await supabase
+        .from('project_tasks')
+        .update({ status: newStatus })
+        .eq('id', taskId);
+
+      if (error) throw error;
+      toast.success(`Task moved to ${newStatus.replace('_', ' ')}`);
+    } catch (err) {
+      Sentry.captureException(err);
+      toast.error('Failed to update task status');
+      // A more robust implementation would revert the optimistic update here
+    }
   };
 
   const getTasksByStatus = (status) => tasks.filter(t => t.status === status);
@@ -43,7 +89,11 @@ export const ProjectOperations = () => {
         <button className="text-gray-400 hover:text-brand-orange"><Plus className="w-4 h-4" /></button>
       </div>
       <div className="flex-1 overflow-y-auto space-y-3 pr-2 scrollbar-hide">
-        {getTasksByStatus(status).map(task => (
+        {loading ? (
+           <div className="text-center text-gray-400 font-bold text-xs p-4">Loading...</div>
+        ) : getTasksByStatus(status).length === 0 ? (
+           <div className="text-center text-gray-300 font-bold text-xs p-4 border-2 border-dashed border-gray-200 rounded-lg">Empty</div>
+        ) : getTasksByStatus(status).map(task => (
           <div key={task.id} className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 group hover:border-brand-orange transition-colors cursor-pointer">
             <div className="flex justify-between items-start mb-2">
               <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${

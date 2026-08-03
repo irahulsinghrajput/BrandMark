@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
-import { useRealtimeChat, useActivityFeed } from '../hooks/realtimeHooks';
+import { useRealtimeChat, useActivityFeed, useTeamDirectory, useWikiPages } from '../hooks/realtimeHooks';
 
 export const TeamCollaboration = () => {
   const [activeTab, setActiveTab] = useState('chat');
@@ -20,17 +20,8 @@ export const TeamCollaboration = () => {
   
   // Simulated fallback data for non-realtime sections
   const channels = ['general', 'marketing', 'engineering', 'leadership', 'project-acme'];
-  const [wikiPages, setWikiPages] = useState([
-    { id: 1, title: 'Client Onboarding SOP', updated: '2 days ago', author: 'Rahul Rajput' },
-    { id: 2, title: 'SEO Pricing Guidelines 2026', updated: '1 week ago', author: 'Rahul Rajput' },
-    { id: 3, title: 'Engineering Tech Stack', updated: '1 month ago', author: 'Priya Sharma' }
-  ]);
-  const teamMembers = [
-    { name: 'Rahul Rajput', role: 'Founder & CEO', status: 'online', avatar: 'RR' },
-    { name: 'Priya Sharma', role: 'Head of SEO', status: 'online', avatar: 'PS' },
-    { name: 'Amit Kumar', role: 'Sales Lead', status: 'away', avatar: 'AK' },
-    { name: 'Neha Gupta', role: 'Content Strategist', status: 'offline', avatar: 'NG' }
-  ];
+  const { pages: wikiPages } = useWikiPages();
+  const { members: teamMembers, loading: membersLoading } = useTeamDirectory();
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
@@ -208,7 +199,7 @@ export const TeamCollaboration = () => {
                     </div>
                     <h3 className="font-bold text-brand-navy text-lg leading-tight mb-2">{page.title}</h3>
                     <div className="flex justify-between items-center text-xs text-gray-500 font-medium mt-4 pt-4 border-t border-gray-100">
-                      <span className="flex items-center gap-1"><FileEdit className="w-3 h-3"/> {page.updated}</span>
+                      <span className="flex items-center gap-1"><FileEdit className="w-3 h-3"/> {new Date(page.updated_at).toLocaleDateString()}</span>
                       <span>By {page.author}</span>
                     </div>
                   </div>
@@ -224,7 +215,9 @@ export const TeamCollaboration = () => {
                 <Users className="w-6 h-6 text-brand-orange" /> Team Directory
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {teamMembers.map(member => (
+                {membersLoading ? (
+                  <div className="text-gray-500 col-span-3">Loading directory...</div>
+                ) : teamMembers.map(member => (
                   <div key={member.name} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 flex items-center gap-4">
                     <div className="relative">
                       <div className="w-14 h-14 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 text-gray-600 flex items-center justify-center font-bold text-xl border-2 border-white shadow-sm">

@@ -4,9 +4,12 @@ import { Navigate } from 'react-router-dom';
 import { 
   LayoutDashboard, FolderKanban, FileText, MessageSquare, 
   Video, HelpCircle, Bot, BookOpen, Bell, Download, 
-  CheckCircle, Clock, Search, Send, ArrowRight, Settings
+  CheckCircle, Clock, Search, Send, ArrowRight, Settings,
+  AlertTriangle
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useClientPortalData } from '../hooks/realtimeHooks';
+import { supabase } from '../lib/supabase';
 
 export const ClientPortalDashboard = () => {
   // In a real app, this would be set by Supabase Auth Context checking if user has 'client' role
@@ -16,22 +19,29 @@ export const ClientPortalDashboard = () => {
   const [chatMsg, setChatMsg] = useState('');
   const [aiQuery, setAiQuery] = useState('');
 
-  // Simulated Client Data
+  // Using a hardcoded demo client ID for UI demonstration. In production, this comes from the auth session.
+  const clientId = 'demo-client-123';
+  const { project, invoices, documents, tickets, milestones, loading } = useClientPortalData(clientId);
+
+  const handleSendMessage = async (e) => {
+    e.preventDefault();
+    if (!chatMsg.trim()) return;
+    
+    try {
+      const { error } = await supabase.from('client_messages').insert([{
+        client_id: clientId,
+        content: chatMsg,
+        sender_type: 'client'
+      }]);
+      if (error) throw error;
+      toast.success('Message sent to your account manager');
+      setChatMsg('');
+    } catch (err) {
+      toast.error('Failed to send message');
+    }
+  };
+
   const clientName = "Acme Corp";
-  const projects = [
-    { id: 'p1', name: 'Q2 SEO Expansion', progress: 65, status: 'On Track', nextMilestone: 'Technical Audit Delivery', dueDate: 'May 10, 2026' }
-  ];
-  const invoices = [
-    { id: 'INV-1004', amount: 25000, date: 'May 01, 2026', status: 'unpaid', dueDate: 'May 15, 2026' },
-    { id: 'INV-1001', amount: 25000, date: 'Apr 01, 2026', status: 'paid', dueDate: 'Apr 15, 2026' }
-  ];
-  const meetings = [
-    { id: 'm1', title: 'Monthly Strategy Review', date: 'May 12, 2026', time: '10:00 AM EST', link: '#' }
-  ];
-  const files = [
-    { id: 'f1', name: 'Q1_Performance_Report.pdf', date: 'Apr 30, 2026', type: 'PDF', size: '2.4 MB' },
-    { id: 'f2', name: 'Acme_Signed_Contract.pdf', date: 'Mar 15, 2026', type: 'Contract', size: '1.1 MB' }
-  ];
 
   if (!isClientAuth) return <Navigate to="/client-login" />;
 
@@ -76,7 +86,7 @@ export const ClientPortalDashboard = () => {
           <div className="p-4 space-y-1">
              <NavButton active={activeTab==='overview'} onClick={()=>setActiveTab('overview')} icon={<LayoutDashboard className="w-4 h-4"/>} text="Dashboard" />
              <NavButton active={activeTab==='projects'} onClick={()=>setActiveTab('projects')} icon={<FolderKanban className="w-4 h-4"/>} text="Projects & Timeline" />
-             <NavButton active={activeTab==='invoices'} onClick={()=>setActiveTab('invoices')} icon={<FileText className="w-4 h-4"/>} text="Invoices & Billing" badge={1} />
+             <NavButton active={activeTab==='invoices'} onClick={()=>setActiveTab('invoices')} icon={<FileText className="w-4 h-4"/>} text="Invoices & Billing" badge={invoices?.length} />
              <NavButton active={activeTab==='documents'} onClick={()=>setActiveTab('documents')} icon={<Download className="w-4 h-4"/>} text="Documents" />
              <NavButton active={activeTab==='messages'} onClick={()=>setActiveTab('messages')} icon={<MessageSquare className="w-4 h-4"/>} text="Messages" />
              <NavButton active={activeTab==='meetings'} onClick={()=>setActiveTab('meetings')} icon={<Video className="w-4 h-4"/>} text="Meetings" />
@@ -109,33 +119,33 @@ export const ClientPortalDashboard = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {/* Active Project Card */}
-                {projects.map(p => (
-                  <div key={p.id} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 col-span-2">
+                {project && (
+                  <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 col-span-2">
                     <div className="flex justify-between items-start mb-6">
                       <div>
-                        <h3 className="font-bold text-brand-navy text-lg">{p.name}</h3>
-                        <p className="text-sm text-gray-500">Status: <span className="text-green-600 font-bold">{p.status}</span></p>
+                        <h3 className="font-bold text-brand-navy text-lg">{project.name}</h3>
+                        <p className="text-sm text-gray-500">Status: <span className="text-green-600 font-bold">{project.status}</span></p>
                       </div>
-                      <span className="text-2xl font-extrabold text-brand-navy">{p.progress}%</span>
+                      <span className="text-2xl font-extrabold text-brand-navy">{project.progress}%</span>
                     </div>
                     <div className="w-full bg-gray-100 h-2 rounded-full mb-6 overflow-hidden">
-                      <div className="bg-brand-orange h-full rounded-full" style={{width: `${p.progress}%`}}></div>
+                      <div className="bg-brand-orange h-full rounded-full" style={{width: `${project.progress}%`}}></div>
                     </div>
                     <div className="bg-orange-50 p-4 rounded-xl border border-orange-100">
                       <p className="text-xs text-brand-orange font-bold uppercase tracking-wider mb-1">Next Milestone</p>
                       <div className="flex justify-between items-center">
-                        <p className="font-bold text-orange-900">{p.nextMilestone}</p>
-                        <p className="text-sm font-semibold text-orange-700 flex items-center gap-1"><Clock className="w-4 h-4"/> {p.dueDate}</p>
+                        <p className="font-bold text-orange-900">{project.next_milestone}</p>
+                        <p className="text-sm font-semibold text-orange-700 flex items-center gap-1"><Clock className="w-4 h-4"/> {new Date(project.due_date).toLocaleDateString()}</p>
                       </div>
                     </div>
                   </div>
-                ))}
+                )}
 
                 {/* Quick Actions / Status */}
                 <div className="space-y-6">
                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
                      <h3 className="font-bold text-brand-navy mb-4 flex items-center gap-2"><FileText className="w-5 h-5 text-gray-400"/> Outstanding Invoice</h3>
-                     <p className="text-3xl font-extrabold text-gray-900 mb-2">₹25,000</p>
+                     <p className="text-3xl font-extrabold text-gray-900 mb-2">₹{invoices?.find(i => i.status === 'unpaid')?.amount.toLocaleString() || '0'}</p>
                      <p className="text-sm text-red-500 font-bold mb-4">Due: May 15, 2026</p>
                      <button className="w-full bg-brand-navy text-white py-2 rounded-lg font-bold hover:bg-gray-800 transition-colors text-sm">
                        Pay Now
@@ -143,12 +153,20 @@ export const ClientPortalDashboard = () => {
                    </div>
                    
                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-                     <h3 className="font-bold text-brand-navy mb-4 flex items-center gap-2"><Video className="w-5 h-5 text-gray-400"/> Next Meeting</h3>
-                     <p className="font-bold text-gray-900 mb-1">{meetings[0].title}</p>
-                     <p className="text-sm text-gray-500 mb-4">{meetings[0].date} at {meetings[0].time}</p>
-                     <button className="w-full border border-gray-200 text-brand-navy py-2 rounded-lg font-bold hover:bg-gray-50 transition-colors text-sm">
-                       Join Call
-                     </button>
+                     <h3 className="font-bold text-brand-navy mb-4 flex items-center gap-2"><AlertTriangle className="w-5 h-5 text-brand-orange" /> Recent Support Tickets</h3>
+                     <div className="space-y-3">
+                        {tickets?.slice(0, 2).map((tkt, i) => (
+                          <div key={i} className="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors border border-transparent hover:border-gray-200">
+                            <div>
+                              <p className="font-bold text-brand-navy text-sm leading-tight">{tkt.title}</p>
+                              <p className="text-xs text-gray-500 mt-1">{tkt.id} • Updated {new Date(tkt.updated_at || Date.now()).toLocaleDateString()}</p>
+                            </div>
+                            <span className={`px-2 py-1 rounded text-xs font-bold uppercase ${tkt.status === 'resolved' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-brand-orange'}`}>
+                              {tkt.status}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
                    </div>
                 </div>
               </div>
@@ -207,10 +225,10 @@ export const ClientPortalDashboard = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {invoices.map(inv => (
+                  {invoices?.map(inv => (
                     <tr key={inv.id} className="hover:bg-gray-50/50 transition-colors">
                       <td className="p-4 font-bold text-brand-navy">{inv.id}</td>
-                      <td className="p-4 text-sm text-gray-600">{inv.date}</td>
+                      <td className="p-4 text-sm text-gray-600">{new Date(inv.created_at).toLocaleDateString()}</td>
                       <td className="p-4 font-bold text-gray-900">₹{inv.amount.toLocaleString()}</td>
                       <td className="p-4">
                         <span className={`px-2 py-1 rounded text-xs font-bold uppercase ${inv.status === 'paid' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
