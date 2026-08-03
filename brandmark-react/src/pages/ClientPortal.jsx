@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { 
@@ -13,72 +13,32 @@ import {
   Download
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '../lib/supabase';
 
 export const ClientPortal = () => {
   const { clientId } = useParams();
   const [activeTab, setActiveTab] = useState('overview');
-  const [clientData, setClientData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  // In production, this would use Supabase Auth session
+  
   const [isAuthenticated, setIsAuthenticated] = useState(true);
 
-  useEffect(() => {
-    // Simulated fetch of authenticated client data from Supabase/n8n API
-    const fetchClientData = async () => {
-      try {
-        const API_URL = import.meta.env.VITE_CLIENT_PORTAL_API || 'http://localhost:5678/webhook/client-data';
+  const { data: clientData, isLoading } = useQuery({
+    queryKey: ['clientData', clientId],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('clients')
+        .select(`
+          *,
+          projects (*, tasks (*)),
+          invoices (*)
+        `)
+        .eq('id', clientId)
+        .single();
         
-        // In real app, headers would include Bearer ${supabase.auth.session().access_token}
-        const res = await fetch(`${API_URL}?clientId=${clientId}`);
-        
-        if (!res.ok) {
-          // Fallback for development so the UI renders
-          if (import.meta.env.DEV) {
-            setClientData({
-              company_name: "Acme Corp",
-              primary_contact_name: "John Doe",
-              status: "onboarding",
-              google_drive_url: "https://drive.google.com/drive/folders/mock",
-              project: {
-                name: "Growth & SEO Campaign",
-                status: "kickoff",
-                timeline: [
-                  { task: "Proposal Signed", completed: true },
-                  { task: "Invoice Paid", completed: false },
-                  { task: "Kickoff Questionnaire", completed: false },
-                  { task: "Strategy Meeting", completed: false }
-                ]
-              },
-              invoices: [
-                { id: "INV-1001", amount: "₹59,000", status: "unpaid", due_date: "2023-11-01", pdf_url: "#" }
-              ],
-              tasks: [
-                { id: 1, title: "Fill out Kickoff Questionnaire", status: "todo", priority: "high" },
-                { id: 2, title: "Provide Google Analytics Access", status: "todo", priority: "medium" }
-              ],
-              documents: [
-                { id: 1, title: "Signed Proposal", type: "contract", date: "2023-10-25", url: "#" }
-              ]
-            });
-            setIsLoading(false);
-            return;
-          }
-          throw new Error('Unauthorized');
-        }
-        
-        const data = await res.json();
-        setClientData(data);
-      } catch (err) {
-        setIsAuthenticated(false);
-        toast.error("Authentication failed or portal not found.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchClientData();
-  }, [clientId]);
+      if (error) throw error;
+      return data || {};
+    }
+  });
 
   if (!isAuthenticated) return <Navigate to="/student/login" />; // Redirect to a generic login for now
 

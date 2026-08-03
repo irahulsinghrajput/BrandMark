@@ -2,15 +2,20 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Navigate, Link } from 'react-router-dom';
 import { ArrowLeft, BrainCircuit, AlertTriangle, Lightbulb, Zap, CheckCircle } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '../lib/supabase';
 
 export const AIInsightsEngine = () => {
   const [isAdmin] = useState(true);
 
-  const mockInsights = [
-    { id: 1, type: 'anomaly', title: 'Unusual Spike in API Latency', desc: 'Supabase Edge Functions are experiencing a 300ms variance compared to the 7-day moving average.', severity: 'medium', icon: <AlertTriangle className="w-5 h-5 text-yellow-500"/> },
-    { id: 2, type: 'opportunity', title: 'High Intent Churn Segment', desc: '14 enterprise clients have not logged in for 30 days. Recommend triggering re-engagement workflow.', severity: 'high', icon: <Lightbulb className="w-5 h-5 text-brand-orange"/> },
-    { id: 3, type: 'summary', title: 'Weekly Executive Briefing', desc: 'Revenue increased 4.2% WoW. Active workflows executed 14,000 times successfully with 2 dead-letters.', severity: 'low', icon: <Zap className="w-5 h-5 text-blue-500"/> }
-  ];
+  const { data: insights = [], isLoading } = useQuery({
+    queryKey: ['aiInsights'],
+    queryFn: async () => {
+      const { data, error } = await supabase.from('vw_ai_insights').select('*');
+      if (error) throw error;
+      return data || [];
+    }
+  });
 
   if (!isAdmin) return <Navigate to="/admin-login" />;
 
@@ -30,15 +35,19 @@ export const AIInsightsEngine = () => {
         </div>
 
         <div className="grid grid-cols-1 gap-6">
-           {mockInsights.map(insight => (
+           {isLoading && <div className="text-gray-500">Loading AI Insights...</div>}
+           {!isLoading && insights.length === 0 && <div className="text-gray-500">No AI insights generated yet.</div>}
+           {insights.map(insight => (
               <div key={insight.id} className="bg-white border border-gray-200 p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
                  <div className="flex justify-between items-start mb-2">
                     <div className="flex items-center gap-3">
                        <div className={`p-2 rounded-xl ${
-                         insight.type === 'anomaly' ? 'bg-yellow-50' : 
-                         insight.type === 'opportunity' ? 'bg-orange-50' : 'bg-blue-50'
+                         insight.insight_type === 'anomaly' ? 'bg-yellow-50' : 
+                         insight.insight_type === 'opportunity' ? 'bg-orange-50' : 'bg-blue-50'
                        }`}>
-                          {insight.icon}
+                          {insight.insight_type === 'anomaly' ? <AlertTriangle className={`w-5 h-5 text-yellow-500`}/> : 
+                           insight.insight_type === 'opportunity' ? <Lightbulb className="w-5 h-5 text-brand-orange"/> : 
+                           <Zap className="w-5 h-5 text-blue-500"/>}
                        </div>
                        <h3 className="font-bold text-lg text-brand-navy">{insight.title}</h3>
                     </div>

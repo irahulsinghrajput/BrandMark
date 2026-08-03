@@ -2,15 +2,20 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Navigate, Link } from 'react-router-dom';
 import { ArrowLeft, Activity, Search, Filter, CheckCircle, XCircle, Clock } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '../lib/supabase';
 
 export const WorkflowExecutions = () => {
   const [isAdmin] = useState(true);
 
-  const mockExecutions = [
-    { id: 'ex_8992', workflow: 'Client Onboarding', trigger: 'webhook', status: 'success', duration: '2.4s', time: '5 mins ago' },
-    { id: 'ex_8993', workflow: 'Invoice Reminder', trigger: 'schedule', status: 'running', duration: '12.1s', time: '18 mins ago' },
-    { id: 'ex_8994', workflow: 'Social Auto-Post', trigger: 'manual', status: 'failed', duration: '0.8s', time: '1 hour ago' }
-  ];
+  const { data: executions = [], isLoading } = useQuery({
+    queryKey: ['workflowExecutions'],
+    queryFn: async () => {
+      const { data, error } = await supabase.from('workflow_executions').select('*, workflows(name)').order('created_at', { ascending: false }).limit(50);
+      if (error) throw error;
+      return data || [];
+    }
+  });
 
   if (!isAdmin) return <Navigate to="/admin-login" />;
 
@@ -50,22 +55,26 @@ export const WorkflowExecutions = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
-                    {mockExecutions.map(ex => (
+                    {isLoading && <tr><td colSpan="5" className="p-4 text-center text-gray-500">Loading executions...</td></tr>}
+                    {!isLoading && executions.length === 0 && <tr><td colSpan="5" className="p-4 text-center text-gray-500">No executions found.</td></tr>}
+                    {executions.map(ex => (
                       <tr key={ex.id} className="hover:bg-gray-50 transition-colors">
-                        <td className="p-4 font-mono text-xs text-gray-500">{ex.id}</td>
-                        <td className="p-4 font-bold text-gray-700 text-sm">{ex.workflow}</td>
-                        <td className="p-4 text-xs font-mono text-gray-500">{ex.trigger}</td>
+                        <td className="p-4 font-mono text-xs text-gray-500">{ex.id.substring(0,8)}</td>
+                        <td className="p-4 font-bold text-gray-700 text-sm">{ex.workflows?.name || 'Unknown'}</td>
+                        <td className="p-4 text-xs font-mono text-gray-500">{ex.trigger_type || 'manual'}</td>
                         <td className="p-4">
                           <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold ${
                             ex.status === 'success' ? 'bg-green-100 text-green-700' : 
-                            ex.status === 'failed' ? 'bg-red-100 text-red-700' : 'bg-yellow-100 text-yellow-700'
+                            ex.status === 'failed' ? 'bg-red-100 text-red-700' : 
+                            'bg-yellow-100 text-yellow-700'
                           }`}>
-                            {ex.status === 'success' ? <CheckCircle className="w-3 h-3"/> : 
-                             ex.status === 'failed' ? <XCircle className="w-3 h-3"/> : <Clock className="w-3 h-3 animate-spin"/>}
-                            {ex.status.toUpperCase()}
+                            {ex.status === 'success' && <CheckCircle className="w-3 h-3"/>}
+                            {ex.status === 'failed' && <XCircle className="w-3 h-3"/>}
+                            {ex.status === 'running' && <Clock className="w-3 h-3"/>}
+                            {ex.status}
                           </span>
                         </td>
-                        <td className="p-4 text-sm font-medium text-gray-700">{ex.duration}</td>
+                        <td className="p-4 text-sm text-gray-500 font-mono">{(ex.execution_time_ms / 1000).toFixed(2)}s</td>
                       </tr>
                     ))}
                   </tbody>

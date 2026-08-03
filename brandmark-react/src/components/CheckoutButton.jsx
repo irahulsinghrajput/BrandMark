@@ -11,11 +11,22 @@ export const CheckoutButton = ({ courseId, price, buttonText = "Enroll Now", cla
     setShowModal(true);
   };
 
-  const simulateRazorpay = () => {
+  const simulateRazorpay = async () => {
     setIsProcessing(true);
     
-    // Simulate Razorpay API call and payment processing
-    setTimeout(() => {
+    try {
+      const response = await fetch(import.meta.env.VITE_SUPABASE_URL + '/functions/v1/razorpay-checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
+        },
+        body: JSON.stringify({ amount: price, courseId })
+      });
+      
+      if (!response.ok) throw new Error('Backend pending deployment');
+      
+      // Simulate successful redirect since it's a backend redirect usually
       setIsProcessing(false);
       setShowModal(false);
       
@@ -25,7 +36,10 @@ export const CheckoutButton = ({ courseId, price, buttonText = "Enroll Now", cla
       
       // Redirect to protected dashboard
       navigate('/dashboard');
-    }, 2000);
+    } catch (error) {
+      setIsProcessing(false);
+      alert("Failed to process payment. (Backend pending)");
+    }
   };
 
   return (

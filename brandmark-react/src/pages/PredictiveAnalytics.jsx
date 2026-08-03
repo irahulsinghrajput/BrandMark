@@ -2,9 +2,33 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Navigate, Link } from 'react-router-dom';
 import { ArrowLeft, TrendingUp, AlertTriangle, RefreshCw, BarChart2 } from 'lucide-react';
+import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '../lib/supabase';
 
 export const PredictiveAnalytics = () => {
   const [isAdmin] = useState(true);
+
+  const { data: predictions = [], isLoading } = useQuery({
+    queryKey: ['predictions'],
+    queryFn: async () => {
+      const { data, error } = await supabase.from('vw_predictions').select('*');
+      if (error) throw error;
+      return data || [];
+    }
+  });
+
+  const revenueData = predictions.filter(p => p.metric === 'revenue' || p.model_id === 'rev-1') || [
+    { target_date: 'Oct', predicted_value: 1200000 },
+    { target_date: 'Nov', predicted_value: 1600000 },
+    { target_date: 'Dec', predicted_value: 2400000 }
+  ];
+
+  const churnData = predictions.filter(p => p.metric === 'churn' || p.model_id === 'churn-1') || [
+    { target_date: 'Oct', predicted_value: 3.1 },
+    { target_date: 'Nov', predicted_value: 3.8 },
+    { target_date: 'Dec', predicted_value: 4.2 }
+  ];
 
   if (!isAdmin) return <Navigate to="/admin-login" />;
 
@@ -40,7 +64,13 @@ export const PredictiveAnalytics = () => {
                  <p className="text-sm font-bold text-green-500 mb-1">+$400k expected</p>
               </div>
               <div className="h-32 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-center text-gray-400 text-xs">
-                 [Chart Placeholder: Recharts AreaChart mapped to prediction_results]
+                 <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart data={revenueData}>
+                       <XAxis dataKey="target_date" hide />
+                       <Tooltip />
+                       <Area type="monotone" dataKey="predicted_value" stroke="#10b981" fill="#ecfdf5" strokeWidth={2} />
+                    </AreaChart>
+                 </ResponsiveContainer>
               </div>
            </div>
 
@@ -54,7 +84,13 @@ export const PredictiveAnalytics = () => {
                  <p className="text-sm font-bold text-red-500 mb-1">+1.1% risk variance</p>
               </div>
               <div className="h-32 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-center text-gray-400 text-xs">
-                 [Chart Placeholder: Recharts BarChart mapped to prediction_results]
+                 <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={churnData}>
+                       <XAxis dataKey="target_date" hide />
+                       <Tooltip cursor={{fill: '#fef2f2'}} />
+                       <Bar dataKey="predicted_value" fill="#ef4444" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                 </ResponsiveContainer>
               </div>
            </div>
         </div>

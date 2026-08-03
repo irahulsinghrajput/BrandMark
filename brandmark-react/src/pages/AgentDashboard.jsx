@@ -4,16 +4,7 @@ import { Navigate, Link } from 'react-router-dom';
 import { Bot, Activity, CheckCircle, XCircle, Users, LayoutDashboard, BrainCircuit, Target, Briefcase, Phone, MessageSquare, LineChart } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
-// Mock Agent Definitions (Fallback if DB is empty)
-const defaultAgents = [
-  { id: '1', name: 'Sales Agent', role: 'Sales Development', description: 'Qualifies leads and generates outreach emails.', icon: <Target className="w-5 h-5"/> },
-  { id: '2', name: 'Marketing Agent', role: 'Marketing Orchestration', description: 'Generates campaigns, ads, and social media copy.', icon: <LayoutDashboard className="w-5 h-5"/> },
-  { id: '3', name: 'Finance Agent', role: 'Financial Operations', description: 'Tracks invoices, calculates ROI, and projects revenue.', icon: <LineChart className="w-5 h-5"/> },
-  { id: '4', name: 'Project Manager Agent', role: 'Delivery Orchestration', description: 'Monitors project timelines and delegates tasks.', icon: <Briefcase className="w-5 h-5"/> },
-  { id: '5', name: 'Customer Support Agent', role: 'Client Relations', description: 'Drafts responses to client queries and resolves tickets.', icon: <Phone className="w-5 h-5"/> },
-  { id: '6', name: 'Knowledge Agent', role: 'Information Retrieval', description: 'Searches internal SOPs and documents using RAG.', icon: <BrainCircuit className="w-5 h-5"/> },
-  { id: '7', name: 'Executive Advisor Agent', role: 'Strategic Insights', description: 'Aggregates data to provide executive BI insights.', icon: <Users className="w-5 h-5"/> }
-];
+
 
 export const AgentDashboard = () => {
   const [isAdmin] = useState(true);
@@ -39,7 +30,7 @@ export const AgentDashboard = () => {
         });
         setAgents(mappedData);
       } else {
-        setAgents(defaultAgents);
+        setAgents([]);
       }
       setLoading(false);
     };
@@ -96,7 +87,7 @@ export const AgentDashboard = () => {
                   </div>
                   
                   <div className="mt-auto">
-                    {/* Mock health indicators */}
+                    {/* Real health indicators */}
                     <div className="flex justify-between text-xs text-gray-400 mb-4 pb-4 border-b border-gray-100">
                        <span className="flex items-center gap-1"><Activity className="w-3 h-3"/> {agent.queued_tasks || 0} queued</span>
                        <span className="flex items-center gap-1"><XCircle className="w-3 h-3"/> {agent.recent_failures || 0} faults (24h)</span>

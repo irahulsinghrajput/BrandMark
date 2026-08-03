@@ -34,29 +34,34 @@ export const AITutor = ({ courseData, activeModuleTitle }) => {
     setMessages(newMessages);
     setInput('');
 
-    // Simulate AI Context Fencing and Processing
-    setTimeout(() => {
-      let aiResponse = '';
-      const lowerText = text.toLowerCase();
-      
-      // Strict Context Fencing
-      if (courseData === 'digital-marketing') {
-        if (lowerText.includes('react') || lowerText.includes('node') || lowerText.includes('code')) {
-          aiResponse = "I am specialized in Digital Marketing. For coding questions, please refer to the Full Stack course materials.";
-        } else {
-          aiResponse = `Regarding marketing and ${activeModuleTitle}: That's an excellent question. To optimize that, you should focus on audience segmentation and clear CTA messaging.`;
-        }
-      } else {
-        if (lowerText.includes('seo') || lowerText.includes('ads') || lowerText.includes('marketing')) {
-          aiResponse = "I am specialized in Full Stack Development. For marketing strategies, please refer to the Digital Marketing course.";
-        } else {
-          aiResponse = `Regarding development and ${activeModuleTitle}: Make sure you modularize your components and handle state efficiently to avoid unnecessary re-renders.`;
-        }
-      }
+    setMessages(prev => [...prev, { role: 'ai', text: '...', isLoading: true }]);
 
-      setMessages([...newMessages, { role: 'ai', text: aiResponse }]);
-      speakText(aiResponse);
-    }, 1000);
+    try {
+      const response = await fetch(import.meta.env.VITE_SUPABASE_URL + '/functions/v1/ai-tutor', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
+        },
+        body: JSON.stringify({ message: text, course: courseData, module: activeModuleTitle })
+      });
+      
+      if (!response.ok) throw new Error('Backend pending deployment');
+      const data = await response.json();
+      
+      setMessages(prev => {
+        const updated = [...prev];
+        updated[updated.length - 1] = { role: 'ai', text: data.reply };
+        return updated;
+      });
+      speakText(data.reply);
+    } catch (err) {
+      setMessages(prev => {
+        const updated = [...prev];
+        updated[updated.length - 1] = { role: 'ai', text: "Error: Could not connect to AI backend. (Backend pending)" };
+        return updated;
+      });
+    }
   };
 
   const toggleListening = () => {

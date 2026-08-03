@@ -114,13 +114,6 @@ export const BrandMarkGPT = () => {
         }
       }
 
-      // After streaming finishes, check if we need to mock citations (for demo purposes)
-      if (userMessage.content.toLowerCase().includes("pricing")) {
-         parsedCitations = [{ title: "BrandMark Pricing Guide Q4", similarity: 0.94, collection: "Pricing" }];
-      } else if (userMessage.content.toLowerCase().includes("sop")) {
-         parsedCitations = [{ title: "SEO Standard Operating Procedure", similarity: 0.98, collection: "SOPs" }];
-      }
-
       setMessages((prev) => {
         const newMessages = [...prev];
         newMessages[newMessages.length - 1].citations = parsedCitations;
@@ -139,37 +132,12 @@ export const BrandMarkGPT = () => {
       if (error.name === 'AbortError') {
          toast("Generation cancelled", { icon: '🛑' });
       } else {
-         toast.error("Failed to connect to BrandMark GPT via n8n.");
-         // In Dev, we might fallback to a local mock if webhook fails
-         if (import.meta.env.DEV) {
-           handleMockFallback(userMessage.content);
-         }
+         toast.error("Failed to connect to BrandMark GPT via backend.");
       }
     } finally {
       setIsThinking(false);
       abortControllerRef.current = null;
     }
-  };
-
-  const handleMockFallback = (content) => {
-    let mockResponse = "I have queried the knowledge base but couldn't find specific documentation on that topic. Please provide more context.";
-    let mockCitations = [];
-
-    if (content.toLowerCase().includes("pricing") || content.toLowerCase().includes("cost")) {
-       mockResponse = "Based on our Q4 Pricing Guide, our standard Full Stack Marketing retainer begins at **₹1,50,000/month**. This includes SEO, Meta Ads, and basic web maintenance.";
-       mockCitations = [{ title: "BrandMark Pricing Guide Q4", similarity: 0.94, collection: "Pricing" }];
-    } else if (content.toLowerCase().includes("sop")) {
-       mockResponse = "According to the SEO SOP, the first step for a new client is a full Technical SEO Audit (Core Web Vitals, Schema, Canonicals) before beginning any content expansion.";
-       mockCitations = [{ title: "SEO Standard Operating Procedure", similarity: 0.98, collection: "SOPs" }];
-    }
-
-    setMessages((prev) => {
-        const newMessages = [...prev];
-        newMessages[newMessages.length - 1].content = mockResponse;
-        newMessages[newMessages.length - 1].citations = mockCitations;
-        newMessages[newMessages.length - 1].isStreaming = false;
-        return newMessages;
-    });
   };
 
   const cancelGeneration = () => {

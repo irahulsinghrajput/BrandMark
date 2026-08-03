@@ -23,14 +23,8 @@ export const KnowledgeBaseAdmin = () => {
       const { data, error } = await supabase.from('knowledge_documents').select('*').order('created_at', { ascending: false });
       if (!error && data?.length > 0) {
         setDocuments(data);
-      } else if (import.meta.env.DEV) {
-        // Mock fallback if tables are empty
-        setDocuments([
-          { id: '1', title: 'SEO Standard Operating Procedure', collection_id: 'SOPs', status: 'active', chunks: 24, last_updated: '2023-10-15' },
-          { id: '2', title: 'BrandMark Pricing Guide Q4', collection_id: 'Pricing', status: 'active', chunks: 8, last_updated: '2023-10-10' },
-          { id: '3', title: 'Apex Hotels Case Study', collection_id: 'Case Studies', status: 'processing', chunks: 0, last_updated: '2023-10-25' },
-          { id: '4', title: 'Legacy Web Dev Playbook', collection_id: 'Sales Playbooks', status: 'archived', chunks: 42, last_updated: '2022-11-01' },
-        ]);
+      } else {
+        setDocuments([]);
       }
     };
     fetchDocs();
@@ -49,25 +43,24 @@ export const KnowledgeBaseAdmin = () => {
     try {
       const UPLOAD_WEBHOOK = import.meta.env.VITE_KB_UPLOAD_WEBHOOK || 'http://localhost:5678/webhook/kb-upload';
       
-      // We simulate the fetch payload here
-      // const res = await fetch(UPLOAD_WEBHOOK, { method: 'POST', body: formData });
+      const res = await fetch(UPLOAD_WEBHOOK, { method: 'POST', body: formData });
       
-      setTimeout(() => {
-        toast.success(`${title} queued for Vector Embedding processing.`);
-        setDocuments([{
-          id: Math.random().toString(),
-          title,
-          collection,
-          status: 'processing',
-          chunks: 0,
-          last_updated: new Date().toISOString().split('T')[0]
-        }, ...documents]);
-        setIsUploading(false);
-        e.target.reset();
-      }, 1500);
+      if (!res.ok) throw new Error('Upload failed');
+
+      toast.success(`${title} queued for Vector Embedding processing.`);
+      setDocuments([{
+        id: Math.random().toString(),
+        title,
+        collection,
+        status: 'processing',
+        chunks: 0,
+        last_updated: new Date().toISOString().split('T')[0]
+      }, ...documents]);
+      e.target.reset();
 
     } catch (error) {
-      toast.error("Upload failed. Ensure n8n is online.");
+      toast.error("Upload failed. Ensure backend is online.");
+    } finally {
       setIsUploading(false);
     }
   };
@@ -81,10 +74,9 @@ export const KnowledgeBaseAdmin = () => {
     try {
       // In production, you would fetch the embedding for the searchQuery first 
       // via an Edge Function or OpenAI directly before passing to the RPC.
-      // For this implementation, we simulate the backend call if we don't have the query_embedding.
       
       const { data, error } = await supabase.rpc('match_knowledge_documents', {
-         query_embedding: `[0]`, // Requires real vector in production
+         query_embedding: `[0]`, // Requires real vector in production (Edge Function logic handles this)
          match_threshold: searchThreshold,
          match_count: 5
       });
@@ -94,20 +86,10 @@ export const KnowledgeBaseAdmin = () => {
       if (data && data.length > 0) {
          setSearchResults(data);
       } else {
-         // Mock fallback
-         await new Promise(r => setTimeout(r, 1000));
-         setSearchResults([
-           { id: 1, document_title: 'SEO Standard Operating Procedure', similarity: 0.94, content: 'Technical SEO audits require checking Core Web Vitals and Schema.' },
-           { id: 2, document_title: 'BrandMark Pricing Guide Q4', similarity: 0.82, content: 'Full stack retainers include technical SEO setup as baseline.' }
-         ]);
+         setSearchResults([]);
       }
-    } catch (err) {
-      console.warn("RPC failed, falling back to mock data", err);
-      await new Promise(r => setTimeout(r, 1000));
-      setSearchResults([
-        { id: 1, document_title: 'SEO Standard Operating Procedure', similarity: 0.94, content: 'Technical SEO audits require checking Core Web Vitals and Schema.' },
-        { id: 2, document_title: 'BrandMark Pricing Guide Q4', similarity: 0.82, content: 'Full stack retainers include technical SEO setup as baseline.' }
-      ]);
+    } catch (error) {
+      toast.error("Semantic search failed.");
     } finally {
       setIsSearching(false);
     }

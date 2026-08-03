@@ -37,9 +37,18 @@ export const MarketingAutomation = () => {
     const loadingToast = toast.loading('AI is generating multi-channel campaign...');
     
     try {
-      await new Promise(r => setTimeout(r, 2000));
+      const response = await fetch(import.meta.env.VITE_SUPABASE_URL + '/functions/v1/generate-campaign', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
+        },
+        body: JSON.stringify({ prompt: 'Generate multi-channel campaign' })
+      });
       
-      const { error } = await supabase.from('campaigns').insert([{
+      if (!response.ok) throw new Error('Backend pending deployment');
+      
+      const { data, error } = await supabase.from('campaigns').insert([{
         name: 'AI Generated Campaign - ' + new Date().toLocaleTimeString(),
         status: 'draft',
         platform: 'Multi-Channel',
@@ -52,7 +61,7 @@ export const MarketingAutomation = () => {
       toast.success('Campaign generated successfully', { id: loadingToast });
     } catch (err) {
       Sentry.captureException(err);
-      toast.error('Failed to generate campaign', { id: loadingToast });
+      toast.error('Failed to generate campaign. (Backend pending)', { id: loadingToast });
     } finally {
       setIsGenerating(false);
     }

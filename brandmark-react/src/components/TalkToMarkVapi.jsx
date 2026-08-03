@@ -9,8 +9,7 @@ let vapiConfigured = false;
 try {
   const publicKey = import.meta.env.VITE_VAPI_PUBLIC_KEY || '';
   const assistantId = import.meta.env.VITE_VAPI_ASSISTANT_ID || '';
-  const placeholderValues = ['dummy_public_key', 'your_vapi_public_key_here', 'dummy_assistant_id', 'your_vapi_assistant_id_here'];
-  const hasValidConfig = publicKey && assistantId && !placeholderValues.includes(publicKey) && !placeholderValues.includes(assistantId);
+  const hasValidConfig = Boolean(publicKey && assistantId);
 
   if (hasValidConfig && typeof Vapi === 'function') {
     vapiConfigured = true;

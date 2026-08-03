@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { supabase } from '../lib/supabase';
 import * as Sentry from '@sentry/react';
+import DOMPurify from 'dompurify';
 
 export const ClientProposalPortal = () => {
   const { id } = useParams();
@@ -118,7 +119,7 @@ export const ClientProposalPortal = () => {
           {/* HTML Content Render */}
           <div 
             className="p-8 md:p-12 prose max-w-none"
-            dangerouslySetInnerHTML={{ __html: proposal.html_content }}
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(proposal.html_content) }}
           />
         </div>
 

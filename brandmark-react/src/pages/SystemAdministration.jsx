@@ -9,29 +9,7 @@ import {
 import toast from 'react-hot-toast';
 import { supabase } from '../lib/supabase';
 
-// Fallback Enterprise Integrations (20 Tools)
-const defaultIntegrations = [
-  { id: 1, name: 'HubSpot CRM', category: 'CRM', auth_type: 'oauth2', status: 'connected', health_score: 100, last_synced_at: '2026-08-01T10:00:00Z' },
-  { id: 2, name: 'Google Analytics 4', category: 'Analytics', auth_type: 'oauth2', status: 'connected', health_score: 98, last_synced_at: '2026-08-01T10:00:00Z' },
-  { id: 3, name: 'Google Search Console', category: 'Analytics', auth_type: 'oauth2', status: 'disconnected', health_score: null, last_synced_at: null },
-  { id: 4, name: 'Meta Ads', category: 'Ads', auth_type: 'oauth2', status: 'disconnected', health_score: null, last_synced_at: null },
-  { id: 5, name: 'Google Ads', category: 'Ads', auth_type: 'oauth2', status: 'disconnected', health_score: null, last_synced_at: null },
-  { id: 6, name: 'LinkedIn Ads', category: 'Ads', auth_type: 'oauth2', status: 'disconnected', health_score: null, last_synced_at: null },
-  { id: 7, name: 'Stripe', category: 'Finance', auth_type: 'api_key', status: 'connected', health_score: 100, last_synced_at: '2026-08-01T10:00:00Z' },
-  { id: 8, name: 'Razorpay', category: 'Finance', auth_type: 'api_key', status: 'disconnected', health_score: null, last_synced_at: null },
-  { id: 9, name: 'Slack', category: 'Communication', auth_type: 'oauth2', status: 'connected', health_score: 100, last_synced_at: '2026-08-01T10:00:00Z' },
-  { id: 10, name: 'Microsoft Teams', category: 'Communication', auth_type: 'oauth2', status: 'disconnected', health_score: null, last_synced_at: null },
-  { id: 11, name: 'Gmail', category: 'Productivity', auth_type: 'oauth2', status: 'disconnected', health_score: null, last_synced_at: null },
-  { id: 12, name: 'Outlook', category: 'Productivity', auth_type: 'oauth2', status: 'disconnected', health_score: null, last_synced_at: null },
-  { id: 13, name: 'Twilio', category: 'Communication', auth_type: 'api_key', status: 'disconnected', health_score: null, last_synced_at: null },
-  { id: 14, name: 'WhatsApp Business API', category: 'Communication', auth_type: 'api_key', status: 'disconnected', health_score: null, last_synced_at: null },
-  { id: 15, name: 'Calendly', category: 'Productivity', auth_type: 'oauth2', status: 'disconnected', health_score: null, last_synced_at: null },
-  { id: 16, name: 'Zoom', category: 'Productivity', auth_type: 'oauth2', status: 'disconnected', health_score: null, last_synced_at: null },
-  { id: 17, name: 'Google Meet', category: 'Productivity', auth_type: 'oauth2', status: 'disconnected', health_score: null, last_synced_at: null },
-  { id: 18, name: 'Google Drive', category: 'Productivity', auth_type: 'oauth2', status: 'disconnected', health_score: null, last_synced_at: null },
-  { id: 19, name: 'Dropbox', category: 'Productivity', auth_type: 'oauth2', status: 'disconnected', health_score: null, last_synced_at: null },
-  { id: 20, name: 'OneDrive', category: 'Productivity', auth_type: 'oauth2', status: 'disconnected', health_score: null, last_synced_at: null }
-];
+
 
 const featureFlags = [
   { id: 'ff-1', name: 'enable_ai_proposals', description: 'Use GPT-4o to auto-generate client proposals.', enabled: true },
@@ -61,12 +39,12 @@ export const SystemAdministration = () => {
       ]);
       
       if (pData?.length > 0) setPrompts(pData);
-      else if (import.meta.env.DEV) setPrompts([]);
+      else setPrompts([]);
 
       if (mData?.length > 0) setModels(mData);
       
       if (iData?.length > 0) setEnterpriseIntegrations(iData);
-      else setEnterpriseIntegrations(defaultIntegrations);
+      else setEnterpriseIntegrations([]);
     };
     fetchData();
   }, []);
@@ -217,7 +195,7 @@ export const SystemAdministration = () => {
                       <textarea 
                         value={testInput}
                         onChange={(e) => setTestInput(e.target.value)}
-                        placeholder="Enter mock input variables (JSON or raw text)..." 
+                        placeholder="Enter input variables (JSON or raw text)..." 
                         rows={3}
                         className="w-full p-3 border border-gray-200 rounded-lg bg-gray-50 text-sm focus:outline-none focus:border-brand-orange"
                       />
@@ -226,20 +204,33 @@ export const SystemAdministration = () => {
                         onClick={async () => {
                            setIsTesting(true);
                            setTestResult('');
-                           // Mocking the n8n execution delay
-                           await new Promise(r => setTimeout(r, 1500));
-                           
-                           // Log the test in Supabase
-                           await supabase.from('prompt_tests').insert({
-                              prompt_id: testingPrompt.id,
-                              input_variables: { raw: testInput },
-                              generated_output: "Sandbox Test Passed. Output matches expected schema.",
-                              latency_ms: 1500,
-                              tokens_used: 120,
-                              success: true
-                           });
+                           try {
+                             const response = await fetch(import.meta.env.VITE_SUPABASE_URL + '/functions/v1/prompt-test', {
+                               method: 'POST',
+                               headers: {
+                                 'Content-Type': 'application/json',
+                                 'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
+                               },
+                               body: JSON.stringify({ promptId: testingPrompt.id, input: testInput })
+                             });
+                             
+                             if (!response.ok) throw new Error('Backend pending deployment');
+                             const data = await response.json();
+                             
+                             await supabase.from('prompt_tests').insert({
+                                prompt_id: testingPrompt.id,
+                                input_variables: { raw: testInput },
+                                generated_output: data.output || "Test Passed",
+                                latency_ms: data.latency || 0,
+                                tokens_used: data.tokens || 0,
+                                success: true
+                             });
 
-                           setTestResult("Sandbox Test Passed. Output matches expected schema.\n\nTokens Used: 120\nLatency: 1.5s");
+                             setTestResult(`Output: ${data.output || 'Passed'}\nTokens: ${data.tokens || 0}`);
+                           } catch (err) {
+                             setTestResult("Error connecting to backend. (Backend pending)");
+                           }
+
                            setIsTesting(false);
                            toast.success('Prompt test logged to database.');
                         }}
@@ -384,11 +375,26 @@ export const SystemAdministration = () => {
                                           window.location.href = authUrl; // Redirect to provider
                                         } catch (error) {
                                           console.warn("OAuth Integration Pending:", error.message);
-                                          toast.error(`Backend dependency missing: OAuth flow for ${integration.name} is not yet provisioned.`);
+                                          try {
+                             const response = await fetch(import.meta.env.VITE_SUPABASE_URL + '/functions/v1/oauth-connect', {
+                               method: 'POST',
+                               headers: {
+                                 'Content-Type': 'application/json',
+                                 'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
+                               },
+                               body: JSON.stringify({ integrationId: connectingApp.id })
+                             });
+                             if (!response.ok) throw new Error('Backend pending deployment');
+                             
+                             toast.success(`${connectingApp.name} connected successfully.`);
+                             setConnectingApp(null);
+                           } catch (err) {
+                             toast.error(`Failed to connect ${connectingApp.name}. (Backend pending)`);
+                             setConnectingApp(null);
+                           }           
                                         }
                                       };
                                       handleConnect(connectingApp);
-                                      setConnectingApp(null);
                                     }}
                                     className="w-full bg-brand-navy text-white font-bold py-3 rounded-xl hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
                                  >

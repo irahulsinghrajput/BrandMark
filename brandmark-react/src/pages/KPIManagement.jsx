@@ -2,15 +2,20 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Navigate, Link } from 'react-router-dom';
 import { ArrowLeft, Target, Plus, TrendingUp, TrendingDown } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '../lib/supabase';
 
 export const KPIManagement = () => {
   const [isAdmin] = useState(true);
 
-  const mockKPIs = [
-    { id: 1, name: 'Customer Acquisition Cost (CAC)', category: 'Marketing', current: '$120', target: '$100', status: 'warning' },
-    { id: 2, name: 'Monthly Recurring Revenue (MRR)', category: 'Financial', current: '$45,000', target: '$50,000', status: 'good' },
-    { id: 3, name: 'Server Uptime', category: 'Operational', current: '99.98%', target: '99.99%', status: 'critical' }
-  ];
+  const { data: kpis = [], isLoading } = useQuery({
+    queryKey: ['kpis'],
+    queryFn: async () => {
+      const { data, error } = await supabase.from('vw_enterprise_metrics').select('*');
+      if (error) throw error;
+      return data || [];
+    }
+  });
 
   if (!isAdmin) return <Navigate to="/admin-login" />;
 
@@ -44,16 +49,18 @@ export const KPIManagement = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {mockKPIs.map(kpi => (
-                  <tr key={kpi.id} className="hover:bg-gray-50 transition-colors">
+                {isLoading && <tr><td colSpan="5" className="p-4 text-center text-gray-500">Loading KPIs...</td></tr>}
+                {!isLoading && kpis.length === 0 && <tr><td colSpan="5" className="p-4 text-center text-gray-500">No KPIs found.</td></tr>}
+                {kpis.map(kpi => (
+                  <tr key={kpi.id || kpi.metric_name} className="hover:bg-gray-50 transition-colors">
                     <td className="p-4 font-bold text-gray-700 text-sm flex items-center gap-3">
-                       <Target className="w-5 h-5 text-gray-400"/> {kpi.name}
+                       <Target className="w-5 h-5 text-gray-400"/> {kpi.metric_name || kpi.name}
                     </td>
-                    <td className="p-4 text-sm font-medium text-gray-500">{kpi.category}</td>
-                    <td className="p-4 text-sm font-bold text-brand-navy text-lg">{kpi.current}</td>
-                    <td className="p-4 text-sm font-medium text-gray-400">{kpi.target}</td>
+                    <td className="p-4 text-sm font-medium text-gray-500">{kpi.category || 'General'}</td>
+                    <td className="p-4 text-sm font-bold text-brand-navy text-lg">{kpi.current_value || kpi.current}</td>
+                    <td className="p-4 text-sm font-medium text-gray-400">{kpi.target_value || kpi.target || 'N/A'}</td>
                     <td className="p-4">
-                      {kpi.status === 'good' && <span className="inline-flex items-center gap-1 bg-green-50 text-green-700 px-2 py-1 rounded text-xs font-bold"><TrendingUp className="w-3 h-3"/> On Track</span>}
+                      {(kpi.status === 'good' || !kpi.status) && <span className="inline-flex items-center gap-1 bg-green-50 text-green-700 px-2 py-1 rounded text-xs font-bold"><TrendingUp className="w-3 h-3"/> On Track</span>}
                       {kpi.status === 'warning' && <span className="inline-flex items-center gap-1 bg-yellow-50 text-yellow-700 px-2 py-1 rounded text-xs font-bold"><TrendingDown className="w-3 h-3"/> Behind</span>}
                       {kpi.status === 'critical' && <span className="inline-flex items-center gap-1 bg-red-50 text-red-700 px-2 py-1 rounded text-xs font-bold"><TrendingDown className="w-3 h-3"/> Critical</span>}
                     </td>
