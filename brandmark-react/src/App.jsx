@@ -48,6 +48,13 @@ const WorkflowExecutions = lazy(() => import('./pages/WorkflowExecutions').then(
 const WorkflowTemplates = lazy(() => import('./pages/WorkflowTemplates').then(module => ({ default: module.WorkflowTemplates })));
 const WorkflowSchedules = lazy(() => import('./pages/WorkflowSchedules').then(module => ({ default: module.WorkflowSchedules })));
 const WorkflowQueue = lazy(() => import('./pages/WorkflowQueue').then(module => ({ default: module.WorkflowQueue })));
+const EnterpriseAnalytics = lazy(() => import('./pages/EnterpriseAnalytics').then(module => ({ default: module.EnterpriseAnalytics })));
+const BusinessIntelligence = lazy(() => import('./pages/BusinessIntelligence').then(module => ({ default: module.BusinessIntelligence })));
+const ExecutiveReporting = lazy(() => import('./pages/ExecutiveReporting').then(module => ({ default: module.ExecutiveReporting })));
+const PredictiveAnalytics = lazy(() => import('./pages/PredictiveAnalytics').then(module => ({ default: module.PredictiveAnalytics })));
+const KPIManagement = lazy(() => import('./pages/KPIManagement').then(module => ({ default: module.KPIManagement })));
+const CustomDashboards = lazy(() => import('./pages/CustomDashboards').then(module => ({ default: module.CustomDashboards })));
+const AIInsightsEngine = lazy(() => import('./pages/AIInsightsEngine').then(module => ({ default: module.AIInsightsEngine })));
 const MarketingAutomation = lazy(() => import('./pages/MarketingAutomation').then(module => ({ default: module.MarketingAutomation })));
 const FinanceDashboard = lazy(() => import('./pages/FinanceDashboard').then(module => ({ default: module.FinanceDashboard })));
 const ProjectOperations = lazy(() => import('./pages/ProjectOperations').then(module => ({ default: module.ProjectOperations })));
@@ -189,6 +196,13 @@ function App() {
                 <Route path="/admin/workflows/templates" element={<AdminRoute><WorkflowTemplates /></AdminRoute>} />
                 <Route path="/admin/workflows/schedules" element={<AdminRoute><WorkflowSchedules /></AdminRoute>} />
                 <Route path="/admin/workflows/queue" element={<AdminRoute><WorkflowQueue /></AdminRoute>} />
+                <Route path="/admin/analytics" element={<AdminRoute><EnterpriseAnalytics /></AdminRoute>} />
+                <Route path="/admin/analytics/bi" element={<AdminRoute><BusinessIntelligence /></AdminRoute>} />
+                <Route path="/admin/analytics/reporting" element={<AdminRoute><ExecutiveReporting /></AdminRoute>} />
+                <Route path="/admin/analytics/predictive" element={<AdminRoute><PredictiveAnalytics /></AdminRoute>} />
+                <Route path="/admin/analytics/kpi" element={<AdminRoute><KPIManagement /></AdminRoute>} />
+                <Route path="/admin/analytics/custom" element={<AdminRoute><CustomDashboards /></AdminRoute>} />
+                <Route path="/admin/analytics/ai-insights" element={<AdminRoute><AIInsightsEngine /></AdminRoute>} />
                 <Route path="/admin/campaigns" element={<AdminRoute><MarketingAutomation /></AdminRoute>} />
                 <Route path="/admin/finance" element={<AdminRoute><FinanceDashboard /></AdminRoute>} />
 
