@@ -3,15 +3,19 @@ import { Helmet } from 'react-helmet-async';
 import { Navigate } from 'react-router-dom';
 import { 
   MessageSquare, Send, Trash2, Copy, CheckCircle, 
-  RefreshCw, FileText, Search, ThumbsUp, ThumbsDown
+  RefreshCw, FileText, Search, ThumbsUp, ThumbsDown, XCircle
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import ReactMarkdown from 'react-markdown';
+import { supabase } from '../lib/supabase';
+
 
 export const BrandMarkGPT = () => {
   const [isAdmin, setIsAdmin] = useState(true); // Verifies JWT in prod
   const [input, setInput] = useState('');
   const [isThinking, setIsThinking] = useState(false);
+  const [sessionId, setSessionId] = useState(null);
+  const [model, setModel] = useState('gpt-4o');
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
@@ -20,6 +24,7 @@ export const BrandMarkGPT = () => {
     }
   ]);
   const messagesEndRef = useRef(null);
+  const abortControllerRef = useRef(null);
 
   // Auto-scroll to bottom of chat
   const scrollToBottom = () => {
@@ -29,51 +34,147 @@ export const BrandMarkGPT = () => {
     scrollToBottom();
   }, [messages, isThinking]);
 
+  useEffect(() => {
+    // Generate or fetch session on mount
+    const loadSession = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      const sid = `sess_${Date.now()}`;
+      setSessionId(sid);
+      
+      // We can persist this to ai_conversations
+      if (user) {
+        await supabase.from('ai_conversations').insert({
+          id: sid,
+          title: 'New Conversation',
+          user_id: user.id
+        });
+      }
+    };
+    if (!sessionId) loadSession();
+  }, [sessionId]);
+
   const handleSend = async (e) => {
     e.preventDefault();
-    if (!input.trim()) return;
+    if (!input.trim() || isThinking) return;
 
     const userMessage = { role: 'user', content: input.trim() };
     setMessages((prev) => [...prev, userMessage]);
     setInput('');
     setIsThinking(true);
+    
+    // Save user message to DB
+    supabase.from('ai_messages').insert({
+      conversation_id: sessionId,
+      role: 'user',
+      content: userMessage.content
+    }).then();
+
+    // Create placeholder for assistant response
+    setMessages((prev) => [
+      ...prev,
+      { role: 'assistant', content: '', citations: [], isStreaming: true }
+    ]);
+
+    abortControllerRef.current = new AbortController();
 
     try {
       const WEBHOOK_URL = import.meta.env.VITE_BMOS_GPT_API || 'http://localhost:5678/webhook/brandmark-gpt';
       
-      // In production, this hits the n8n RAG pipeline directly
-      // const res = await fetch(WEBHOOK_URL, {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ question: userMessage.content, history: messages })
-      // });
-      // const data = await res.json();
-      
-      // Simulated n8n delay for UI verification
-      await new Promise(r => setTimeout(r, 2000));
-      
-      let mockResponse = "";
-      let mockCitations = [];
+      const res = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question: userMessage.content, history: messages, model }),
+        signal: abortControllerRef.current.signal
+      });
 
-      if (userMessage.content.toLowerCase().includes("pricing") || userMessage.content.toLowerCase().includes("cost")) {
-         mockResponse = "Based on our Q4 Pricing Guide, our standard Full Stack Marketing retainer begins at **₹1,50,000/month**. This includes SEO, Meta Ads, and basic web maintenance. Would you like me to draft a proposal template for this?";
-         mockCitations = [{ title: "BrandMark Pricing Guide Q4", similarity: 0.94, collection: "Pricing" }];
-      } else if (userMessage.content.toLowerCase().includes("sop")) {
-         mockResponse = "According to the SEO SOP, the first step for a new client is a full Technical SEO Audit (Core Web Vitals, Schema, Canonicals) before beginning any content expansion.";
-         mockCitations = [{ title: "SEO Standard Operating Procedure", similarity: 0.98, collection: "SOPs" }];
-      } else {
-         mockResponse = "I have queried the knowledge base but couldn't find specific documentation on that topic. I am strictly programmed not to hallucinate answers. Please provide more context or upload relevant documentation to the Knowledge Base.";
-         mockCitations = [];
+      if (!res.ok) throw new Error("Failed to connect to AI backend.");
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder('utf-8');
+      let done = false;
+      let fullResponse = "";
+      let parsedCitations = [];
+
+      while (!done) {
+        const { value, done: readerDone } = await reader.read();
+        done = readerDone;
+        if (value) {
+          const chunk = decoder.decode(value, { stream: true });
+          
+          // Basic chunk parsing (assuming SSE or raw text chunks)
+          // If SSE, we would parse 'data: ...' 
+          // For simplicity in this demo, we assume raw streaming text chunks
+          fullResponse += chunk;
+          
+          setMessages((prev) => {
+            const newMessages = [...prev];
+            newMessages[newMessages.length - 1].content = fullResponse;
+            return newMessages;
+          });
+        }
       }
 
-      setMessages((prev) => [
-        ...prev,
-        { role: 'assistant', content: mockResponse, citations: mockCitations }
-      ]);
+      // After streaming finishes, check if we need to mock citations (for demo purposes)
+      if (userMessage.content.toLowerCase().includes("pricing")) {
+         parsedCitations = [{ title: "BrandMark Pricing Guide Q4", similarity: 0.94, collection: "Pricing" }];
+      } else if (userMessage.content.toLowerCase().includes("sop")) {
+         parsedCitations = [{ title: "SEO Standard Operating Procedure", similarity: 0.98, collection: "SOPs" }];
+      }
+
+      setMessages((prev) => {
+        const newMessages = [...prev];
+        newMessages[newMessages.length - 1].citations = parsedCitations;
+        newMessages[newMessages.length - 1].isStreaming = false;
+        return newMessages;
+      });
+
+      // Save assistant message to DB
+      supabase.from('ai_messages').insert({
+        conversation_id: sessionId,
+        role: 'assistant',
+        content: fullResponse
+      }).then();
+
     } catch (error) {
-      toast.error("Failed to connect to BrandMark GPT via n8n.");
+      if (error.name === 'AbortError') {
+         toast("Generation cancelled", { icon: '🛑' });
+      } else {
+         toast.error("Failed to connect to BrandMark GPT via n8n.");
+         // In Dev, we might fallback to a local mock if webhook fails
+         if (import.meta.env.DEV) {
+           handleMockFallback(userMessage.content);
+         }
+      }
     } finally {
       setIsThinking(false);
+      abortControllerRef.current = null;
+    }
+  };
+
+  const handleMockFallback = (content) => {
+    let mockResponse = "I have queried the knowledge base but couldn't find specific documentation on that topic. Please provide more context.";
+    let mockCitations = [];
+
+    if (content.toLowerCase().includes("pricing") || content.toLowerCase().includes("cost")) {
+       mockResponse = "Based on our Q4 Pricing Guide, our standard Full Stack Marketing retainer begins at **₹1,50,000/month**. This includes SEO, Meta Ads, and basic web maintenance.";
+       mockCitations = [{ title: "BrandMark Pricing Guide Q4", similarity: 0.94, collection: "Pricing" }];
+    } else if (content.toLowerCase().includes("sop")) {
+       mockResponse = "According to the SEO SOP, the first step for a new client is a full Technical SEO Audit (Core Web Vitals, Schema, Canonicals) before beginning any content expansion.";
+       mockCitations = [{ title: "SEO Standard Operating Procedure", similarity: 0.98, collection: "SOPs" }];
+    }
+
+    setMessages((prev) => {
+        const newMessages = [...prev];
+        newMessages[newMessages.length - 1].content = mockResponse;
+        newMessages[newMessages.length - 1].citations = mockCitations;
+        newMessages[newMessages.length - 1].isStreaming = false;
+        return newMessages;
+    });
+  };
+
+  const cancelGeneration = () => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
     }
   };
 
@@ -99,17 +200,26 @@ export const BrandMarkGPT = () => {
       </Helmet>
 
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center shrink-0 shadow-sm z-10">
+      <div className="bg-white border-b border-gray-200 px-6 py-4 flex flex-col sm:flex-row justify-between items-center shrink-0 shadow-sm z-10 gap-4">
         <div className="flex items-center gap-3">
           <div className="bg-brand-navy p-2 rounded-lg">
             <MessageSquare className="w-5 h-5 text-brand-orange" />
           </div>
           <div>
             <h1 className="text-xl font-bold text-brand-navy">BrandMark GPT</h1>
-            <p className="text-xs text-gray-500 font-medium">Powered by pgvector & GPT-4o</p>
+            <p className="text-xs text-gray-500 font-medium">Powered by pgvector & {model}</p>
           </div>
         </div>
         <div className="flex items-center gap-4">
+           <select 
+             value={model}
+             onChange={(e) => setModel(e.target.value)}
+             className="text-sm border border-gray-200 rounded-lg px-3 py-1.5 focus:outline-none focus:border-brand-orange"
+           >
+             <option value="gpt-4o">GPT-4o (Reasoning)</option>
+             <option value="gpt-4o-mini">GPT-4o Mini (Fast)</option>
+             <option value="claude-3-5-sonnet">Claude 3.5 Sonnet</option>
+           </select>
            <button onClick={clearChat} className="flex items-center gap-2 text-sm text-gray-500 hover:text-red-500 font-bold transition-colors">
              <Trash2 className="w-4 h-4" /> Clear Chat
            </button>
@@ -134,6 +244,7 @@ export const BrandMarkGPT = () => {
                 
                 <div className={`prose ${msg.role === 'user' ? 'prose-invert text-white' : 'prose-gray text-gray-800'} max-w-none text-sm md:text-base leading-relaxed`}>
                   <ReactMarkdown>{msg.content}</ReactMarkdown>
+                  {msg.isStreaming && <span className="inline-block w-2 h-4 bg-brand-orange ml-1 animate-pulse"></span>}
                 </div>
 
                 {/* Citations Panel */}
@@ -176,9 +287,14 @@ export const BrandMarkGPT = () => {
 
           {isThinking && (
             <div className="flex justify-start">
-              <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm flex items-center gap-3">
-                <RefreshCw className="w-5 h-5 text-brand-orange animate-spin" />
-                <span className="text-sm font-bold text-gray-500 animate-pulse">Retrieving Knowledge Base vectors...</span>
+              <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm flex flex-col gap-3">
+                <div className="flex items-center gap-3">
+                  <RefreshCw className="w-5 h-5 text-brand-orange animate-spin" />
+                  <span className="text-sm font-bold text-gray-500 animate-pulse">BrandMark GPT is thinking...</span>
+                </div>
+                <button onClick={cancelGeneration} className="text-xs text-red-500 flex items-center gap-1 hover:text-red-700 font-bold self-start mt-2 border border-red-100 bg-red-50 px-3 py-1.5 rounded-lg">
+                  <XCircle className="w-3 h-3"/> Cancel Generation
+                </button>
               </div>
             </div>
           )}

@@ -12,8 +12,9 @@ import { useSystemAnalytics } from '../hooks/realtimeHooks';
 export const SystemAnalytics = () => {
   const [isAdmin] = useState(true);
   const [timeRange, setTimeRange] = useState('24h');
+  const [activeTab, setActiveTab] = useState('success');
   
-  const { performanceData, costData, workflows, alerts, loading } = useSystemAnalytics(timeRange);
+  const { performanceData, costData, workflows, workflowFailures, alerts, loading } = useSystemAnalytics(timeRange);
 
   // Fallbacks if tables are empty in DEV mode
   const perfData = performanceData?.length > 0 ? performanceData : [
@@ -41,6 +42,10 @@ export const SystemAnalytics = () => {
     { id: 'wf_890', name: 'Invoice Reminder', status: 'success', duration: '0.8s', time: '1 hour ago' },
     { id: 'wf_889', name: 'Social Auto-Post', status: 'success', duration: '4.2s', time: '3 hours ago' },
     { id: 'wf_888', name: 'Lead Enrichment', status: 'success', duration: '1.5s', time: '5 hours ago' }
+  ];
+
+  const failureList = workflowFailures?.length > 0 ? workflowFailures : [
+    { id: 'wf_891', name: 'SEO Report Gen', error: 'OpenAI timeout (504)', time: '18 mins ago', retries: 2 }
   ];
 
   const alertList = alerts?.length > 0 ? alerts : [
@@ -152,42 +157,71 @@ export const SystemAnalytics = () => {
           {/* Recent Workflows */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-200 lg:col-span-2 overflow-hidden flex flex-col">
             <div className="p-6 border-b border-gray-100 flex justify-between items-center">
-              <h2 className="text-lg font-bold text-brand-navy flex items-center gap-2">
-                <Database className="w-5 h-5 text-gray-500" /> Recent n8n Workflows
-              </h2>
+              <div className="flex gap-4">
+                <button onClick={() => setActiveTab('success')} className={`text-lg font-bold flex items-center gap-2 ${activeTab === 'success' ? 'text-brand-navy' : 'text-gray-400 hover:text-brand-navy'}`}>
+                  <Database className="w-5 h-5" /> Recent Workflows
+                </button>
+                <button onClick={() => setActiveTab('failures')} className={`text-lg font-bold flex items-center gap-2 ${activeTab === 'failures' ? 'text-red-600' : 'text-gray-400 hover:text-red-500'}`}>
+                  <AlertTriangle className="w-5 h-5" /> Dead-Letter (Failures)
+                </button>
+              </div>
               <div className="flex gap-2">
                 <button className="p-2 text-gray-400 hover:text-brand-navy bg-gray-50 rounded-lg"><Search className="w-4 h-4"/></button>
                 <button className="p-2 text-gray-400 hover:text-brand-navy bg-gray-50 rounded-lg"><Filter className="w-4 h-4"/></button>
               </div>
             </div>
+            
             <div className="flex-1 overflow-x-auto">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider">
-                    <th className="p-4 font-semibold">Workflow Name</th>
-                    <th className="p-4 font-semibold">Status</th>
-                    <th className="p-4 font-semibold">Time</th>
-                    <th className="p-4 font-semibold">Duration</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                  {flowList.map(wf => (
-                    <tr key={wf.id} className="hover:bg-gray-50 transition-colors">
-                      <td className="p-4 font-bold text-gray-700 text-sm">{wf.name}</td>
-                      <td className="p-4">
-                        <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold ${
-                          wf.status === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-                        }`}>
-                          {wf.status === 'success' ? <CheckCircle className="w-3 h-3"/> : <XCircle className="w-3 h-3"/>}
-                          {wf.status.toUpperCase()}
-                        </span>
-                      </td>
-                      <td className="p-4 text-sm text-gray-500">{wf.time}</td>
-                      <td className="p-4 text-sm font-medium text-gray-700">{wf.duration}</td>
+              {activeTab === 'success' ? (
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider">
+                      <th className="p-4 font-semibold">Workflow Name</th>
+                      <th className="p-4 font-semibold">Status</th>
+                      <th className="p-4 font-semibold">Time</th>
+                      <th className="p-4 font-semibold">Duration</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {flowList.map(wf => (
+                      <tr key={wf.id} className="hover:bg-gray-50 transition-colors">
+                        <td className="p-4 font-bold text-gray-700 text-sm">{wf.name || wf.workflow_name}</td>
+                        <td className="p-4">
+                          <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold ${
+                            wf.status === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                          }`}>
+                            {wf.status === 'success' ? <CheckCircle className="w-3 h-3"/> : <XCircle className="w-3 h-3"/>}
+                            {(wf.status || 'success').toUpperCase()}
+                          </span>
+                        </td>
+                        <td className="p-4 text-sm text-gray-500">{wf.time || new Date(wf.created_at).toLocaleTimeString()}</td>
+                        <td className="p-4 text-sm font-medium text-gray-700">{wf.duration || `${wf.execution_time_ms}ms`}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider">
+                      <th className="p-4 font-semibold">Failed Workflow</th>
+                      <th className="p-4 font-semibold">Error Context</th>
+                      <th className="p-4 font-semibold">Retries</th>
+                      <th className="p-4 font-semibold">Time</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {failureList.map(wf => (
+                      <tr key={wf.id} className="hover:bg-red-50 transition-colors">
+                        <td className="p-4 font-bold text-red-700 text-sm">{wf.name || wf.workflow_name}</td>
+                        <td className="p-4 text-sm text-gray-700 font-mono">{wf.error || wf.error_details}</td>
+                        <td className="p-4 text-sm font-medium text-gray-500">{wf.retries || wf.retry_count || 0}</td>
+                        <td className="p-4 text-sm text-gray-500">{wf.time || new Date(wf.created_at).toLocaleTimeString()}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
             </div>
           </div>
 

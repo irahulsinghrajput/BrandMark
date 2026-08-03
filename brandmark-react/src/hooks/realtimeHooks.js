@@ -449,6 +449,7 @@ export const useSystemAnalytics = (timeRange) => {
     performanceData: [],
     costData: [],
     workflows: [],
+    workflowFailures: [],
     alerts: []
   });
   const [loading, setLoading] = useState(true);
@@ -460,11 +461,13 @@ export const useSystemAnalytics = (timeRange) => {
           { data: perf },
           { data: cost },
           { data: wf },
+          { data: wfFailures },
           { data: alrts }
         ] = await Promise.all([
           supabase.from('performance_metrics').select('*').order('time', { ascending: true }),
           supabase.from('vw_cost_summary').select('*').order('date', { ascending: true }),
           supabase.from('workflow_runs').select('*').order('created_at', { ascending: false }).limit(5),
+          supabase.from('workflow_failures').select('*').order('created_at', { ascending: false }).limit(5),
           supabase.from('system_alerts').select('*').eq('status', 'active').order('created_at', { ascending: false })
         ]);
 
@@ -472,6 +475,7 @@ export const useSystemAnalytics = (timeRange) => {
           performanceData: perf || [],
           costData: cost || [],
           workflows: wf || [],
+          workflowFailures: wfFailures || [],
           alerts: alrts || []
         });
       } catch (err) {
