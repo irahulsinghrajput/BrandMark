@@ -368,10 +368,26 @@ export const SystemAdministration = () => {
                                  )}
                                  <button 
                                     onClick={async () => {
-                                      toast.loading('Initiating secure connection...', { id: 'oauth' });
-                                      await new Promise(r => setTimeout(r, 1500));
-                                      toast.success(`${connectingApp.integration_name || connectingApp.name} connected successfully!`, { id: 'oauth' });
-                                      setEnterpriseIntegrations(prev => prev.map(p => p.id === connectingApp.id ? {...p, status: 'connected', health_score: 100, last_synced_at: new Date().toISOString()} : p));
+                                      const handleConnect = async (integration) => {
+                                        try {
+                                          // Production Integration: OAuth Authorization Code Flow Initiation
+                                          const response = await fetch(`/api/oauth/authorize?provider=${integration.name.toLowerCase().replace(' ', '-')}`, {
+                                            method: 'GET',
+                                            headers: { 'Accept': 'application/json' }
+                                          });
+                                          
+                                          if (!response.ok) {
+                                             throw new Error('OAuth provider endpoint not configured on backend.');
+                                          }
+                                          
+                                          const { authUrl } = await response.json();
+                                          window.location.href = authUrl; // Redirect to provider
+                                        } catch (error) {
+                                          console.warn("OAuth Integration Pending:", error.message);
+                                          toast.error(`Backend dependency missing: OAuth flow for ${integration.name} is not yet provisioned.`);
+                                        }
+                                      };
+                                      handleConnect(connectingApp);
                                       setConnectingApp(null);
                                     }}
                                     className="w-full bg-brand-navy text-white font-bold py-3 rounded-xl hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"

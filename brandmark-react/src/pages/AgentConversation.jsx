@@ -98,55 +98,66 @@ export const AgentConversation = () => {
     abortControllerRef.current = new AbortController();
 
     try {
-      // Mocking streaming & tool usage for React framework
-      await new Promise(r => setTimeout(r, 1000));
-      
-      let mockResponse = `I have processed your request regarding "${userMessage.content}". `;
-      let tools = [];
-      let citations = [];
+      // Production Integration: Trigger Supabase Edge Function for Agent Execution
+      // If the edge function is not deployed, this will gracefully fail and be caught by the catch block
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/agent-execute`, 
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
+          },
+          body: JSON.stringify({
+            agentId: agentContext?.id,
+            sessionId: sessionId,
+            message: userMessage.content
+          }),
+          signal: abortControllerRef.current.signal
+        }
+      );
 
-      if (agentName === 'Sales Agent') {
-         tools = ['HubSpot Search', 'Lead Enrichment (Clearbit)'];
-         mockResponse += "I've drafted a follow-up sequence for the requested leads. I can automatically deploy this via the CRM if you approve.";
-      } else if (agentName === 'Knowledge Agent') {
-         tools = ['pgvector Search'];
-         citations = [{ title: "Internal SOP v4", similarity: 0.95 }];
-         mockResponse += "Based on our documentation, the standard protocol is detailed below.";
-      } else if (agentName === 'Finance Agent') {
-         tools = ['Stripe API', 'PostgreSQL (Invoices)'];
-         mockResponse += "I've generated the revenue projection. Outstanding invoices total ₹4,50,000.";
-      } else {
-         tools = ['Memory Retrieval'];
-         mockResponse += "Action completed successfully.";
+      if (!response.ok) {
+        throw new Error(`Edge Function returned ${response.status}: Ensure 'agent-execute' is deployed.`);
+      }
+
+      // Handle streaming response (Server-Sent Events)
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let streamedContent = '';
+      
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        
+        const chunk = decoder.decode(value);
+        streamedContent += chunk;
+        
+        setMessages((prev) => {
+          const newMessages = [...prev];
+          const last = newMessages[newMessages.length - 1];
+          last.content = streamedContent;
+          return newMessages;
+        });
       }
 
       setMessages((prev) => {
         const newMessages = [...prev];
         const last = newMessages[newMessages.length - 1];
-        last.content = mockResponse;
-        last.tools_used = tools;
-        last.citations = citations;
         last.isStreaming = false;
         return newMessages;
       });
 
-      // Insert into DB if agentContext has ID
-      if (agentContext?.id) {
-          await supabase.from('agent_messages').insert([
-             { conversation_id: sessionId, role: 'user', content: userMessage.content },
-             { conversation_id: sessionId, role: 'assistant', content: mockResponse, tool_calls: tools, tokens_used: 154 }
-          ]).then();
-          
-          await supabase.from('agent_usage').upsert({
-             agent_id: agentContext.id,
-             date: new Date().toISOString().split('T')[0],
-             total_requests: 1,
-             total_tokens: 154
-          }).then();
-      }
-
     } catch (error) {
-       toast.error("Agent execution failed.");
+       console.error("Agent Execution Error:", error);
+       toast.error(error.message || "Agent execution failed. Is the Edge Function deployed?");
+       setMessages((prev) => {
+          const newMessages = [...prev];
+          const last = newMessages[newMessages.length - 1];
+          last.isStreaming = false;
+          last.content = "⚠️ **Execution Failed:** The backend worker (Edge Function) is currently unreachable. Please verify deployment.";
+          return newMessages;
+       });
     } finally {
       setIsThinking(false);
       abortControllerRef.current = null;
