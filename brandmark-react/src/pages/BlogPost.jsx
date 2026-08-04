@@ -5,15 +5,45 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { ArrowLeft, Calendar, User, Tag, Clock } from 'lucide-react';
-import blogs from '../data/blogs.json';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '../lib/supabase';
 import { SEO } from '../components/SEO';
 import { PageTransition } from '../components/PageTransition';
 
 export const BlogPost = () => {
   const { slug } = useParams();
   
-  // Try matching by slug first, then fallback to id if slug is missing
-  const blog = blogs.find(b => b.slug === slug || b.id === slug);
+  const { data: blog, isLoading } = useQuery({
+    queryKey: ['blog', slug],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('blogs')
+        .select('*')
+        .or(`slug.eq.${slug},id.eq.${slug}`)
+        .single();
+      
+      if (error) throw error;
+      return data;
+    }
+  });
+
+  const { data: relatedPostsData = [] } = useQuery({
+    queryKey: ['relatedPosts', blog?.category],
+    queryFn: async () => {
+      if (!blog?.category) return [];
+      const { data, error } = await supabase
+        .from('blogs')
+        .select('*')
+        .eq('category', blog.category)
+        .neq('slug', blog.slug)
+        .eq('status', 'published')
+        .limit(3);
+      
+      if (error) throw error;
+      return data || [];
+    },
+    enabled: !!blog?.category
+  });
 
   const readingTime = useMemo(() => {
     if (!blog?.content) return 1;
@@ -21,19 +51,23 @@ export const BlogPost = () => {
     return Math.ceil(words / 200);
   }, [blog?.content]);
 
-  // Related posts based on category
-  const relatedPosts = useMemo(() => {
-    if (!blog) return [];
-    return blogs
-      .filter(b => (b.slug !== blog.slug && b.id !== blog.id) && b.category === blog.category)
-      .slice(0, 3);
-  }, [blog]);
+  const relatedPosts = useMemo(() => relatedPostsData, [relatedPostsData]);
 
   // Strip frontmatter from content if it's there
   const markdownContent = useMemo(() => {
     if (!blog?.content) return '';
     return blog.content.replace(/^---[\s\S]*?---/, '').trim();
   }, [blog?.content]);
+
+  if (isLoading) {
+    return (
+      <PageTransition>
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center pt-24">
+           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-brand-orange"></div>
+        </div>
+      </PageTransition>
+    );
+  }
 
   if (!blog) {
     return <Navigate to="/blog" replace />;

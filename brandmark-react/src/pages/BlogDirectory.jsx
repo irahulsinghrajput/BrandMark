@@ -2,11 +2,26 @@ import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Search, ChevronRight, Calendar, User, Tag } from 'lucide-react';
-import blogs from '../data/blogs.json';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '../lib/supabase';
 
 const BlogDirectory = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+
+  const { data: blogs = [], isLoading } = useQuery({
+    queryKey: ['blogs'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('blogs')
+        .select('*')
+        .eq('status', 'published')
+        .order('date_published', { ascending: false });
+      
+      if (error) throw error;
+      return data || [];
+    }
+  });
 
   const categories = ['All', ...new Set(blogs.map(blog => blog.category).filter(Boolean))];
 
@@ -18,7 +33,7 @@ const BlogDirectory = () => {
       const matchesCategory = selectedCategory === 'All' || blog.category === selectedCategory;
       return matchesSearch && matchesCategory;
     });
-  }, [searchTerm, selectedCategory]);
+  }, [searchTerm, selectedCategory, blogs]);
 
   return (
     <div className="bg-white min-h-screen pt-24 pb-20">
@@ -68,13 +83,18 @@ const BlogDirectory = () => {
           ))}
         </div>
 
-        {filteredBlogs.length > 0 ? (
+        {isLoading ? (
+            <div className="w-full text-center py-20 text-gray-500">
+              <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-brand-orange mx-auto mb-4"></div>
+              Loading insights...
+            </div>
+          ) : filteredBlogs.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredBlogs.map((blog, idx) => (
+            {filteredBlogs.map(blog => (
               <Link 
-                key={idx} 
-                to={`/blog/${blog.slug}`}
-                className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                to={`/blog/${blog.slug}`} 
+                key={blog.id || blog.slug}
+                className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col"
               >
                 <div className="aspect-video bg-gray-100 relative overflow-hidden flex items-center justify-center">
                   <span className="text-4xl font-bold text-gray-200">BrandMark</span>
