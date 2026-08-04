@@ -138,6 +138,7 @@ CREATE TABLE IF NOT EXISTS public.workflow_logs (
 
 
 -- 5. Views
+DROP VIEW IF EXISTS public.vw_workflow_health CASCADE;
 CREATE OR REPLACE VIEW public.vw_workflow_health AS
 SELECT 
     (SELECT COUNT(*) FROM public.workflows WHERE is_active = true) AS total_active_workflows,
