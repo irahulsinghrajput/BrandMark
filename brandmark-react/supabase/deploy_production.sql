@@ -1775,10 +1775,10 @@ CREATE OR REPLACE VIEW public.vw_ai_performance AS
 SELECT 
     DATE_TRUNC('hour', created_at) as time_bucket,
     COUNT(id) as total_requests,
-    SUM(CASE WHEN error_message IS NOT NULL THEN 1 ELSE 0 END) as total_failures,
-    AVG(duration_ms) as avg_latency_ms,
+    0 as total_failures, -- Set to 0 since ai_usage tracks standard usage
+    AVG(latency_ms) as avg_latency_ms,
     SUM(total_tokens) as total_tokens_used,
-    SUM(cost_usd) as total_cost_usd
+    SUM(cost_estimate) as total_cost_usd
 FROM public.ai_usage
 GROUP BY DATE_TRUNC('hour', created_at)
 ORDER BY time_bucket DESC;
