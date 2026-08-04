@@ -169,11 +169,16 @@ CREATE TABLE IF NOT EXISTS public.projects (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     client_id UUID NOT NULL REFERENCES public.clients(id) ON DELETE CASCADE,
     proposal_id UUID REFERENCES public.proposals(id) ON DELETE SET NULL,
-    project_name TEXT NOT NULL,
-    status TEXT NOT NULL DEFAULT 'kickoff' CHECK (status IN ('kickoff', 'in_progress', 'review', 'completed')),
-    start_date DATE,
+    name TEXT NOT NULL,
+    description TEXT,
+    status TEXT NOT NULL DEFAULT 'planning' CHECK (status IN ('kickoff', 'backlog', 'planning', 'in_progress', 'review', 'blocked', 'completed')),
+    health TEXT NOT NULL DEFAULT 'green' CHECK (health IN ('green', 'amber', 'red')),
+    start_date DATE DEFAULT CURRENT_DATE,
     end_date DATE,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    budget NUMERIC(12,2) DEFAULT 0.00,
+    budget_used NUMERIC(12,2) DEFAULT 0.00,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 -- Table: invoices
@@ -720,14 +725,14 @@ CREATE POLICY "Admin Full Access cashflow_snapshots" ON public.cashflow_snapshot
 CREATE POLICY "Admin Full Access financial_reports" ON public.financial_reports FOR ALL USING (auth.jwt() ->> 'user_role' = 'admin');
 -- Supabase Schema for Module 9: Project & Operations Delivery
 
--- Table: projects
+-- Table: projects (Created initially in 003, ensuring consistency here)
 CREATE TABLE IF NOT EXISTS public.projects (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-    client_id UUID NOT NULL REFERENCES public.customers(id) ON DELETE CASCADE,
-    proposal_id UUID, -- Links to Module 3 Proposals if available
+    client_id UUID NOT NULL, -- references handled in 003
+    proposal_id UUID,
     name TEXT NOT NULL,
     description TEXT,
-    status TEXT NOT NULL DEFAULT 'planning' CHECK (status IN ('backlog', 'planning', 'in_progress', 'review', 'blocked', 'completed')),
+    status TEXT NOT NULL DEFAULT 'planning' CHECK (status IN ('kickoff', 'backlog', 'planning', 'in_progress', 'review', 'blocked', 'completed')),
     health TEXT NOT NULL DEFAULT 'green' CHECK (health IN ('green', 'amber', 'red')),
     start_date DATE DEFAULT CURRENT_DATE,
     end_date DATE,
