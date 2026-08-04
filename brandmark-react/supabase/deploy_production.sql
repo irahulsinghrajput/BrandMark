@@ -2644,7 +2644,7 @@ CREATE TABLE IF NOT EXISTS public.blogs (
 -- Seed initial blogs from previous static JSON
 INSERT INTO public.blogs (title, slug, category, primary_keyword, search_intent, author, schema_type, content)
 VALUES
-('The Ultimate Guide to Digital Marketing in Patna', 'digital-marketing-patna-guide', 'Local SEO', 'digital marketing Patna', 'Informational & Commercial', 'Rahul Singh Rajput', 'Article', '
+('The Ultimate Guide to Digital Marketing in Patna', 'digital-marketing-patna-guide', 'Local SEO', 'digital marketing Patna', 'Informational & Commercial', 'Rahul Singh Rajput', 'Article', $$
 # The Ultimate Guide to Digital Marketing in Patna (2026 Edition)
 
 [Introduction: Hook the reader. Explain why Patna is rapidly digitizing and why traditional marketing (billboards/flyers) is no longer enough. Establish BrandMark Solutions as the leading authority in this transition.]
@@ -2672,7 +2672,7 @@ VALUES
 
 ## 4. Case Studies: Success Stories from Bihar
 [Link directly to 2-3 specific case studies demonstrating real results.]
-- *See how we scaled a [Local Clinic''s] patient inquiries by 300%.*
+- *See how we scaled a [Local Clinic's] patient inquiries by 300%.*
 - *Read our breakdown on generating 500+ leads for a [Patna Developer].*
 
 ## 5. How to Choose the Right Agency
@@ -2680,7 +2680,7 @@ VALUES
 
 ## 6. Conclusion & Next Steps
 [Summarize the value. Push towards the primary CTA.]
-The digital landscape in Bihar is evolving fast. Don''t let your competitors capture your market share.
+The digital landscape in Bihar is evolving fast. Don't let your competitors capture your market share.
 
 **Ready to dominate your local market?**
 [**Book a Free Strategy Audit with BrandMark Solutions**](/contact)
@@ -2690,8 +2690,8 @@ The digital landscape in Bihar is evolving fast. Don''t let your competitors cap
 - [Link to Cluster Article: Local SEO Checklist]
 - [Link to Cluster Article: Meta Ads Strategy]
 - [Link to Industry Page: Real Estate Marketing]
-'),
-('Why Real Estate Developers in Bihar Need a 3D Walkthrough Website', 'real-estate-3d-walkthrough-websites-bihar', 'Web Development', '3D walkthrough website real estate', 'Commercial Investigation', 'Rajeshree Shekhar', 'BlogPosting', '
+$$),
+('Why Real Estate Developers in Bihar Need a 3D Walkthrough Website', 'real-estate-3d-walkthrough-websites-bihar', 'Web Development', '3D walkthrough website real estate', 'Commercial Investigation', 'Rajeshree Shekhar', 'BlogPosting', $$
 # Why Real Estate Developers in Bihar Need a 3D Walkthrough Website
 
 [Introduction: Introduce the specific pain point. High-ticket buyers are busy. Site visits are dropping. How do you sell a premium property in Patna without forcing a physical visit immediately?]
@@ -2705,7 +2705,7 @@ The digital landscape in Bihar is evolving fast. Don''t let your competitors cap
 ## 3 Core Benefits of 3D Web Design for Developers
 
 ### 1. Massive Increase in Time-on-Site (SEO Signal)
-[Explain that when users interact with a 3D model, they stay on the page for 3-5 minutes. Google''s algorithm rewards this high dwell time by pushing the site higher in search rankings.]
+[Explain that when users interact with a 3D model, they stay on the page for 3-5 minutes. Google's algorithm rewards this high dwell time by pushing the site higher in search rankings.]
 
 ### 2. Higher Quality Lead Qualification
 [Explain that someone who spends 5 minutes virtually walking through a flat is a significantly warmer lead than someone who just scrolled past an Instagram ad. Your sales team wastes less time.]
@@ -2725,7 +2725,7 @@ A website is no longer just a digital brochure; it is your primary sales engine.
 ---
 *Back to Pillar:* [The Ultimate Guide to Digital Marketing in Patna]
 *Related Industry:* [Real Estate Marketing Services]
-') ON CONFLICT (slug) DO NOTHING;
+$$) ON CONFLICT (slug) DO NOTHING;
 
 -- Row Level Security (RLS)
 ALTER TABLE public.blogs ENABLE ROW LEVEL SECURITY;
