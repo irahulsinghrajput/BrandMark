@@ -57,13 +57,18 @@ CREATE TABLE IF NOT EXISTS public.bi_models (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- 3. Executive Reporting
+-- 3. Executive Reporting (Schema unified with 004)
 CREATE TABLE IF NOT EXISTS public.executive_reports (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-    title TEXT NOT NULL,
+    title TEXT DEFAULT 'Executive Report',
     frequency TEXT DEFAULT 'monthly' CHECK (frequency IN ('daily', 'weekly', 'monthly', 'quarterly', 'yearly')),
     recipients TEXT[],
     is_active BOOLEAN DEFAULT true,
+    report_date DATE UNIQUE DEFAULT CURRENT_DATE,
+    ai_summary TEXT,
+    growth_trends JSONB,
+    revenue_risks JSONB,
+    recommended_actions JSONB,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
