@@ -37,13 +37,13 @@ CREATE TABLE IF NOT EXISTS public.document_versions (
 
 -- Table: knowledge_chunks
 -- Stores the chunked text and its vector representation
--- OpenAI text-embedding-3-large produces 3072 dimensions by default
+-- OpenAI text-embedding-3-large produces up to 3072, but we use 1536 for HNSW index compatibility
 CREATE TABLE IF NOT EXISTS public.knowledge_chunks (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     document_id UUID NOT NULL REFERENCES public.knowledge_documents(id) ON DELETE CASCADE,
     chunk_index INTEGER NOT NULL,
     content TEXT NOT NULL,
-    embedding VECTOR(3072),
+    embedding VECTOR(1536),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
@@ -74,7 +74,7 @@ CREATE INDEX IF NOT EXISTS knowledge_chunks_embedding_idx ON public.knowledge_ch
 -- Hybrid Search Function (Vector + Metadata filtering)
 -- Used by n8n or direct API to fetch relevant context before asking GPT-4o
 CREATE OR REPLACE FUNCTION match_knowledge_documents (
-  query_embedding VECTOR(3072),
+  query_embedding VECTOR(1536),
   match_threshold FLOAT,
   match_count INT,
   filter_collection_id UUID DEFAULT NULL
