@@ -20,34 +20,33 @@ export const AuthorPage = () => {
   const { slug } = useParams();
   const author = authors.find(a => a.id === slug);
 
-  if (!author) {
-    return <Navigate to="/about" replace />;
-  }
-
-  // Get articles by this author
   const authorArticles = useMemo(() => {
+    if (!author) return [];
     return blogs.filter(b => 
       b.author && b.author.toLowerCase().includes(author.name.toLowerCase().split(' ')[0])
     );
   }, [author]);
 
-  // Generate Person Schema for EEAT
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
-    "name": author.name,
-    "jobTitle": author.role,
-    "image": `https://www.brandmarksolutions.site${author.image.replace(/\.(jpeg|jpg|png)$/i, '.webp')}`,
-    "url": `https://www.brandmarksolutions.site/authors/${author.id}`,
+    "name": author?.name || 'BrandMark Team',
+    "jobTitle": author?.role || 'Team Member',
+    "image": author ? `https://www.brandmarksolutions.site${author.image.replace(/\.(jpeg|jpg|png)$/i, '.webp')}` : 'https://www.brandmarksolutions.site/brandmark-logo-new.png.png',
+    "url": author ? `https://www.brandmarksolutions.site/authors/${author.id}` : 'https://www.brandmarksolutions.site/about',
     "sameAs": [
-      author.social?.linkedin,
-      author.social?.twitter
+      author?.social?.linkedin,
+      author?.social?.twitter
     ].filter(Boolean),
     "worksFor": {
       "@type": "Organization",
       "name": "BrandMark Solutions Private Ltd."
     }
   };
+
+  if (!author) {
+    return <Navigate to="/about" replace />;
+  }
 
   return (
     <PageTransition>

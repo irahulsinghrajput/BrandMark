@@ -15,19 +15,15 @@ export const BlogPost = () => {
   // Try matching by slug first, then fallback to id if slug is missing
   const blog = blogs.find(b => b.slug === slug || b.id === slug);
 
-  if (!blog) {
-    return <Navigate to="/blog" replace />;
-  }
-
-  // Calculate reading time
   const readingTime = useMemo(() => {
-    if (!blog.content) return 1;
+    if (!blog?.content) return 1;
     const words = blog.content.trim().split(/\s+/).length;
     return Math.ceil(words / 200);
-  }, [blog.content]);
+  }, [blog?.content]);
 
   // Related posts based on category
   const relatedPosts = useMemo(() => {
+    if (!blog) return [];
     return blogs
       .filter(b => (b.slug !== blog.slug && b.id !== blog.id) && b.category === blog.category)
       .slice(0, 3);
@@ -35,9 +31,13 @@ export const BlogPost = () => {
 
   // Strip frontmatter from content if it's there
   const markdownContent = useMemo(() => {
-    if (!blog.content) return '';
+    if (!blog?.content) return '';
     return blog.content.replace(/^---[\s\S]*?---/, '').trim();
-  }, [blog.content]);
+  }, [blog?.content]);
+
+  if (!blog) {
+    return <Navigate to="/blog" replace />;
+  }
 
   // Generate Article Schema
   const articleSchema = {

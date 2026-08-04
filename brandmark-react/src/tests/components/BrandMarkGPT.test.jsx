@@ -17,13 +17,13 @@ describe('BrandMarkGPT Component', () => {
 
   it('renders the chat interface header', () => {
     renderGPT();
-    expect(screen.getByText(/BrandMark GPT/i)).toBeInTheDocument();
-    expect(screen.getByText(/AI Assistant & Knowledge Base/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /^BrandMark GPT$/i })).toBeInTheDocument();
+    expect(screen.getByText(/Powered by pgvector/i)).toBeInTheDocument();
   });
 
   it('allows user to type in the input field', () => {
     renderGPT();
-    const input = screen.getByPlaceholderText(/Ask anything based on BrandMark's/i);
+    const input = screen.getByPlaceholderText(/Ask anything based on BrandMark/i);
     fireEvent.change(input, { target: { value: 'How do I onboard a client?' } });
     expect(input.value).toBe('How do I onboard a client?');
   });

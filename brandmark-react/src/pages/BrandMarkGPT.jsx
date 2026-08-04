@@ -78,9 +78,14 @@ export const BrandMarkGPT = () => {
     abortControllerRef.current = new AbortController();
 
     try {
-      const WEBHOOK_URL = import.meta.env.VITE_BMOS_GPT_API || 'http://localhost:5678/webhook/brandmark-gpt';
+      const webhookUrl = import.meta.env.VITE_BMOS_GPT_API?.trim();
+
+      if (!webhookUrl) {
+        toast.error('BrandMark GPT backend is not configured. Set VITE_BMOS_GPT_API to your production endpoint.');
+        return;
+      }
       
-      const res = await fetch(WEBHOOK_URL, {
+      const res = await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question: userMessage.content, history: messages, model }),
