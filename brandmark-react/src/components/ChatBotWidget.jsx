@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const API_BASE_URL = (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:'))
-  ? 'http://localhost:5001/api'
-  : 'https://brandmark-api-2026.onrender.com/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || import.meta.env.VITE_SUPABASE_URL + '/functions/v1';
 
 export const ChatBotWidget = () => {
   const [chatOpen, setChatOpen] = useState(false);

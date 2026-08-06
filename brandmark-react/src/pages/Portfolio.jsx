@@ -33,6 +33,12 @@ export const Portfolio = () => {
   }, []);
 
   const projects = [
+    { 
+      title: 'Hotel Republic', 
+      category: 'Digital Presence & Branding', 
+      image: '/images/hotel-republic.jpg',
+      description: 'Comprehensive digital presence management including Social Media, Digital Marketing, Profile Branding, BrandKit, Photography, and Videography. Delivered a 600% ROI.'
+    },
     { title: 'Global Tech Rebrand', category: 'Brand Identity', image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=800' },
     { title: 'Fintech App Launch', category: 'Digital Marketing', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800' },
     { title: 'E-commerce Redesign', category: 'Web Development', image: 'https://images.unsplash.com/photo-1523381294911-8d3cead13475?auto=format&fit=crop&q=80&w=800' },
@@ -71,6 +77,11 @@ export const Portfolio = () => {
                   <h3 className="text-3xl font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
                     {p.title}
                   </h3>
+                  {p.description && (
+                    <p className="text-white/80 text-sm mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-300 line-clamp-3">
+                      {p.description}
+                    </p>
+                  )}
                 </div>
               </div>
             ))}

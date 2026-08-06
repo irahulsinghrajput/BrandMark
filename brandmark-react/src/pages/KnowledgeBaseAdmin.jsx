@@ -41,7 +41,7 @@ export const KnowledgeBaseAdmin = () => {
     const file = formData.get('file');
 
     try {
-      const UPLOAD_WEBHOOK = import.meta.env.VITE_KB_UPLOAD_WEBHOOK || 'http://localhost:5678/webhook/kb-upload';
+      const UPLOAD_WEBHOOK = import.meta.env.VITE_KB_UPLOAD_WEBHOOK;
       
       const res = await fetch(UPLOAD_WEBHOOK, { method: 'POST', body: formData });
       

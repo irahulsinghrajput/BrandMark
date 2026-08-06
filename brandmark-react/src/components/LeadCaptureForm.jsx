@@ -42,7 +42,7 @@ export const LeadCaptureForm = () => {
 
     try {
       // Pointing to the production n8n webhook (injected via Vite env)
-      const WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL || 'http://localhost:5678/webhook/brandmark-lead-capture';
+      const WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL;
       
       const response = await fetch(WEBHOOK_URL, {
         method: 'POST',
