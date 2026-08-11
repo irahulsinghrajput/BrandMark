@@ -1,6 +1,6 @@
 {
   "framework": null,
-  "installCommand": "cd brandmark-react && npm install",
+  "installCommand": "cd brandmark-react && npm install --legacy-peer-deps",
   "buildCommand": "cd brandmark-react && npm run build",
   "outputDirectory": "brandmark-react/dist"
 }
