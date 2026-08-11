@@ -1,3 +1,6 @@
 {
-  "framework": null
+  "rootDirectory": "brandmark-react",
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "outputDirectory": "dist"
 }
