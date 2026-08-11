@@ -1,6 +1,5 @@
 {
-  "rootDirectory": "brandmark-react",
-  "buildCommand": "npm run build",
-  "installCommand": "npm install",
-  "outputDirectory": "dist"
+  "installCommand": "cd brandmark-react && npm install",
+  "buildCommand": "cd brandmark-react && npm run build",
+  "outputDirectory": "brandmark-react/dist"
 }
