@@ -1,3 +1,12 @@
 {
-  "framework": null
+  "framework": null,
+  "installCommand": "cd brandmark-react && npm install --legacy-peer-deps",
+  "buildCommand": "cd brandmark-react && npm run build",
+  "outputDirectory": "brandmark-react/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
