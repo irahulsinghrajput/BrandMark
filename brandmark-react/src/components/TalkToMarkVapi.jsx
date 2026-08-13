@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { useModal } from '../contexts/ModalContext';
 import Vapi from '@vapi-ai/web';
 
@@ -20,6 +21,7 @@ try {
 }
 
 export const TalkToMarkVapi = () => {
+  const navigate = useNavigate();
   const { isTalkToMarkOpen, closeTalkToMark } = useModal();
   const [callStatus, setCallStatus] = useState('inactive');
   const [volumeLevel, setVolumeLevel] = useState(0);
@@ -65,7 +67,8 @@ export const TalkToMarkVapi = () => {
     if (!vapi || !vapiConfigured) {
       setFallbackMode(true);
       setStatusMessage('Voice calling is unavailable right now. Please use chat or WhatsApp instead.');
-      window.open('https://brandmarksolutions.site/quote-request.html', '_blank', 'noopener,noreferrer');
+      closeTalkToMark();
+      navigate('/contact');
       return;
     }
 
