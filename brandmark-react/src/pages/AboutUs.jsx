@@ -103,10 +103,10 @@ export const AboutUs = () => {
             <div className="flex flex-wrap justify-center gap-10">
               {[
                 { name: 'Rahul Singh Rajput', role: 'Chief Operational Officer', image: '/images/team/Rahul picture.jpeg' },
-                { name: 'Rajeshree Shekhar', role: 'Chief UI/UX Specialist', image: '/images/team/Rajeshree.Jpeg' },
+                { name: 'Rajeshree Shekhar', role: 'Chief UI/UX Specialist', image: '/images/team/Rajeshree_new.jpg' },
                 { name: 'Lakshya', role: 'Director of Client Services', image: '/images/team/lakshya.png.png' },
                 { name: 'Amisha Singh', role: 'Graphic Designer Specialist', image: '/images/team/amisha.jpg.png' },
-                { name: 'Rishi Thakur', role: 'Production & Videography Specialist', image: '/images/team/Rishi.jpg' }
+                { name: 'Rishi Thakur', role: 'Production & Videography Specialist', image: '/images/team/Rishi.png' }
               ].map((member, i) => (
                 <div key={i} className="group flex flex-col items-center text-center w-full sm:w-[calc(50%-1.25rem)] lg:w-[calc(25%-1.875rem)] max-w-sm">
                   <div className="w-full aspect-[4/5] mb-6 overflow-hidden rounded-2xl shadow-sm group-hover:shadow-xl transition-shadow duration-500">
