@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { Search, ChevronRight, Calendar, User, Tag } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '../lib/supabase';
+import localBlogs from '../data/blogs.json';
 
 const BlogDirectory = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,14 +13,32 @@ const BlogDirectory = () => {
   const { data: blogs = [], isLoading } = useQuery({
     queryKey: ['blogs'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('blogs')
-        .select('*')
-        .eq('status', 'published')
-        .order('date_published', { ascending: false });
-      
-      if (error) throw error;
-      return data || [];
+      try {
+        const { data, error } = await supabase
+          .from('blogs')
+          .select('*')
+          .eq('status', 'published')
+          .order('date_published', { ascending: false });
+        
+        let dbBlogs = data || [];
+        if (error) {
+          console.warn('Supabase fetch failed, proceeding with local blogs', error);
+        }
+        
+        const merged = [...dbBlogs];
+        for (const local of localBlogs) {
+          if (!merged.some(b => b.slug === local.slug)) {
+            merged.push(local);
+          }
+        }
+        merged.sort((a, b) => new Date(b.date_published || 0) - new Date(a.date_published || 0));
+        return merged;
+      } catch (err) {
+        console.warn('Supabase error', err);
+        const merged = [...localBlogs];
+        merged.sort((a, b) => new Date(b.date_published || 0) - new Date(a.date_published || 0));
+        return merged;
+      }
     }
   });
 

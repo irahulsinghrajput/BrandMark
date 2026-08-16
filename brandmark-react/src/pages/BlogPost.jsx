@@ -9,6 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '../lib/supabase';
 import { SEO } from '../components/SEO';
 import { PageTransition } from '../components/PageTransition';
+import localBlogs from '../data/blogs.json';
 
 export const BlogPost = () => {
   const { slug } = useParams();
@@ -16,14 +17,22 @@ export const BlogPost = () => {
   const { data: blog, isLoading } = useQuery({
     queryKey: ['blog', slug],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('blogs')
-        .select('*')
-        .or(`slug.eq.${slug},id.eq.${slug}`)
-        .single();
-      
-      if (error) throw error;
-      return data;
+      const localMatch = localBlogs.find(b => b.slug === slug || b.id === slug);
+      if (localMatch) return localMatch;
+
+      try {
+        const { data, error } = await supabase
+          .from('blogs')
+          .select('*')
+          .or(`slug.eq.${slug},id.eq.${slug}`)
+          .single();
+        
+        if (error) throw error;
+        return data;
+      } catch (err) {
+        console.warn('Supabase fetch failed', err);
+        return null;
+      }
     }
   });
 
@@ -31,16 +40,31 @@ export const BlogPost = () => {
     queryKey: ['relatedPosts', blog?.category],
     queryFn: async () => {
       if (!blog?.category) return [];
-      const { data, error } = await supabase
-        .from('blogs')
-        .select('*')
-        .eq('category', blog.category)
-        .neq('slug', blog.slug)
-        .eq('status', 'published')
-        .limit(3);
       
-      if (error) throw error;
-      return data || [];
+      let dbRelated = [];
+      try {
+        const { data, error } = await supabase
+          .from('blogs')
+          .select('*')
+          .eq('category', blog.category)
+          .neq('slug', blog.slug)
+          .eq('status', 'published')
+          .limit(3);
+        
+        if (!error && data) dbRelated = data;
+      } catch (err) {
+        console.warn('Supabase related fetch failed', err);
+      }
+
+      const localRelated = localBlogs.filter(b => b.category === blog.category && b.slug !== blog.slug);
+      
+      const merged = [...dbRelated];
+      for (const local of localRelated) {
+        if (!merged.some(b => b.slug === local.slug)) {
+          merged.push(local);
+        }
+      }
+      return merged.slice(0, 3);
     },
     enabled: !!blog?.category
   });
