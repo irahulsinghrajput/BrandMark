@@ -11,6 +11,20 @@ import { SEO } from '../components/SEO';
 import { PageTransition } from '../components/PageTransition';
 import localBlogs from '../data/blogs.json';
 
+// Map author name → avatar path in /images/authors/
+const AUTHOR_AVATARS = {
+  'Rahul Singh Rajput': '/images/authors/rahul-singh-rajput.jpg',
+  'Rajeshree Shekhar': '/images/authors/rajeshree-shekhar.jpg',
+  'Amisha Singh': '/images/authors/amisha-singh.jpg',
+  'Rishi Thakur': '/images/authors/rishi-thakur.jpg',
+  'Lakshya': '/images/authors/lakshya.png',
+  'BrandMark AI Team': '/images/authors/brandmark-ai-team.jpg',
+  'BrandMark Tech Team': '/images/authors/brandmark-tech-team.jpg',
+};
+
+const getAuthorAvatar = (name) => AUTHOR_AVATARS[name] || null;
+const getBlogCover = (slug) => `/images/blogs/${slug}.jpg`;
+
 export const BlogPost = () => {
   const { slug } = useParams();
   
@@ -149,8 +163,17 @@ export const BlogPost = () => {
             </h1>
             
             <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500">
-              <Link to={`/authors/${(blog.author || 'team').toLowerCase().replace(/\s+/g, '-')}`} className="flex items-center hover:text-brand-orange transition-colors">
-                <User className="w-4 h-4 mr-2 text-brand-orange" />
+              <Link to={`/authors/${(blog.author || 'team').toLowerCase().replace(/\s+/g, '-')}`} className="flex items-center gap-2 hover:text-brand-orange transition-colors">
+                {getAuthorAvatar(blog.author) ? (
+                  <img
+                    src={getAuthorAvatar(blog.author)}
+                    alt={blog.author}
+                    className="w-8 h-8 rounded-full object-cover border-2 border-brand-orange/30"
+                    onError={(e) => { e.target.style.display='none'; }}
+                  />
+                ) : (
+                  <User className="w-4 h-4 text-brand-orange" />
+                )}
                 <span className="font-medium text-gray-700">{blog.author || 'BrandMark Team'}</span>
               </Link>
               {(blog.date_published || blog.date) && (
@@ -169,6 +192,19 @@ export const BlogPost = () => {
               </div>
             </div>
           </header>
+
+          {/* Hero Cover Image */}
+          <div className="mb-10 rounded-2xl overflow-hidden shadow-xl aspect-video bg-brand-navy/10">
+            <img
+              src={blog.cover_image || getBlogCover(blog.slug || blog.id)}
+              alt={blog.title}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                e.target.parentElement.style.background = 'linear-gradient(135deg, #0B2C4D 0%, #1a4a7a 100%)';
+                e.target.style.display = 'none';
+              }}
+            />
+          </div>
 
           {/* Markdown Content */}
           <div className="prose prose-lg prose-orange max-w-none prose-headings:text-brand-navy prose-a:text-brand-orange hover:prose-a:text-orange-700 prose-img:rounded-2xl prose-img:shadow-lg">
@@ -231,9 +267,17 @@ export const BlogPost = () => {
                     to={`/blog/${post.slug || post.id}`}
                     className="group block"
                   >
-                    <div className="aspect-video bg-gray-100 rounded-xl mb-4 relative overflow-hidden flex items-center justify-center">
-                      <span className="absolute inset-0 flex items-center justify-center text-2xl font-bold text-gray-200">BrandMark</span>
-                      <div className="absolute inset-0 bg-brand-navy/0 group-hover:bg-brand-navy/10 transition-colors" />
+                    <div className="aspect-video bg-brand-navy/10 rounded-xl mb-4 relative overflow-hidden">
+                      <img
+                        src={post.cover_image || getBlogCover(post.slug || post.id)}
+                        alt={post.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        onError={(e) => {
+                          e.target.parentElement.style.background = 'linear-gradient(135deg, #0B2C4D 0%, #1a4a7a 100%)';
+                          e.target.style.display = 'none';
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-brand-navy/0 group-hover:bg-brand-navy/20 transition-colors" />
                     </div>
                     <h4 className="font-bold text-brand-navy group-hover:text-brand-orange transition-colors line-clamp-2">
                       {post.title}

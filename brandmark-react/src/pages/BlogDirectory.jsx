@@ -6,6 +6,19 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '../lib/supabase';
 import localBlogs from '../data/blogs.json';
 
+const AUTHOR_AVATARS = {
+  'Rahul Singh Rajput': '/images/authors/rahul-singh-rajput.jpg',
+  'Rajeshree Shekhar': '/images/authors/rajeshree-shekhar.jpg',
+  'Amisha Singh': '/images/authors/amisha-singh.jpg',
+  'Rishi Thakur': '/images/authors/rishi-thakur.jpg',
+  'Lakshya': '/images/authors/lakshya.png',
+  'BrandMark AI Team': '/images/authors/brandmark-ai-team.jpg',
+  'BrandMark Tech Team': '/images/authors/brandmark-tech-team.jpg',
+};
+
+const getBlogCover = (slug) => `/images/blogs/${slug}.jpg`;
+const getAuthorAvatar = (name) => AUTHOR_AVATARS[name] || null;
+
 const BlogDirectory = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -115,9 +128,18 @@ const BlogDirectory = () => {
                 key={blog.id || blog.slug}
                 className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col"
               >
-                <div className="aspect-video bg-gray-100 relative overflow-hidden flex items-center justify-center">
-                  <span className="text-4xl font-bold text-gray-200">BrandMark</span>
-                  <div className="absolute inset-0 bg-brand-navy/0 group-hover:bg-brand-navy/10 transition-colors duration-300" />
+                <div className="aspect-video bg-brand-navy/10 relative overflow-hidden">
+                  <img
+                    src={blog.cover_image || getBlogCover(blog.slug)}
+                    alt={blog.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.target.parentElement.style.background = 'linear-gradient(135deg, #0B2C4D 0%, #1a4a7a 100%)';
+                      e.target.style.display = 'none';
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-brand-navy/0 group-hover:bg-brand-navy/20 transition-colors duration-300" />
                 </div>
                 
                 <div className="p-6 flex-grow flex flex-col">
@@ -139,9 +161,18 @@ const BlogDirectory = () => {
                   </p>
                   
                   <div className="mt-auto pt-6 border-t border-gray-100 flex items-center justify-between">
-                    <div className="flex items-center text-sm text-gray-500">
-                      <User className="w-4 h-4 mr-2" />
-                      {blog.author || 'BrandMark Team'}
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                      {getAuthorAvatar(blog.author) ? (
+                        <img
+                          src={getAuthorAvatar(blog.author)}
+                          alt={blog.author || 'BrandMark Team'}
+                          className="w-7 h-7 rounded-full object-cover border border-brand-orange/20"
+                          onError={(e) => { e.target.style.display='none'; }}
+                        />
+                      ) : (
+                        <User className="w-4 h-4" />
+                      )}
+                      <span>{blog.author || 'BrandMark Team'}</span>
                     </div>
                     <ChevronRight className="w-5 h-5 text-brand-orange transform group-hover:translate-x-1 transition-transform" />
                   </div>
