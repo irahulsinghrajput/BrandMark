@@ -1,0 +1,54 @@
+name: Auto-Publish Blogs
+
+# This workflow triggers automatically whenever new .md blog files are
+# added or edited in the src/content/blogs/ directory.
+# Vercel automatically redeploys when a push is made to main.
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'brandmark-react/src/content/blogs/**'
+  # Also allow manual trigger from GitHub Actions UI
+  workflow_dispatch:
+
+jobs:
+  parse-and-publish:
+    name: Parse Markdown Blogs & Commit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: brandmark-react/package-lock.json
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+        working-directory: brandmark-react
+
+      - name: Parse blog markdown files into blogs.json
+        run: node scripts/parse-content.cjs
+        working-directory: brandmark-react
+
+      - name: Check if blogs.json changed
+        id: check_changes
+        run: |
+          git diff --quiet brandmark-react/src/data/blogs.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit updated blogs.json if changed
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "BrandMark Blog Bot"
+          git add brandmark-react/src/data/blogs.json
+          git commit -m "chore(blog): auto-update blogs.json from markdown sources [skip ci]"
+          git push
