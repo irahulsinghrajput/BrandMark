@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { Search, ChevronRight, Calendar, User, Tag } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '../lib/supabase';
+import { SEO } from '../components/SEO';
 import localBlogs from '../data/blogs.json';
 
 const AUTHOR_AVATARS = {
@@ -69,10 +70,35 @@ const BlogDirectory = () => {
 
   return (
     <div className="bg-white min-h-screen pt-24 pb-20">
-      <Helmet>
-        <title>Digital Marketing Blog & Insights | BrandMark Solutions</title>
-        <meta name="description" content="Read our latest insights, case studies, and strategies on digital marketing, SEO, and web development for businesses in North India." />
-      </Helmet>
+      <SEO 
+        title="Digital Marketing Blog & Insights | BrandMark Solutions"
+        description="Read our latest insights, case studies, and strategies on digital marketing, SEO, AI automation, and web development for businesses in North India."
+        canonicalUrl="https://www.brandmarksolutions.site/blog"
+        schema={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            "name": "BrandMark Solutions Blog",
+            "url": "https://www.brandmarksolutions.site/blog",
+            "description": "Insights on digital marketing, SEO, AI automation, and web development."
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [{
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://www.brandmarksolutions.site"
+            }, {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://www.brandmarksolutions.site/blog"
+            }]
+          }
+        ]}
+      />
 
       <section className="bg-brand-navy text-white py-20 px-6">
         <div className="max-w-7xl mx-auto text-center">

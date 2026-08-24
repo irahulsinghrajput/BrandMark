@@ -22,6 +22,18 @@ export const SEO = ({
     },
     {
       "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "BrandMark Solutions",
+      "url": "https://www.brandmarksolutions.site",
+      "logo": "https://www.brandmarksolutions.site/brandmark-logo-new.png.webp",
+      "sameAs": [
+        "https://www.linkedin.com/company/brandmarksolutions",
+        "https://www.instagram.com/brandmarksolutions",
+        "https://www.facebook.com/brandmarksolutions"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
       "@type": "ProfessionalService",
       "name": "BrandMark Solutions",
       "image": "https://www.brandmarksolutions.site/brandmark-logo-new.png.webp",

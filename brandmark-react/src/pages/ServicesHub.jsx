@@ -23,27 +23,44 @@ export const ServicesHub = () => {
         title="Our Services | Website Development & SEO Agency Patna | BrandMark"
         description="From UI/UX design to Performance Marketing and Local SEO. BrandMark Solutions delivers comprehensive digital growth for businesses in Bihar and North India."
         canonicalUrl="https://www.brandmarksolutions.site/services"
-        schema={{
-          "@context": "https://schema.org",
-          "@type": "Service",
-          "serviceType": "Digital Marketing and Web Development",
-          "provider": {
-            "@type": "LocalBusiness",
-            "name": "BrandMark Solutions Private Ltd.",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Patna",
-              "addressRegion": "Bihar",
-              "addressCountry": "IN"
-            }
+        schema={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "serviceType": "Digital Marketing and Web Development",
+            "provider": {
+              "@type": "Organization",
+              "name": "BrandMark Solutions Private Ltd.",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Patna",
+                "addressRegion": "Bihar",
+                "addressCountry": "IN"
+              }
+            },
+            "areaServed": [
+              "Patna",
+              "Bihar",
+              "North India",
+              "India"
+            ]
           },
-          "areaServed": [
-            "Patna",
-            "Bihar",
-            "North India",
-            "India"
-          ]
-        }}
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [{
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://www.brandmarksolutions.site"
+            }, {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Services",
+              "item": "https://www.brandmarksolutions.site/services"
+            }]
+          }
+        ]}
       />
       <div className="pt-20">
         
