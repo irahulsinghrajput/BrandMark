@@ -158,13 +158,19 @@ app.post('/api/admin/logout', validateCsrfToken);
 app.use('/uploads', express.static('uploads'));
 
 // Database Connection
+let cachedDb = null;
+
 if (process.env.MONGODB_URI) {
-    mongoose.connect(process.env.MONGODB_URI)
-    .then(() => console.log('✅ MongoDB Connected'))
-    .catch(err => {
-        console.error('❌ MongoDB Connection Error:', err.message);
-        console.log('⚠️  Server will continue without database. Configure MONGODB_URI in .env file.');
-    });
+    if (mongoose.connection.readyState >= 1) {
+        console.log('✅ Reusing existing MongoDB Connection');
+    } else {
+        mongoose.connect(process.env.MONGODB_URI)
+        .then(() => console.log('✅ MongoDB Connected'))
+        .catch(err => {
+            console.error('❌ MongoDB Connection Error:', err.message);
+            console.log('⚠️  Server will continue without database. Configure MONGODB_URI in .env file.');
+        });
+    }
 } else {
     console.log('⚠️  MONGODB_URI not configured. Server running without database.');
 }
@@ -289,7 +295,14 @@ app.use((req, res) => {
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`);
-    console.log(`📍 Environment: ${process.env.NODE_ENV}`);
-});
+
+// Only listen if executed directly (not when imported by Vercel's serverless function)
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`🚀 Server running on port ${PORT}`);
+        console.log(`📍 Environment: ${process.env.NODE_ENV}`);
+    });
+}
+
+// Export for Vercel
+module.exports = app;
