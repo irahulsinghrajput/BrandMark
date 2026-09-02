@@ -4,25 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useModal } from '../contexts/ModalContext';
 import Vapi from '@vapi-ai/web';
 
-let vapi = null;
-let vapiConfigured = false;
-
-try {
-  const publicKey = import.meta.env.VITE_VAPI_PUBLIC_KEY || '';
-  const assistantId = import.meta.env.VITE_VAPI_ASSISTANT_ID || '';
-  const hasValidConfig = Boolean(publicKey && assistantId);
-
-  if (hasValidConfig) {
-    // Handle potential Vite/ESM default export wrapping
-    const VapiClient = typeof Vapi === 'function' ? Vapi : (Vapi.default || Vapi);
-    vapi = new VapiClient(publicKey);
-    vapiConfigured = true;
-  } else {
-    console.warn('Vapi config missing in Vercel environment variables.');
-  }
-} catch (error) {
-  console.error('Vapi initialization failed. Falling back to chat:', error);
-}
+let globalVapi = null;
 
 export const TalkToMarkVapi = () => {
   const navigate = useNavigate();
@@ -30,10 +12,30 @@ export const TalkToMarkVapi = () => {
   const [callStatus, setCallStatus] = useState('inactive');
   const [volumeLevel, setVolumeLevel] = useState(0);
   const [statusMessage, setStatusMessage] = useState('Ready to talk');
-  const [fallbackMode, setFallbackMode] = useState(!vapiConfigured);
+  const [fallbackMode, setFallbackMode] = useState(false);
+  const [vapi, setVapi] = useState(null);
+
+  // Initialize Vapi client safely
+  useEffect(() => {
+    const publicKey = import.meta.env.VITE_VAPI_PUBLIC_KEY || '';
+    if (publicKey && !globalVapi) {
+      try {
+        const VapiClient = typeof Vapi === 'function' ? Vapi : (Vapi.default || Vapi);
+        globalVapi = new VapiClient(publicKey);
+        setVapi(globalVapi);
+      } catch (err) {
+        console.error('Vapi init error:', err);
+        setFallbackMode(true);
+      }
+    } else if (globalVapi) {
+      setVapi(globalVapi);
+    } else {
+      setFallbackMode(true);
+    }
+  }, []);
 
   useEffect(() => {
-    if (!vapi || !vapiConfigured) return;
+    if (!vapi) return;
 
     const onCallStart = () => {
       setCallStatus('active');
@@ -45,7 +47,8 @@ export const TalkToMarkVapi = () => {
       setStatusMessage('Ready to talk');
     };
     const onVolumeLevel = (level) => setVolumeLevel(level);
-    const onError = () => {
+    const onError = (e) => {
+      console.error("Vapi Error:", e);
       setCallStatus('inactive');
       setStatusMessage('Voice call unavailable right now');
       setFallbackMode(true);
@@ -59,16 +62,10 @@ export const TalkToMarkVapi = () => {
     return () => {
       vapi.removeAllListeners();
     };
-  }, []);
-
-  useEffect(() => {
-    if (!isTalkToMarkOpen && callStatus === 'active' && vapi) {
-      vapi.stop();
-    }
-  }, [isTalkToMarkOpen, callStatus]);
+  }, [vapi]);
 
   const toggleCall = async () => {
-    if (!vapi || !vapiConfigured) {
+    if (!vapi) {
       setFallbackMode(true);
       setStatusMessage('Voice calling is unavailable right now. Please use chat or WhatsApp instead.');
       closeTalkToMark();
@@ -95,6 +92,15 @@ export const TalkToMarkVapi = () => {
       setCallStatus('inactive');
     }
   };
+
+  // Auto-start call when modal opens
+  useEffect(() => {
+    if (isTalkToMarkOpen && vapi && callStatus === 'inactive' && !fallbackMode) {
+      toggleCall();
+    } else if (!isTalkToMarkOpen && callStatus === 'active' && vapi) {
+      vapi.stop();
+    }
+  }, [isTalkToMarkOpen, vapi, fallbackMode]);
 
   const renderWaveform = () => {
     const bars = Array.from({ length: 5 }).map((_, i) => {
