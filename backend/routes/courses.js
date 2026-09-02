@@ -339,14 +339,14 @@ router.post('/:courseId/order', async (req, res) => {
 
         // Course pricing map (in paise)
         const coursePrices = {
-            'digital-marketing-001': {
+            'digital-marketing': {
                 title: 'Digital Marketing Mastery with Gen AI',
-                price: 4900,
+                price: 9900, // ₹99
                 moduleNumber: 1
             },
-            'fullstack-mern-001': {
+            'full-stack-dev': {
                 title: 'Full Stack Web Development — MERN + GenAI',
-                price: 49900,
+                price: 59900, // ₹599
                 moduleNumber: 1
             }
         };
