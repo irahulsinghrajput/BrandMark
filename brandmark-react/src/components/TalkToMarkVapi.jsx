@@ -12,12 +12,16 @@ try {
   const assistantId = import.meta.env.VITE_VAPI_ASSISTANT_ID || '';
   const hasValidConfig = Boolean(publicKey && assistantId);
 
-  if (hasValidConfig && typeof Vapi === 'function') {
+  if (hasValidConfig) {
+    // Handle potential Vite/ESM default export wrapping
+    const VapiClient = typeof Vapi === 'function' ? Vapi : (Vapi.default || Vapi);
+    vapi = new VapiClient(publicKey);
     vapiConfigured = true;
-    vapi = new Vapi(publicKey);
+  } else {
+    console.warn('Vapi config missing in Vercel environment variables.');
   }
 } catch (error) {
-  console.error('Vapi initialization failed. Falling back to the support experience:', error);
+  console.error('Vapi initialization failed. Falling back to chat:', error);
 }
 
 export const TalkToMarkVapi = () => {
