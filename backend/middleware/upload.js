@@ -4,8 +4,10 @@ const fs = require('fs');
 const crypto = require('crypto');
 
 // Ensure uploads directory exists
-const uploadsDir = path.join(__dirname, '../uploads');
-if (!fs.existsSync(uploadsDir)) {
+let uploadsDir = path.join(__dirname, '../uploads');
+if (process.env.VERCEL) {
+    uploadsDir = '/tmp'; // Vercel only allows writing to /tmp
+} else if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
