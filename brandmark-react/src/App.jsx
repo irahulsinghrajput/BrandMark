@@ -28,6 +28,7 @@ const BlogPost = lazy(() => import('./pages/BlogPost').then(module => ({ default
 const AuthorPage = lazy(() => import('./pages/AuthorPage').then(module => ({ default: module.AuthorPage || module.default })));
 const Careers = lazy(() => import('./pages/Careers').then(module => ({ default: module.Careers })));
 const Courses = lazy(() => import('./pages/Courses').then(module => ({ default: module.Courses })));
+const EnrollmentPage = lazy(() => import('./pages/EnrollmentPage').then(module => ({ default: module.EnrollmentPage })));
 const StudentDashboard = lazy(() => import('./pages/StudentDashboard').then(module => ({ default: module.StudentDashboard })));
 const StudentLogin = lazy(() => import('./pages/StudentLogin').then(module => ({ default: module.StudentLogin })));
 const ContactPage = lazy(() => import('./pages/ContactPage').then(module => ({ default: module.ContactPage })));
@@ -174,6 +175,7 @@ function App() {
                 <Route path="/authors/:slug" element={<AuthorPage />} />
                 <Route path="/careers" element={<Careers />} />
                 <Route path="/courses" element={<Courses />} />
+                <Route path="/enroll/:courseId" element={<EnrollmentPage />} />
                 <Route path="/student-login" element={<StudentLogin />} />
                 <Route path="/proposal/:id" element={<ClientProposalPortal />} />
                 <Route path="/portal/:clientId" element={<ClientPortal />} />

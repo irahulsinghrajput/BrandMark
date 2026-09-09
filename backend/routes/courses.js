@@ -351,7 +351,9 @@ router.post('/:courseId/order', async (req, res) => {
             }
         };
 
-        const courseInfo = coursePrices[courseId];
+        // Support variations in frontend slugs (e.g. digital-marketing-001)
+        const normalizedId = courseId.replace(/-\d+$/, '');
+        const courseInfo = coursePrices[courseId] || coursePrices[normalizedId];
         if (!courseInfo) {
             return res.status(400).json({
                 success: false,

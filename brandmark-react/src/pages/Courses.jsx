@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { PageTransition } from '../components/PageTransition';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckoutButton } from '../components/CheckoutButton';
 
 export const Courses = () => {
   const [activeAccordion, setActiveAccordion] = useState(null);
@@ -82,11 +82,12 @@ export const Courses = () => {
                 </div>
               </div>
               
-              <CheckoutButton 
-                courseId="digital-marketing" 
-                price="99" 
-                buttonText="Enroll Now"
-              />
+              <Link 
+                to="/enroll/digital-marketing" 
+                className="w-full py-4 mb-8 bg-brand-orange text-white font-bold uppercase tracking-widest rounded-xl hover:bg-brand-orange-dark transition-colors duration-300 shadow-md flex justify-center items-center"
+              >
+                Enroll Now
+              </Link>
 
               <h3 className="text-xl font-bold text-brand-navy mb-4 border-b border-brand-border-light pb-2">Curriculum</h3>
               <div className="space-y-3">
@@ -133,12 +134,12 @@ export const Courses = () => {
                   </div>
                 </div>
                 
-                <CheckoutButton 
-                  courseId="full-stack-dev" 
-                  price="599" 
-                  buttonText="Join Cohort"
-                  className="w-full py-4 mb-8 bg-white text-brand-navy font-bold uppercase tracking-widest rounded-xl hover:bg-gray-100 transition-colors duration-300 shadow-md"
-                />
+                <Link 
+                  to="/enroll/full-stack-dev" 
+                  className="w-full py-4 mb-8 bg-white text-brand-navy font-bold uppercase tracking-widest rounded-xl hover:bg-gray-100 transition-colors duration-300 shadow-md flex justify-center items-center"
+                >
+                  Join Cohort
+                </Link>
 
                 <h3 className="text-xl font-bold mb-4 border-b border-gray-700 pb-2">Curriculum</h3>
                 <div className="space-y-3">

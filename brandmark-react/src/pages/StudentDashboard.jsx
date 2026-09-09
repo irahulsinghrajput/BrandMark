@@ -13,22 +13,32 @@ export const StudentDashboard = () => {
   const [courseData, setCourseData] = useState(null);
   const [activeModule, setActiveModule] = useState(0);
 
+  const userName = localStorage.getItem('userName') || 'Student';
+
   useEffect(() => {
     const isEnrolled = localStorage.getItem('isEnrolled');
     const courseId = localStorage.getItem('enrolledCourse');
 
-    if (!isEnrolled) {
-      navigate('/courses');
+    if (!isEnrolled || !courseId) {
+      navigate('/student-login');
     } else {
       setCourseData(courseId);
     }
   }, [navigate]);
 
   const handleLogout = () => {
+    localStorage.removeItem('studentToken');
     localStorage.removeItem('isEnrolled');
+    localStorage.removeItem('paymentStatus');
     localStorage.removeItem('enrolledCourse');
-    navigate('/courses');
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('userName');
+    navigate('/student-login');
   };
+
+  const courseTitle = courseData === 'digital-marketing' 
+    ? 'Digital Marketing Mastery' 
+    : 'Full Stack Gen AI Dev';
 
   const modules = courseData === 'digital-marketing' ? digitalMarketingModules : fullStackModules;
 
@@ -40,9 +50,15 @@ export const StudentDashboard = () => {
         
         {/* Sidebar */}
         <aside className="w-full md:w-80 bg-white border-r border-brand-border-light h-[calc(100vh-6rem)] overflow-y-auto flex-shrink-0 relative z-20">
-          <div className="p-6 sticky top-0 bg-white border-b border-brand-border-light z-10 flex justify-between items-center">
-            <h2 className="font-bold text-brand-navy">Course Content</h2>
-            <button onClick={handleLogout} className="text-xs text-brand-orange hover:underline font-semibold">Sign Out</button>
+          <div className="p-6 sticky top-0 bg-white border-b border-brand-border-light z-10">
+            <div className="flex justify-between items-center mb-1">
+              <span className="text-[10px] uppercase tracking-wider font-extrabold px-2 py-0.5 bg-brand-navy/10 text-brand-navy rounded">
+                {courseTitle}
+              </span>
+              <button onClick={handleLogout} className="text-xs text-brand-orange hover:underline font-semibold">Sign Out</button>
+            </div>
+            <h2 className="font-extrabold text-brand-navy text-base">Course Content</h2>
+            <p className="text-xs text-brand-text-muted">Welcome, {userName}</p>
           </div>
           <div className="p-4 space-y-2">
             {modules.map((mod, index) => (

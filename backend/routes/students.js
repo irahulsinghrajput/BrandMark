@@ -13,6 +13,8 @@ const generateToken = (student) => {
 };
 
 const COURSE_TITLES = {
+    'digital-marketing': 'Digital Marketing Mastery with Gen AI',
+    'full-stack-dev': 'Full Stack Web Development — MERN + GenAI',
     'digital-marketing-001': 'Digital Marketing Mastery with Gen AI',
     'fullstack-mern-001': 'Full Stack Web Development — MERN + GenAI'
 };
@@ -22,7 +24,7 @@ const COURSE_TITLES = {
 // @access  Public
 router.post('/register', async (req, res) => {
     try {
-        const { name, email, password, courseId, courseTitle, paymentId, orderId } = req.body;
+        const { name, email, phone, age, password, courseId, courseTitle, paymentId, orderId } = req.body;
 
         if (!name || !email || !password || !courseId) {
             return res.status(400).json({
@@ -50,11 +52,13 @@ router.post('/register', async (req, res) => {
 
         if (student) {
             // Student exists - add enrollment if not already enrolled
+            if (phone) student.phone = phone;
+            if (age) student.age = age;
             const alreadyEnrolled = student.enrolledCourses.some(e => e.courseId === courseId);
             if (!alreadyEnrolled) {
                 student.enrolledCourses.push({ courseId, courseTitle: resolvedCourseTitle, paymentId, orderId });
-                await student.save();
             }
+            await student.save();
             const token = generateToken(student);
             return res.status(200).json({
                 success: true,
@@ -67,6 +71,8 @@ router.post('/register', async (req, res) => {
         student = await Student.create({
             name,
             email,
+            phone,
+            age,
             password,
             enrolledCourses: [{ courseId, courseTitle: resolvedCourseTitle, paymentId, orderId }]
         });

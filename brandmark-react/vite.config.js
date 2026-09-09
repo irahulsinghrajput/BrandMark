@@ -7,6 +7,13 @@ export default defineConfig({
   server: {
     port: 3000,
     strictPort: true, // Fail if port is already in use instead of trying the next available port
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+        secure: false
+      }
+    }
   },
   clearScreen: false, // Prevent Vite from clearing the terminal screen so you can read error logs
 })
