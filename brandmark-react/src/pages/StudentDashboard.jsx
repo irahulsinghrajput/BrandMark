@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PageTransition } from '../components/PageTransition';
 import { AITutor } from '../components/AITutor';
+import { AudioLessonPlayer } from '../components/AudioLessonPlayer';
+import { AILabSandbox } from '../components/AILabSandbox';
+import { AIAssignmentEvaluator } from '../components/AIAssignmentEvaluator';
+import { CertificateModal } from '../components/CertificateModal';
 import { digitalMarketingModules, fullStackModules } from '../data/courseData';
-
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { CourseModule } from '../components/CourseModule';
 import { MockTest } from '../components/MockTest';
 
@@ -12,6 +15,9 @@ export const StudentDashboard = () => {
   const navigate = useNavigate();
   const [courseData, setCourseData] = useState(null);
   const [activeModule, setActiveModule] = useState(0);
+  const [activeTab, setActiveTab] = useState('lesson'); // 'lesson' | 'lab' | 'assignment' | 'test'
+  const [isCertificateOpen, setIsCertificateOpen] = useState(false);
+  const [completedModuleIds, setCompletedModuleIds] = useState([]);
 
   const userName = localStorage.getItem('userName') || 'Student';
 
@@ -24,6 +30,12 @@ export const StudentDashboard = () => {
     } else {
       setCourseData(courseId);
     }
+
+    // Load completed modules from storage
+    try {
+      const saved = localStorage.getItem(`completed_${courseId}`);
+      if (saved) setCompletedModuleIds(JSON.parse(saved));
+    } catch (e) {}
   }, [navigate]);
 
   const handleLogout = () => {
@@ -36,11 +48,23 @@ export const StudentDashboard = () => {
     navigate('/student-login');
   };
 
-  const courseTitle = courseData === 'digital-marketing' 
-    ? 'Digital Marketing Mastery' 
-    : 'Full Stack Gen AI Dev';
+  const isFullStack = courseData === 'full-stack' || courseData === 'fullstack-mern-001' || courseData === 'full-stack-dev';
+  const courseTitle = isFullStack 
+    ? 'Full Stack Web Development — MERN + GenAI' 
+    : 'Digital Marketing Mastery with Gen AI';
 
-  const modules = courseData === 'digital-marketing' ? digitalMarketingModules : fullStackModules;
+  const modules = isFullStack ? fullStackModules : digitalMarketingModules;
+  const currentModule = modules[activeModule] || modules[0];
+
+  const handleMarkModuleComplete = (moduleId) => {
+    if (!completedModuleIds.includes(moduleId)) {
+      const updated = [...completedModuleIds, moduleId];
+      setCompletedModuleIds(updated);
+      localStorage.setItem(`completed_${courseData}`, JSON.stringify(updated));
+    }
+  };
+
+  const completionPercentage = Math.round((completedModuleIds.length / modules.length) * 100);
 
   if (!courseData) return null;
 
@@ -49,82 +73,228 @@ export const StudentDashboard = () => {
       <div className="pt-24 min-h-screen bg-brand-bg-light flex flex-col md:flex-row relative">
         
         {/* Sidebar */}
-        <aside className="w-full md:w-80 bg-white border-r border-brand-border-light h-[calc(100vh-6rem)] overflow-y-auto flex-shrink-0 relative z-20">
-          <div className="p-6 sticky top-0 bg-white border-b border-brand-border-light z-10">
-            <div className="flex justify-between items-center mb-1">
-              <span className="text-[10px] uppercase tracking-wider font-extrabold px-2 py-0.5 bg-brand-navy/10 text-brand-navy rounded">
+        <aside className="w-full md:w-88 bg-white border-r border-brand-border-light h-[calc(100vh-6rem)] overflow-y-auto flex-shrink-0 relative z-20 flex flex-col justify-between">
+          <div>
+            {/* Top Brand Header */}
+            <div className="p-6 sticky top-0 bg-white/95 backdrop-blur-md border-b border-brand-border-light z-10">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1 bg-brand-navy/10 text-brand-navy rounded-md">
+                  {isFullStack ? 'Full Stack Cohort' : 'Marketing Masterclass'}
+                </span>
+                <button onClick={handleLogout} className="text-xs text-brand-orange hover:underline font-bold">
+                  Sign Out
+                </button>
+              </div>
+
+              <h2 className="font-black text-brand-navy text-base leading-tight">
                 {courseTitle}
-              </span>
-              <button onClick={handleLogout} className="text-xs text-brand-orange hover:underline font-semibold">Sign Out</button>
+              </h2>
+              <p className="text-xs text-brand-text-muted mt-0.5">Welcome, <strong className="text-brand-navy">{userName}</strong></p>
+
+              {/* Course Progress Bar */}
+              <div className="mt-4 pt-3 border-t border-brand-border-light">
+                <div className="flex justify-between items-center text-xs mb-1.5">
+                  <span className="text-[11px] font-bold text-brand-navy">Course Progress</span>
+                  <span className="text-xs font-black text-brand-orange">{completionPercentage}%</span>
+                </div>
+                <div className="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
+                  <div 
+                    className="bg-brand-orange h-full rounded-full transition-all duration-500"
+                    style={{ width: `${completionPercentage}%` }}
+                  />
+                </div>
+              </div>
             </div>
-            <h2 className="font-extrabold text-brand-navy text-base">Course Content</h2>
-            <p className="text-xs text-brand-text-muted">Welcome, {userName}</p>
+
+            {/* Modules List */}
+            <div className="p-4 space-y-1.5">
+              {modules.map((mod, index) => {
+                const isCompleted = completedModuleIds.includes(mod.id);
+                const isActive = activeModule === index && activeTab !== 'test';
+
+                return (
+                  <button 
+                    key={mod.id}
+                    onClick={() => {
+                      setActiveModule(index);
+                      if (activeTab === 'test') setActiveTab('lesson');
+                    }}
+                    className={`w-full text-left p-3.5 rounded-2xl transition-all flex items-start gap-3 ${
+                      isActive 
+                        ? 'bg-brand-orange/10 border border-brand-orange/30 shadow-sm' 
+                        : 'hover:bg-brand-bg-light border border-transparent'
+                    }`}
+                  >
+                    <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-xs font-bold ${
+                      isCompleted 
+                        ? 'bg-green-100 text-green-700' 
+                        : isActive 
+                        ? 'bg-brand-orange text-white' 
+                        : 'bg-gray-100 text-gray-400'
+                    }`}>
+                      {isCompleted ? '✓' : mod.id}
+                    </div>
+                    <div className="min-w-0 flex-grow">
+                      <h4 className={`font-bold text-xs truncate ${isActive ? 'text-brand-orange' : 'text-brand-navy'}`}>
+                        {mod.title}
+                      </h4>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className="text-[10px] font-medium text-brand-text-muted">{mod.duration}</span>
+                        {mod.badge && (
+                          <span className="text-[9px] px-1.5 py-0.2 bg-gray-100 text-gray-600 rounded font-semibold">
+                            {mod.badge}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
           </div>
-          <div className="p-4 space-y-2">
-            {modules.map((mod, index) => (
-              <button 
-                key={mod.id}
-                onClick={() => setActiveModule(index)}
-                className={`w-full text-left p-4 rounded-xl transition-colors flex items-start gap-3 ${activeModule === index ? 'bg-brand-orange/10 border border-brand-orange/20' : 'hover:bg-brand-bg-light border border-transparent'}`}
-              >
-                <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${mod.completed ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'}`}>
-                  {mod.completed ? '✓' : mod.id}
-                </div>
-                <div>
-                  <h4 className={`font-semibold text-sm ${activeModule === index ? 'text-brand-orange' : 'text-brand-navy'}`}>{mod.title}</h4>
-                  <p className="text-xs text-brand-text-muted mt-1">{mod.duration}</p>
-                </div>
-              </button>
-            ))}
+
+          {/* Bottom Sidebar Action Cards */}
+          <div className="p-4 border-t border-brand-border-light bg-gray-50/70 space-y-2">
             
-            {/* Mock Test Button */}
-            <div className="pt-4 mt-2 border-t border-brand-border-light">
-              <button 
-                onClick={() => setActiveModule('mock-test')}
-                className={`w-full text-left p-4 rounded-xl transition-colors flex items-start gap-3 ${activeModule === 'mock-test' ? 'bg-brand-navy text-white shadow-md' : 'hover:bg-brand-bg-light border border-transparent text-brand-navy'}`}
-              >
-                <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${activeModule === 'mock-test' ? 'bg-white/20 text-white' : 'bg-brand-orange/20 text-brand-orange'}`}>
-                  ★
-                </div>
-                <div>
-                  <h4 className={`font-semibold text-sm ${activeModule === 'mock-test' ? 'text-white' : 'text-brand-navy'}`}>Final Certification Test</h4>
-                  <p className={`text-xs mt-1 ${activeModule === 'mock-test' ? 'text-white/70' : 'text-brand-text-muted'}`}>Multiple Choice Quiz</p>
-                </div>
-              </button>
-            </div>
+            {/* Final Test Button */}
+            <button 
+              onClick={() => setActiveTab('test')}
+              className={`w-full text-left p-3.5 rounded-2xl transition-all flex items-center gap-3 ${
+                activeTab === 'test' 
+                  ? 'bg-brand-navy text-white shadow-lg' 
+                  : 'bg-white hover:bg-gray-100 text-brand-navy border border-brand-border-light'
+              }`}
+            >
+              <div className={`w-7 h-7 rounded-xl flex items-center justify-center flex-shrink-0 text-sm font-bold ${
+                activeTab === 'test' ? 'bg-brand-orange text-white' : 'bg-brand-orange/10 text-brand-orange'
+              }`}>
+                ★
+              </div>
+              <div>
+                <h4 className="font-extrabold text-xs">Final Certification Test</h4>
+                <p className={`text-[10px] ${activeTab === 'test' ? 'text-gray-300' : 'text-brand-text-muted'}`}>Comprehensive MCQ Exam</p>
+              </div>
+            </button>
+
+            {/* Certificate of Mastery Unlock */}
+            <button 
+              onClick={() => setIsCertificateOpen(true)}
+              className="w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-black text-xs uppercase tracking-wider rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
+            >
+              <span>🎓</span> View Official Certificate
+            </button>
           </div>
         </aside>
 
         {/* Main Content Area */}
-        <main className="flex-grow p-6 md:p-10 h-[calc(100vh-6rem)] overflow-y-auto relative z-10">
+        <main className="flex-grow p-4 md:p-8 lg:p-10 h-[calc(100vh-6rem)] overflow-y-auto relative z-10">
           <div className="max-w-4xl mx-auto pb-32">
-            <div className="bg-brand-navy rounded-3xl aspect-video mb-8 flex items-center justify-center shadow-xl relative overflow-hidden group cursor-pointer border border-brand-border-light/20">
-               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors z-10"></div>
-               <div className="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center z-20 group-hover:scale-110 transition-transform">
-                 <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[16px] border-l-white border-b-[10px] border-b-transparent ml-2"></div>
-               </div>
-               <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1000" alt="Video placeholder" className="absolute inset-0 w-full h-full object-cover opacity-70 mix-blend-overlay" />
-            </div>
+            
+            {/* Top Navigation Tabs */}
+            {activeTab !== 'test' && (
+              <div className="flex items-center gap-2 mb-6 bg-white p-1.5 rounded-2xl border border-brand-border-light shadow-sm overflow-x-auto">
+                <button
+                  onClick={() => setActiveTab('lesson')}
+                  className={`px-5 py-2.5 rounded-xl font-extrabold text-xs transition-all flex items-center gap-2 whitespace-nowrap ${
+                    activeTab === 'lesson' 
+                      ? 'bg-brand-navy text-white shadow-md' 
+                      : 'text-brand-text-muted hover:text-brand-navy hover:bg-gray-100'
+                  }`}
+                >
+                  <span>📖</span> Lesson Guide & Audio
+                </button>
+                <button
+                  onClick={() => setActiveTab('lab')}
+                  className={`px-5 py-2.5 rounded-xl font-extrabold text-xs transition-all flex items-center gap-2 whitespace-nowrap ${
+                    activeTab === 'lab' 
+                      ? 'bg-brand-orange text-white shadow-md' 
+                      : 'text-brand-text-muted hover:text-brand-navy hover:bg-gray-100'
+                  }`}
+                >
+                  <span>🧪</span> {isFullStack ? 'Code Sandbox' : 'AI Ad Copy Lab'}
+                </button>
+                <button
+                  onClick={() => setActiveTab('assignment')}
+                  className={`px-5 py-2.5 rounded-xl font-extrabold text-xs transition-all flex items-center gap-2 whitespace-nowrap ${
+                    activeTab === 'assignment' 
+                      ? 'bg-green-600 text-white shadow-md' 
+                      : 'text-brand-text-muted hover:text-brand-navy hover:bg-gray-100'
+                  }`}
+                >
+                  <span>📝</span> AI Project Reviewer
+                </button>
+              </div>
+            )}
 
-            <AnimatePresence mode="wait">
-              {activeModule === 'mock-test' ? (
-                <MockTest key="mock-test" courseData={courseData} />
-              ) : (
+            {/* Tab 1: Lesson Content & Audio Narration */}
+            {activeTab === 'lesson' && (
+              <>
+                {/* Audio Podcast Player Component */}
+                <AudioLessonPlayer 
+                  module={currentModule} 
+                  courseData={courseData} 
+                />
+
+                {/* Course Module Markdown & Knowledge Check */}
                 <CourseModule 
-                  key={modules[activeModule].id}
-                  module={modules[activeModule]} 
+                  key={currentModule.id}
+                  module={currentModule} 
                   onNext={() => setActiveModule(prev => Math.min(modules.length - 1, prev + 1))}
                   onPrev={() => setActiveModule(prev => Math.max(0, prev - 1))}
                   isFirst={activeModule === 0}
                   isLast={activeModule === modules.length - 1}
+                  onCompleteModule={handleMarkModuleComplete}
                 />
-              )}
-            </AnimatePresence>
+              </>
+            )}
+
+            {/* Tab 2: Interactive AI Lab & Code/Prompt Sandbox */}
+            {activeTab === 'lab' && (
+              <AILabSandbox 
+                courseData={courseData} 
+                activeModuleTitle={currentModule.title} 
+              />
+            )}
+
+            {/* Tab 3: AI Assignment Reviewer */}
+            {activeTab === 'assignment' && (
+              <AIAssignmentEvaluator 
+                module={currentModule} 
+                courseData={courseData} 
+              />
+            )}
+
+            {/* Tab 4: Final Certification Mock Test */}
+            {activeTab === 'test' && (
+              <div>
+                <div className="mb-6 flex items-center justify-between">
+                  <button 
+                    onClick={() => setActiveTab('lesson')}
+                    className="text-xs font-bold text-brand-navy hover:text-brand-orange flex items-center gap-1.5"
+                  >
+                    ← Back to Course Lessons
+                  </button>
+                </div>
+                <MockTest courseData={courseData} />
+              </div>
+            )}
+
           </div>
         </main>
 
-        {/* AI Tutor Component */}
-        <AITutor courseData={courseData} activeModuleTitle={activeModule === 'mock-test' ? "Mock Test" : modules[activeModule].title} />
+        {/* 24/7 Human-Like AI Voice Tutor Widget */}
+        <AITutor 
+          courseData={courseData} 
+          activeModuleTitle={currentModule.title} 
+        />
+
+        {/* Verifiable Certificate Modal */}
+        <CertificateModal
+          isOpen={isCertificateOpen}
+          onClose={() => setIsCertificateOpen(false)}
+          userName={userName}
+          courseTitle={courseTitle}
+        />
 
       </div>
     </PageTransition>
