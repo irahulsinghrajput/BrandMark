@@ -3,11 +3,13 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const Student = require('../models/Student');
 
-// Helper to generate JWT
+// Helper to generate JWT with fallback
+const JWT_SECRET = process.env.JWT_SECRET || 'brandmark_super_secret_jwt_key_min_32_characters_long';
+
 const generateToken = (student) => {
     return jwt.sign(
         { id: student._id, email: student.email },
-        process.env.JWT_SECRET,
+        JWT_SECRET,
         { expiresIn: '30d' }
     );
 };
@@ -85,10 +87,15 @@ router.post('/register', async (req, res) => {
         });
 
     } catch (error) {
+        console.error('Registration error in /api/students/register:', error.message);
         if (error.code === 11000) {
-            return res.status(400).json({ success: false, message: 'Email already registered. Please login.' });
+            return res.status(400).json({ success: false, message: 'Email already registered. Please login.', error: error.message });
         }
-        res.status(500).json({ success: false, message: 'Error creating account', error: error.message });
+        res.status(500).json({ 
+            success: false, 
+            message: `Error creating account: ${error.message}`, 
+            error: error.message 
+        });
     }
 });
 

@@ -86,6 +86,26 @@ export const EnrollmentPage = () => {
 
   const [error, setError] = useState('');
 
+  // Restore pending enrollment if user previously paid but registration step was interrupted
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('pendingEnrollment');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.courseId === course.id && parsed.paymentId) {
+          if (parsed.formData) setFormData(parsed.formData);
+          setPaymentInfo({
+            paymentId: parsed.paymentId,
+            orderId: parsed.orderId || ''
+          });
+          setStep(3);
+        }
+      }
+    } catch (e) {
+      console.warn('Could not restore pending enrollment:', e);
+    }
+  }, [course.id]);
+
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -176,10 +196,19 @@ export const EnrollmentPage = () => {
             const verifyData = await verifyRes.json();
 
             if (verifyData.success) {
-              setPaymentInfo({
+              const payData = {
                 paymentId: response.razorpay_payment_id,
                 orderId: response.razorpay_order_id
-              });
+              };
+              setPaymentInfo(payData);
+              // Save pending enrollment so student never loses paid state if password step fails or page refreshes
+              localStorage.setItem('pendingEnrollment', JSON.stringify({
+                formData,
+                paymentId: response.razorpay_payment_id,
+                orderId: response.razorpay_order_id,
+                courseId: course.id,
+                courseTitle: course.title
+              }));
               toast.success('Payment verified successfully!');
               setStep(3);
             } else {
@@ -255,7 +284,8 @@ export const EnrollmentPage = () => {
       const data = await response.json();
 
       if (!data.success) {
-        throw new Error(data.message || 'Registration failed.');
+        const errorDetail = data.error ? `${data.message} (${data.error})` : (data.message || 'Registration failed.');
+        throw new Error(errorDetail);
       }
 
       // Store credentials locally
@@ -265,6 +295,7 @@ export const EnrollmentPage = () => {
       localStorage.setItem('enrolledCourse', course.id);
       localStorage.setItem('userEmail', data.data.email);
       localStorage.setItem('userName', data.data.name);
+      localStorage.removeItem('pendingEnrollment');
 
       toast.success('Account created & enrolled successfully!');
       navigate('/dashboard');

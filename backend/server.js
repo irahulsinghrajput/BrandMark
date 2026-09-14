@@ -160,22 +160,31 @@ app.post('/api/admin/logout', validateCsrfToken);
 app.use('/uploads', express.static('uploads'));
 
 // Database Connection
-let cachedDb = null;
+const connectDB = require('./config/db');
 
+// Eager connection attempt on server start (non-blocking)
 if (process.env.MONGODB_URI) {
-    if (mongoose.connection.readyState >= 1) {
-        console.log('✅ Reusing existing MongoDB Connection');
-    } else {
-        mongoose.connect(process.env.MONGODB_URI)
-        .then(() => console.log('✅ MongoDB Connected'))
-        .catch(err => {
-            console.error('❌ MongoDB Connection Error:', err.message);
-            console.log('⚠️  Server will continue without database. Configure MONGODB_URI in .env file.');
+    connectDB().catch(err => {
+        console.warn('⚠️  Initial MongoDB connection attempt:', err.message);
+    });
+} else {
+    console.log('⚠️  MONGODB_URI not configured. Database routes will return 503 until configured.');
+}
+
+// Database connection middleware for routes requiring MongoDB
+const requireDb = async (req, res, next) => {
+    try {
+        await connectDB();
+        next();
+    } catch (err) {
+        console.error(`❌ [DB Error] ${req.method} ${req.path}:`, err.message);
+        return res.status(503).json({
+            success: false,
+            message: 'Database connection failed. Please verify MONGODB_URI and MongoDB Atlas network access (0.0.0.0/0).',
+            error: err.message
         });
     }
-} else {
-    console.log('⚠️  MONGODB_URI not configured. Server running without database.');
-}
+};
 
 // Prevent unhandled rejections from crashing the server
 process.on('unhandledRejection', (err) => {
@@ -184,13 +193,13 @@ process.on('unhandledRejection', (err) => {
 
 // Routes
 console.log('🔧 Loading routes...');
-app.use('/api/contact', require('./routes/contact'));
+app.use('/api/contact', requireDb, require('./routes/contact'));
 console.log('✅ Contact routes loaded');
-app.use('/api/careers', require('./routes/careers'));
+app.use('/api/careers', requireDb, require('./routes/careers'));
 console.log('✅ Careers routes loaded');
-app.use('/api/newsletter', require('./routes/newsletter'));
+app.use('/api/newsletter', requireDb, require('./routes/newsletter'));
 console.log('✅ Newsletter routes loaded');
-app.use('/api/blog', require('./routes/blog'));
+app.use('/api/blog', requireDb, require('./routes/blog'));
 console.log('✅ Blog routes loaded');
 app.use('/api/ai-tutor', require('./routes/ai-tutor'));
 console.log('✅ AI Tutor routes loaded');
@@ -198,23 +207,23 @@ app.use('/api/tutor', require('./routes/tutor'));
 console.log('✅ Tutor compatibility route loaded');
 app.use('/api/generate-voice', require('./routes/generate-voice'));
 console.log('✅ Voice generation routes loaded');
-app.use('/api/admin', require('./routes/admin'));
+app.use('/api/admin', requireDb, require('./routes/admin'));
 console.log('✅ Admin routes loaded');
 app.use('/api/chat', require('./routes/chat'));
 console.log('✅ Chat routes loaded');
-app.use('/api/quotes', require('./routes/quotes'));
+app.use('/api/quotes', requireDb, require('./routes/quotes'));
 console.log('✅ Quotes routes loaded');
 const coursesRoutes = require('./routes/courses');
 console.log('✅ Courses routes required');
-app.use('/api/courses', coursesRoutes);
+app.use('/api/courses', requireDb, coursesRoutes);
 console.log('✅ Courses routes mounted');
-app.use('/api/quiz', require('./routes/quiz'));
+app.use('/api/quiz', requireDb, require('./routes/quiz'));
 console.log('✅ Quiz routes loaded');
-app.use('/api/students', require('./routes/students'));
+app.use('/api/students', requireDb, require('./routes/students'));
 console.log('✅ Students routes loaded');
 app.use('/api/analytics', require('./routes/analytics'));
 console.log('✅ Analytics routes loaded');
-app.use('/api/audit', require('./routes/audit'));
+app.use('/api/audit', requireDb, require('./routes/audit'));
 console.log('✅ Audit routes loaded');
 app.use('/api/social', require('./routes/socialRoutes'));
 console.log('✅ Social automation routes loaded');
@@ -228,6 +237,29 @@ app.get('/api/health', (req, res) => {
         timestamp: new Date().toISOString(),
         environment: process.env.NODE_ENV || 'development'
     });
+});
+
+// Database Health & Connectivity Diagnostic
+app.get('/api/health/db', async (req, res) => {
+    try {
+        await connectDB();
+        res.json({
+            status: 'OK',
+            database: 'MongoDB',
+            state: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+            host: mongoose.connection.host,
+            name: mongoose.connection.name || 'brandmark',
+            timestamp: new Date().toISOString()
+        });
+    } catch (err) {
+        res.status(503).json({
+            status: 'ERROR',
+            database: 'MongoDB',
+            message: 'Cannot connect to MongoDB',
+            error: err.message,
+            timestamp: new Date().toISOString()
+        });
+    }
 });
 
 // N8N Connectivity Diagnostic
