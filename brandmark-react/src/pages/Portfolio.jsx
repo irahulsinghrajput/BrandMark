@@ -33,19 +33,19 @@ export const Portfolio = () => {
     });
   }, [selectedFilter]);
 
-  const filters = ['All', 'Web Development', 'Digital Marketing', 'Brand Identity', 'Content Strategy'];
+  const filters = ['All', 'Social Media & PR', 'Digital Marketing', 'Brand Identity', 'Web Development', 'Content Strategy'];
 
   const projects = [
     { 
       title: 'Govinda International School', 
-      category: 'Web Development & Institutional Branding', 
-      filterCategory: 'Web Development',
+      category: 'Social Media & Public Relations (PR)', 
+      filterCategory: 'Social Media & PR',
       image: '/images/gis-patna.jpg',
       logo: '/images/govinda-school-logo.jpeg',
       link: 'https://www.gispatna.in/',
       location: 'Patna, Bihar',
-      badge: 'Live Website',
-      description: 'Complete institutional web development, dynamic admissions portal integration, real-time student notice board, and digital presence strategy for Patna’s premier CBSE international school.'
+      badge: 'Social Media & PR',
+      description: 'Comprehensive social media management, creative campaign production, public relations (PR) outreach, and community engagement driving record admissions for Patna’s premier CBSE international school.'
     },
     { 
       title: 'Hotel Republic', 
@@ -93,7 +93,11 @@ export const Portfolio = () => {
 
   const filteredProjects = selectedFilter === 'All' 
     ? projects 
-    : projects.filter(p => p.filterCategory === selectedFilter || p.category.includes(selectedFilter));
+    : projects.filter(p => {
+        if (p.filterCategory === selectedFilter) return true;
+        if (selectedFilter === 'Digital Marketing' && (p.filterCategory === 'Social Media & PR' || p.category.includes('Social Media'))) return true;
+        return p.category.toLowerCase().includes(selectedFilter.toLowerCase());
+      });
 
   return (
     <PageTransition>
