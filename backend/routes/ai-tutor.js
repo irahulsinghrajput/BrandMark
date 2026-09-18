@@ -444,6 +444,115 @@ Discover step-by-step frameworks, AI-driven marketing strategies, and proven tac
   }
 });
 
+/**
+ * Route: /api/ai-tutor/interview
+ * Evaluates candidate response in AI Mock Interview Simulator
+ */
+router.post('/interview', async (req, res) => {
+  try {
+    const { question, answer, course, roleTitle } = req.body;
+    if (!answer || !answer.trim()) {
+      return res.status(400).json({ success: false, error: 'Answer is required for interview evaluation.' });
+    }
+
+    const isFullStack = course === 'fullstack' || course === 'full-stack' || course === 'full-stack-dev';
+    const wordCount = answer.trim().split(/\s+/).length;
+
+    let technicalScore = 80;
+    let clarityScore = 85;
+    let problemSolvingScore = 80;
+    let bestPracticesScore = 82;
+    let hireability = 'Strong Hire';
+    let strengths = [];
+    let improvements = [];
+    let modelTips = [];
+
+    if (isFullStack) {
+      const mentionsArchitecture = /scale|architecture|performance|caching|security|microservices|async|state|transaction|latency|index/i.test(answer);
+      const mentionsTech = /react|node|express|mongo|sql|api|jwt|redis|docker|typescript/i.test(answer);
+      
+      if (mentionsArchitecture && mentionsTech && wordCount >= 35) {
+        technicalScore = Math.min(98, 88 + Math.floor(wordCount / 10));
+        clarityScore = 92;
+        problemSolvingScore = 94;
+        bestPracticesScore = 95;
+        hireability = 'Senior / Lead Ready';
+        strengths.push('Demonstrates high-level architectural thinking and system boundary awareness.');
+        strengths.push('Clean vocabulary referencing industry-standard patterns.');
+      } else if (wordCount >= 20) {
+        technicalScore = 82;
+        clarityScore = 80;
+        problemSolvingScore = 84;
+        bestPracticesScore = 80;
+        hireability = 'Solid Mid-Level Candidate';
+        strengths.push('Good direct comprehension of the question.');
+        improvements.push('Mention edge-case handling (e.g. timeout bounds, database transaction rollbacks, or memoization).');
+      } else {
+        technicalScore = 70;
+        clarityScore = 74;
+        problemSolvingScore = 68;
+        bestPracticesScore = 65;
+        hireability = 'Junior / Needs Practice';
+        improvements.push('Elaborate with a real-world production example and trade-off analysis.');
+      }
+      modelTips.push('Follow the STAR method (Situation, Task, Action, Result) when describing system design or bug fixes.');
+      modelTips.push('Always quantify performance gains (e.g., "Reduced response latency from 450ms to 85ms").');
+    } else {
+      const mentionsMetrics = /roas|cac|ctr|cpa|conversion|ltv|churn|funnel|roi|kpi/i.test(answer);
+      const mentionsStrategy = /audience|hook|retargeting|organic|ad|seo|lifecycle|automation|ab testing/i.test(answer);
+
+      if (mentionsMetrics && mentionsStrategy && wordCount >= 35) {
+        technicalScore = Math.min(98, 90 + Math.floor(wordCount / 10));
+        clarityScore = 94;
+        problemSolvingScore = 92;
+        bestPracticesScore = 96;
+        hireability = 'Senior Growth Lead';
+        strengths.push('Sharp commercial focus tied directly to customer acquisition metrics and ROAS.');
+        strengths.push('Clear understanding of message-to-market testing frameworks.');
+      } else if (wordCount >= 20) {
+        technicalScore = 84;
+        clarityScore = 82;
+        problemSolvingScore = 80;
+        bestPracticesScore = 82;
+        hireability = 'Specialist / Growth Marketer';
+        strengths.push('Clear tactical awareness of the channel.');
+        improvements.push('Include specific budget allocation percentages or attribution modeling considerations.');
+      } else {
+        technicalScore = 68;
+        clarityScore = 72;
+        problemSolvingScore = 70;
+        bestPracticesScore = 66;
+        hireability = 'Associate / Needs Practical Experience';
+        improvements.push('Explain the "why" behind the tactic, focusing on conversion economics.');
+      }
+      modelTips.push('Structure your answer: 1) The Hypothesis, 2) The Channel Experiment, 3) The Benchmark Metric.');
+      modelTips.push('Always address both acquisition cost (CAC) and customer lifetime value (LTV).');
+    }
+
+    const overallScore = Math.round(
+      (technicalScore * 0.4) + (clarityScore * 0.2) + (problemSolvingScore * 0.2) + (bestPracticesScore * 0.2)
+    );
+
+    res.json({
+      success: true,
+      evaluation: {
+        overallScore,
+        hireability,
+        technicalScore,
+        clarityScore,
+        problemSolvingScore,
+        bestPracticesScore,
+        strengths,
+        improvements,
+        modelTips,
+        summary: `Your response for ${roleTitle || 'this role'} demonstrates ${hireability.toLowerCase()} qualities with an overall rating of ${overallScore}/100.`
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // Helper: Call Gemini API
 async function getAnswerFromGemini(question, language, course, history, activeModule) {
   try {

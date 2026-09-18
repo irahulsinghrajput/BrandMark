@@ -361,6 +361,19 @@ router.post('/:courseId/order', async (req, res) => {
             });
         }
 
+        // Support Multi-Tier Pricing
+        const { tier, customAmount } = req.body;
+        let finalAmount = courseInfo.price;
+        if (tier === 'pro') {
+            finalAmount = 99900; // ₹999
+        } else if (tier === 'mentorship') {
+            finalAmount = 499900; // ₹4,999
+        } else if (tier === 'self-paced') {
+            finalAmount = 9900; // ₹99
+        } else if (customAmount && Number(customAmount) > 0) {
+            finalAmount = Math.round(Number(customAmount) * 100);
+        }
+
         // Initialize Razorpay
         if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
             return res.status(500).json({
@@ -375,15 +388,16 @@ router.post('/:courseId/order', async (req, res) => {
             key_secret: process.env.RAZORPAY_KEY_SECRET
         });
 
-        // Create Razorpay order
+        // Create order with Razorpay
         const order = await razorpay.orders.create({
-            amount: courseInfo.price,
+            amount: finalAmount,
             currency: 'INR',
             receipt: `${courseId}_${Date.now()}`,
             notes: {
                 courseId: courseId,
                 email: email,
-                courseTitle: courseInfo.title
+                courseTitle: courseInfo.title,
+                tier: tier || 'self-paced'
             }
         });
 
@@ -393,11 +407,12 @@ router.post('/:courseId/order', async (req, res) => {
             message: 'Order created successfully',
             data: {
                 orderId: order.id,
-                amount: courseInfo.price,
+                amount: finalAmount,
                 currency: 'INR',
-                courseTitle: courseInfo.title,
+                courseTitle: `${courseInfo.title} (${(tier || 'self-paced').toUpperCase()})`,
                 email,
-                keyId: process.env.RAZORPAY_KEY_ID
+                keyId: process.env.RAZORPAY_KEY_ID,
+                tier: tier || 'self-paced'
             }
         });
 

@@ -1,41 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { PageTransition } from '../components/PageTransition';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'react-hot-toast';
+
+const TIERS = [
+  {
+    id: 'self-paced',
+    name: 'Self-Paced Masterclass',
+    badge: 'Essential',
+    price: 99,
+    formattedPrice: '₹99',
+    description: 'Full 15 curriculum modules, 24/7 AI Tutor, audio narration, and certificate.',
+    perks: [
+      '15 Deep GenAI Curriculum Modules',
+      '24/7 Human-Like AI Tutor with Voice Speech',
+      'Podcast-Mode Audio Lesson Player',
+      'Official Certificate of Mastery'
+    ]
+  },
+  {
+    id: 'pro',
+    name: 'Pro Agency & Developer Tier',
+    badge: '★ Recommended / Best Value',
+    price: 999,
+    formattedPrice: '₹999',
+    description: 'Everything in Self-Paced plus the exclusive Downloadable Resource Vault and AI Mock Interview Simulator.',
+    perks: [
+      'Everything in Self-Paced Masterclass',
+      'Downloadable Resource Vault (Templates & SOPs)',
+      '100+ GenAI Prompt Bank & Boilerplates',
+      'AI Mock Interview Simulator & Readiness Scoring',
+      'VIP WhatsApp Student Network Access'
+    ]
+  },
+  {
+    id: 'mentorship',
+    name: '1-on-1 VIP Mentorship Cohort',
+    badge: 'VIP Placement Cohort',
+    price: 4999,
+    formattedPrice: '₹4,999',
+    description: 'Everything in Pro Tier plus weekly live founder Q&A sessions and direct resume/portfolio reviews.',
+    perks: [
+      'Everything in Pro Tier',
+      'Weekly Live Zoom Q&A with Founders',
+      'Personalized Resume & Portfolio Audit',
+      'Direct 1-on-1 WhatsApp Mentorship Channel',
+      'Priority Client Acquisition / Placement Support'
+    ]
+  }
+];
 
 const courseDetails = {
   'digital-marketing': {
     id: 'digital-marketing',
     title: 'Digital Marketing Mastery with Gen AI',
     badge: '15-Module Masterclass',
-    price: 99,
-    formattedPrice: '₹99',
-    duration: 'Self-Paced + AI Tutor',
-    description: 'Master AI-driven content creation, SEO, performance marketing, and automated campaign strategy.',
-    highlights: [
-      '15 Masterclass Modules with Practical Exercises',
-      'AI-Powered Content & Copywriting Frameworks',
-      'Google & Meta Ads Automation Strategies',
-      '24/7 AI Tutor Support inside Dashboard',
-      'Final Capstone Project & Certification'
-    ]
+    duration: 'Mastery Curriculum',
+    description: 'Master AI-driven content creation, SEO, performance marketing, and automated campaign strategy.'
   },
   'full-stack-dev': {
     id: 'full-stack-dev',
     title: 'Full Stack Web Development — MERN + GenAI',
-    badge: 'Pro Cohort',
-    price: 599,
-    formattedPrice: '₹599',
-    duration: 'Full Stack + AI Integration',
-    description: 'Build production-ready web apps with React 18, Next.js, Node.js, Express, MongoDB, and AI Agent workflows.',
-    highlights: [
-      '15 In-Depth Full-Stack & GenAI Modules',
-      'React 18, Next.js App Router & Vector DBs',
-      'OpenAI API, Prompt Engineering & RAG Architecture',
-      'Building Autonomous AI Agents & Socket.io',
-      'Capstone SaaS Product Build & Deployment'
-    ]
+    badge: 'Engineering Cohort',
+    duration: 'Full Stack + GenAI',
+    description: 'Build production-ready web apps with React 18, Next.js, Node.js, Express, MongoDB, and AI Agent workflows.'
   }
 };
 
@@ -63,8 +92,11 @@ export const EnrollmentPage = () => {
 
   const course = courseDetails[activeCourseId] || courseDetails['digital-marketing'];
 
-  const [step, setStep] = useState(1); // Step 1: Details, Step 2: Payment, Step 3: Password
+  const [step, setStep] = useState(1); // Step 1: Details & Tier, Step 2: Payment, Step 3: Password
+  const [selectedTier, setSelectedTier] = useState('pro'); // default to recommended pro tier
   const [isProcessing, setIsProcessing] = useState(false);
+
+  const activeTier = TIERS.find(t => t.id === selectedTier) || TIERS[1];
 
   // Form Fields
   const [formData, setFormData] = useState({
@@ -94,6 +126,7 @@ export const EnrollmentPage = () => {
         const parsed = JSON.parse(saved);
         if (parsed.courseId === course.id && parsed.paymentId) {
           if (parsed.formData) setFormData(parsed.formData);
+          if (parsed.tier) setSelectedTier(parsed.tier);
           setPaymentInfo({
             paymentId: parsed.paymentId,
             orderId: parsed.orderId || ''
@@ -163,7 +196,11 @@ export const EnrollmentPage = () => {
       const orderResponse = await fetch(`${apiUrl}/api/courses/${course.id}/order`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: formData.email })
+        body: JSON.stringify({ 
+          email: formData.email,
+          tier: selectedTier,
+          customAmount: activeTier.price
+        })
       });
 
       const orderData = await orderResponse.json();
@@ -177,7 +214,7 @@ export const EnrollmentPage = () => {
         amount: orderData.data.amount,
         currency: orderData.data.currency,
         name: "BrandMark Academy",
-        description: orderData.data.courseTitle,
+        description: `${course.title} (${activeTier.name})`,
         order_id: orderData.data.orderId,
         handler: async function (response) {
           try {
@@ -189,7 +226,8 @@ export const EnrollmentPage = () => {
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,
                 courseId: course.id,
-                email: formData.email
+                email: formData.email,
+                tier: selectedTier
               })
             });
 
@@ -204,6 +242,7 @@ export const EnrollmentPage = () => {
               // Save pending enrollment so student never loses paid state if password step fails or page refreshes
               localStorage.setItem('pendingEnrollment', JSON.stringify({
                 formData,
+                tier: selectedTier,
                 paymentId: response.razorpay_payment_id,
                 orderId: response.razorpay_order_id,
                 courseId: course.id,
@@ -218,8 +257,6 @@ export const EnrollmentPage = () => {
           } catch (err) {
             console.error('Verification error:', err);
             setError('Payment succeeded, but signature verification encountered an error.');
-          } finally {
-            setIsProcessing(false);
           }
         },
         prefill: {
@@ -228,21 +265,23 @@ export const EnrollmentPage = () => {
           contact: formData.phone
         },
         theme: {
-          color: '#f26a21'
+          color: "#0B2C4D"
         }
       };
 
       const paymentObject = new window.Razorpay(options);
+      paymentObject.open();
+
       paymentObject.on('payment.failed', function (response) {
-        setError(`Payment failed: ${response.error.description || 'Transaction cancelled'}`);
+        setError(response.error.description || 'Payment failed. Please try again.');
+        toast.error('Payment failed.');
         setIsProcessing(false);
       });
 
-      paymentObject.open();
-
     } catch (err) {
-      console.error('Payment init error:', err);
-      setError(err.message || 'Error processing payment.');
+      console.error('Order creation error:', err);
+      setError(err.message || 'Unable to open checkout.');
+    } finally {
       setIsProcessing(false);
     }
   };
@@ -276,6 +315,7 @@ export const EnrollmentPage = () => {
           password: passwordData.password,
           courseId: course.id,
           courseTitle: course.title,
+          tier: selectedTier,
           paymentId: paymentInfo.paymentId || `pay_demo_${Date.now()}`,
           orderId: paymentInfo.orderId || `order_demo_${Date.now()}`
         })
@@ -293,6 +333,7 @@ export const EnrollmentPage = () => {
       localStorage.setItem('isEnrolled', 'true');
       localStorage.setItem('paymentStatus', 'success');
       localStorage.setItem('enrolledCourse', course.id);
+      localStorage.setItem('enrolledTier', selectedTier);
       localStorage.setItem('userEmail', data.data.email);
       localStorage.setItem('userName', data.data.name);
       localStorage.removeItem('pendingEnrollment');
@@ -334,25 +375,26 @@ export const EnrollmentPage = () => {
               <div className="absolute top-0 right-0 transform translate-x-12 -translate-y-12 w-48 h-48 bg-brand-orange/20 rounded-full filter blur-3xl pointer-events-none"></div>
               
               <span className="inline-block px-3 py-1 bg-brand-orange/20 text-brand-orange text-xs font-bold uppercase tracking-wider rounded-md mb-4">
-                {course.badge}
+                {activeTier.badge}
               </span>
-              <h2 className="text-2xl font-black mb-3 leading-tight">{course.title}</h2>
-              <p className="text-gray-300 text-sm font-light mb-6 leading-relaxed">{course.description}</p>
+              <h2 className="text-2xl font-black mb-2 leading-tight">{course.title}</h2>
+              <p className="text-gray-300 text-xs font-light mb-6 leading-relaxed">{activeTier.description}</p>
               
               <div className="border-t border-b border-gray-700/60 py-4 my-6 flex justify-between items-center">
                 <div>
-                  <span className="text-xs text-gray-400 block uppercase font-medium">Total Price</span>
-                  <span className="text-3xl font-extrabold text-white">{course.formattedPrice}</span>
+                  <span className="text-xs text-gray-400 block uppercase font-medium">Selected Tier</span>
+                  <span className="text-3xl font-extrabold text-white">{activeTier.formattedPrice}</span>
+                  <span className="text-[11px] text-brand-orange block font-bold mt-0.5">{activeTier.name}</span>
                 </div>
                 <div className="text-right">
                   <span className="text-xs text-gray-400 block uppercase font-medium">Access</span>
-                  <span className="text-sm font-semibold text-brand-orange">Lifetime Included</span>
+                  <span className="text-sm font-semibold text-emerald-400">Lifetime Included</span>
                 </div>
               </div>
 
-              <h4 className="text-sm font-bold text-gray-200 mb-3 uppercase tracking-wider">What's Included:</h4>
-              <ul className="space-y-3">
-                {course.highlights.map((item, idx) => (
+              <h4 className="text-xs font-bold text-gray-200 mb-3 uppercase tracking-wider">Plan Inclusions:</h4>
+              <ul className="space-y-2.5">
+                {activeTier.perks.map((item, idx) => (
                   <li key={idx} className="flex items-start text-xs text-gray-300 gap-2">
                     <span className="text-brand-orange font-bold">✓</span>
                     <span>{item}</span>
@@ -368,7 +410,7 @@ export const EnrollmentPage = () => {
               <div className="flex items-center justify-between mb-8 pb-6 border-b border-brand-border-light">
                 <div className={`flex items-center gap-2 ${step >= 1 ? 'text-brand-navy font-bold' : 'text-gray-400'}`}>
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs ${step >= 1 ? 'bg-brand-navy text-white' : 'bg-gray-200 text-gray-500'}`}>1</div>
-                  <span className="text-xs md:text-sm">Details</span>
+                  <span className="text-xs md:text-sm">Tier & Info</span>
                 </div>
                 <div className="flex-1 h-0.5 bg-gray-200 mx-3">
                   <div className="h-full bg-brand-orange transition-all duration-500" style={{ width: step === 1 ? '0%' : step === 2 ? '50%' : '100%' }}></div>
@@ -394,7 +436,7 @@ export const EnrollmentPage = () => {
 
               <AnimatePresence mode="wait">
                 
-                {/* STEP 1: STUDENT DETAILS */}
+                {/* STEP 1: PLAN SELECTOR & STUDENT DETAILS */}
                 {step === 1 && (
                   <motion.form 
                     key="step1"
@@ -402,78 +444,127 @@ export const EnrollmentPage = () => {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                     onSubmit={handleProceedToPayment} 
-                    className="space-y-5"
+                    className="space-y-6"
                   >
+                    {/* Tier Selection */}
                     <div>
-                      <h3 className="text-xl font-extrabold text-brand-navy mb-1">Student Information</h3>
-                      <p className="text-xs text-brand-text-muted">Enter your personal details to begin course enrollment.</p>
+                      <h3 className="text-xl font-extrabold text-brand-navy mb-1">Select Learning Tier</h3>
+                      <p className="text-xs text-brand-text-muted mb-4">Choose the plan that fits your career and execution goals.</p>
+
+                      <div className="space-y-3">
+                        {TIERS.map((tier) => {
+                          const isSelected = selectedTier === tier.id;
+                          return (
+                            <div
+                              key={tier.id}
+                              onClick={() => setSelectedTier(tier.id)}
+                              className={`p-4 rounded-2xl border cursor-pointer transition-all ${
+                                isSelected 
+                                  ? 'border-brand-orange bg-brand-orange/5 shadow-md' 
+                                  : 'border-brand-border-light hover:border-brand-navy/30 bg-white'
+                              }`}
+                            >
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                  <input 
+                                    type="radio" 
+                                    name="tier" 
+                                    checked={isSelected} 
+                                    onChange={() => setSelectedTier(tier.id)} 
+                                    className="accent-brand-orange w-4 h-4"
+                                  />
+                                  <div>
+                                    <div className="flex items-center gap-2">
+                                      <span className="font-extrabold text-sm text-brand-navy">{tier.name}</span>
+                                      {tier.id === 'pro' && (
+                                        <span className="px-2 py-0.5 bg-brand-orange text-white text-[9px] font-black uppercase rounded">
+                                          Recommended
+                                        </span>
+                                      )}
+                                    </div>
+                                    <p className="text-[11px] text-brand-text-muted mt-0.5">{tier.description}</p>
+                                  </div>
+                                </div>
+                                <span className="text-base font-black text-brand-navy pl-2 whitespace-nowrap">
+                                  {tier.formattedPrice}
+                                </span>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
 
-                    <div>
-                      <label className="block text-xs font-bold text-brand-navy mb-1" htmlFor="name">Full Name *</label>
-                      <input 
-                        id="name"
-                        name="name"
-                        type="text"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        placeholder="e.g. Rahul Singh"
-                        className="w-full px-4 py-3 bg-white border border-brand-border-light rounded-xl text-sm focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-colors"
-                        required
-                      />
-                    </div>
+                    {/* Student Info */}
+                    <div className="pt-4 border-t border-brand-border-light space-y-4">
+                      <h4 className="font-extrabold text-sm text-brand-navy">Student Contact Information</h4>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-bold text-brand-navy mb-1" htmlFor="email">Email Address *</label>
+                        <label className="block text-xs font-bold text-brand-navy mb-1" htmlFor="name">Full Name *</label>
                         <input 
-                          id="email"
-                          name="email"
-                          type="email"
-                          value={formData.email}
+                          id="name"
+                          name="name"
+                          type="text"
+                          value={formData.name}
                           onChange={handleInputChange}
-                          placeholder="rahul@example.com"
+                          placeholder="e.g. Rahul Singh"
                           className="w-full px-4 py-3 bg-white border border-brand-border-light rounded-xl text-sm focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-colors"
                           required
                         />
                       </div>
 
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-xs font-bold text-brand-navy mb-1" htmlFor="email">Email Address *</label>
+                          <input 
+                            id="email"
+                            name="email"
+                            type="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            placeholder="rahul@example.com"
+                            className="w-full px-4 py-3 bg-white border border-brand-border-light rounded-xl text-sm focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-colors"
+                            required
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-xs font-bold text-brand-navy mb-1" htmlFor="phone">Phone Number *</label>
+                          <input 
+                            id="phone"
+                            name="phone"
+                            type="tel"
+                            value={formData.phone}
+                            onChange={handleInputChange}
+                            placeholder="+91 9876543210"
+                            className="w-full px-4 py-3 bg-white border border-brand-border-light rounded-xl text-sm focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-colors"
+                            required
+                          />
+                        </div>
+                      </div>
+
                       <div>
-                        <label className="block text-xs font-bold text-brand-navy mb-1" htmlFor="phone">Phone Number *</label>
+                        <label className="block text-xs font-bold text-brand-navy mb-1" htmlFor="age">Age *</label>
                         <input 
-                          id="phone"
-                          name="phone"
-                          type="tel"
-                          value={formData.phone}
+                          id="age"
+                          name="age"
+                          type="number"
+                          min="10"
+                          max="100"
+                          value={formData.age}
                           onChange={handleInputChange}
-                          placeholder="+91 9876543210"
+                          placeholder="e.g. 24"
                           className="w-full px-4 py-3 bg-white border border-brand-border-light rounded-xl text-sm focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-colors"
                           required
                         />
                       </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-brand-navy mb-1" htmlFor="age">Age *</label>
-                      <input 
-                        id="age"
-                        name="age"
-                        type="number"
-                        min="10"
-                        max="100"
-                        value={formData.age}
-                        onChange={handleInputChange}
-                        placeholder="e.g. 24"
-                        className="w-full px-4 py-3 bg-white border border-brand-border-light rounded-xl text-sm focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-colors"
-                        required
-                      />
                     </div>
 
                     <button 
                       type="submit"
-                      className="w-full py-4 bg-brand-orange text-white font-bold rounded-xl hover:bg-brand-orange-dark transition-all duration-300 shadow-md hover:shadow-lg mt-4 text-sm uppercase tracking-wider"
+                      className="w-full py-4 bg-brand-orange text-white font-bold rounded-xl hover:bg-brand-orange-dark transition-all duration-300 shadow-md hover:shadow-lg text-sm uppercase tracking-wider"
                     >
-                      Proceed to Payment →
+                      Proceed to Checkout ({activeTier.formattedPrice}) →
                     </button>
                   </motion.form>
                 )}
@@ -489,7 +580,7 @@ export const EnrollmentPage = () => {
                   >
                     <div>
                       <h3 className="text-xl font-extrabold text-brand-navy mb-1">Confirm & Pay</h3>
-                      <p className="text-xs text-brand-text-muted">Review your student details before initiating secure Razorpay checkout.</p>
+                      <p className="text-xs text-brand-text-muted">Review your selected tier and details before initiating secure Razorpay checkout.</p>
                     </div>
 
                     <div className="bg-brand-bg-light rounded-2xl p-5 border border-brand-border-light text-xs space-y-2">
@@ -497,8 +588,9 @@ export const EnrollmentPage = () => {
                       <div className="flex justify-between"><span className="text-brand-text-muted">Email:</span> <span className="font-bold text-brand-navy">{formData.email}</span></div>
                       <div className="flex justify-between"><span className="text-brand-text-muted">Phone:</span> <span className="font-bold text-brand-navy">{formData.phone}</span></div>
                       <div className="flex justify-between"><span className="text-brand-text-muted">Age:</span> <span className="font-bold text-brand-navy">{formData.age} yrs</span></div>
-                      <div className="flex justify-between pt-2 border-t border-brand-border-light"><span className="text-brand-text-muted">Course:</span> <span className="font-bold text-brand-orange">{course.title}</span></div>
-                      <div className="flex justify-between font-bold text-sm text-brand-navy pt-1"><span className="text-brand-navy font-bold">Amount Payable:</span> <span className="text-brand-navy font-extrabold text-base">{course.formattedPrice}</span></div>
+                      <div className="flex justify-between pt-2 border-t border-brand-border-light"><span className="text-brand-text-muted">Course:</span> <span className="font-bold text-brand-navy">{course.title}</span></div>
+                      <div className="flex justify-between"><span className="text-brand-text-muted">Plan:</span> <span className="font-bold text-brand-orange">{activeTier.name}</span></div>
+                      <div className="flex justify-between font-bold text-sm text-brand-navy pt-2 border-t border-brand-border-light"><span className="text-brand-navy font-bold">Total Amount Payable:</span> <span className="text-brand-navy font-extrabold text-base">{activeTier.formattedPrice}</span></div>
                     </div>
 
                     <div className="flex gap-4">
@@ -520,7 +612,7 @@ export const EnrollmentPage = () => {
                             Opening Razorpay...
                           </>
                         ) : (
-                          `Pay ${course.formattedPrice} via Razorpay 🔒`
+                          `Pay ${activeTier.formattedPrice} via Razorpay 🔒`
                         )}
                       </button>
                     </div>
@@ -540,7 +632,7 @@ export const EnrollmentPage = () => {
                     <div className="bg-green-50 border border-green-200 text-green-700 p-4 rounded-2xl text-xs flex items-center gap-3">
                       <span className="text-xl">🎉</span>
                       <div>
-                        <strong className="block font-bold text-sm">Payment Successful!</strong>
+                        <strong className="block font-bold text-sm">Payment Successful for {activeTier.name}!</strong>
                         <span>Create your secret account password to complete registration and log in.</span>
                       </div>
                     </div>
@@ -558,9 +650,10 @@ export const EnrollmentPage = () => {
                         type="password"
                         value={passwordData.password}
                         onChange={handlePasswordChange}
-                        placeholder="At least 6 characters"
+                        placeholder="••••••••"
                         className="w-full px-4 py-3 bg-white border border-brand-border-light rounded-xl text-sm focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-colors"
                         required
+                        minLength={6}
                       />
                     </div>
 
@@ -572,21 +665,22 @@ export const EnrollmentPage = () => {
                         type="password"
                         value={passwordData.confirmPassword}
                         onChange={handlePasswordChange}
-                        placeholder="Re-enter your password"
+                        placeholder="••••••••"
                         className="w-full px-4 py-3 bg-white border border-brand-border-light rounded-xl text-sm focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-colors"
                         required
+                        minLength={6}
                       />
                     </div>
 
                     <button 
                       type="submit"
                       disabled={isProcessing}
-                      className="w-full py-4 bg-brand-navy text-white font-bold rounded-xl hover:bg-brand-navy-dark transition-all duration-300 shadow-md hover:shadow-lg mt-4 text-sm uppercase tracking-wider flex items-center justify-center gap-2"
+                      className="w-full py-4 bg-brand-navy text-white font-bold rounded-xl hover:bg-brand-navy/90 transition-all duration-300 shadow-md hover:shadow-lg text-sm uppercase tracking-wider flex items-center justify-center gap-2"
                     >
                       {isProcessing ? (
                         <>
                           <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                          Creating Account...
+                          Finalizing Registration...
                         </>
                       ) : (
                         'Generate Password & Access Course Dashboard'
@@ -596,9 +690,11 @@ export const EnrollmentPage = () => {
                 )}
 
               </AnimatePresence>
+
             </div>
 
           </div>
+
         </div>
       </div>
     </PageTransition>

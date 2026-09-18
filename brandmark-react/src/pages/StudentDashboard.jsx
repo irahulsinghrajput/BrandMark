@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PageTransition } from '../components/PageTransition';
 import { AITutor } from '../components/AITutor';
-import { AudioLessonPlayer } from '../components/AudioLessonPlayer';
+import { VideoLessonPlayer } from '../components/VideoLessonPlayer';
 import { AILabSandbox } from '../components/AILabSandbox';
 import { AIAssignmentEvaluator } from '../components/AIAssignmentEvaluator';
+import { ResourceVault } from '../components/ResourceVault';
+import { AIMockInterview } from '../components/AIMockInterview';
+import { CommunityBanner } from '../components/CommunityBanner';
+import { GamificationWidget } from '../components/GamificationWidget';
 import { CertificateModal } from '../components/CertificateModal';
 import { digitalMarketingModules, fullStackModules } from '../data/courseData';
-import { AnimatePresence, motion } from 'framer-motion';
 import { CourseModule } from '../components/CourseModule';
 import { MockTest } from '../components/MockTest';
 
@@ -15,7 +18,7 @@ export const StudentDashboard = () => {
   const navigate = useNavigate();
   const [courseData, setCourseData] = useState(null);
   const [activeModule, setActiveModule] = useState(0);
-  const [activeTab, setActiveTab] = useState('lesson'); // 'lesson' | 'lab' | 'assignment' | 'test'
+  const [activeTab, setActiveTab] = useState('lesson'); // 'lesson' | 'lab' | 'assignment' | 'resources' | 'interview' | 'test'
   const [isCertificateOpen, setIsCertificateOpen] = useState(false);
   const [completedModuleIds, setCompletedModuleIds] = useState([]);
 
@@ -99,33 +102,46 @@ export const StudentDashboard = () => {
                 </div>
                 <div className="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
                   <div 
-                    className="bg-brand-orange h-full rounded-full transition-all duration-500"
+                    className="bg-gradient-to-r from-brand-orange to-amber-500 h-full transition-all duration-500 rounded-full"
                     style={{ width: `${completionPercentage}%` }}
                   />
                 </div>
+              </div>
+
+              {/* Gamification Streak & XP Widget */}
+              <div className="mt-4">
+                <GamificationWidget 
+                  completedModulesCount={completedModuleIds.length} 
+                  totalModules={modules.length} 
+                  courseData={courseData} 
+                />
               </div>
             </div>
 
             {/* Modules List */}
             <div className="p-4 space-y-1.5">
-              {modules.map((mod, index) => {
+              <div className="px-2 py-1 text-[11px] font-extrabold text-brand-text-muted uppercase tracking-wider">
+                Course Modules ({modules.length})
+              </div>
+
+              {modules.map((mod, idx) => {
+                const isActive = activeModule === idx && activeTab === 'lesson';
                 const isCompleted = completedModuleIds.includes(mod.id);
-                const isActive = activeModule === index && activeTab !== 'test';
 
                 return (
-                  <button 
+                  <button
                     key={mod.id}
                     onClick={() => {
-                      setActiveModule(index);
-                      if (activeTab === 'test') setActiveTab('lesson');
+                      setActiveModule(idx);
+                      setActiveTab('lesson');
                     }}
-                    className={`w-full text-left p-3.5 rounded-2xl transition-all flex items-start gap-3 ${
+                    className={`w-full text-left p-3 rounded-2xl transition-all flex items-center gap-3 ${
                       isActive 
-                        ? 'bg-brand-orange/10 border border-brand-orange/30 shadow-sm' 
-                        : 'hover:bg-brand-bg-light border border-transparent'
+                        ? 'bg-brand-navy/5 border border-brand-orange/40 shadow-sm' 
+                        : 'hover:bg-gray-50 border border-transparent'
                     }`}
                   >
-                    <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-xs font-bold ${
+                    <div className={`w-7 h-7 rounded-xl flex items-center justify-center flex-shrink-0 text-xs font-bold ${
                       isCompleted 
                         ? 'bg-green-100 text-green-700' 
                         : isActive 
@@ -155,7 +171,6 @@ export const StudentDashboard = () => {
 
           {/* Bottom Sidebar Action Cards */}
           <div className="p-4 border-t border-brand-border-light bg-gray-50/70 space-y-2">
-            
             {/* Final Test Button */}
             <button 
               onClick={() => setActiveTab('test')}
@@ -190,22 +205,25 @@ export const StudentDashboard = () => {
         <main className="flex-grow p-4 md:p-8 lg:p-10 h-[calc(100vh-6rem)] overflow-y-auto relative z-10">
           <div className="max-w-4xl mx-auto pb-32">
             
+            {/* VIP Community Banner */}
+            <CommunityBanner courseTitle={courseTitle} />
+
             {/* Top Navigation Tabs */}
             {activeTab !== 'test' && (
               <div className="flex items-center gap-2 mb-6 bg-white p-1.5 rounded-2xl border border-brand-border-light shadow-sm overflow-x-auto">
                 <button
                   onClick={() => setActiveTab('lesson')}
-                  className={`px-5 py-2.5 rounded-xl font-extrabold text-xs transition-all flex items-center gap-2 whitespace-nowrap ${
+                  className={`px-4 py-2.5 rounded-xl font-extrabold text-xs transition-all flex items-center gap-1.5 whitespace-nowrap ${
                     activeTab === 'lesson' 
                       ? 'bg-brand-navy text-white shadow-md' 
                       : 'text-brand-text-muted hover:text-brand-navy hover:bg-gray-100'
                   }`}
                 >
-                  <span>📖</span> Lesson Guide & Audio
+                  <span>📖</span> Lesson & Media
                 </button>
                 <button
                   onClick={() => setActiveTab('lab')}
-                  className={`px-5 py-2.5 rounded-xl font-extrabold text-xs transition-all flex items-center gap-2 whitespace-nowrap ${
+                  className={`px-4 py-2.5 rounded-xl font-extrabold text-xs transition-all flex items-center gap-1.5 whitespace-nowrap ${
                     activeTab === 'lab' 
                       ? 'bg-brand-orange text-white shadow-md' 
                       : 'text-brand-text-muted hover:text-brand-navy hover:bg-gray-100'
@@ -215,7 +233,7 @@ export const StudentDashboard = () => {
                 </button>
                 <button
                   onClick={() => setActiveTab('assignment')}
-                  className={`px-5 py-2.5 rounded-xl font-extrabold text-xs transition-all flex items-center gap-2 whitespace-nowrap ${
+                  className={`px-4 py-2.5 rounded-xl font-extrabold text-xs transition-all flex items-center gap-1.5 whitespace-nowrap ${
                     activeTab === 'assignment' 
                       ? 'bg-green-600 text-white shadow-md' 
                       : 'text-brand-text-muted hover:text-brand-navy hover:bg-gray-100'
@@ -223,14 +241,33 @@ export const StudentDashboard = () => {
                 >
                   <span>📝</span> AI Project Reviewer
                 </button>
+                <button
+                  onClick={() => setActiveTab('resources')}
+                  className={`px-4 py-2.5 rounded-xl font-extrabold text-xs transition-all flex items-center gap-1.5 whitespace-nowrap ${
+                    activeTab === 'resources' 
+                      ? 'bg-purple-600 text-white shadow-md' 
+                      : 'text-brand-text-muted hover:text-brand-navy hover:bg-gray-100'
+                  }`}
+                >
+                  <span>📂</span> Resource Vault
+                </button>
+                <button
+                  onClick={() => setActiveTab('interview')}
+                  className={`px-4 py-2.5 rounded-xl font-extrabold text-xs transition-all flex items-center gap-1.5 whitespace-nowrap ${
+                    activeTab === 'interview' 
+                      ? 'bg-indigo-600 text-white shadow-md' 
+                      : 'text-brand-text-muted hover:text-brand-navy hover:bg-gray-100'
+                  }`}
+                >
+                  <span>🎯</span> AI Mock Interview
+                </button>
               </div>
             )}
 
-            {/* Tab 1: Lesson Content & Audio Narration */}
+            {/* Tab 1: Lesson Content with 3-Way Mode Switcher (Video, Audio, Reading) */}
             {activeTab === 'lesson' && (
               <>
-                {/* Audio Podcast Player Component */}
-                <AudioLessonPlayer 
+                <VideoLessonPlayer 
                   module={currentModule} 
                   courseData={courseData} 
                 />
@@ -264,7 +301,22 @@ export const StudentDashboard = () => {
               />
             )}
 
-            {/* Tab 4: Final Certification Mock Test */}
+            {/* Tab 4: Downloadable Resource Vault */}
+            {activeTab === 'resources' && (
+              <ResourceVault 
+                courseData={courseData} 
+              />
+            )}
+
+            {/* Tab 5: AI Mock Interview Simulator */}
+            {activeTab === 'interview' && (
+              <AIMockInterview 
+                courseData={courseData} 
+                onInterviewCompleted={() => handleMarkModuleComplete(currentModule.id)}
+              />
+            )}
+
+            {/* Tab 6: Final Certification Mock Test */}
             {activeTab === 'test' && (
               <div>
                 <div className="mb-6 flex items-center justify-between">

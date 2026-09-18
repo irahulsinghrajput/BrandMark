@@ -46,8 +46,11 @@ backend/uploads/*
 Thumbs.db
 desktop.ini
 
-# Temporary files
+# Temporary and large media files
 tmp/
+*.MOV
+*.mov
+*.mp4
 temp/
 *.tmp
 
