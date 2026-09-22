@@ -111,21 +111,37 @@ export const BlogPost = () => {
     return <Navigate to="/blog" replace />;
   }
 
+  const blogCoverUrl = blog.cover_image 
+    ? (blog.cover_image.startsWith('http') ? blog.cover_image : `https://www.brandmarksolutions.site${blog.cover_image}`)
+    : `https://www.brandmarksolutions.site/images/blogs/${blog.slug || blog.id}.jpg`;
+
+  const canonicalUrl = `https://www.brandmarksolutions.site/blog/${blog.slug || blog.id}`;
+
   // Generate Article Schema
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": blog.schema_type || "Article",
     "headline": blog.title,
-    "image": [
-      `https://www.brandmarksolutions.site/content/images/${blog.slug || blog.id}.avif`
-    ],
+    "image": [blogCoverUrl],
     "datePublished": blog.date_published || blog.date || new Date().toISOString(),
     "dateModified": blog.date_modified || blog.date_published || blog.date || new Date().toISOString(),
     "author": [{
       "@type": "Person",
       "name": blog.author || "BrandMark Team",
       "url": "https://www.brandmarksolutions.site/about"
-    }]
+    }],
+    "publisher": {
+      "@type": "Organization",
+      "name": "BrandMark Solutions",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.brandmarksolutions.site/brandmark-logo-new.png.webp"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": canonicalUrl
+    }
   };
 
   return (
@@ -134,6 +150,8 @@ export const BlogPost = () => {
         <SEO 
           title={`${blog.title} | BrandMark Solutions`} 
           description={blog.description || blog.excerpt || `Read ${blog.title} by ${blog.author || 'BrandMark Team'}`}
+          canonicalUrl={canonicalUrl}
+          ogImage={blogCoverUrl}
           type="article"
         />
         <Helmet>

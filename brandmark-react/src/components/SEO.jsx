@@ -6,7 +6,8 @@ export const SEO = ({
   description, 
   canonicalUrl, 
   ogImage = "https://www.brandmarksolutions.site/brandmark-logo-new.png.webp",
-  schema 
+  schema,
+  type = "website" 
 }) => {
   const baseSchema = [
     {
@@ -75,7 +76,7 @@ export const SEO = ({
       {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
       
       {/* OpenGraph / Facebook */}
-      <meta property="og:type" content="website" />
+      <meta property="og:type" content={type || "website"} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={ogImage} />
