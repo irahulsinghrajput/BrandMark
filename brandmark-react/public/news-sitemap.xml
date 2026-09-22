@@ -118,8 +118,41 @@
         <news:name>BrandMark Solutions</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-09-20</news:publication_date>
+      <news:publication_date>2026-09-22</news:publication_date>
       <news:title>The Ultimate Guide to Digital Marketing in Patna</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://www.brandmarksolutions.site/blog/digital-transformation-bihar-government-portals</loc>
+    <news:news>
+      <news:publication>
+        <news:name>BrandMark Solutions</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-09-22</news:publication_date>
+      <news:title>undefined</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://www.brandmarksolutions.site/blog/healthcare-digital-marketing-hospitals-patna-bihar</loc>
+    <news:news>
+      <news:publication>
+        <news:name>BrandMark Solutions</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-09-22</news:publication_date>
+      <news:title>undefined</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://www.brandmarksolutions.site/blog/hotel-banquet-marketing-patna-bihar</loc>
+    <news:news>
+      <news:publication>
+        <news:name>BrandMark Solutions</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-09-22</news:publication_date>
+      <news:title>undefined</news:title>
     </news:news>
   </url>
   <url>
@@ -129,8 +162,19 @@
         <news:name>BrandMark Solutions</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-09-20</news:publication_date>
+      <news:publication_date>2026-09-22</news:publication_date>
       <news:title>Why Real Estate Developers in Bihar Need a 3D Walkthrough Website</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://www.brandmarksolutions.site/blog/school-admission-marketing-bihar</loc>
+    <news:news>
+      <news:publication>
+        <news:name>BrandMark Solutions</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-09-22</news:publication_date>
+      <news:title>undefined</news:title>
     </news:news>
   </url>
 </urlset>
