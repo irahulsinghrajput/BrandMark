@@ -23,7 +23,7 @@ export const REVIEWS_DATA = [
     id: 'video-sanya',
     type: 'video',
     name: "Sanya Srivastava",
-    handle: "@sanyasrivastava",
+    handle: "@sanyasriiii",
     role: "Content Creator & Influencer",
     initials: "SS",
     avatar: "https://i.ytimg.com/vi/Aldf4AxDh7s/hqdefault.jpg",

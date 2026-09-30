@@ -70,7 +70,7 @@ describe('Testimonials Component', () => {
     render(<Testimonials />);
     // Check real influencer Sanya Srivastava
     expect(screen.getByText('Sanya Srivastava')).toBeInTheDocument();
-    expect(screen.getByText('@sanyasrivastava')).toBeInTheDocument();
+    expect(screen.getByText('@sanyasriiii')).toBeInTheDocument();
     expect(screen.getByText('Influencer Shoot Review')).toBeInTheDocument();
 
     // Check text review client
