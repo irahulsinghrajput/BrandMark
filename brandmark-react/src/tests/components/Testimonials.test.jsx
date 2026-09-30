@@ -34,10 +34,10 @@ describe('Testimonials Video Helpers', () => {
     expect(formatted).toBe('https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0&modestbranding=1');
   });
 
-  it('formats YouTube Shorts URLs into embed URLs', () => {
-    const raw = 'https://www.youtube.com/shorts/abc123xyz45';
+  it('formats YouTube Shorts URLs into embed URLs including shared links', () => {
+    const raw = 'https://youtube.com/shorts/Aldf4AxDh7s?si=6CWS7rio72ZcB3wl';
     const formatted = formatEmbedUrl(raw);
-    expect(formatted).toBe('https://www.youtube-nocookie.com/embed/abc123xyz45?autoplay=1&rel=0&modestbranding=1');
+    expect(formatted).toBe('https://www.youtube-nocookie.com/embed/Aldf4AxDh7s?autoplay=1&rel=0&modestbranding=1');
   });
 
   it('formats Vimeo URLs into embed URLs', () => {
@@ -66,11 +66,12 @@ describe('Testimonials Component', () => {
     expect(screen.getByText(/Fast Execution/i)).toBeInTheDocument();
   });
 
-  it('renders both video testimonials and text reviews', () => {
+  it('renders Sanya Srivastava influencer review and text reviews', () => {
     render(<Testimonials />);
-    // Check video creator
-    expect(screen.getByText('Aman Verma')).toBeInTheDocument();
-    expect(screen.getByText('@amanverma_growth')).toBeInTheDocument();
+    // Check real influencer Sanya Srivastava
+    expect(screen.getByText('Sanya Srivastava')).toBeInTheDocument();
+    expect(screen.getByText('@sanyasrivastava')).toBeInTheDocument();
+    expect(screen.getByText('Influencer Shoot Review')).toBeInTheDocument();
 
     // Check text review client
     expect(screen.getByText('Rajesh Sharma')).toBeInTheDocument();
@@ -81,32 +82,32 @@ describe('Testimonials Component', () => {
     render(<Testimonials />);
     
     // Initially all stories are visible
-    expect(screen.getByText('Aman Verma')).toBeInTheDocument();
+    expect(screen.getByText('Sanya Srivastava')).toBeInTheDocument();
     expect(screen.getByText('Rajesh Sharma')).toBeInTheDocument();
 
     // Filter to Video Stories only
     const videoBtn = screen.getByRole('button', { name: /Video Stories/i });
     fireEvent.click(videoBtn);
-    expect(screen.getByText('Aman Verma')).toBeInTheDocument();
+    expect(screen.getByText('Sanya Srivastava')).toBeInTheDocument();
     expect(screen.queryByText('Rajesh Sharma')).not.toBeInTheDocument();
 
     // Filter to Client Reviews only
     const textBtn = screen.getByRole('button', { name: /Client Reviews/i });
     fireEvent.click(textBtn);
-    expect(screen.queryByText('Aman Verma')).not.toBeInTheDocument();
+    expect(screen.queryByText('Sanya Srivastava')).not.toBeInTheDocument();
     expect(screen.getByText('Rajesh Sharma')).toBeInTheDocument();
   });
 
-  it('opens video modal on video thumbnail click and closes on close button', () => {
+  it('opens video modal on clicking Sanya Srivastava video and closes on close button', () => {
     render(<Testimonials />);
     
-    // Find the play trigger for Aman Verma
+    // Find the play trigger for Sanya Srivastava (first video card)
     const playHint = screen.getAllByText(/Click to watch feedback/i)[0];
     fireEvent.click(playHint);
 
     // Modal should now be open
-    const modalHeading = screen.getAllByText('Aman Verma');
-    expect(modalHeading.length).toBeGreaterThan(1);
+    const modalHeadings = screen.getAllByText('Sanya Srivastava');
+    expect(modalHeadings.length).toBeGreaterThan(1);
     const closeBtn = screen.getByRole('button', { name: /Close Video Player/i });
     expect(closeBtn).toBeInTheDocument();
 

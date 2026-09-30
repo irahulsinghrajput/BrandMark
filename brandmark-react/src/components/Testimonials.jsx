@@ -20,6 +20,35 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const REVIEWS_DATA = [
   {
+    id: 'video-sanya',
+    type: 'video',
+    name: "Sanya Srivastava",
+    handle: "@sanyasrivastava",
+    role: "Content Creator & Influencer",
+    initials: "SS",
+    avatar: "https://i.ytimg.com/vi/Aldf4AxDh7s/hqdefault.jpg",
+    thumbnail: "https://i.ytimg.com/vi/Aldf4AxDh7s/maxresdefault.jpg",
+    videoUrl: "https://youtube.com/shorts/Aldf4AxDh7s?si=6CWS7rio72ZcB3wl",
+    videoType: "youtube",
+    tag: "Influencer Shoot Review",
+    duration: "Shorts",
+    metric: "Creator Video Shoot",
+    text: '"Worked with BrandMark Solutions for our video shoot and absolutely loved the experience! The creative direction, cinematography, and production quality were top-notch. Highly recommend BrandMark to creators and brands!"',
+    rating: 5,
+    isShort: true
+  },
+  {
+    id: 'text-1',
+    type: 'text',
+    initials: 'RS',
+    name: 'Rajesh Sharma',
+    role: 'Founder, TechVista Solutions',
+    tag: 'B2B Tech Client',
+    metric: '+300% Reach',
+    text: '"BrandMark completely transformed our online presence. Within 3 months, our social media engagement increased by 300% and we saw a significant boost in sales."',
+    rating: 5
+  },
+  {
     id: 'video-1',
     type: 'video',
     name: "Aman Verma",
@@ -37,14 +66,14 @@ export const REVIEWS_DATA = [
     rating: 5
   },
   {
-    id: 'text-1',
+    id: 'text-2',
     type: 'text',
-    initials: 'RS',
-    name: 'Rajesh Sharma',
-    role: 'Founder, TechVista Solutions',
-    tag: 'B2B Tech Client',
-    metric: '+300% Reach',
-    text: '"BrandMark completely transformed our online presence. Within 3 months, our social media engagement increased by 300% and we saw a significant boost in sales."',
+    initials: 'PK',
+    name: 'Priya Kapoor',
+    role: 'Owner, Artisan Bakery Patna',
+    tag: 'Retail Business',
+    metric: '5x Footfall',
+    text: '"As a small business owner, I was overwhelmed with marketing. BrandMark took that burden off my shoulders and delivered results beyond my expectations."',
     rating: 5
   },
   {
@@ -65,14 +94,14 @@ export const REVIEWS_DATA = [
     rating: 5
   },
   {
-    id: 'text-2',
+    id: 'text-3',
     type: 'text',
-    initials: 'PK',
-    name: 'Priya Kapoor',
-    role: 'Owner, Artisan Bakery Patna',
-    tag: 'Retail Business',
-    metric: '5x Footfall',
-    text: '"As a small business owner, I was overwhelmed with marketing. BrandMark took that burden off my shoulders and delivered results beyond my expectations."',
+    initials: 'AM',
+    name: 'Amit Mehta',
+    role: 'Director, Horizon Academy Patna',
+    tag: 'Education Sector',
+    metric: '+45% Admissions',
+    text: '"Our student admissions grew 45% this session thanks to BrandMark’s hyper-targeted Bihar campaigns. Parents constantly mention discovering our campus tours online."',
     rating: 5
   },
   {
@@ -90,17 +119,6 @@ export const REVIEWS_DATA = [
     duration: "1:25",
     metric: "+85K Views",
     text: '"Their video production and viral storytelling quality is tier-1. Having an elite team like BrandMark in Patna is a massive competitive advantage for creators."',
-    rating: 5
-  },
-  {
-    id: 'text-3',
-    type: 'text',
-    initials: 'AM',
-    name: 'Amit Mehta',
-    role: 'Director, Horizon Academy Patna',
-    tag: 'Education Sector',
-    metric: '+45% Admissions',
-    text: '"Our student admissions grew 45% this session thanks to BrandMark’s hyper-targeted Bihar campaigns. Parents constantly mention discovering our campus tours online."',
     rating: 5
   }
 ];
@@ -305,6 +323,9 @@ export const Testimonials = () => {
                       src={review.thumbnail} 
                       alt={review.name} 
                       loading="lazy" 
+                      onError={(e) => {
+                        if (review.avatar) e.currentTarget.src = review.avatar;
+                      }}
                       className="w-full h-full object-cover group-hover/thumb:scale-108 transition-transform duration-700 brightness-[0.9]" 
                     />
                     
@@ -378,6 +399,9 @@ export const Testimonials = () => {
                         src={review.avatar} 
                         alt={review.name}
                         loading="lazy" 
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                        }}
                         className="w-12 h-12 rounded-full object-cover border-2 border-brand-orange/40 mr-4 flex-shrink-0"
                       />
                     ) : (
@@ -439,93 +463,96 @@ export const Testimonials = () => {
 
       {/* Video Modal Overlay */}
       <AnimatePresence>
-        {isVideoModalOpen && selectedVideo && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-4 sm:p-6 md:p-10 backdrop-blur-md"
-            onClick={closeVideo}
-          >
+        {isVideoModalOpen && selectedVideo && (() => {
+          const isShort = selectedVideo.isShort || selectedVideo.videoUrl?.includes('/shorts/');
+          return (
             <motion.div 
-              initial={{ scale: 0.95, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-full max-w-4xl bg-slate-950 rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-white/10 flex flex-col"
-              onClick={e => e.stopPropagation()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-4 sm:p-6 md:p-10 backdrop-blur-md overflow-y-auto"
+              onClick={closeVideo}
             >
-              {/* Modal Top Bar */}
-              <div className="flex items-center justify-between px-6 py-4 bg-slate-900/90 border-b border-white/10 text-white z-10">
-                <div className="flex items-center gap-3 min-w-0">
-                  {selectedVideo.avatar ? (
-                    <img 
-                      src={selectedVideo.avatar} 
-                      alt={selectedVideo.name} 
-                      className="w-10 h-10 rounded-full object-cover border border-brand-orange" 
-                    />
-                  ) : (
-                    <div className="w-10 h-10 rounded-full bg-brand-orange text-white flex items-center justify-center font-bold text-sm">
-                      {selectedVideo.initials}
+              <motion.div 
+                initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                className={`relative w-full ${isShort ? 'max-w-sm sm:max-w-md' : 'max-w-4xl'} bg-slate-950 rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-white/10 flex flex-col my-auto`}
+                onClick={e => e.stopPropagation()}
+              >
+                {/* Modal Top Bar */}
+                <div className="flex items-center justify-between px-5 sm:px-6 py-3 sm:py-4 bg-slate-900/90 border-b border-white/10 text-white z-10">
+                  <div className="flex items-center gap-3 min-w-0">
+                    {selectedVideo.avatar ? (
+                      <img 
+                        src={selectedVideo.avatar} 
+                        alt={selectedVideo.name} 
+                        className="w-10 h-10 rounded-full object-cover border border-brand-orange" 
+                      />
+                    ) : (
+                      <div className="w-10 h-10 rounded-full bg-brand-orange text-white flex items-center justify-center font-bold text-sm">
+                        {selectedVideo.initials}
+                      </div>
+                    )}
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-bold text-sm text-white truncate">{selectedVideo.name}</span>
+                        <CheckCircle2 className="w-3.5 h-3.5 text-brand-orange fill-brand-orange/20" />
+                      </div>
+                      <p className="text-xs text-slate-400 truncate">
+                        {selectedVideo.handle || selectedVideo.role}
+                      </p>
                     </div>
-                  )}
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1.5">
-                      <span className="font-bold text-sm text-white truncate">{selectedVideo.name}</span>
-                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-orange fill-brand-orange/20" />
-                    </div>
-                    <p className="text-xs text-slate-400 truncate">
-                      {selectedVideo.handle || selectedVideo.role}
-                    </p>
                   </div>
+
+                  <button 
+                    onClick={closeVideo}
+                    aria-label="Close Video Player"
+                    className="w-9 h-9 sm:w-10 sm:h-10 bg-white/10 hover:bg-white/20 active:bg-white/30 text-white rounded-full flex items-center justify-center transition-colors border border-white/10 ml-4 flex-shrink-0"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+                
+                {/* Media Player Container */}
+                <div className={`relative w-full ${isShort ? 'aspect-[9/16] max-h-[66vh]' : 'aspect-video'} bg-black flex items-center justify-center`}>
+                  {isDirectVideo(selectedVideo.videoUrl, selectedVideo.videoType) ? (
+                    <video 
+                      src={selectedVideo.videoUrl} 
+                      className="w-full h-full object-contain"
+                      controls 
+                      autoPlay 
+                      playsInline
+                    >
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    <iframe 
+                      src={formatEmbedUrl(selectedVideo.videoUrl)} 
+                      title={`${selectedVideo.name} Video Testimonial`}
+                      className="w-full h-full border-0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                      allowFullScreen
+                    />
+                  )}
                 </div>
 
-                <button 
-                  onClick={closeVideo}
-                  aria-label="Close Video Player"
-                  className="w-10 h-10 bg-white/10 hover:bg-white/20 active:bg-white/30 text-white rounded-full flex items-center justify-center transition-colors border border-white/10 ml-4 flex-shrink-0"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-              
-              {/* Media Player Container */}
-              <div className="relative w-full aspect-video bg-black flex items-center justify-center">
-                {isDirectVideo(selectedVideo.videoUrl, selectedVideo.videoType) ? (
-                  <video 
-                    src={selectedVideo.videoUrl} 
-                    className="w-full h-full object-contain"
-                    controls 
-                    autoPlay 
-                    playsInline
-                  >
-                    Your browser does not support the video tag.
-                  </video>
-                ) : (
-                  <iframe 
-                    src={formatEmbedUrl(selectedVideo.videoUrl)} 
-                    title={`${selectedVideo.name} Video Testimonial`}
-                    className="w-full h-full border-0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowFullScreen
-                  />
-                )}
-              </div>
-
-              {/* Modal Bottom Caption */}
-              <div className="px-6 py-4 bg-slate-900/90 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-300">
-                <p className="italic text-slate-200 font-light">
-                  {selectedVideo.text}
-                </p>
-                {selectedVideo.metric && (
-                  <span className="inline-flex items-center self-start sm:self-auto gap-1 text-xs font-bold px-3 py-1 rounded-full bg-brand-orange/20 text-brand-orange border border-brand-orange/30 whitespace-nowrap">
-                    ⭐ Result: {selectedVideo.metric}
-                  </span>
-                )}
-              </div>
+                {/* Modal Bottom Caption */}
+                <div className="px-5 sm:px-6 py-3 sm:py-4 bg-slate-900/90 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-300">
+                  <p className="italic text-slate-200 font-light line-clamp-3 sm:line-clamp-none">
+                    {selectedVideo.text}
+                  </p>
+                  {selectedVideo.metric && (
+                    <span className="inline-flex items-center self-start sm:self-auto gap-1 text-xs font-bold px-3 py-1 rounded-full bg-brand-orange/20 text-brand-orange border border-brand-orange/30 whitespace-nowrap">
+                      ⭐ Result: {selectedVideo.metric}
+                    </span>
+                  )}
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
+          );
+        })()}
       </AnimatePresence>
     </section>
   );
