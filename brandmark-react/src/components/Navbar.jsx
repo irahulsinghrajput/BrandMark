@@ -52,7 +52,6 @@ export const Navbar = () => {
     { label: 'Home', path: '/' },
     { label: 'About Us', path: '/about' },
     { label: 'Services', path: '/services' },
-    { label: 'Patna HQ', path: '/locations/patna' },
     { label: 'Portfolio', path: '/portfolio' },
     { label: 'Blog', path: '/blog' },
     { label: 'Careers', path: '/careers' },
