@@ -143,6 +143,31 @@ export const BlogPost = () => {
       "@id": canonicalUrl
     }
   };
+  // Generate BreadcrumbList Schema for Google SERP indented results & sitelinks
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.brandmarksolutions.site"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://www.brandmarksolutions.site/blog"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": blog.title,
+        "item": canonicalUrl
+      }
+    ]
+  };
 
   return (
     <PageTransition>
@@ -153,14 +178,27 @@ export const BlogPost = () => {
           canonicalUrl={canonicalUrl}
           ogImage={blogCoverUrl}
           type="article"
+          schema={[articleSchema, breadcrumbSchema]}
         />
         <Helmet>
           <script type="application/ld+json">
             {JSON.stringify(articleSchema)}
           </script>
+          <script type="application/ld+json">
+            {JSON.stringify(breadcrumbSchema)}
+          </script>
         </Helmet>
 
         <article className="max-w-4xl mx-auto px-6">
+          {/* Breadcrumbs for Visual Navigation and SEO */}
+          <nav aria-label="Breadcrumb" className="mb-6 flex items-center text-xs sm:text-sm text-gray-500 gap-2">
+            <Link to="/" className="hover:text-brand-orange transition-colors">Home</Link>
+            <span>/</span>
+            <Link to="/blog" className="hover:text-brand-orange transition-colors">Blog</Link>
+            <span>/</span>
+            <span className="text-gray-800 font-medium truncate max-w-[200px] sm:max-w-xs">{blog.category || 'Article'}</span>
+          </nav>
+
           {/* Header */}
           <header className="mb-10 text-center">
             <Link to="/blog" className="inline-flex items-center text-brand-orange hover:underline mb-8 font-medium">

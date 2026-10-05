@@ -30,7 +30,7 @@ export const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-12 pt-16 pb-8">
         
         {/* Main Grid Area */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           
           {/* Column 1: Brand Info & Socials */}
           <div className="flex flex-col">
@@ -95,7 +95,26 @@ export const Footer = () => {
                 <Link to="/careers" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Careers</Link>
               </li>
               <li>
-                <Link to="/blog" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Blog</Link>
+                <Link to="/blog" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Blog Directory</Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4: Featured Case Studies */}
+          <div className="flex flex-col">
+            <h4 className="text-white tracking-wider text-sm font-bold mb-6">FEATURED CASE STUDIES</h4>
+            <ul className="flex flex-col gap-4">
+              <li>
+                <Link to="/blog/digital-transformation-bihar-government-portals" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">GovTech Bihar Portals</Link>
+              </li>
+              <li>
+                <Link to="/blog/school-admission-marketing-bihar" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">School Admission (GIS Patna)</Link>
+              </li>
+              <li>
+                <Link to="/blog/healthcare-digital-marketing-hospitals-patna-bihar" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Hospital Marketing Patna</Link>
+              </li>
+              <li>
+                <Link to="/blog/hotel-banquet-marketing-patna-bihar" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Hotel & Banquet Growth</Link>
               </li>
             </ul>
           </div>

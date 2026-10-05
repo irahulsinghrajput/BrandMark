@@ -55,6 +55,61 @@ export const SEO = ({
         "ratingValue": "4.9",
         "reviewCount": "89"
       }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "BrandMark Solutions Navigation & Featured Case Studies",
+      "itemListElement": [
+        {
+          "@type": "SiteNavigationElement",
+          "position": 1,
+          "name": "Services",
+          "url": "https://www.brandmarksolutions.site/services"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 2,
+          "name": "About Us",
+          "url": "https://www.brandmarksolutions.site/about"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 3,
+          "name": "Portfolio & Case Studies",
+          "url": "https://www.brandmarksolutions.site/portfolio"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 4,
+          "name": "Blog & Insights",
+          "url": "https://www.brandmarksolutions.site/blog"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 5,
+          "name": "GovTech Bihar Portals Case Study",
+          "url": "https://www.brandmarksolutions.site/blog/digital-transformation-bihar-government-portals"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 6,
+          "name": "School Admission Marketing Bihar (GIS Patna)",
+          "url": "https://www.brandmarksolutions.site/blog/school-admission-marketing-bihar"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 7,
+          "name": "Hospital Marketing Patna",
+          "url": "https://www.brandmarksolutions.site/blog/healthcare-digital-marketing-hospitals-patna-bihar"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 8,
+          "name": "Hotel & Banquet Marketing Bihar",
+          "url": "https://www.brandmarksolutions.site/blog/hotel-banquet-marketing-patna-bihar"
+        }
+      ]
     }
   ];
 
