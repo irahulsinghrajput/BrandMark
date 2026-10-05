@@ -41,7 +41,7 @@ export const REVIEWS_DATA = [
     id: 'video-nisha',
     type: 'video',
     name: "Nisha",
-    handle: "@nisha_creations",
+    handle: "@i_m_n_i_s_h_u",
     role: "Content Creator & Influencer",
     initials: "N",
     avatar: "https://i.ytimg.com/vi/PGGZrj-9G-8/hqdefault.jpg",

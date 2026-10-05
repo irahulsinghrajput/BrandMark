@@ -75,7 +75,7 @@ describe('Testimonials Component', () => {
 
     // Check real influencer Nisha
     expect(screen.getByText('Nisha')).toBeInTheDocument();
-    expect(screen.getByText('@nisha_creations')).toBeInTheDocument();
+    expect(screen.getByText('@i_m_n_i_s_h_u')).toBeInTheDocument();
 
     // Check text review client
     expect(screen.getByText('Rajesh Sharma')).toBeInTheDocument();
