@@ -97,6 +97,9 @@ export const Footer = () => {
               <li>
                 <Link to="/blog" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Blog Directory</Link>
               </li>
+              <li>
+                <Link to="/locations/patna" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm text-brand-orange/90 font-medium">Patna HQ & Services</Link>
+              </li>
             </ul>
           </div>
 

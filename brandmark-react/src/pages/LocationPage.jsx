@@ -19,21 +19,25 @@ export const LocationPage = () => {
   return (
     <PageTransition>
       <SEO 
-        title={`Digital Marketing & Website Design Agency in ${data.name} | BrandMark`}
-        description={`BrandMark Solutions is the top-rated digital marketing, SEO, and web development company serving ${data.name}, ${data.state}. Let's scale your business.`}
+        title={`Best Digital Marketing Agency in ${data.name}, ${data.state} | BrandMark Solutions`}
+        description={`BrandMark Solutions is the top-rated digital marketing, SEO, Meta ads, and web development agency in ${data.name}, ${data.state}. Grow your business with proven ROI.`}
         canonicalUrl={`https://www.brandmarksolutions.site/locations/${normalizedCity}`}
         schema={[
           {
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
-            "name": `BrandMark Solutions ${data.name}`,
+            "name": `BrandMark Solutions - Digital Marketing Agency ${data.name}`,
             "description": data.description,
             "url": `https://www.brandmarksolutions.site/locations/${normalizedCity}`,
+            "telephone": "+917091863003",
+            "priceRange": "$$",
             "areaServed": data.name,
             "address": {
               "@type": "PostalAddress",
+              "streetAddress": "Gangotri, Buddha colony",
               "addressLocality": data.name,
               "addressRegion": data.state,
+              "postalCode": "800001",
               "addressCountry": "IN"
             }
           },

@@ -37,8 +37,8 @@ export const Home = () => {
   return (
     <PageTransition>
       <SEO 
-        title="BrandMark Solutions | Digital Marketing & AI Automation Agency Patna"
-        description="Top-rated digital marketing, website design, AI automation, and SEO company in Patna, Bihar. We help ambitious businesses scale globally."
+        title="BrandMark Solutions | Best Digital Marketing Agency in Patna, Bihar"
+        description="BrandMark Solutions is the top-rated digital marketing agency in Patna, Bihar. We drive high-ROI SEO, Meta & Google ads, website design, and AI automation to scale your business."
         canonicalUrl="https://www.brandmarksolutions.site"
         schema={[
           {

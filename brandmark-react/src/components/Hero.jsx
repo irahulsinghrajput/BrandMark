@@ -44,21 +44,33 @@ export const Hero = () => {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 text-center z-10 flex flex-col items-center">
+        {/* Local SEO Pill Badge */}
+        <div className="reveal-text mb-6">
+          <Link 
+            to="/locations/patna"
+            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-brand-orange/10 border border-brand-orange/20 text-brand-orange hover:bg-brand-orange hover:text-white transition-all duration-300 text-xs sm:text-sm font-semibold shadow-sm group"
+          >
+            <span className="w-2 h-2 rounded-full bg-brand-orange group-hover:bg-white animate-pulse" />
+            <span>Digital Marketing Agency in Patna, Bihar</span>
+            <span className="text-xs opacity-75 font-normal group-hover:translate-x-0.5 transition-transform">→ View Patna HQ</span>
+          </Link>
+        </div>
+
         <div className="overflow-hidden mb-2">
           <h1 ref={textRef} className="reveal-text text-6xl md:text-8xl lg:text-9xl font-extrabold tracking-tighter text-brand-navy leading-none">
             Brand Mark
           </h1>
         </div>
         <div className="overflow-hidden mb-8">
-          <h1 className="reveal-text text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter text-brand-orange leading-none">
+          <h2 className="reveal-text text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter text-brand-orange leading-none">
             Solutions.
-          </h1>
+          </h2>
         </div>
         
         <div className="overflow-hidden mb-12">
-          <p className="reveal-text mt-4 max-w-2xl mx-auto text-xl md:text-2xl text-brand-text-body font-light">
-            Building brands and growth systems for global markets. 
-            We turn ambition into execution.
+          <p className="reveal-text mt-4 max-w-3xl mx-auto text-xl md:text-2xl text-brand-text-body font-light">
+            Patna's leading <strong className="font-semibold text-brand-navy">Digital Marketing & Growth Agency</strong>. 
+            We build high-converting websites, ROI-driven performance ad funnels, and scalable branding systems for ambitious businesses in Bihar & globally.
           </p>
         </div>
 
