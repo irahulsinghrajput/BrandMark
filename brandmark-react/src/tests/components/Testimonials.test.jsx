@@ -71,7 +71,11 @@ describe('Testimonials Component', () => {
     // Check real influencer Sanya Srivastava
     expect(screen.getByText('Sanya Srivastava')).toBeInTheDocument();
     expect(screen.getByText('@sanyasriiii')).toBeInTheDocument();
-    expect(screen.getByText('Influencer Shoot Review')).toBeInTheDocument();
+    expect(screen.getAllByText('Influencer Shoot Review').length).toBeGreaterThanOrEqual(1);
+
+    // Check real influencer Nisha
+    expect(screen.getByText('Nisha')).toBeInTheDocument();
+    expect(screen.getByText('@nisha_creations')).toBeInTheDocument();
 
     // Check text review client
     expect(screen.getByText('Rajesh Sharma')).toBeInTheDocument();

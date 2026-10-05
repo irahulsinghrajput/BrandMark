@@ -38,6 +38,24 @@ export const REVIEWS_DATA = [
     isShort: true
   },
   {
+    id: 'video-nisha',
+    type: 'video',
+    name: "Nisha",
+    handle: "@nisha_creations",
+    role: "Content Creator & Influencer",
+    initials: "N",
+    avatar: "https://i.ytimg.com/vi/PGGZrj-9G-8/hqdefault.jpg",
+    thumbnail: "https://i.ytimg.com/vi/PGGZrj-9G-8/maxresdefault.jpg",
+    videoUrl: "https://youtube.com/shorts/PGGZrj-9G-8?si=lV-C4KWKjImWauuX",
+    videoType: "youtube",
+    tag: "Influencer Shoot Review",
+    duration: "Shorts",
+    metric: "Content Collaboration",
+    text: '"Super seamless and creative experience working with the BrandMark team! From ideation to execution, the shoot quality and professionalism in Patna was amazing."',
+    rating: 5,
+    isShort: true
+  },
+  {
     id: 'text-1',
     type: 'text',
     initials: 'RS',
