@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { API_URL } from '../config';
+import { apiFetch } from '../config';
 
 export const ContactForm = () => {
   const [loading, setLoading] = useState(false);
@@ -27,11 +27,8 @@ export const ContactForm = () => {
     setError(null);
     
     try {
-      const response = await fetch(`${API_URL}/contact`, {
+      const response = await apiFetch('/contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify(formData),
       });
       
@@ -40,7 +37,7 @@ export const ContactForm = () => {
       if (response.ok) {
         setSubmitted(true);
       } else {
-        setError(data.message || 'Something went wrong. Please try again.');
+        setError(data.message || (data.errors && data.errors[0]?.msg) || 'Something went wrong. Please try again.');
       }
     } catch (err) {
       setError('Network error. Please check your connection and try again.');

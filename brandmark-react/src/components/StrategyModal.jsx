@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useModal } from '../contexts/ModalContext';
-import { API_URL } from '../config';
+import { apiFetch } from '../config';
 
 export const StrategyModal = () => {
   const { isStrategyModalOpen, closeStrategyModal } = useModal();
@@ -29,12 +29,14 @@ export const StrategyModal = () => {
     setError(null);
     
     try {
-      const response = await fetch(`${API_URL}/quotes`, {
+      const response = await apiFetch('/contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: 'Strategy Session Request',
+          message: `Company: ${formData.company || 'N/A'}\nStrategic Goal: ${formData.goal}`
+        }),
       });
       
       const data = await response.json();
@@ -42,7 +44,7 @@ export const StrategyModal = () => {
       if (response.ok) {
         setSubmitted(true);
       } else {
-        setError(data.message || 'Something went wrong. Please try again.');
+        setError(data.message || (data.errors && data.errors[0]?.msg) || 'Something went wrong. Please try again.');
       }
     } catch (err) {
       setError('Network error. Please check your connection and try again.');

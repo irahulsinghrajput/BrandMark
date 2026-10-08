@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { API_URL } from '../config';
+import { apiFetch } from '../config';
 
 export const SEOAuditForm = () => {
   const [loading, setLoading] = useState(false);
@@ -26,11 +26,8 @@ export const SEOAuditForm = () => {
     setError(null);
     
     try {
-      const response = await fetch(`${API_URL}/audit`, {
+      const response = await apiFetch('/audit', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify(formData),
       });
       
@@ -39,7 +36,7 @@ export const SEOAuditForm = () => {
       if (response.ok) {
         setSubmitted(true);
       } else {
-        setError(data.message || 'Something went wrong. Please try again.');
+        setError(data.message || (data.errors && data.errors[0]?.msg) || 'Something went wrong. Please try again.');
       }
     } catch (err) {
       setError('Network error. Please check your connection and try again.');

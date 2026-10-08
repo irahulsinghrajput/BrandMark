@@ -99,7 +99,7 @@ function App() {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "BrandMark Solutions Private Ltd.",
-    "image": "https://www.brandmarksolutions.site/brandmark-logo-new.png.png",
+    "image": "https://www.brandmarksolutions.site/brandmark-logo-new.png.webp",
     "@id": "https://www.brandmarksolutions.site",
     "url": "https://www.brandmarksolutions.site",
     "telephone": "+917091863003",
