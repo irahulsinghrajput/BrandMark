@@ -61,6 +61,7 @@ build/
 
 # Nested repository (not part of this repo's Pages build)
 BrandMark-Solutions/
+dussehra-mela-expo/
 
 # Sensitive documents
 register-admin.json

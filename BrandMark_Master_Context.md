@@ -65,7 +65,7 @@ The project is currently transitioning from a legacy MERN-stack architecture int
 | `/` | Main marketing landing page. |
 | `/about` | Company history and mission. |
 | `/services` | Directory of agency services. |
-| `/portfolio` | Case studies and past client work (e.g., Hotel Republic). |
+| `/portfolio` | Case studies and past client work (e.g., Patna Expo 2026, Hotel Republic, GIS Patna). |
 | `/courses` | EdTech catalog. |
 | `/blog` | Content marketing and SEO articles. |
 | `/contact` | Lead generation and contact form. |

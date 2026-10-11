@@ -53,8 +53,8 @@ function getClientSideReply(rawMessage) {
   }
 
   // 8. Portfolio & Case Studies
-  if (/\b(portfolio|case\s*stud(y|ies)|our\s*work|previous\s*work|past\s*work|client\s*results|gis|govinda)\b/i.test(testMsg)) {
-    return "You can view our featured client work and case studies at https://www.brandmarksolutions.site/portfolio, including our Social Media & PR campaign for Govinda International School (GIS Patna), bespoke e-commerce platforms, and SaaS products. Would you like details on a specific industry?";
+  if (/\b(portfolio|case\s*stud(y|ies)|our\s*work|previous\s*work|past\s*work|client\s*results|gis|govinda|patna\s*expo|expo)\b/i.test(testMsg)) {
+    return "You can explore our featured works and client projects at https://www.brandmarksolutions.site/portfolio, including the official web portal for Patna Expo 2026 (Government of Bihar initiative at Gandhi Maidan), our Social Media & PR campaign for Govinda International School (GIS Patna), Hotel Republic, and bespoke digital platforms. Would you like details on a specific project?";
   }
 
   // 9. Academy & Courses

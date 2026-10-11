@@ -37,6 +37,17 @@ export const Portfolio = () => {
 
   const projects = [
     { 
+      title: 'Patna Expo 2026', 
+      category: 'Official Event Portal & Web Development', 
+      filterCategory: 'Web Development',
+      image: '/images/patna-expo.jpg',
+      logo: '/images/patna-expo-logo.png',
+      link: 'https://www.patnaexpo.com/',
+      location: 'Gandhi Maidan, Patna',
+      badge: 'Govt of Bihar Initiative',
+      description: 'Official web portal engineered for Bihar’s mega trade fair and festive carnival (Dussehra Mela & Patna Expo 2026) at historic Gandhi Maidan, presented by the Divisional Commissioner’s Office, Patna (Government of Bihar) and managed by Bobis Entertainment. Built high-performance digital architecture for 10 Lakh+ projected visitors, exhibitor stall booking funnels (120+ booths across 8 sectors), and commercial sponsorship tiers.'
+    },
+    { 
       title: 'Govinda International School', 
       category: 'Social Media & Public Relations (PR)', 
       filterCategory: 'Social Media & PR',
@@ -178,11 +189,11 @@ export const Portfolio = () => {
                   {/* Top Bar Badges */}
                   <div className="absolute top-5 left-5 right-5 z-20 flex items-center justify-between pointer-events-none">
                     {p.logo ? (
-                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/95 p-1.5 shadow-xl backdrop-blur-md flex items-center justify-center border border-white/60 group-hover:scale-105 transition-transform duration-300">
+                      <div className="h-12 md:h-14 min-w-[3rem] md:min-w-[3.5rem] max-w-[8.5rem] rounded-2xl bg-white/95 px-2.5 py-1.5 shadow-xl backdrop-blur-md flex items-center justify-center border border-white/60 group-hover:scale-105 transition-transform duration-300">
                         <img 
                           src={p.logo} 
                           alt={`${p.title} emblem`} 
-                          className="w-full h-full object-contain rounded-xl"
+                          className="h-full w-auto max-w-full object-contain rounded-xl"
                         />
                       </div>
                     ) : (

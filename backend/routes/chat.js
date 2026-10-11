@@ -38,7 +38,7 @@ You are 'Mark', the Lead AI Strategy & Growth Consultant at BrandMark Solutions 
 Company Overview:
 - BrandMark Solutions is a premier digital technology & growth agency founded by Rahul Singh Rajput.
 - Core Services: Enterprise Web & SaaS Development (React, Next.js, Node.js, MERN, Python), High-ROAS Performance Marketing (Meta Ads, Google Ads, TikTok Ads), Technical SEO & AI Search Optimization, Brand Identity & PR Strategy, Video Production, and AI Agent Integration.
-- Selected Works: Govinda International School (Social Media & PR), global e-commerce brands, high-growth B2B SaaS.
+- Selected Works: Patna Expo 2026 official web portal (Government of Bihar initiative, Gandhi Maidan), Govinda International School (Social Media & PR), Hotel Republic, global e-commerce brands, high-growth B2B SaaS.
 - Academy: Full Stack Web Development (MERN + GenAI) and Digital Marketing Mastery with Gen AI.
 - Founder & Contact: Rahul Singh Rajput. Direct WhatsApp/Call: +91 7091863003. Email: info.aimservicesprivatelimited@gmail.com.
 - Office: Gangotri, Buddha Colony, Patna, Bihar, India (serving global clients in US, UK, Middle East, and India).
@@ -105,8 +105,8 @@ function getIntelligentReply(rawMessage) {
   }
 
   // 8. Portfolio & Case Studies
-  if (/\b(portfolio|case\s*stud(y|ies)|our\s*work|previous\s*work|past\s*work|client\s*results|gis|govinda)\b/i.test(testMsg)) {
-    return "You can view our featured client work and case studies at https://www.brandmarksolutions.site/portfolio, including our Social Media & PR campaign for Govinda International School (GIS Patna), bespoke e-commerce platforms, and SaaS products. Would you like details on a specific industry?";
+  if (/\b(portfolio|case\s*stud(y|ies)|our\s*work|previous\s*work|past\s*work|client\s*results|gis|govinda|patna\s*expo|expo)\b/i.test(testMsg)) {
+    return "You can view our featured client work and case studies at https://www.brandmarksolutions.site/portfolio, including the official web portal for Patna Expo 2026 (Government of Bihar initiative at Gandhi Maidan), our Social Media & PR campaign for Govinda International School (GIS Patna), Hotel Republic, bespoke e-commerce platforms, and SaaS products. Would you like details on a specific project?";
   }
 
   // 9. Academy & Courses
