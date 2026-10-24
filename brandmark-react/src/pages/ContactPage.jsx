@@ -51,13 +51,13 @@ export const ContactPage = () => {
                   </div>
                 </a>
 
-                <a href="mailto:info@brandmarksolutions.site" className="flex items-start gap-4 p-4 rounded-2xl hover:bg-brand-bg-light transition-colors group/link">
+                <a href="mailto:Contact@brandmarksolutions.site" className="flex items-start gap-4 p-4 rounded-2xl hover:bg-brand-bg-light transition-colors group/link">
                   <div className="w-12 h-12 bg-brand-orange/10 rounded-full flex items-center justify-center flex-shrink-0 group-hover/link:bg-brand-orange transition-colors">
                     <Mail className="w-5 h-5 text-brand-orange group-hover/link:text-white" />
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-brand-text-muted mb-1">Email Us</p>
-                    <p className="font-bold text-brand-navy">info@brandmarksolutions.site</p>
+                    <p className="font-bold text-brand-navy">Contact@brandmarksolutions.site</p>
                   </div>
                 </a>
 
