@@ -113,10 +113,13 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 4: Featured Case Studies */}
+          {/* Column 4: Featured Case Studies & Guides */}
           <div className="flex flex-col">
-            <h4 className="text-white tracking-wider text-sm font-bold mb-6">FEATURED CASE STUDIES</h4>
+            <h4 className="text-white tracking-wider text-sm font-bold mb-6">FEATURED PLAYBOOKS</h4>
             <ul className="flex flex-col gap-4">
+              <li>
+                <Link to="/blog/restaurant-marketing-cloud-kitchen-growth-patna" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Restaurant & Cloud Kitchen Patna</Link>
+              </li>
               <li>
                 <Link to="/blog/digital-transformation-bihar-government-portals" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">GovTech Bihar Portals</Link>
               </li>
@@ -127,7 +130,7 @@ export const Footer = () => {
                 <Link to="/blog/healthcare-digital-marketing-hospitals-patna-bihar" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Hospital Marketing Patna</Link>
               </li>
               <li>
-                <Link to="/blog/hotel-banquet-marketing-patna-bihar" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Hotel & Banquet Growth</Link>
+                <Link to="/blog/d2c-ecommerce-brand-scaling-tier-2-india" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">D2C E-Commerce Scaling</Link>
               </li>
             </ul>
           </div>
