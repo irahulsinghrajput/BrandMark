@@ -123,15 +123,15 @@ export const StrategyModal = () => {
                       
                       <div>
                         <label className="block text-xs font-bold uppercase tracking-wider text-brand-navy mb-2">Name *</label>
-                        <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full px-4 py-3 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light text-sm" placeholder="John Doe" />
+                        <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full px-4 py-3 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light text-sm text-brand-navy placeholder:text-gray-400" placeholder="John Doe" />
                       </div>
                       <div>
                         <label className="block text-xs font-bold uppercase tracking-wider text-brand-navy mb-2">Email *</label>
-                        <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-4 py-3 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light text-sm" placeholder="john@example.com" />
+                        <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-4 py-3 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light text-sm text-brand-navy placeholder:text-gray-400" placeholder="john@example.com" />
                       </div>
                       <div>
                         <label className="block text-xs font-bold uppercase tracking-wider text-brand-navy mb-2">Company / Website</label>
-                        <input type="text" name="company" value={formData.company} onChange={handleChange} className="w-full px-4 py-3 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light text-sm" placeholder="https://yourwebsite.com" />
+                        <input type="text" name="company" value={formData.company} onChange={handleChange} className="w-full px-4 py-3 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light text-sm text-brand-navy placeholder:text-gray-400" placeholder="https://yourwebsite.com" />
                       </div>
                       <div>
                         <label className="block text-xs font-bold uppercase tracking-wider text-brand-navy mb-2">Primary Goal</label>

@@ -107,24 +107,24 @@ export const SEOAuditForm = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-semibold text-brand-navy mb-2">Full Name *</label>
-                    <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all" placeholder="John Doe" />
+                    <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all text-brand-navy placeholder:text-gray-400 bg-brand-bg-light" placeholder="John Doe" />
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-brand-navy mb-2">Email *</label>
-                    <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all" placeholder="john@company.com" />
+                    <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all text-brand-navy placeholder:text-gray-400 bg-brand-bg-light" placeholder="john@company.com" />
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-1 gap-6">
                   <div>
                     <label className="block text-sm font-semibold text-brand-navy mb-2">Website URL *</label>
-                    <input type="url" name="websiteUrl" value={formData.websiteUrl} onChange={handleChange} required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all" placeholder="https://yourwebsite.com" />
+                    <input type="url" name="websiteUrl" value={formData.websiteUrl} onChange={handleChange} required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all text-brand-navy placeholder:text-gray-400 bg-brand-bg-light" placeholder="https://yourwebsite.com" />
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-semibold text-brand-navy mb-2">Business Goals or Notes</label>
-                  <textarea rows="4" name="goals" value={formData.goals} onChange={handleChange} className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all resize-none" placeholder="Tell us what you want to improve..."></textarea>
+                  <textarea rows="4" name="goals" value={formData.goals} onChange={handleChange} className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all resize-none text-brand-navy placeholder:text-gray-400 bg-brand-bg-light" placeholder="Tell us what you want to improve..."></textarea>
                 </div>
 
                 <button type="submit" disabled={loading} className="w-full py-5 bg-brand-navy text-white font-bold uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-colors duration-300 shadow-md flex justify-center items-center">

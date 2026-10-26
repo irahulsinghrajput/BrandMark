@@ -56,7 +56,7 @@ export const ContactForm = () => {
           </p>
         </div>
 
-        <div className="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-brand-border-light">
+        <div className="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-brand-border-light text-brand-navy">
           {submitted ? (
              <div className="text-center py-12">
                <div className="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -76,27 +76,27 @@ export const ContactForm = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-semibold text-brand-navy mb-2">Name *</label>
-                  <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light" placeholder="John Doe" />
+                  <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light text-brand-navy placeholder:text-gray-400" placeholder="John Doe" />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-brand-navy mb-2">Email *</label>
-                  <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light" placeholder="john@example.com" />
+                  <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light text-brand-navy placeholder:text-gray-400" placeholder="john@example.com" />
                 </div>
               </div>
               
               <div>
                 <label className="block text-sm font-semibold text-brand-navy mb-2">Phone (Optional)</label>
-                <input type="tel" name="phone" value={formData.phone} onChange={handleChange} className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light" placeholder="+91 1234567890" />
+                <input type="tel" name="phone" value={formData.phone} onChange={handleChange} className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light text-brand-navy placeholder:text-gray-400" placeholder="+91 1234567890" />
               </div>
               
               <div>
                 <label className="block text-sm font-semibold text-brand-navy mb-2">Subject (Optional)</label>
-                <input type="text" name="subject" value={formData.subject} onChange={handleChange} className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light" placeholder="What is this regarding?" />
+                <input type="text" name="subject" value={formData.subject} onChange={handleChange} className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light text-brand-navy placeholder:text-gray-400" placeholder="What is this regarding?" />
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-brand-navy mb-2">Message *</label>
-                <textarea rows="4" name="message" value={formData.message} onChange={handleChange} required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light resize-none" placeholder="Tell us about your project..."></textarea>
+                <textarea rows="4" name="message" value={formData.message} onChange={handleChange} required className="w-full px-5 py-4 rounded-xl border border-brand-border-light focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all bg-brand-bg-light resize-none text-brand-navy placeholder:text-gray-400" placeholder="Tell us about your project..."></textarea>
               </div>
 
               <button type="submit" disabled={loading} className="w-full py-5 bg-brand-orange text-white font-bold uppercase tracking-widest rounded-xl hover:bg-brand-orange-dark transition-colors duration-300 shadow-md flex justify-center items-center hover:-translate-y-1 transform">

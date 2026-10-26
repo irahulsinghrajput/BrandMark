@@ -32,3 +32,16 @@ body::-webkit-scrollbar {
     display: none !important;
   }
 }
+
+/* Base form controls styling to prevent white text in dark parent containers */
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
+textarea,
+select {
+  color: #0B2C4D;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #9CA3AF;
+  opacity: 1;
+}

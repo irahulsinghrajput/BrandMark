@@ -101,7 +101,7 @@ export const LeadCaptureForm = () => {
               type="text" 
               value={formData.contact_name}
               onChange={(e) => setFormData({...formData, contact_name: e.target.value})}
-              className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-orange focus:border-brand-orange transition-all"
+              className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-orange focus:border-brand-orange transition-all text-brand-navy placeholder:text-gray-400"
               placeholder="e.g. John Doe"
             />
           </div>
@@ -112,7 +112,7 @@ export const LeadCaptureForm = () => {
               type="email" 
               value={formData.email}
               onChange={(e) => setFormData({...formData, email: e.target.value})}
-              className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-orange focus:border-brand-orange transition-all"
+              className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-orange focus:border-brand-orange transition-all text-brand-navy placeholder:text-gray-400"
               placeholder="john@company.com"
             />
           </div>
@@ -127,7 +127,7 @@ export const LeadCaptureForm = () => {
               type="text" 
               value={formData.company_name}
               onChange={(e) => setFormData({...formData, company_name: e.target.value})}
-              className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-orange focus:border-brand-orange transition-all"
+              className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-orange focus:border-brand-orange transition-all text-brand-navy placeholder:text-gray-400"
               placeholder="Your Business Ltd."
             />
           </div>
@@ -137,7 +137,7 @@ export const LeadCaptureForm = () => {
               type="url" 
               value={formData.website}
               onChange={(e) => setFormData({...formData, website: e.target.value})}
-              className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-orange focus:border-brand-orange transition-all"
+              className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-orange focus:border-brand-orange transition-all text-brand-navy placeholder:text-gray-400"
               placeholder="https://yourwebsite.com"
             />
           </div>
@@ -152,7 +152,7 @@ export const LeadCaptureForm = () => {
               type="text" 
               value={formData.city}
               onChange={(e) => setFormData({...formData, city: e.target.value})}
-              className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-orange focus:border-brand-orange transition-all"
+              className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-orange focus:border-brand-orange transition-all text-brand-navy placeholder:text-gray-400"
               placeholder="e.g. Patna, Bihar"
             />
           </div>
@@ -162,7 +162,7 @@ export const LeadCaptureForm = () => {
               required
               value={formData.budget}
               onChange={(e) => setFormData({...formData, budget: e.target.value})}
-              className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-orange focus:border-brand-orange transition-all"
+              className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-orange focus:border-brand-orange transition-all text-brand-navy"
             >
               <option value="">Select a budget range</option>
               <option value="< 20,000">Less than ₹20,000</option>
