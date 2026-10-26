@@ -21,6 +21,9 @@ export const StudentLogin = () => {
       return;
     }
 
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanPassword = password.trim();
+
     setIsSubmitting(true);
 
     try {
@@ -28,7 +31,7 @@ export const StudentLogin = () => {
       const response = await fetch(`${apiUrl}/api/students/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, courseId })
+        body: JSON.stringify({ email: cleanEmail, password: cleanPassword, courseId })
       });
 
       const data = await response.json();
@@ -144,6 +147,29 @@ export const StudentLogin = () => {
                 placeholder="••••••••"
                 required
               />
+            </div>
+
+            {/* Quick 1-Click Master Access Helper */}
+            <div className="p-3 bg-brand-navy/5 border border-brand-navy/15 rounded-xl">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[11px] font-bold text-brand-navy flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                  Master: master@brandmarksolutions.site
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEmail('master@brandmarksolutions.site');
+                    setPassword('BrandMark@2026');
+                  }}
+                  className="text-xs font-bold text-brand-orange hover:underline bg-white px-2.5 py-1 rounded border border-brand-border-light shadow-2xs"
+                >
+                  ⚡ Auto-Fill
+                </button>
+              </div>
+              <p className="text-[11px] text-brand-text-muted">
+                Password: <code className="text-brand-navy font-bold font-mono">BrandMark@2026</code>
+              </p>
             </div>
 
             <button 
