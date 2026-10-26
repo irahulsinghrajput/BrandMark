@@ -2,16 +2,58 @@
   "patna": {
     "name": "Patna",
     "state": "Bihar",
-    "description": "Leading digital marketing and website design services in Patna. Elevate your local business with ROI-focused SEO and branding.",
-    "services": ["Local SEO", "Website Design", "Performance Marketing", "Social Media"],
-    "keywords": "SEO agency Patna, digital marketing Patna, best web design in Patna"
+    "description": "Patna's premier digital marketing, website development, commercial photography, cinematic videography, and influencer marketing agency. Headquartered in Buddha Colony, Patna.",
+    "services": [
+      "Digital Marketing & SEO",
+      "Website Development & E-Commerce",
+      "Commercial Photography & Studio Shoots",
+      "Cinematic Videography & Reels",
+      "Influencer Marketing & Creator Campaigns",
+      "Local SEO & Google Maps Ranking"
+    ],
+    "keywords": "best digital marketing company in patna, website development in patna, photography in patna, videography in patna, influencer marketing in patna, seo company in patna, digital marketing agency in patna, web design company in patna",
+    "faqs": [
+      {
+        "q": "Which is the best digital marketing company in Patna?",
+        "a": "BrandMark Solutions is recognized as the leading digital marketing agency in Patna, offering performance-driven Meta ads, Google PPC, local SEO, website development, and influencer marketing with verified ROI for Bihar businesses."
+      },
+      {
+        "q": "How much does website development cost in Patna?",
+        "a": "Custom business websites and high-performance React/Vite web apps in Patna typically start from ₹25,000 to ₹1,50,000 depending on requirements, custom UI/UX design, payment gateway integration, and SEO optimization."
+      },
+      {
+        "q": "Does BrandMark Solutions provide commercial photography and videography shoots in Patna?",
+        "a": "Yes, we deploy high-end 4K camera gear, professional lighting, and licensed drone setups for commercial ad films, Instagram Reels, jewellery & food shoots, and corporate event coverage across Patna and Bihar."
+      },
+      {
+        "q": "How does influencer marketing work for local businesses in Bihar?",
+        "a": "We connect local brands with top-tier regional creators, Instagram influencers, and YouTubers in Bihar to execute viral localized promotions, product launches, and footfall-driving store campaigns."
+      }
+    ]
   },
   "bihar": {
     "name": "Bihar",
     "state": "India",
-    "description": "Empowering enterprises across Bihar with scalable web development and state-wide digital marketing campaigns.",
-    "services": ["Enterprise Web Development", "State-wide SEO", "Business Automation", "Brand Identity"],
-    "keywords": "IT company Bihar, best digital marketing agency in Bihar"
+    "description": "Empowering enterprises, educational institutions, retail chains, and government projects across Bihar with scalable web development, statewide digital marketing, commercial media production, and creator campaigns.",
+    "services": [
+      "Digital Marketing & Lead Generation",
+      "Enterprise Web Development",
+      "State-wide SEO & Google Maps Ranking",
+      "Commercial Photography & Ad Films",
+      "Regional Influencer Marketing",
+      "Corporate Brand Identity Design"
+    ],
+    "keywords": "best digital marketing company in bihar, website development in bihar, photography in bihar, videography services in bihar, influencer marketing in bihar, best seo agency in bihar, it company bihar",
+    "faqs": [
+      {
+        "q": "What is the best digital marketing agency in Bihar for business growth?",
+        "a": "BrandMark Solutions provides state-wide digital growth services across all 38 districts of Bihar, including Patna, Gaya, Muzaffarpur, Bhagalpur, and Darbhanga."
+      },
+      {
+        "q": "Can I hire professional videographers and drone operators anywhere in Bihar?",
+        "a": "Yes, our production team travels across Bihar for industrial shoots, institutional documentaries, political campaigns, hotel showcases, and brand ad films."
+      }
+    ]
   },
   "ranchi": {
     "name": "Ranchi",

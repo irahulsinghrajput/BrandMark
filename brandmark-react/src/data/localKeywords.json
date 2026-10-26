@@ -1,0 +1,148 @@
+{
+  "totalKeywords": 100,
+  "regions": ["Patna", "Bihar", "India"],
+  "categories": [
+    {
+      "id": "digital-marketing",
+      "categoryName": "Digital Marketing & Performance Ads (Patna & Bihar)",
+      "description": "High-intent search terms for performance marketing, social media ads, lead generation, and Google PPC in Patna and Bihar.",
+      "keywords": [
+        "best digital marketing company in patna",
+        "best digital marketing company in bihar",
+        "digital marketing agency in patna",
+        "top digital marketing agency in bihar",
+        "digital marketing company near me patna",
+        "best digital marketing services in patna",
+        "digital marketing services bihar",
+        "top 10 digital marketing companies in patna",
+        "performance marketing agency patna",
+        "social media marketing company in patna",
+        "social media marketing agency in bihar",
+        "lead generation company in patna",
+        "facebook ads agency patna",
+        "instagram marketing agency patna",
+        "google ads agency patna",
+        "best marketing agency in patna",
+        "b2b marketing company bihar",
+        "roi focused digital marketing patna",
+        "brand marketing company in bihar",
+        "digital branding agency patna"
+      ]
+    },
+    {
+      "id": "website-development",
+      "categoryName": "Website Development & E-Commerce (Patna & Bihar)",
+      "description": "Targeted search keywords for custom website design, React/Vite development, WordPress, and e-commerce portals in Patna and Bihar.",
+      "keywords": [
+        "website development in bihar",
+        "website development in patna",
+        "best website development company in patna",
+        "web development company in bihar",
+        "best web design company in patna",
+        "web designer in bihar",
+        "website designing company in patna",
+        "e-commerce website development in patna",
+        "ecommerce development company bihar",
+        "custom web development patna",
+        "wordpress website development patna",
+        "react website developer patna bihar",
+        "corporate website design patna",
+        "affordable web development in bihar",
+        "professional website maker in patna",
+        "landing page designer in patna",
+        "web portal development bihar",
+        "software and web development company patna",
+        "business website developers patna",
+        "best it company in patna for web development"
+      ]
+    },
+    {
+      "id": "photography",
+      "categoryName": "Commercial Photography & Product Shoots (Patna & Bihar)",
+      "description": "Specialized search queries for product photography, studio shoots, corporate headshots, and commercial photography in Patna and Bihar.",
+      "keywords": [
+        "photography in patna",
+        "best photography in bihar",
+        "commercial photography in patna",
+        "corporate photography patna",
+        "product photography in patna",
+        "ecommerce product shoot patna",
+        "fashion photography in bihar",
+        "jewellery photoshoot patna",
+        "food photography in patna",
+        "interior and architecture photography patna",
+        "professional photo studio in patna",
+        "event photography services bihar",
+        "advertising photography patna",
+        "brand photoshoot agency patna",
+        "catalogue photography in patna bihar"
+      ]
+    },
+    {
+      "id": "videography",
+      "categoryName": "Cinematic Videography, Reels & Drone Video (Patna & Bihar)",
+      "description": "Local search terms for 4K video ads, viral Instagram Reels production, corporate brand films, and licensed drone shoots in Patna and Bihar.",
+      "keywords": [
+        "videography in patna",
+        "videography services in bihar",
+        "cinematic video production patna",
+        "corporate video makers in patna",
+        "corporate video production bihar",
+        "instagram reels video shoot patna",
+        "commercial ad film makers patna",
+        "drone videography in bihar",
+        "drone shoot services in patna",
+        "youtube video production patna",
+        "short video shoot in patna",
+        "event videography patna",
+        "interview and documentary video patna",
+        "4k promotional video makers bihar",
+        "professional video editing services patna"
+      ]
+    },
+    {
+      "id": "influencer-marketing",
+      "categoryName": "Influencer Marketing & Creator Campaigns (Patna & Bihar)",
+      "description": "Search queries for regional Bihar influencers, creator endorsements, micro-influencer campaigns, and brand partnerships in Patna.",
+      "keywords": [
+        "influencer marketing in patna",
+        "influencer marketing in bihar",
+        "top influencer marketing agency in patna",
+        "best influencer marketing company bihar",
+        "local bihar influencers agency",
+        "instagram influencer marketing patna",
+        "youtube influencer campaigns bihar",
+        "creator management agency patna",
+        "regional influencer marketing bihar",
+        "micro influencer agency patna",
+        "brand collaborations agency patna",
+        "celebrity and creator PR in bihar",
+        "influencer promotional campaigns patna",
+        "bhojpuri and bihar creator marketing",
+        "viral influencer campaign agency patna"
+      ]
+    },
+    {
+      "id": "local-seo-branding",
+      "categoryName": "Local SEO, Google Business Profile & Brand Identity (Patna & Bihar)",
+      "description": "Search terms for Google Maps 3-pack rankings, local SEO optimization, corporate logo design, and brand identity in Patna and Bihar.",
+      "keywords": [
+        "seo company in patna",
+        "best seo agency in bihar",
+        "local seo services patna",
+        "google business profile optimization patna",
+        "google maps ranking agency patna",
+        "local search ranking expert bihar",
+        "branding agency in patna",
+        "brand identity design bihar",
+        "logo design company in patna",
+        "brochure and creative design patna",
+        "packaging design company in bihar",
+        "reputation management company patna",
+        "small business seo services bihar",
+        "rank on google first page in patna",
+        "top it and digital agency in patna"
+      ]
+    }
+  ]
+}

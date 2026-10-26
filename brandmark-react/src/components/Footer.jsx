@@ -77,16 +77,22 @@ export const Footer = () => {
             <h4 className="text-white tracking-wider text-sm font-bold mb-6">SERVICES</h4>
             <ul className="flex flex-col gap-4">
               <li>
-                <Link to="/services/brand-identity" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Brand Identity</Link>
-              </li>
-              <li>
                 <Link to="/services/digital-marketing" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Digital Marketing</Link>
               </li>
               <li>
                 <Link to="/services/web-development" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Web Development</Link>
               </li>
               <li>
-                <Link to="/services/social-media" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Social Media</Link>
+                <Link to="/services/photography" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Photography & Shoots</Link>
+              </li>
+              <li>
+                <Link to="/services/videography" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Videography & Reels</Link>
+              </li>
+              <li>
+                <Link to="/services/influencer-marketing" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Influencer Marketing</Link>
+              </li>
+              <li>
+                <Link to="/services/brand-identity" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Brand Identity</Link>
               </li>
             </ul>
           </div>

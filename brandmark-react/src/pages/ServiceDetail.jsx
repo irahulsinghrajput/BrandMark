@@ -48,6 +48,36 @@ const serviceData = {
       { title: 'Influencer Marketing', desc: 'Strategic partnerships to amplify your reach.' },
       { title: 'Platform Strategy', desc: 'Tailored approaches for B2B (LinkedIn) vs B2C (Instagram).' }
     ]
+  },
+  'photography': {
+    title: 'Commercial Photography & Studio Shoots',
+    subtitle: 'Professional commercial, corporate, jewellery, food, and e-commerce product photography in Patna & Bihar.',
+    features: [
+      { title: 'E-commerce Product Photography', desc: 'Pristine Amazon, Flipkart, and Shopify catalog shoots with pure white and styled backgrounds.' },
+      { title: 'Jewellery & Luxury Macro Shoots', desc: 'High-definition macro photography capturing intricate craftsmanship, diamond brilliance, and gold finishes.' },
+      { title: 'Corporate Headshots & Team Shoots', desc: 'Executive portraiture and workspace environmental photography for corporate brands and medical clinics.' },
+      { title: 'Interior & Architectural Shoots', desc: 'Specialized wide-angle and HDR architectural photography for hotels, hospitals, cafes, and luxury real estate.' }
+    ]
+  },
+  'videography': {
+    title: 'Cinematic Videography & Video Production',
+    subtitle: 'Broadcast-quality 4K ad films, viral Instagram Reels, corporate documentaries, and drone cinematography in Patna & Bihar.',
+    features: [
+      { title: 'High-Retention Instagram Reels', desc: 'Story-driven vertical video designed with retention hooks, sound design, and viral pacing.' },
+      { title: '4K Commercial Ad Shoots', desc: 'Scripted television and digital advertisements featuring cinema cameras, actors, and professional lighting.' },
+      { title: 'Licensed Drone Cinematography', desc: 'Ultra-smooth aerial 4K footage for real estate projects, resorts, educational campuses, and industrial sites.' },
+      { title: 'Post-Production & Sound Design', desc: 'Industry-standard color grading, motion graphics, audio mastering, and multi-format video exports.' }
+    ]
+  },
+  'influencer-marketing': {
+    title: 'Influencer Marketing & Creator Campaigns',
+    subtitle: 'Connect your brand with Bihar and India’s top creators, Instagram influencers, and YouTubers for high-impact campaigns.',
+    features: [
+      { title: 'Regional Bihar Creator Network', desc: 'Exclusive access to vetted lifestyle, food, tech, and fashion influencers across Patna, Bihar, and North India.' },
+      { title: 'End-to-End Campaign Execution', desc: 'From creative briefing, creator contract management, and shoot supervision to live posting.' },
+      { title: 'Viral UGC & Store Footfall Drives', desc: 'Orchestrating simultaneous creator store visits, showroom walk-throughs, and viral discount triggers.' },
+      { title: 'Performance Analytics & ROI Tracking', desc: 'Comprehensive impression, engagement, swipe-up, and direct conversion rate attribution reports.' }
+    ]
   }
 };
 

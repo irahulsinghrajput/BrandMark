@@ -31,11 +31,21 @@ function generateSitemap() {
     '/contact'
   ];
 
+  const serviceRoutes = [
+    '/services/digital-marketing',
+    '/services/web-development',
+    '/services/brand-identity',
+    '/services/social-media',
+    '/services/photography',
+    '/services/videography',
+    '/services/influencer-marketing'
+  ];
+
   const locationRoutes = Object.keys(locations).filter(k => k !== 'default').map(k => `/locations/${k}`);
   const industryRoutes = Object.keys(industries).filter(k => k !== 'default').map(k => `/industries/${k}`);
   const blogRoutes = blogs.map(b => `/blog/${b.slug || b.id}`);
 
-  const allRoutes = [...staticRoutes, ...locationRoutes, ...industryRoutes, ...blogRoutes];
+  const allRoutes = [...staticRoutes, ...serviceRoutes, ...locationRoutes, ...industryRoutes, ...blogRoutes];
   const today = new Date().toISOString().split('T')[0];
 
   // 1. MAIN SITEMAP
@@ -58,12 +68,12 @@ function generateSitemap() {
   // 2. PAGES SITEMAP
   const pagesSitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  ${[...staticRoutes, ...locationRoutes, ...industryRoutes].map(route => `
+  ${[...staticRoutes, ...serviceRoutes, ...locationRoutes, ...industryRoutes].map(route => `
   <url>
     <loc>${BASE_URL}${route}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>${route === '/' ? 'daily' : 'weekly'}</changefreq>
-    <priority>${route === '/' ? '1.0' : '0.8'}</priority>
+    <priority>${route === '/' ? '1.0' : (route.startsWith('/services') ? '0.9' : '0.8')}</priority>
   </url>`).join('')}
 </urlset>`;
 

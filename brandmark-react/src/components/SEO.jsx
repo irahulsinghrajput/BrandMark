@@ -43,6 +43,19 @@ export const SEO = ({
       "url": "https://www.brandmarksolutions.site",
       "telephone": "+917091863003",
       "priceRange": "$$",
+      "areaServed": [
+        "Patna",
+        "Bihar",
+        "India"
+      ],
+      "knowsAbout": [
+        "Best Digital Marketing Company in Patna",
+        "Website Development in Bihar",
+        "Commercial Photography in Patna",
+        "Cinematic Videography & Reels in Bihar",
+        "Influencer Marketing Agency in Patna",
+        "Local SEO & Google Maps Ranking Patna"
+      ],
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Gangotri, Buddha colony",
