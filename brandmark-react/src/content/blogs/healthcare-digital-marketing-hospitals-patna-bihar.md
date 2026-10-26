@@ -1,3 +1,15 @@
+---
+title: "Healthcare Digital Marketing in Bihar: How Hospitals & Clinics Acquire High-Intent Patients"
+slug: "healthcare-digital-marketing-hospitals-patna-bihar"
+category: "Healthcare Marketing"
+author: "Rajeshree Shekhar"
+date_published: "2026-10-14"
+primary_keyword: "healthcare digital marketing Patna"
+secondary_keywords: ["hospital marketing Bihar", "doctor SEO Patna", "clinic lead generation", "medical marketing agency"]
+description: "How top multi-specialty hospitals, IVF clinics, and diagnostic chains in Bihar build medical authority and fill OPD consultations using high-intent digital funnels."
+schema_type: "Article"
+---
+
 # Healthcare Digital Marketing in Bihar: How Hospitals & Clinics Acquire High-Intent Patients Online
 
 The patient journey in Bihar has fundamentally changed. Gone are the days when families in Patna, Muzaffarpur, Gaya, or Bhagalpur relied solely on neighborhood recommendations when seeking medical care for critical illnesses, elective surgeries, or chronic consultations.

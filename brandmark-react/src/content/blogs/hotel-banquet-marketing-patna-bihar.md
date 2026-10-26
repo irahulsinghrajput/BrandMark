@@ -1,3 +1,15 @@
+---
+title: "Hotel & Banquet Marketing in Patna: Direct Bookings & Wedding Venue Campaigns"
+slug: "hotel-banquet-marketing-patna-bihar"
+category: "Hospitality & F&B"
+author: "Rishi Thakur"
+date_published: "2026-10-13"
+primary_keyword: "hotel banquet marketing Patna"
+secondary_keywords: ["wedding venue marketing Bihar", "hotel digital marketing", "direct hotel bookings", "banquet hall promotions"]
+description: "How luxury hotels, destination resorts, and premier banquet halls in Bihar escape high OTA commissions and fill wedding venue calendars with direct booking funnels."
+schema_type: "Article"
+---
+
 # Hotel & Banquet Marketing in Patna: Direct Bookings, Wedding Venue Campaigns & Local Hospitality Growth
 
 The hospitality industry in Bihar is experiencing unprecedented expansion. Patna is now an established commercial epicenter, while historic cultural destinations like **Bodh Gaya, Rajgir, and Nalanda** attract millions of domestic pilgrims, luxury business executives, and international travelers each year.

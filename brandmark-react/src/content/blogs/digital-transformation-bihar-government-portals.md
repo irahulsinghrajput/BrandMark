@@ -1,3 +1,15 @@
+---
+title: "Digital Transformation in Bihar: How Modern Portals & AI Automation Modernize Public Services"
+slug: "digital-transformation-bihar-government-portals"
+category: "GovTech & Enterprise"
+author: "Rahul Singh Rajput"
+date_published: "2026-10-15"
+primary_keyword: "Bihar government digital transformation"
+secondary_keywords: ["e-governance Bihar", "RTPS portal modernization", "GovTech India", "public portal development"]
+description: "Discover how modern web architectures, WCAG accessibility, and AI automation are transforming public administration and citizen service delivery across Bihar."
+schema_type: "Article"
+---
+
 # Digital Transformation in Bihar: How Modern Portals & AI Automation are Modernizing Public Services
 
 Bihar is undergoing a decisive administrative revolution. Over the past five years, the Government of Bihar has systematically laid the groundwork for state-wide e-governance—moving citizen services from bureaucratic paper trails to instant, verifiable online delivery. From **Right to Public Services (RTPS)** and **Samadhan (Grievance Redressal)** to the **Patna Smart City Integrated Command and Control Centre (ICCC)**, technology has become the core infrastructure of public governance.

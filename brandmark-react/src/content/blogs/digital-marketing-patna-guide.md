@@ -2,10 +2,12 @@
 title: "The Ultimate Guide to Digital Marketing in Patna"
 slug: "digital-marketing-patna-guide"
 category: "Local SEO"
+author: "Rahul Singh Rajput"
+date_published: "2026-10-09"
 primary_keyword: "digital marketing Patna"
 secondary_keywords: ["best SEO agency in Bihar", "Meta ads in Patna", "web development company Patna"]
 search_intent: "Informational & Commercial"
-author: "Rahul Singh Rajput"
+description: "The complete 2026 strategic playbook for digital marketing in Patna: Local SEO, Google Map Pack, Core Web Vitals, and Meta performance ads."
 schema_type: "Article"
 ---
 
