@@ -24,6 +24,13 @@ const LinkedinIcon = ({ className }) => (
   </svg>
 );
 
+const YoutubeIcon = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path>
+    <polygon points="10 15 15 12 10 9 10 15" fill="currentColor"></polygon>
+  </svg>
+);
+
 export const Footer = () => {
   return (
     <footer className="bg-gradient-to-b from-[#0B2C4D] to-[#0B0F19] text-white font-outfit border-t border-[#0B2C4D]/50">
@@ -50,14 +57,17 @@ export const Footer = () => {
             </p>
             
             <div className="flex gap-4">
-              <a href="https://www.instagram.com/brandmarksolutions/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#283750] border border-[#3A4C6B]/40 flex items-center justify-center text-white hover:bg-[#F97316] hover:border-[#F97316] transition-all duration-300 group">
+              <a href="https://www.instagram.com/brandmarksolutions/" target="_blank" rel="me noopener noreferrer" aria-label="BrandMark Solutions on Instagram" className="w-10 h-10 rounded-full bg-[#283750] border border-[#3A4C6B]/40 flex items-center justify-center text-white hover:bg-[#F97316] hover:border-[#F97316] transition-all duration-300 group">
                 <InstagramIcon className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
               </a>
-              <a href="https://www.linkedin.com/company/brandmarksolutions/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#283750] border border-[#3A4C6B]/40 flex items-center justify-center text-white hover:bg-[#F97316] hover:border-[#F97316] transition-all duration-300 group">
+              <a href="https://www.linkedin.com/company/brandmarksolutions/" target="_blank" rel="me noopener noreferrer" aria-label="BrandMark Solutions on LinkedIn" className="w-10 h-10 rounded-full bg-[#283750] border border-[#3A4C6B]/40 flex items-center justify-center text-white hover:bg-[#F97316] hover:border-[#F97316] transition-all duration-300 group">
                 <LinkedinIcon className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
               </a>
-              <a href="https://www.facebook.com/brandmarksolutions" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#283750] border border-[#3A4C6B]/40 flex items-center justify-center text-white hover:bg-[#F97316] hover:border-[#F97316] transition-all duration-300 group">
+              <a href="https://www.facebook.com/brandmarksolutions" target="_blank" rel="me noopener noreferrer" aria-label="BrandMark Solutions on Facebook" className="w-10 h-10 rounded-full bg-[#283750] border border-[#3A4C6B]/40 flex items-center justify-center text-white hover:bg-[#F97316] hover:border-[#F97316] transition-all duration-300 group">
                 <FacebookIcon className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
+              </a>
+              <a href="https://www.youtube.com/@BrandMarkSolutions" target="_blank" rel="me noopener noreferrer" aria-label="BrandMark Solutions on YouTube" className="w-10 h-10 rounded-full bg-[#283750] border border-[#3A4C6B]/40 flex items-center justify-center text-white hover:bg-[#F97316] hover:border-[#F97316] transition-all duration-300 group">
+                <YoutubeIcon className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
               </a>
             </div>
           </div>

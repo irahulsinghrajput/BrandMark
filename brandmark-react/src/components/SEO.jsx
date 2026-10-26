@@ -28,9 +28,10 @@ export const SEO = ({
       "url": "https://www.brandmarksolutions.site",
       "logo": "https://www.brandmarksolutions.site/brandmark-logo-new.png.webp",
       "sameAs": [
-        "https://www.linkedin.com/company/brandmarksolutions",
-        "https://www.instagram.com/brandmarksolutions",
-        "https://www.facebook.com/brandmarksolutions"
+        "https://www.linkedin.com/company/brandmarksolutions/",
+        "https://www.instagram.com/brandmarksolutions/",
+        "https://www.facebook.com/brandmarksolutions",
+        "https://www.youtube.com/@BrandMarkSolutions"
       ]
     },
     {

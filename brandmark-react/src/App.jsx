@@ -131,7 +131,8 @@ function App() {
     "sameAs": [
       "https://www.facebook.com/brandmarksolutions",
       "https://www.instagram.com/brandmarksolutions/",
-      "https://www.linkedin.com/company/brandmarksolutions/"
+      "https://www.linkedin.com/company/brandmarksolutions/",
+      "https://www.youtube.com/@BrandMarkSolutions"
     ]
   };
 

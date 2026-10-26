@@ -31,6 +31,12 @@ export const LocationPage = () => {
             "url": `https://www.brandmarksolutions.site/locations/${normalizedCity}`,
             "telephone": "+917091863003",
             "priceRange": "$$",
+            "sameAs": [
+              "https://www.linkedin.com/company/brandmarksolutions/",
+              "https://www.instagram.com/brandmarksolutions/",
+              "https://www.facebook.com/brandmarksolutions",
+              "https://www.youtube.com/@BrandMarkSolutions"
+            ],
             "areaServed": data.name,
             "address": {
               "@type": "PostalAddress",
