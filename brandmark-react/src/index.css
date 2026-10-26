@@ -1,8 +1,10 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Great+Vibes&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@1,600;1,700&display=swap');
 
 @theme {
   --font-sans: 'Outfit', sans-serif;
+  --font-script: 'Alex Brush', cursive;
+  --font-signature: 'Great Vibes', cursive;
   --color-brand-navy: #0B2C4D;
   --color-brand-navy-dark: #081F36;
   --color-brand-orange: #F26A21;
@@ -44,4 +46,34 @@ input::placeholder,
 textarea::placeholder {
   color: #9CA3AF;
   opacity: 1;
+}
+
+/* Certificate Print Optimization */
+@media print {
+  @page {
+    size: landscape;
+    margin: 0;
+  }
+  html, body {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-certificate-container {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #FCFCFA !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
 }
