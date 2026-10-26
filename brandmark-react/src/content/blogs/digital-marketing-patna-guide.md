@@ -1,14 +1,20 @@
 ---
-title: "The Ultimate Guide to Digital Marketing in Patna"
-slug: "digital-marketing-patna-guide"
-category: "Local SEO"
-author: "Rahul Singh Rajput"
-date_published: "2026-10-09"
-primary_keyword: "digital marketing Patna"
-secondary_keywords: ["best SEO agency in Bihar", "Meta ads in Patna", "web development company Patna"]
-search_intent: "Informational & Commercial"
-description: "The complete 2026 strategic playbook for digital marketing in Patna: Local SEO, Google Map Pack, Core Web Vitals, and Meta performance ads."
-schema_type: "Article"
+cover_image: /images/blogs/digital-marketing-patna-guide.jpg
+title: The Ultimate Guide to Digital Marketing in Patna
+slug: digital-marketing-patna-guide
+category: Local SEO
+author: Rahul Singh Rajput
+date_published: '2026-10-09'
+primary_keyword: digital marketing Patna
+secondary_keywords:
+  - best SEO agency in Bihar
+  - Meta ads in Patna
+  - web development company Patna
+search_intent: Informational & Commercial
+description: >-
+  The complete 2026 strategic playbook for digital marketing in Patna: Local
+  SEO, Google Map Pack, Core Web Vitals, and Meta performance ads.
+schema_type: Article
 ---
 
 # The Ultimate Guide to Digital Marketing in Patna (2026 Edition)
@@ -52,6 +58,7 @@ The digital landscape in Bihar is evolving fast. Don't let your competitors capt
 [**Book a Free Strategy Audit with BrandMark Solutions**](/contact)
 
 ---
+cover_image: "/images/blogs/digital-marketing-patna-guide.jpg"
 *Related Topics:*
 - [Link to Cluster Article: Local SEO Checklist]
 - [Link to Cluster Article: Meta Ads Strategy]

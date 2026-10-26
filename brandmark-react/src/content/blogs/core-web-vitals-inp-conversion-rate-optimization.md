@@ -1,13 +1,23 @@
 ---
-title: "Core Web Vitals & INP Mastery: How Sub-Second Websites Double Ad Conversion Rates"
-slug: "core-web-vitals-inp-conversion-rate-optimization"
-category: "Web Development"
-author: "Rajeshree Shekhar"
-date_published: "2026-10-21"
-primary_keyword: "Core Web Vitals website speed optimization"
-secondary_keywords: ["Interaction to Next Paint INP", "fast web development agency", "React Vite speed optimization", "mobile website conversion rate"]
-description: "Why a 3-second website load time costs you half your advertising budget and how modern React/Vite engineering delivers 95+ Google PageSpeed and sub-second load times."
-schema_type: "Article"
+cover_image: /images/blogs/core-web-vitals-inp-conversion-rate-optimization.jpg
+title: >-
+  Core Web Vitals & INP Mastery: How Sub-Second Websites Double Ad Conversion
+  Rates
+slug: core-web-vitals-inp-conversion-rate-optimization
+category: Web Development
+author: Rajeshree Shekhar
+date_published: '2026-10-21'
+primary_keyword: Core Web Vitals website speed optimization
+secondary_keywords:
+  - Interaction to Next Paint INP
+  - fast web development agency
+  - React Vite speed optimization
+  - mobile website conversion rate
+description: >-
+  Why a 3-second website load time costs you half your advertising budget and
+  how modern React/Vite engineering delivers 95+ Google PageSpeed and sub-second
+  load times.
+schema_type: Article
 ---
 
 # Core Web Vitals & INP Mastery: How Sub-Second Websites Double Ad Conversion Rates
@@ -24,6 +34,7 @@ In 2026, website speed is no longer just a technical luxury; it is a direct mult
 In this deep dive, BrandMark Solutions unpacks the technical mechanics of Core Web Vitals, explains why traditional WordPress setups fail modern speed audits, and demonstrates how modern React and Vite architectures achieve sub-second load times.
 
 ---
+cover_image: "/images/blogs/core-web-vitals-inp-conversion-rate-optimization.jpg"
 
 ## Understanding Google's 3 Core Web Vitals Metrics
 
@@ -48,6 +59,7 @@ Previously, Google measured First Input Delay (FID), which only tracked the init
 INP measures the responsiveness of **every single user interaction** across the entire page lifecycle—button taps, dropdown menus, image carousels, and form typing. If a user taps your *"Get Instant Quote"* button and the UI freezes for 350ms while JavaScript executes, your site fails INP, hurting your organic rank and increasing your ad bid costs.
 
 ---
+cover_image: "/images/blogs/core-web-vitals-inp-conversion-rate-optimization.jpg"
 
 ## Why Legacy WordPress & Template Sites Fail Core Web Vitals
 
@@ -58,6 +70,7 @@ Most small and medium business websites in India are built using generic WordPre
 4. **Layout Shifts (CLS):** Images load without explicit width and height dimensions, causing text to jump violently down the screen, leading to accidental misclicks and frustrated users.
 
 ---
+cover_image: "/images/blogs/core-web-vitals-inp-conversion-rate-optimization.jpg"
 
 ## How BrandMark Engineers Sub-Second Performance
 
@@ -70,6 +83,7 @@ We compile our frontends using **Vite and modern ES modules**:
 - **Tree-Shaking:** Every unused line of third-party CSS or JavaScript is automatically purged during the build process.
 
 ---
+cover_image: "/images/blogs/core-web-vitals-inp-conversion-rate-optimization.jpg"
 
 ### 2. Next-Gen WebP and AVIF Image Pipeline
 High-resolution visuals are essential for branding, but they must never compromise performance:
@@ -78,6 +92,7 @@ High-resolution visuals are essential for branding, but they must never compromi
 - Off-screen images use native browser `loading="lazy"` to preserve bandwidth for critical above-the-fold content.
 
 ---
+cover_image: "/images/blogs/core-web-vitals-inp-conversion-rate-optimization.jpg"
 
 ### 3. Edge CDN Delivery & Global Caching
 Instead of hosting your website on a single server in North America or Mumbai, our frontend builds are globally distributed across edge networks (Cloudflare, Vercel Edge):
@@ -85,6 +100,7 @@ Instead of hosting your website on a single server in North America or Mumbai, o
 - **DDoS & Traffic Spike Immunity:** Whether your site receives 10 visitors or 100,000 visitors during a viral media campaign, edge caching handles traffic without server crashes.
 
 ---
+cover_image: "/images/blogs/core-web-vitals-inp-conversion-rate-optimization.jpg"
 
 ### 4. Zero-Flicker Fonts & Preconnected Origins
 Font rendering is a frequent culprit behind sudden layout shifts:
@@ -92,6 +108,7 @@ Font rendering is a frequent culprit behind sudden layout shifts:
 - `font-display: swap` ensures legible text appears instantly while custom typography hydrates in the background.
 
 ---
+cover_image: "/images/blogs/core-web-vitals-inp-conversion-rate-optimization.jpg"
 
 ## The Business Payoff: The Direct ROI of 1-Second Load Times
 
@@ -107,6 +124,7 @@ Investing in speed optimization is not an IT cost; it is an aggressive revenue s
 When your site loads in under 1 second, every marketing rupee you spend on Meta Ads, Google Ads, and SEO delivers double the business impact.
 
 ---
+cover_image: "/images/blogs/core-web-vitals-inp-conversion-rate-optimization.jpg"
 
 ## Don't Let a Slow Website Bleed Your Marketing Budget
 
@@ -116,6 +134,7 @@ If you are spending ₹50,000 to ₹5 Lakhs every month on digital advertising, 
 [**Request a Free Technical Speed & Core Web Vitals Audit from BrandMark**](/contact)
 
 ---
+cover_image: "/images/blogs/core-web-vitals-inp-conversion-rate-optimization.jpg"
 *Related Strategic Guides:*
 - [The Future of Web Development: React and Vite in 2026](/blog/future-web-development-react-vite)
 - [Maximizing ROI with Targeted Meta Ads](/blog/maximizing-roi-meta-ads)

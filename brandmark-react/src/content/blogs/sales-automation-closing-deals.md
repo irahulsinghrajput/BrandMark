@@ -1,13 +1,21 @@
 ---
-title: "Sales Automation: Closing Deals While You Sleep"
-slug: "sales-automation-closing-deals"
-category: "Sales Automation"
-author: "Lakshya"
-date_published: "2026-08-12"
-primary_keyword: "sales automation India"
-secondary_keywords: ["automate sales follow-up", "CRM automation", "sales pipeline automation", "close more deals automatically"]
-description: "Your sales team can only do so much manually. Learn how sales automation eliminates missed follow-ups, speeds up your pipeline, and closes deals even while you sleep."
-schema_type: "Article"
+cover_image: /images/blogs/sales-automation-closing-deals.jpg
+title: 'Sales Automation: Closing Deals While You Sleep'
+slug: sales-automation-closing-deals
+category: Sales Automation
+author: Lakshya
+date_published: '2026-08-12'
+primary_keyword: sales automation India
+secondary_keywords:
+  - automate sales follow-up
+  - CRM automation
+  - sales pipeline automation
+  - close more deals automatically
+description: >-
+  Your sales team can only do so much manually. Learn how sales automation
+  eliminates missed follow-ups, speeds up your pipeline, and closes deals even
+  while you sleep.
+schema_type: Article
 ---
 
 # Sales Automation: Closing Deals While You Sleep
@@ -78,6 +86,7 @@ We integrate robust CRMs (HubSpot, Zoho, custom Supabase solutions) with powerfu
 [**Boost your closing rate today — Book a Free Demo**](/contact)
 
 ---
+cover_image: "/images/blogs/sales-automation-closing-deals.jpg"
 *Related Articles:*
 - [Building an Unstoppable Leads Automation Machine](/blog/leads-automation-machine)
 - [AI Automation: The Secret Weapon for Scaling Your Agency](/blog/ai-automation-scaling-agency)

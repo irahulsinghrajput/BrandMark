@@ -1,13 +1,21 @@
 ---
-title: "How to Dominate Social Media in 2026"
-slug: "dominate-social-media-2026"
-category: "Social Media"
-author: "Amisha Singh"
-date_published: "2026-08-07"
-primary_keyword: "social media strategy 2026"
-secondary_keywords: ["social media marketing India", "Instagram marketing strategy", "grow social media business", "social media for local business"]
-description: "Organic reach is dead — unless you know the formula. Here is the exact social media strategy that will help Indian businesses dominate Instagram, YouTube, and LinkedIn in 2026."
-schema_type: "Article"
+cover_image: /images/blogs/dominate-social-media-2026.jpg
+title: How to Dominate Social Media in 2026
+slug: dominate-social-media-2026
+category: Social Media
+author: Amisha Singh
+date_published: '2026-08-07'
+primary_keyword: social media strategy 2026
+secondary_keywords:
+  - social media marketing India
+  - Instagram marketing strategy
+  - grow social media business
+  - social media for local business
+description: >-
+  Organic reach is dead — unless you know the formula. Here is the exact social
+  media strategy that will help Indian businesses dominate Instagram, YouTube,
+  and LinkedIn in 2026.
+schema_type: Article
 ---
 
 # How to Dominate Social Media in 2026
@@ -103,6 +111,7 @@ Posting is only half the equation. The other half is **community management:**
 [**Get a Free Social Media Audit**](/contact)
 
 ---
+cover_image: "/images/blogs/dominate-social-media-2026.jpg"
 *Related Articles:*
 - [The Anatomy of High-Converting Content Creation](/blog/high-converting-content-creation)
 - [Maximizing ROI with Targeted Meta Ads](/blog/maximizing-roi-meta-ads)

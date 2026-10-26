@@ -1,13 +1,21 @@
 ---
-title: "Maximizing ROI with Targeted Meta Ads"
-slug: "maximizing-roi-meta-ads"
-category: "Digital Marketing"
-author: "Rajeshree Shekhar"
-date_published: "2026-08-05"
-primary_keyword: "Meta ads ROI"
-secondary_keywords: ["Facebook ads India", "Instagram ads Patna", "Meta advertising strategy", "how to run profitable ads"]
-description: "Meta's advertising platform is one of the most powerful in the world — and also one of the easiest to waste money on. Here is a precise, actionable guide to maximizing your ROI with targeted Meta Ads."
-schema_type: "Article"
+cover_image: /images/blogs/maximizing-roi-meta-ads.jpg
+title: Maximizing ROI with Targeted Meta Ads
+slug: maximizing-roi-meta-ads
+category: Digital Marketing
+author: Rajeshree Shekhar
+date_published: '2026-08-05'
+primary_keyword: Meta ads ROI
+secondary_keywords:
+  - Facebook ads India
+  - Instagram ads Patna
+  - Meta advertising strategy
+  - how to run profitable ads
+description: >-
+  Meta's advertising platform is one of the most powerful in the world — and
+  also one of the easiest to waste money on. Here is a precise, actionable guide
+  to maximizing your ROI with targeted Meta Ads.
+schema_type: Article
 ---
 
 # Maximizing ROI with Targeted Meta Ads
@@ -116,6 +124,7 @@ Stop guessing with your ad spend. Partner with BrandMark Solutions for data-driv
 [**Book a Free Meta Ads Audit — We'll Show You Exactly What to Fix**](/contact)
 
 ---
+cover_image: "/images/blogs/maximizing-roi-meta-ads.jpg"
 *Related Articles:*
 - [How Digital Marketing is Transforming Businesses in Patna](/blog/digital-marketing-transforming-patna)
 - [How to Dominate Social Media in 2026](/blog/dominate-social-media-2026)

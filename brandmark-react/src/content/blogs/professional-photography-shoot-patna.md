@@ -1,13 +1,21 @@
 ---
-title: "Professional Photography and Video Shoots in Patna"
-slug: "professional-photography-shoot-patna"
-category: "Photography & Shoots"
-author: "Rishi Thakur"
-date_published: "2026-08-10"
-primary_keyword: "professional photography Patna"
-secondary_keywords: ["product photography Patna", "corporate shoot Bihar", "brand photography Patna", "video production Patna"]
-description: "Premium visuals are non-negotiable in the digital age. Discover how BrandMark Solutions brings Mumbai-level professional photography and video production to businesses in Patna, Bihar."
-schema_type: "Article"
+cover_image: /images/blogs/professional-photography-shoot-patna.jpg
+title: Professional Photography and Video Shoots in Patna
+slug: professional-photography-shoot-patna
+category: Photography & Shoots
+author: Rishi Thakur
+date_published: '2026-08-10'
+primary_keyword: professional photography Patna
+secondary_keywords:
+  - product photography Patna
+  - corporate shoot Bihar
+  - brand photography Patna
+  - video production Patna
+description: >-
+  Premium visuals are non-negotiable in the digital age. Discover how BrandMark
+  Solutions brings Mumbai-level professional photography and video production to
+  businesses in Patna, Bihar.
+schema_type: Article
 ---
 
 # Professional Photography and Video Shoots in Patna
@@ -83,6 +91,7 @@ We shoot on location across Patna and all major Bihar cities including Muzaffarp
 [**Book a Photography Consultation**](/contact)
 
 ---
+cover_image: "/images/blogs/professional-photography-shoot-patna.jpg"
 *Related Articles:*
 - [The Anatomy of High-Converting Content Creation](/blog/high-converting-content-creation)
 - [How Digital Marketing is Transforming Businesses in Patna](/blog/digital-marketing-transforming-patna)

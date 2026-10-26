@@ -1,13 +1,21 @@
 ---
-title: "Google Ranking 101: Mastering Local SEO"
-slug: "google-ranking-local-seo-mastery"
-category: "Local SEO"
-author: "Rahul Singh Rajput"
-date_published: "2026-08-08"
-primary_keyword: "Google ranking for local business"
-secondary_keywords: ["local SEO Patna", "rank on Google Bihar", "Google Business Profile optimization", "how to rank locally on Google"]
-description: "Ranking on Google's first page is the most valuable digital real estate for local businesses. This is your complete guide to mastering Local SEO and dominating the Google Map Pack in Patna."
-schema_type: "Article"
+cover_image: /images/blogs/google-ranking-local-seo-mastery.jpg
+title: 'Google Ranking 101: Mastering Local SEO'
+slug: google-ranking-local-seo-mastery
+category: Local SEO
+author: Rahul Singh Rajput
+date_published: '2026-08-08'
+primary_keyword: Google ranking for local business
+secondary_keywords:
+  - local SEO Patna
+  - rank on Google Bihar
+  - Google Business Profile optimization
+  - how to rank locally on Google
+description: >-
+  Ranking on Google's first page is the most valuable digital real estate for
+  local businesses. This is your complete guide to mastering Local SEO and
+  dominating the Google Map Pack in Patna.
+schema_type: Article
 ---
 
 # Google Ranking 101: Mastering Local SEO
@@ -109,6 +117,7 @@ Ranking organically on Google takes time and consistency, but the ROI is astrono
 [**Get Your Free Local SEO Audit from BrandMark**](/contact)
 
 ---
+cover_image: "/images/blogs/google-ranking-local-seo-mastery.jpg"
 *Related Articles:*
 - [The Ultimate Guide to Digital Marketing in Patna](/blog/digital-marketing-patna-guide)
 - [How Digital Marketing is Transforming Businesses in Patna](/blog/digital-marketing-transforming-patna)

@@ -1,13 +1,21 @@
 ---
-title: "Building an Unstoppable Leads Automation Machine"
-slug: "leads-automation-machine"
-category: "Leads Automation"
-author: "BrandMark Tech Team"
-date_published: "2026-08-09"
-primary_keyword: "leads automation"
-secondary_keywords: ["automate lead generation India", "lead capture automation", "WhatsApp lead automation", "n8n lead workflow"]
-description: "Generating leads is only half the battle. Processing, routing, and nurturing them automatically is where fortunes are made. Here is exactly how to build a leads automation machine."
-schema_type: "Article"
+cover_image: /images/blogs/leads-automation-machine.jpg
+title: Building an Unstoppable Leads Automation Machine
+slug: leads-automation-machine
+category: Leads Automation
+author: BrandMark Tech Team
+date_published: '2026-08-09'
+primary_keyword: leads automation
+secondary_keywords:
+  - automate lead generation India
+  - lead capture automation
+  - WhatsApp lead automation
+  - n8n lead workflow
+description: >-
+  Generating leads is only half the battle. Processing, routing, and nurturing
+  them automatically is where fortunes are made. Here is exactly how to build a
+  leads automation machine.
+schema_type: Article
 ---
 
 # Building an Unstoppable Leads Automation Machine
@@ -100,6 +108,7 @@ Stop relying on spreadsheets and hoping your team remembers to follow up. Let Br
 [**Book a Free Leads Automation Audit**](/contact)
 
 ---
+cover_image: "/images/blogs/leads-automation-machine.jpg"
 *Related Articles:*
 - [Sales Automation: Closing Deals While You Sleep](/blog/sales-automation-closing-deals)
 - [AI Automation: The Secret Weapon for Scaling Your Agency](/blog/ai-automation-scaling-agency)
