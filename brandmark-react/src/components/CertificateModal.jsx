@@ -1,78 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-/**
- * BrandMark Crest Emblem (Shield + Rising Diagonal Orange Arrow)
- * Accurately replicates the BrandMark logo crest featured in Image 2.
- */
-const BrandMarkCrest = ({ className = "w-16 h-18", watermark = false }) => (
-  <svg
-    viewBox="0 0 100 110"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-    aria-hidden="true"
-  >
-    <defs>
-      <filter id="crestGlow" x="-20%" y="-20%" width="140%" height="140%">
-        <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#0B2C4D" floodOpacity="0.25" />
-      </filter>
-      <linearGradient id="crestShieldGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stopColor="#0B2C4D" />
-        <stop offset="100%" stopColor="#081F36" />
-      </linearGradient>
-      <linearGradient id="arrowGrad" x1="0" y1="100" x2="100" y2="0" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stopColor="#F26A21" />
-        <stop offset="100%" stopColor="#FF7A30" />
-      </linearGradient>
-    </defs>
-
-    {/* Main Heraldic Shield */}
-    <path
-      d="M 50,8 C 72,8 86,14 86,14 C 86,52 74,84 50,102 C 26,84 14,52 14,14 C 14,14 28,8 50,8 Z"
-      fill={watermark ? "currentColor" : "url(#crestShieldGrad)"}
-      filter={watermark ? undefined : "url(#crestGlow)"}
-      stroke={watermark ? "none" : "#F26A21"}
-      strokeWidth={watermark ? 0 : 1.5}
-    />
-
-    {/* Inner Shield Hairline Accent */}
-    {!watermark && (
-      <path
-        d="M 50,14 C 68,14 80,19 80,19 C 80,48 70,76 50,92 C 30,76 20,48 20,19 C 20,19 32,14 50,14 Z"
-        fill="none"
-        stroke="#FFFFFF"
-        strokeWidth="1"
-        strokeOpacity="0.35"
-      />
-    )}
-
-    {/* Monogram "B" and "M" stylized geometric typography */}
-    <g fill={watermark ? "currentColor" : "#FFFFFF"}>
-      {/* "B" letterform on left */}
-      <path d="M 28,28 H 42 C 47,28 50,30 50,34 C 50,37 48,39 44,40 C 49,41 52,43 52,48 C 52,53 48,56 42,56 H 28 V 28 Z M 35,33 V 39 H 41 C 43,39 45,38 45,36 C 45,34 43,33 41,33 H 35 Z M 35,44 V 51 H 42 C 44,51 46,50 46,47.5 C 46,45 44,44 42,44 H 35 Z" />
-      
-      {/* "M" letterform on right */}
-      <path d="M 52,56 V 28 H 58 L 66,44 L 74,28 H 80 V 56 H 74 V 37 L 67,50 H 64 L 58,37 V 56 H 52 Z" />
-    </g>
-
-    {/* Rising Diagonal Arrow (slicing upward-right) */}
-    <g>
-      {/* Arrow Shaft */}
-      <path
-        d="M 12,88 L 78,16 L 85,22 L 20,95 Z"
-        fill={watermark ? "currentColor" : "url(#arrowGrad)"}
-      />
-      {/* Arrow Head pointing past top-right */}
-      <path
-        d="M 96,2 L 72,10 L 80,18 L 88,26 L 96,16 Z"
-        fill={watermark ? "currentColor" : "#F26A21"}
-        stroke={watermark ? "none" : "#FFFFFF"}
-        strokeWidth={watermark ? 0 : 1}
-      />
-    </g>
-  </svg>
-);
+import brandmarkLogo from '../assets/brandmark-logo-transparent.png';
 
 /**
  * High-precision Vector Ornamental Border SVG Frame
@@ -302,19 +230,28 @@ export const CertificateModal = ({ isOpen, onClose, userName, courseTitle }) => 
           {/* Ornate Vector Frame (Exact Image 2 Framing) */}
           <CertificateBorderFrame />
 
-          {/* Faint Background Crest Watermark (Image 2 signature element) */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.07] select-none">
-            <BrandMarkCrest className="w-96 h-96 text-[#0B2C4D]" watermark={true} />
+          {/* Faint Background Crest Watermark (Official BrandMark Logo) */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
+            <img 
+              src={brandmarkLogo} 
+              alt="" 
+              aria-hidden="true"
+              className="w-72 sm:w-80 md:w-96 max-w-[46%] h-auto object-contain opacity-[0.08] select-none pointer-events-none"
+            />
           </div>
 
           {/* Certificate Content Body */}
           <div className="relative z-10 w-full h-full flex flex-col justify-between px-8 sm:px-14 md:px-16 py-6 sm:py-8 md:py-10">
 
-            {/* TOP HEADER: Stylized BM Crest + Certification Lead */}
+            {/* TOP HEADER: Official BrandMark Logo + Certification Lead */}
             <div className="flex flex-col items-center">
               {/* Crest Logo */}
-              <div className="mb-2 sm:mb-3">
-                <BrandMarkCrest className="w-12 h-14 sm:w-14 sm:h-16 md:w-16 md:h-18" />
+              <div className="mb-2 sm:mb-3 flex items-center justify-center">
+                <img 
+                  src={brandmarkLogo} 
+                  alt="BrandMark Solutions Official Logo" 
+                  className="h-14 sm:h-16 md:h-20 w-auto object-contain drop-shadow-sm select-none"
+                />
               </div>
 
               {/* Lead Text */}
