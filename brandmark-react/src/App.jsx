@@ -65,6 +65,9 @@ const SalesCRM = lazy(() => import('./pages/SalesCRM').then(module => ({ default
 const SystemAnalytics = lazy(() => import('./pages/SystemAnalytics').then(module => ({ default: module.SystemAnalytics })));
 const SystemAdministration = lazy(() => import('./pages/SystemAdministration').then(module => ({ default: module.SystemAdministration })));
 const SystemHealth = lazy(() => import('./pages/SystemHealth').then(module => ({ default: module.SystemHealth })));
+const CorporateInfo = lazy(() => import('./pages/CorporateInfo').then(module => ({ default: module.CorporateInfo })));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy').then(module => ({ default: module.PrivacyPolicy })));
+const TermsOfService = lazy(() => import('./pages/TermsOfService').then(module => ({ default: module.TermsOfService })));
 
 import { AdminRoute } from './components/AdminRoute';
 import { ClientRoute } from './components/ClientRoute';
@@ -97,15 +100,22 @@ function App() {
 
   const localBusinessSchema = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "BrandMark Solutions Private Ltd.",
+    "@type": ["LocalBusiness", "Corporation"],
+    "name": "BrandMark Solutions",
+    "legalName": "BrandMark Media Solutions Private Limited",
+    "alternateName": [
+      "BrandMark Solutions Private Limited",
+      "BrandMark Media Solutions Private Limited",
+      "BrandMark Media Solutions Pvt Ltd"
+    ],
+    "identifier": "U62011BR2026PTC089491",
     "image": "https://www.brandmarksolutions.site/brandmark-logo-new.png.webp",
     "@id": "https://www.brandmarksolutions.site",
     "url": "https://www.brandmarksolutions.site",
     "telephone": "+917091863003",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Gangotri, Buddha colony",
+      "streetAddress": "400 pat, Gangotri Sadan, Buddha Colony, Patna G.P.O., Phulwari",
       "addressLocality": "Patna",
       "addressRegion": "Bihar",
       "postalCode": "800001",
@@ -214,6 +224,9 @@ function App() {
                 
                 {/* New SEO Architecture Routes */}
                 <Route path="/contact" element={<ContactPage />} />
+                <Route path="/corporate-info" element={<CorporateInfo />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="/terms-of-service" element={<TermsOfService />} />
                 <Route path="/industries" element={<Industries />} />
                 <Route path="/industries/:industryId" element={<IndustryPage />} />
                 <Route path="/case-studies" element={<CaseStudies />} />

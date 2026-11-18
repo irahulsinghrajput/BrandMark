@@ -1,7 +1,29 @@
 {
-  "totalKeywords": 100,
+  "totalKeywords": 115,
   "regions": ["Patna", "Bihar", "India"],
   "categories": [
+    {
+      "id": "brand-corporate",
+      "categoryName": "BrandMark Corporate & Registered Entity Search Terms",
+      "description": "High-intent branded search queries for BrandMark Media Solutions Private Limited and BrandMark Solutions across Google Search and Maps.",
+      "keywords": [
+        "brandmark solutions private limited",
+        "brandmark media solutions private limited",
+        "brandmark solutions pvt ltd",
+        "brandmark media solutions pvt ltd",
+        "brandmark solutions",
+        "brandmark media solutions",
+        "brandmark patna",
+        "brandmark media solutions patna",
+        "brandmark solutions private limited patna",
+        "brandmark solutions bihar",
+        "brandmark media solutions private limited bihar",
+        "brandmark official website",
+        "brandmark digital marketing company",
+        "brandmark solutions website development",
+        "brandmark media solutions cin u62011br2026ptc089491"
+      ]
+    },
     {
       "id": "digital-marketing",
       "categoryName": "Digital Marketing & Performance Ads (Patna & Bihar)",

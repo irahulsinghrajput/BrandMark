@@ -52,8 +52,12 @@ export const Footer = () => {
               </span>
             </Link>
             
-            <p className="text-[#94A3B8] text-sm leading-relaxed mb-8 max-w-sm">
-              We help ambitious businesses build stronger brands, better websites, and predictable growth across global markets.
+            <p className="text-[#94A3B8] text-sm leading-relaxed mb-3 max-w-sm">
+              We help ambitious businesses build stronger brands, high-converting websites, and predictable growth across global markets.
+            </p>
+            <p className="text-[#94A3B8]/70 text-xs mb-8 font-mono">
+              BrandMark Media Solutions Private Limited<br />
+              CIN: U62011BR2026PTC089491
             </p>
             
             <div className="flex gap-4">
@@ -116,6 +120,9 @@ export const Footer = () => {
               <li>
                 <Link to="/locations/patna" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm text-brand-orange/90 font-medium">Patna HQ & Services</Link>
               </li>
+              <li>
+                <Link to="/corporate-info" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Corporate Info (MCA)</Link>
+              </li>
             </ul>
           </div>
 
@@ -155,7 +162,7 @@ export const Footer = () => {
               </li>
               <li className="flex items-start gap-4">
                 <MapPin className="w-5 h-5 text-[#F97316] mt-0.5 flex-shrink-0" />
-                <span className="text-[#94A3B8] text-sm leading-relaxed">Gangotri, Buddha colony,<br />Patna - 800001</span>
+                <span className="text-[#94A3B8] text-sm leading-relaxed">400 pat, Gangotri Sadan, Buddha Colony,<br />Patna - 800001, Bihar</span>
               </li>
             </ul>
           </div>
@@ -165,11 +172,12 @@ export const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-[#2A3B58] mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-[#94A3B8] text-xs text-center md:text-left">
-            © 2026 Brand Mark Solutions. All rights reserved.
+            © 2026 BrandMark Media Solutions Private Limited (CIN: U62011BR2026PTC089491). All rights reserved.
           </p>
-          <div className="flex gap-6">
-            <Link to="#" className="text-[#94A3B8] hover:text-white text-xs transition-colors">Privacy Policy</Link>
-            <Link to="#" className="text-[#94A3B8] hover:text-white text-xs transition-colors">Terms of Service</Link>
+          <div className="flex flex-wrap justify-center gap-6">
+            <Link to="/corporate-info" className="text-[#94A3B8] hover:text-white text-xs transition-colors">Corporate Info (MCA)</Link>
+            <Link to="/privacy-policy" className="text-[#94A3B8] hover:text-white text-xs transition-colors">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="text-[#94A3B8] hover:text-white text-xs transition-colors">Terms of Service</Link>
           </div>
         </div>
         

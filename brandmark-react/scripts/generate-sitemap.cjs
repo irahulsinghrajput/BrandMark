@@ -24,11 +24,14 @@ function generateSitemap() {
   const staticRoutes = [
     '/',
     '/about',
+    '/corporate-info',
     '/services',
     '/portfolio',
     '/blog',
     '/careers',
-    '/contact'
+    '/contact',
+    '/privacy-policy',
+    '/terms-of-service'
   ];
 
   const serviceRoutes = [
@@ -96,7 +99,7 @@ function generateSitemap() {
     <loc>${BASE_URL}/</loc>
     <image:image>
       <image:loc>${BASE_URL}/brandmark-logo-new.png.webp</image:loc>
-      <image:title>BrandMark Solutions Logo</image:title>
+      <image:title>BrandMark Media Solutions Private Limited Logo</image:title>
     </image:image>
   </url>
 </urlset>`;
@@ -109,7 +112,7 @@ function generateSitemap() {
     <loc>${BASE_URL}/blog/${blog.slug || blog.id}</loc>
     <news:news>
       <news:publication>
-        <news:name>BrandMark Solutions</news:name>
+        <news:name>BrandMark Media Solutions Private Limited</news:name>
         <news:language>en</news:language>
       </news:publication>
       <news:publication_date>${(blog.date_published || blog.date || today).split('T')[0]}</news:publication_date>
@@ -122,9 +125,9 @@ function generateSitemap() {
   const rssXml = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-  <title>BrandMark Solutions Insights</title>
+  <title>BrandMark Media Solutions Private Limited Insights</title>
   <link>${BASE_URL}/blog</link>
-  <description>Latest digital marketing insights, case studies, and tutorials.</description>
+  <description>Official news, digital marketing insights, case studies, and tutorials from BrandMark Media Solutions Private Limited (BrandMark Solutions).</description>
   <atom:link href="${BASE_URL}/rss.xml" rel="self" type="application/rss+xml" />
   ${blogs.map(blog => `
   <item>

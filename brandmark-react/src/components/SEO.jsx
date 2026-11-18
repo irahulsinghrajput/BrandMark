@@ -4,16 +4,26 @@ import { Helmet } from 'react-helmet-async';
 export const SEO = ({ 
   title, 
   description, 
+  keywords,
   canonicalUrl, 
   ogImage = "https://www.brandmarksolutions.site/brandmark-logo-new.png.webp",
   schema,
   type = "website" 
 }) => {
+  const defaultKeywords = "BrandMark Solutions Private Limited, BrandMark Media Solutions Private Limited, BrandMark Solutions, BrandMark Media Solutions, Brandmark Media Solutions Pvt Ltd, BrandMark Solutions Pvt Ltd, BrandMark Patna, digital marketing agency in patna, website development in bihar, commercial photography patna, cinematic videography bihar, influencer marketing agency patna, local seo patna";
+  const finalKeywords = keywords ? `${keywords}, ${defaultKeywords}` : defaultKeywords;
+
   const baseSchema = [
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "BrandMark Solutions",
+      "alternateName": [
+        "BrandMark Media Solutions Private Limited",
+        "BrandMark Solutions Private Limited",
+        "BrandMark Media Solutions",
+        "Brandmark Media Solutions Pvt Ltd"
+      ],
       "url": "https://www.brandmarksolutions.site",
       "potentialAction": {
         "@type": "SearchAction",
@@ -23,8 +33,20 @@ export const SEO = ({
     },
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
+      "@type": ["Organization", "Corporation"],
       "name": "BrandMark Solutions",
+      "legalName": "BrandMark Media Solutions Private Limited",
+      "alternateName": [
+        "BrandMark Media Solutions Private Limited",
+        "BrandMark Solutions Private Limited",
+        "BrandMark Media Solutions Pvt Ltd",
+        "BrandMark Solutions Pvt Ltd",
+        "BrandMark Media Solutions",
+        "BrandMark"
+      ],
+      "identifier": "U62011BR2026PTC089491",
+      "taxID": "AAPCB3379M",
+      "foundingDate": "2026-11-13",
       "url": "https://www.brandmarksolutions.site",
       "logo": "https://www.brandmarksolutions.site/brandmark-logo-new.png.webp",
       "sameAs": [
@@ -32,16 +54,32 @@ export const SEO = ({
         "https://www.instagram.com/brandmarksolutions/",
         "https://www.facebook.com/brandmarksolutions",
         "https://www.youtube.com/@BrandMarkSolutions"
-      ]
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+917091863003",
+        "contactType": "customer service",
+        "email": "contact@brandmarksolutions.site",
+        "areaServed": ["IN", "Worldwide"],
+        "availableLanguage": ["English", "Hindi"]
+      }
     },
     {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
       "name": "BrandMark Solutions",
+      "legalName": "BrandMark Media Solutions Private Limited",
+      "alternateName": [
+        "BrandMark Solutions Private Limited",
+        "BrandMark Media Solutions Private Limited",
+        "Brandmark Media Solutions Pvt Ltd",
+        "BrandMark Media Solutions"
+      ],
       "image": "https://www.brandmarksolutions.site/brandmark-logo-new.png.webp",
       "@id": "https://www.brandmarksolutions.site",
       "url": "https://www.brandmarksolutions.site",
       "telephone": "+917091863003",
+      "email": "contact@brandmarksolutions.site",
       "priceRange": "$$",
       "areaServed": [
         "Patna",
@@ -49,6 +87,8 @@ export const SEO = ({
         "India"
       ],
       "knowsAbout": [
+        "BrandMark Solutions Private Limited",
+        "BrandMark Media Solutions Private Limited",
         "Best Digital Marketing Company in Patna",
         "Website Development in Bihar",
         "Commercial Photography in Patna",
@@ -58,7 +98,7 @@ export const SEO = ({
       ],
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Gangotri, Buddha colony",
+        "streetAddress": "400 pat, Gangotri Sadan, Buddha Colony, Patna G.P.O., Phulwari",
         "addressLocality": "Patna",
         "addressRegion": "Bihar",
         "postalCode": "800001",
@@ -122,6 +162,12 @@ export const SEO = ({
           "position": 8,
           "name": "Hotel & Banquet Marketing Bihar",
           "url": "https://www.brandmarksolutions.site/blog/hotel-banquet-marketing-patna-bihar"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 9,
+          "name": "Corporate Information & MCA Registration",
+          "url": "https://www.brandmarksolutions.site/corporate-info"
         }
       ]
     }
@@ -140,12 +186,15 @@ export const SEO = ({
     <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />
+      <meta name="keywords" content={finalKeywords} />
+      <meta name="author" content="BrandMark Media Solutions Private Limited" />
       
       {/* Canonical URL */}
       {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
       
       {/* OpenGraph / Facebook */}
       <meta property="og:type" content={type || "website"} />
+      <meta property="og:site_name" content="BrandMark Media Solutions Private Limited" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={ogImage} />

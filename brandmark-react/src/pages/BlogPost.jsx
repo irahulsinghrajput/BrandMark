@@ -131,8 +131,11 @@ export const BlogPost = () => {
       "url": "https://www.brandmarksolutions.site/about"
     }],
     "publisher": {
-      "@type": "Organization",
-      "name": "BrandMark Solutions",
+      "@type": "Corporation",
+      "name": "BrandMark Media Solutions Private Limited",
+      "legalName": "BrandMark Media Solutions Private Limited",
+      "alternateName": ["BrandMark Solutions", "BrandMark Solutions Private Limited"],
+      "identifier": "U62011BR2026PTC089491",
       "logo": {
         "@type": "ImageObject",
         "url": "https://www.brandmarksolutions.site/brandmark-logo-new.png.webp"

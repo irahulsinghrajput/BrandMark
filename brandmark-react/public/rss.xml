@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-  <title>BrandMark Solutions Insights</title>
+  <title>BrandMark Media Solutions Private Limited Insights</title>
   <link>https://www.brandmarksolutions.site/blog</link>
-  <description>Latest digital marketing insights, case studies, and tutorials.</description>
+  <description>Official news, digital marketing insights, case studies, and tutorials from BrandMark Media Solutions Private Limited (BrandMark Solutions).</description>
   <atom:link href="https://www.brandmarksolutions.site/rss.xml" rel="self" type="application/rss+xml" />
   
+  <item>
+    <title><![CDATA[BrandMark Solutions Officially Incorporates as BrandMark Media Solutions Private Limited]]></title>
+    <link>https://www.brandmarksolutions.site/blog/brandmark-media-solutions-private-limited-incorporation</link>
+    <guid>https://www.brandmarksolutions.site/blog/brandmark-media-solutions-private-limited-incorporation</guid>
+    <pubDate>Sat, 14 Nov 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[BrandMark Solutions has officially incorporated as BrandMark Media Solutions Private Limited (CIN: U62011BR2026PTC089491) under the Ministry of Corporate Affairs, Government of India, strengthening our enterprise digital growth, web engineering, and media capabilities in Patna, Bihar, and worldwide.]]></description>
+  </item>
   <item>
     <title><![CDATA[Restaurant & Cloud Kitchen Marketing in Patna: Slashing 30% Aggregator Commissions with Direct Orders]]></title>
     <link>https://www.brandmarksolutions.site/blog/restaurant-marketing-cloud-kitchen-growth-patna</link>
