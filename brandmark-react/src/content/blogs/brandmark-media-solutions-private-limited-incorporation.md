@@ -42,7 +42,7 @@ For our clients, banking partners, vendors, and stakeholders, here are our verif
 | **Class & Category** | Private Limited Company (Limited by Shares, Non-Government) |
 | **Registrar of Companies (ROC)** | ROC Patna (Eastern Region Directorate, RD Kolkata) |
 | **Company Status** | Active |
-| **Board of Directors** | Rajeshree Shekhar (DIN: `12047793`) & Rahul Kumar (DIN: `12047794`) |
+| **Board of Directors** | Rajeshree Shekhar & Rahul Kumar |
 | **Registered Headquarters** | 400 pat, Gangotri Sadan, Buddha Colony, Patna G.P.O., Phulwari, Patna, Bihar - 800001 |
 
 You can independently verify our corporate status at any time on the [Ministry of Corporate Affairs portal](https://www.mca.gov.in) or view our dedicated [Corporate Information & Verification Page](/corporate-info).

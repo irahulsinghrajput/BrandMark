@@ -15,7 +15,7 @@ const CORPORATE_FAQS = [
   },
   {
     question: "Who are the Directors of BrandMark Media Solutions Private Limited?",
-    answer: "The Board of Directors and Promoters of BrandMark Media Solutions Private Limited are Rajeshree Shekhar (DIN: 12047793) and Rahul Kumar (DIN: 12047794)."
+    answer: "The Board of Directors and Promoters of BrandMark Media Solutions Private Limited are Rajeshree Shekhar and Rahul Kumar."
   },
   {
     question: "Where is the registered office of BrandMark Solutions Private Limited located?",
@@ -78,13 +78,11 @@ export const CorporateInfo = () => {
     {
       name: "Rajeshree Shekhar",
       designation: "Director & Promoter",
-      din: "12047793",
       appointed: "13/11/2026"
     },
     {
       name: "Rahul Kumar",
       designation: "Director & Promoter",
-      din: "12047794",
       appointed: "13/11/2026"
     }
   ];
@@ -173,12 +171,11 @@ export const CorporateInfo = () => {
                   <div key={i} className="p-4 rounded-2xl bg-brand-bg-light border border-slate-200/70">
                     <div className="flex items-center justify-between flex-wrap gap-2">
                       <h3 className="text-base font-bold text-brand-navy">{dir.name}</h3>
-                      <span className="text-xs font-mono font-semibold text-brand-orange bg-brand-orange/10 px-2.5 py-0.5 rounded-md">
-                        DIN: {dir.din}
+                      <span className="text-xs font-semibold text-brand-orange bg-brand-orange/10 px-2.5 py-0.5 rounded-md">
+                        {dir.designation}
                       </span>
                     </div>
-                    <p className="text-sm text-slate-600 mt-1">{dir.designation}</p>
-                    <p className="text-xs text-slate-400 mt-1">Date of Appointment: {dir.appointed}</p>
+                    <p className="text-xs text-slate-400 mt-1.5">Date of Appointment: {dir.appointed}</p>
                   </div>
                 ))}
               </div>
