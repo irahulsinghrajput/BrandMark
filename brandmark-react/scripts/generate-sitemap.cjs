@@ -24,7 +24,6 @@ function generateSitemap() {
   const staticRoutes = [
     '/',
     '/about',
-    '/corporate-info',
     '/services',
     '/portfolio',
     '/blog',

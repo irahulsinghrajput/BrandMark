@@ -45,7 +45,7 @@ For our clients, banking partners, vendors, and stakeholders, here are our verif
 | **Board of Directors** | Rajeshree Shekhar & Rahul Kumar |
 | **Registered Headquarters** | 400 pat, Gangotri Sadan, Buddha Colony, Patna G.P.O., Phulwari, Patna, Bihar - 800001 |
 
-You can independently verify our corporate status at any time on the [Ministry of Corporate Affairs portal](https://www.mca.gov.in) or view our dedicated [Corporate Information & Verification Page](/corporate-info).
+You can independently verify our corporate status at any time on the [Ministry of Corporate Affairs portal](https://www.mca.gov.in) or learn more about our team on our [About Us page](/about).
 
 ---
 

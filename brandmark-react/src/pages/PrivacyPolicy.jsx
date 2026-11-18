@@ -28,7 +28,7 @@ export const PrivacyPolicy = () => {
     <PageTransition>
       <SEO
         title="Privacy Policy | BrandMark Media Solutions Private Limited"
-        description="Official Privacy Policy of BrandMark Media Solutions Private Limited (BrandMark Solutions), CIN: U62011BR2026PTC089491. Learn how we collect, protect, and manage your personal information."
+        description="Official Privacy Policy of BrandMark Media Solutions Private Limited (BrandMark Solutions). Learn how we collect, protect, and manage your personal information."
         keywords="BrandMark Solutions Private Limited Privacy Policy, BrandMark Media Solutions Private Limited data protection, BrandMark privacy policy"
         canonicalUrl="https://www.brandmarksolutions.site/privacy-policy"
         schema={breadcrumbSchema}
@@ -50,14 +50,14 @@ export const PrivacyPolicy = () => {
               Privacy Policy
             </h1>
             <p className="text-sm text-slate-500 mb-8 pb-6 border-b border-slate-100">
-              Effective Date: November 13, 2026 • Entity: <strong className="text-brand-navy">BrandMark Media Solutions Private Limited</strong> (CIN: U62011BR2026PTC089491)
+              Effective Date: November 13, 2026 • <strong className="text-brand-navy">BrandMark Media Solutions Private Limited</strong>
             </p>
 
             <div className="space-y-8 text-slate-700 leading-relaxed text-sm sm:text-base">
               <section>
                 <h2 className="text-xl font-bold text-brand-navy mb-3">1. Introduction</h2>
                 <p>
-                  <strong>BrandMark Media Solutions Private Limited</strong> (&ldquo;BrandMark Solutions&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;), a Private Limited company incorporated under the Companies Act, 2013 (CIN: U62011BR2026PTC089491) with its registered office at 400 pat, Gangotri Sadan, Buddha Colony, Patna G.P.O., Phulwari, Patna, Bihar - 800001, India, is committed to safeguarding the privacy of visitors, clients, and students using <strong>https://www.brandmarksolutions.site</strong>.
+                  <strong>BrandMark Media Solutions Private Limited</strong> (&ldquo;BrandMark Solutions&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;) is committed to safeguarding the privacy of visitors, clients, and students using <strong>https://www.brandmarksolutions.site</strong>.
                 </p>
               </section>
 
@@ -102,12 +102,11 @@ export const PrivacyPolicy = () => {
                 </p>
                 <p className="text-sm font-semibold text-brand-navy">
                   BrandMark Media Solutions Private Limited<br />
-                  Registered Office: 400 pat, Gangotri Sadan, Buddha Colony, Patna G.P.O., Phulwari, Patna, Bihar - 800001, India<br />
+                  Patna, Bihar - 800001, India<br />
                   Email: <a href="mailto:contact@brandmarksolutions.site" className="text-brand-orange hover:underline">contact@brandmarksolutions.site</a><br />
                   Phone: <a href="tel:+917091863003" className="text-brand-orange hover:underline">+91 70918 63003</a>
                 </p>
                 <div className="mt-4 pt-4 border-t border-slate-200 flex gap-4 text-xs font-semibold">
-                  <Link to="/corporate-info" className="text-brand-navy hover:text-brand-orange underline">View MCA Corporate Details</Link>
                   <Link to="/terms-of-service" className="text-brand-navy hover:text-brand-orange underline">Terms of Service</Link>
                 </div>
               </section>

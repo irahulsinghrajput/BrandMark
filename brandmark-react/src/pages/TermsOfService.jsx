@@ -28,7 +28,7 @@ export const TermsOfService = () => {
     <PageTransition>
       <SEO
         title="Terms of Service | BrandMark Media Solutions Private Limited"
-        description="Official Terms of Service governing website usage, agency services, web development, digital marketing, and courses provided by BrandMark Media Solutions Private Limited (CIN: U62011BR2026PTC089491)."
+        description="Official Terms of Service governing website usage, agency services, web development, digital marketing, and courses provided by BrandMark Media Solutions Private Limited."
         keywords="BrandMark Solutions Private Limited Terms of Service, BrandMark Media Solutions Private Limited terms, agency contract terms Patna"
         canonicalUrl="https://www.brandmarksolutions.site/terms-of-service"
         schema={breadcrumbSchema}
@@ -50,7 +50,7 @@ export const TermsOfService = () => {
               Terms of Service
             </h1>
             <p className="text-sm text-slate-500 mb-8 pb-6 border-b border-slate-100">
-              Effective Date: November 13, 2026 • Contracting Entity: <strong className="text-brand-navy">BrandMark Media Solutions Private Limited</strong> (CIN: U62011BR2026PTC089491)
+              Effective Date: November 13, 2026 • <strong className="text-brand-navy">BrandMark Media Solutions Private Limited</strong>
             </p>
 
             <div className="space-y-8 text-slate-700 leading-relaxed text-sm sm:text-base">
@@ -99,12 +99,11 @@ export const TermsOfService = () => {
               <section className="p-6 rounded-2xl bg-brand-bg-light border border-slate-200/80">
                 <h2 className="text-lg font-bold text-brand-navy mb-2">7. Company Details</h2>
                 <p className="text-sm font-semibold text-brand-navy">
-                  BrandMark Media Solutions Private Limited (CIN: U62011BR2026PTC089491)<br />
-                  400 pat, Gangotri Sadan, Buddha Colony, Patna G.P.O., Phulwari, Patna, Bihar - 800001, India<br />
+                  BrandMark Media Solutions Private Limited<br />
+                  Patna, Bihar - 800001, India<br />
                   Email: <a href="mailto:contact@brandmarksolutions.site" className="text-brand-orange hover:underline">contact@brandmarksolutions.site</a> | Phone: <a href="tel:+917091863003" className="text-brand-orange hover:underline">+91 70918 63003</a>
                 </p>
                 <div className="mt-4 pt-4 border-t border-slate-200 flex gap-4 text-xs font-semibold">
-                  <Link to="/corporate-info" className="text-brand-navy hover:text-brand-orange underline">View MCA Corporate Details</Link>
                   <Link to="/privacy-policy" className="text-brand-navy hover:text-brand-orange underline">Privacy Policy</Link>
                 </div>
               </section>

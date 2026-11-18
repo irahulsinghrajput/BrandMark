@@ -44,9 +44,6 @@ export const SEO = ({
         "BrandMark Media Solutions",
         "BrandMark"
       ],
-      "identifier": "U62011BR2026PTC089491",
-      "taxID": "AAPCB3379M",
-      "foundingDate": "2026-11-13",
       "url": "https://www.brandmarksolutions.site",
       "logo": "https://www.brandmarksolutions.site/brandmark-logo-new.png.webp",
       "sameAs": [
@@ -162,12 +159,6 @@ export const SEO = ({
           "position": 8,
           "name": "Hotel & Banquet Marketing Bihar",
           "url": "https://www.brandmarksolutions.site/blog/hotel-banquet-marketing-patna-bihar"
-        },
-        {
-          "@type": "SiteNavigationElement",
-          "position": 9,
-          "name": "Corporate Information & MCA Registration",
-          "url": "https://www.brandmarksolutions.site/corporate-info"
         }
       ]
     }

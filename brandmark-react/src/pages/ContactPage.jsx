@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { PageTransition } from '../components/PageTransition';
 import { LeadCaptureForm } from '../components/LeadCaptureForm';
-import { Mail, Phone, MapPin, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../components/SEO';
 
@@ -19,18 +19,9 @@ export const ContactPage = () => {
         
         {/* Header Section */}
         <div className="max-w-7xl mx-auto px-6 mb-16 text-center">
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
-            <span className="inline-block px-4 py-1.5 bg-brand-orange/10 text-brand-orange rounded-full text-sm font-bold uppercase tracking-wider border border-brand-orange/20">
-              Start Your Journey
-            </span>
-            <Link
-              to="/corporate-info"
-              className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-emerald-50 text-emerald-800 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider border border-emerald-200 hover:bg-emerald-100 transition-colors"
-            >
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              MCA Registered Pvt. Ltd. • CIN: U62011BR2026PTC089491
-            </Link>
-          </div>
+          <span className="inline-block px-4 py-1.5 bg-brand-orange/10 text-brand-orange rounded-full text-sm font-bold uppercase tracking-wider mb-4 border border-brand-orange/20">
+            Start Your Journey
+          </span>
           <h1 className="text-4xl md:text-6xl font-extrabold text-brand-navy tracking-tight mb-6 leading-tight">
             Let’s Build Something <br className="hidden md:block"/>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ff985c]">
@@ -77,9 +68,8 @@ export const ContactPage = () => {
                     <MapPin className="w-5 h-5 text-brand-orange group-hover/link:text-white" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-brand-text-muted mb-1">Registered Headquarters</p>
-                    <p className="font-bold text-brand-navy leading-snug">400 pat, Gangotri Sadan, Buddha Colony, Patna G.P.O., Phulwari, Patna, Bihar - 800001</p>
-                    <p className="text-xs text-brand-orange font-mono font-medium mt-1">CIN: U62011BR2026PTC089491</p>
+                    <p className="text-sm font-semibold text-brand-text-muted mb-1">Headquarters</p>
+                    <p className="font-bold text-brand-navy">Gangotri, Buddha colony,<br/>Patna, Bihar 800001</p>
                   </div>
                 </div>
               </div>
