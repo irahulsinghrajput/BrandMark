@@ -35,6 +35,7 @@ function generateSitemap() {
 
   const serviceRoutes = [
     '/services/digital-marketing',
+    '/services/performance-marketing',
     '/services/web-development',
     '/services/brand-identity',
     '/services/social-media',

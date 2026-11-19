@@ -16,7 +16,7 @@ export const Home = () => {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const scrollTo = params.get('scrollTo');
-    
+
     if (scrollTo === 'contact') {
       setTimeout(() => {
         const contactSection = document.getElementById('contact');
@@ -36,7 +36,7 @@ export const Home = () => {
 
   return (
     <PageTransition>
-      <SEO 
+      <SEO
         title="BrandMark Solutions | BrandMark Media Solutions Private Limited"
         description="Official site of BrandMark Media Solutions Private Limited (BrandMark Solutions). We engineer high-converting websites, ROI-driven digital marketing campaigns, and AI automation systems in Patna, Bihar & worldwide."
         keywords="BrandMark Solutions Private Limited, BrandMark Media Solutions Private Limited, BrandMark Solutions, BrandMark Media Solutions, Brandmark Media Solutions Pvt Ltd, BrandMark Solutions Pvt Ltd, BrandMark Patna, best digital marketing company in patna, website development in bihar, Patna branding agency"

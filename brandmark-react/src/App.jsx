@@ -21,6 +21,7 @@ import { ScrollToTopButton } from './components/ScrollToTopButton';
 const Home = lazy(() => import('./pages/Home').then(module => ({ default: module.Home })));
 const AboutUs = lazy(() => import('./pages/AboutUs').then(module => ({ default: module.AboutUs })));
 const ServicesHub = lazy(() => import('./pages/ServicesHub').then(module => ({ default: module.ServicesHub })));
+const PerformanceMarketing = lazy(() => import('./pages/PerformanceMarketing').then(module => ({ default: module.PerformanceMarketing })));
 const ServiceDetail = lazy(() => import('./pages/ServiceDetail').then(module => ({ default: module.ServiceDetail })));
 const Portfolio = lazy(() => import('./pages/Portfolio').then(module => ({ default: module.Portfolio })));
 const BlogDirectory = lazy(() => import('./pages/BlogDirectory'));
@@ -177,6 +178,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<AboutUs />} />
                 <Route path="/services" element={<ServicesHub />} />
+                <Route path="/services/performance-marketing" element={<PerformanceMarketing />} />
                 <Route path="/services/:serviceId" element={<ServiceDetail />} />
                 <Route path="/portfolio" element={<Portfolio />} />
                 <Route path="/blog" element={<BlogDirectory />} />

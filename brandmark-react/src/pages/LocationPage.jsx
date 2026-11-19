@@ -76,6 +76,7 @@ export const LocationPage = () => {
     if (s.includes('photo')) return '/services/photography';
     if (s.includes('video') || s.includes('reel')) return '/services/videography';
     if (s.includes('influencer')) return '/services/influencer-marketing';
+    if (s.includes('performance') || s.includes(' ads') || s.includes('ppc')) return '/services/performance-marketing';
     if (s.includes('web') || s.includes('e-commerce')) return '/services/web-development';
     if (s.includes('marketing') || s.includes('seo')) return '/services/digital-marketing';
     return '/services';

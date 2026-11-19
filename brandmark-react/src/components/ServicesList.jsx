@@ -30,6 +30,13 @@ export const ServicesList = () => {
       desc: 'Comprehensive growth marketing and search engine optimization to outrank competitors and drive high-intent, qualified traffic to your funnels.'
     },
     {
+      id: 'performance-marketing',
+      title: 'Performance Marketing',
+      price: 'Free ad audit · Custom quote',
+      tags: ['Meta Ads', 'Google Ads', 'Lead Generation', 'ROAS'],
+      desc: 'ROI-focused Meta and Google Ads campaigns measured on leads, calls, WhatsApp enquiries and return on ad spend, with full conversion tracking and weekly reports.'
+    },
+    {
       id: 'ai-automation',
       title: 'AI Automation & Chatbots',
       price: 'Starting from ₹2,00,000',
