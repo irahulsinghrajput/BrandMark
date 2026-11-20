@@ -65,6 +65,9 @@ export const Courses = () => {
             <p className="text-xl text-brand-text-muted font-light max-w-2xl mx-auto">
               Master digital marketing and full-stack development with our comprehensive, AI-integrated curriculum.
             </p>
+            <p className="mt-6 text-brand-navy font-semibold">
+              3 plans for every course: Self-Paced ₹99 · Pro ₹999 · 1-on-1 VIP Mentorship ₹4,999
+            </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -77,6 +80,7 @@ export const Courses = () => {
                   <p className="text-brand-text-muted font-light">15-Module Masterclass + AI Tutor Access</p>
                 </div>
                 <div className="text-right">
+                  <span className="block text-xs text-brand-text-muted font-semibold uppercase">From</span>
                   <span className="block text-3xl font-extrabold text-brand-navy">₹99</span>
                   <span className="text-sm text-brand-orange font-semibold uppercase">Lifetime Access</span>
                 </div>
@@ -129,8 +133,9 @@ export const Courses = () => {
                     <p className="text-gray-300 font-light">15-Module Masterclass + AI Tutor Access</p>
                   </div>
                   <div className="text-right">
-                    <span className="block text-3xl font-extrabold">₹599</span>
-                    <span className="text-sm text-brand-orange font-semibold uppercase">Pro Cohort</span>
+                    <span className="block text-xs text-gray-300 font-semibold uppercase">From</span>
+                    <span className="block text-3xl font-extrabold">₹99</span>
+                    <span className="text-sm text-brand-orange font-semibold uppercase">Lifetime Access</span>
                   </div>
                 </div>
                 

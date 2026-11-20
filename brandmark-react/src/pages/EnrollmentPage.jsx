@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { PageTransition } from '../components/PageTransition';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'react-hot-toast';
+import { trackEvent } from '../lib/analytics';
 
 const TIERS = [
   {
@@ -93,7 +94,12 @@ export const EnrollmentPage = () => {
   const course = courseDetails[activeCourseId] || courseDetails['digital-marketing'];
 
   const [step, setStep] = useState(1); // Step 1: Details & Tier, Step 2: Payment, Step 3: Password
-  const [selectedTier, setSelectedTier] = useState('pro'); // default to recommended pro tier
+  const [searchParams] = useSearchParams();
+  // ?tier=self-paced | pro | mentorship lets ads and upgrade messages link straight to a plan
+  const tierFromUrl = searchParams.get('tier');
+  const [selectedTier, setSelectedTier] = useState(
+    TIERS.some(t => t.id === tierFromUrl) ? tierFromUrl : 'pro' // default to recommended pro tier
+  );
   const [isProcessing, setIsProcessing] = useState(false);
 
   const activeTier = TIERS.find(t => t.id === selectedTier) || TIERS[1];
@@ -117,6 +123,10 @@ export const EnrollmentPage = () => {
   });
 
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    trackEvent('ViewContent', { contentId: course.id, contentName: course.title });
+  }, [course.id, course.title]);
 
   // Restore pending enrollment if user previously paid but registration step was interrupted
   useEffect(() => {
@@ -184,6 +194,7 @@ export const EnrollmentPage = () => {
   const handlePayNow = async () => {
     setIsProcessing(true);
     setError('');
+    trackEvent('InitiateCheckout', { value: activeTier.price, contentId: `${course.id}:${selectedTier}`, contentName: `${course.title} (${activeTier.name})` });
 
     try {
       const scriptLoaded = await loadRazorpayScript();
@@ -248,6 +259,12 @@ export const EnrollmentPage = () => {
                 courseId: course.id,
                 courseTitle: course.title
               }));
+              trackEvent('Purchase', {
+                value: activeTier.price,
+                contentId: `${course.id}:${selectedTier}`,
+                contentName: `${course.title} (${activeTier.name})`,
+                transactionId: response.razorpay_payment_id
+              });
               toast.success('Payment verified successfully!');
               setStep(3);
             } else {

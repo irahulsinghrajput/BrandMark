@@ -16,6 +16,7 @@ import { Toaster } from 'react-hot-toast';
 import { WhatsAppButton } from './components/WhatsAppButton';
 import { ChatBotWidget } from './components/ChatBotWidget';
 import { ScrollToTopButton } from './components/ScrollToTopButton';
+import { initAnalytics, trackPageView } from './lib/analytics';
 
 // Lazy load pages for code splitting
 const Home = lazy(() => import('./pages/Home').then(module => ({ default: module.Home })));
@@ -82,6 +83,12 @@ const PageLoader = () => (
 function App() {
   const location = useLocation();
   const lenis = useLenis();
+
+  // Meta Pixel + GA4 page views on every route change (no-op until IDs are configured)
+  useEffect(() => {
+    initAnalytics();
+    trackPageView(location.pathname + location.search);
+  }, [location.pathname, location.search]);
 
   // Scroll to top on route change (unless scrollTo param is present)
   useEffect(() => {
