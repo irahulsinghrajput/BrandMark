@@ -59,6 +59,17 @@ export const Portfolio = () => {
       description: 'Comprehensive social media management, creative campaign production, public relations (PR) outreach, and community engagement driving record admissions for Patna’s premier CBSE international school.'
     },
     { 
+      title: 'Birch Patna', 
+      category: 'Social Media Management, Menu Architecture & Brand Design', 
+      filterCategory: 'Brand Identity',
+      image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=1200',
+      logo: '/images/birch-logo.svg',
+      link: 'https://www.instagram.com/birchpatna/',
+      location: 'Patna, Bihar',
+      badge: 'Social Media & Brand Suite',
+      description: 'Full-spectrum creative direction and digital management for Birch Patna (@birchpatna). Spearheaded daily social media operations, viral Instagram reels, food photography, bespoke multi-cuisine dine-in menu architecture, and cohesive brand design systems elevating Patna’s premier culinary destination.'
+    },
+    { 
       title: 'Hotel Republic', 
       category: 'Digital Presence & Luxury Branding', 
       filterCategory: 'Brand Identity',
@@ -239,10 +250,12 @@ export const Portfolio = () => {
                     {p.link && (
                       <div className="mt-4 pt-3 border-t border-white/15 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
                         <span className="text-xs text-white/70 font-medium">
-                          Click to explore live website
+                          {p.link.includes('instagram.com') ? 'Explore official Instagram' : 'Click to explore live website'}
                         </span>
                         <span className="text-xs font-bold text-brand-orange flex items-center gap-1">
-                          Visit {p.link.replace(/^https?:\/\//, '').replace(/\/$/, '')} →
+                          {p.link.includes('instagram.com')
+                            ? `@${p.link.replace(/^https?:\/\/(www\.)?instagram\.com\//, '').replace(/\/$/, '')} on Instagram →`
+                            : `Visit ${p.link.replace(/^https?:\/\//, '').replace(/\/$/, '')} →`}
                         </span>
                       </div>
                     )}
