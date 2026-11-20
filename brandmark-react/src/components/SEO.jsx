@@ -17,12 +17,13 @@ export const SEO = ({
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "BrandMark Solutions",
+      "name": "BrandMark Media Solutions Pvt Ltd",
       "alternateName": [
         "BrandMark Media Solutions Private Limited",
         "BrandMark Solutions Private Limited",
         "BrandMark Media Solutions",
-        "Brandmark Media Solutions Pvt Ltd"
+        "Brandmark Media Solutions Pvt Ltd",
+        "BrandMark Solutions"
       ],
       "url": "https://www.brandmarksolutions.site",
       "potentialAction": {
@@ -185,7 +186,7 @@ export const SEO = ({
       
       {/* OpenGraph / Facebook */}
       <meta property="og:type" content={type || "website"} />
-      <meta property="og:site_name" content="BrandMark Media Solutions Private Limited" />
+      <meta property="og:site_name" content="BrandMark Media Solutions Pvt Ltd" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={ogImage} />

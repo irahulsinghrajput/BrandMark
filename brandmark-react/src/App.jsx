@@ -101,12 +101,13 @@ function App() {
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "Corporation"],
-    "name": "BrandMark Solutions",
+    "name": "BrandMark Media Solutions Pvt Ltd",
     "legalName": "BrandMark Media Solutions Private Limited",
     "alternateName": [
       "BrandMark Solutions Private Limited",
       "BrandMark Media Solutions Private Limited",
-      "BrandMark Media Solutions Pvt Ltd"
+      "BrandMark Media Solutions Pvt Ltd",
+      "BrandMark Solutions"
     ],
     "image": "https://www.brandmarksolutions.site/brandmark-logo-new.png.webp",
     "@id": "https://www.brandmarksolutions.site",

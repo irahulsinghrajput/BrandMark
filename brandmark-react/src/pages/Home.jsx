@@ -45,10 +45,11 @@ export const Home = () => {
           {
             "@context": "https://schema.org",
             "@type": "WebSite",
-            "name": "BrandMark Solutions",
+            "name": "BrandMark Media Solutions Pvt Ltd",
             "alternateName": [
               "BrandMark Media Solutions Private Limited",
-              "BrandMark Solutions Private Limited"
+              "BrandMark Solutions Private Limited",
+              "BrandMark Solutions"
             ],
             "url": "https://www.brandmarksolutions.site"
           },
