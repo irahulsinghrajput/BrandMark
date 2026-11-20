@@ -63,7 +63,7 @@ export const Portfolio = () => {
       category: 'Social Media Management, Menu Architecture & Brand Design', 
       filterCategory: 'Brand Identity',
       image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=1200',
-      logo: '/images/birch-logo.svg',
+      logo: '/images/birch-logo.jpg',
       link: 'https://www.instagram.com/birchpatna/',
       location: 'Patna, Bihar',
       badge: 'Social Media & Brand Suite',
