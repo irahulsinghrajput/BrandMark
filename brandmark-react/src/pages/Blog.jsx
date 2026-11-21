@@ -47,7 +47,7 @@ export const Blog = () => {
 
           <div className="space-y-8">
             {blogsData.map((article, i) => (
-              <Link to={`/blog/${article.id}`} key={article.id} className="blog-post group block p-8 rounded-3xl bg-white border border-brand-border-light hover:border-brand-orange transition-colors duration-500 cursor-pointer shadow-sm hover:shadow-lg">
+              <Link to={`/blog/${article.slug || article.id}`} key={article.slug || article.id} className="blog-post group block p-8 rounded-3xl bg-white border border-brand-border-light hover:border-brand-orange transition-colors duration-500 cursor-pointer shadow-sm hover:shadow-lg">
                 <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
                   <div>
                     <div className="flex items-center gap-4 mb-3">

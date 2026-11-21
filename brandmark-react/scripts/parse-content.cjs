@@ -24,6 +24,7 @@ function parseContent() {
     
     blogs.push({
       ...data,
+      id: data.id || slug,
       slug,
       content, // we bundle the content so it's searchable and easily renderable without extra fetches
       file: file

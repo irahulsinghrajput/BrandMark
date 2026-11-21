@@ -3,3 +3,7 @@ Disallow: /dashboard/
 Disallow: /student-login
 
 Sitemap: https://www.brandmarksolutions.site/sitemap.xml
+Sitemap: https://www.brandmarksolutions.site/blog-sitemap.xml
+Sitemap: https://www.brandmarksolutions.site/sitemap-pages.xml
+Sitemap: https://www.brandmarksolutions.site/news-sitemap.xml
+Sitemap: https://www.brandmarksolutions.site/rss.xml

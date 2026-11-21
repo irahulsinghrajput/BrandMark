@@ -91,10 +91,14 @@ export const BlogPost = () => {
 
   const relatedPosts = useMemo(() => relatedPostsData, [relatedPostsData]);
 
-  // Strip frontmatter from content if it's there
+  // Strip frontmatter and stray YAML metadata lines from content
   const markdownContent = useMemo(() => {
     if (!blog?.content) return '';
-    return blog.content.replace(/^---[\s\S]*?---/, '').trim();
+    return blog.content
+      .replace(/^---[\s\S]*?---/, '')
+      .replace(/cover_image:\s*["'][^"']*["']/g, '')
+      .replace(/schema_type:\s*\w+/g, '')
+      .trim();
   }, [blog?.content]);
 
   if (isLoading) {
@@ -175,7 +179,7 @@ export const BlogPost = () => {
     <PageTransition>
       <div className="bg-white min-h-screen pt-24 pb-20">
         <SEO 
-          title={`${blog.title} | BrandMark Solutions`} 
+          title={`${blog.title} | BrandMark Media Solutions Pvt Ltd`} 
           description={blog.description || blog.excerpt || `Read ${blog.title} by ${blog.author || 'BrandMark Team'}`}
           canonicalUrl={canonicalUrl}
           ogImage={blogCoverUrl}

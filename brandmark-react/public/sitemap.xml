@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
-    <loc>https://www.brandmarksolutions.site/sitemap-pages.xml</loc>
-    <lastmod>2026-11-20</lastmod>
-  </sitemap>
-  <sitemap>
     <loc>https://www.brandmarksolutions.site/blog-sitemap.xml</loc>
     <lastmod>2026-11-20</lastmod>
   </sitemap>
   <sitemap>
+    <loc>https://www.brandmarksolutions.site/sitemap-pages.xml</loc>
+    <lastmod>2026-11-20</lastmod>
+  </sitemap>
+  <sitemap>
     <loc>https://www.brandmarksolutions.site/image-sitemap.xml</loc>
+    <lastmod>2026-11-20</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://www.brandmarksolutions.site/news-sitemap.xml</loc>
     <lastmod>2026-11-20</lastmod>
   </sitemap>
 </sitemapindex>

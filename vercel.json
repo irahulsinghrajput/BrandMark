@@ -1,5 +1,7 @@
 {
   "framework": null,
+  "cleanUrls": true,
+  "trailingSlash": false,
   "installCommand": "npm install --include=dev && npm install --prefix brandmark-react --include=dev --legacy-peer-deps",
   "buildCommand": "cd brandmark-react && npm run build",
   "outputDirectory": "brandmark-react/dist",

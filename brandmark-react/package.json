@@ -7,7 +7,7 @@
     "dev": "node scripts/parse-content.cjs && vite",
     "prebuild": "node scripts/parse-content.cjs",
     "build": "vite build",
-    "postbuild": "node scripts/generate-sitemap.cjs",
+    "postbuild": "node scripts/generate-sitemap.cjs && node scripts/prerender-seo.cjs",
     "lint": "oxlint",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",

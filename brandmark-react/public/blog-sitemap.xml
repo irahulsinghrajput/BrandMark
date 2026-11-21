@@ -1,166 +1,274 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   
   <url>
     <loc>https://www.brandmarksolutions.site/blog/brandmark-media-solutions-private-limited-incorporation</loc>
     <lastmod>2026-11-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/brand-identity-overhaul-rebranding-without-traffic-loss.jpg</image:loc>
+      <image:title><![CDATA[BrandMark Solutions Officially Incorporates as BrandMark Media Solutions Private Limited]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/restaurant-marketing-cloud-kitchen-growth-patna</loc>
     <lastmod>2026-10-26</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/restaurant-marketing-cloud-kitchen-growth-patna.jpg</image:loc>
+      <image:title><![CDATA[Restaurant  Cloud Kitchen Marketing in Patna: Slashing 30% Aggregator Commissions with Direct Orders]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/d2c-ecommerce-brand-scaling-tier-2-india</loc>
     <lastmod>2026-10-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/d2c-ecommerce-brand-scaling-tier-2-india.jpg</image:loc>
+      <image:title><![CDATA[D2C E-Commerce Playbook: How Regional Indian Brands Scale Nationally to ₹1 Crore/Month]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/autonomous-ai-voice-agents-customer-service</loc>
     <lastmod>2026-10-24</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/autonomous-ai-voice-agents-customer-service.jpg</image:loc>
+      <image:title><![CDATA[Autonomous AI Voice Agents: Transforming Inbound Sales and Support in 2026]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/programmatic-seo-scaling-thousands-of-landing-pages</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/programmatic-seo-scaling-thousands-of-landing-pages.jpg</image:loc>
+      <image:title><![CDATA[Programmatic SEO: How We Build High-Intent Landing Pages That Capture 10,000+ Monthly Clicks]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/whatsapp-business-api-marketing-chatbots-india</loc>
     <lastmod>2026-10-22</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/whatsapp-business-api-marketing-chatbots-india.jpg</image:loc>
+      <image:title><![CDATA[WhatsApp Business API  Autonomous Chatbot Funnels: Unlocking 98% Open Rates in India]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/core-web-vitals-inp-conversion-rate-optimization</loc>
     <lastmod>2026-10-21</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/core-web-vitals-inp-conversion-rate-optimization.jpg</image:loc>
+      <image:title><![CDATA[Core Web Vitals  INP Mastery: How Sub-Second Websites Double Ad Conversion Rates]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/jewellery-luxury-retail-digital-marketing-bihar</loc>
     <lastmod>2026-10-20</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/jewellery-luxury-retail-digital-marketing-bihar.jpg</image:loc>
+      <image:title><![CDATA[Luxury Jewellery Marketing in Bihar: Selling High-Ticket Bridal Collections Online]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/coaching-institute-neet-jee-marketing-patna</loc>
     <lastmod>2026-10-19</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/coaching-institute-neet-jee-marketing-patna.jpg</image:loc>
+      <image:title><![CDATA[Coaching Institute Marketing in Patna: Scaling NEET  JEE Admissions Through Digital Dominance]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/b2b-lead-generation-linkedin-manufacturing-bihar</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/b2b-lead-generation-linkedin-manufacturing-bihar.jpg</image:loc>
+      <image:title><![CDATA[B2B Lead Generation for Manufacturers  Industrialists: Securing Pan-India Contracts]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/brand-identity-overhaul-rebranding-without-traffic-loss</loc>
     <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/brand-identity-overhaul-rebranding-without-traffic-loss.jpg</image:loc>
+      <image:title><![CDATA[The Complete Rebranding Playbook: Overhauling Brand Identity Without Losing SEO Traffic]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/digital-transformation-bihar-government-portals</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/digital-transformation-bihar-government-portals.jpg</image:loc>
+      <image:title><![CDATA[Digital Transformation in Bihar: How Modern Portals  AI Automation Modernize Public Services]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/healthcare-digital-marketing-hospitals-patna-bihar</loc>
     <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/healthcare-digital-marketing-hospitals-patna-bihar.jpg</image:loc>
+      <image:title><![CDATA[Healthcare Digital Marketing in Bihar: How Hospitals  Clinics Acquire High-Intent Patients]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/hotel-banquet-marketing-patna-bihar</loc>
     <lastmod>2026-10-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/hotel-banquet-marketing-patna-bihar.jpg</image:loc>
+      <image:title><![CDATA[Hotel  Banquet Marketing in Patna: Direct Bookings  Wedding Venue Campaigns]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/school-admission-marketing-bihar</loc>
     <lastmod>2026-10-12</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/school-admission-marketing-bihar.jpg</image:loc>
+      <image:title><![CDATA[School Admission Marketing in Bihar: How Top Educational Institutions Fill Seats 3x Faster]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/real-estate-3d-walkthrough-websites-bihar</loc>
     <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/real-estate-3d-walkthrough-websites-bihar.jpg</image:loc>
+      <image:title><![CDATA[Why Real Estate Developers in Bihar Need a 3D Walkthrough Website]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/digital-marketing-patna-guide</loc>
     <lastmod>2026-10-09</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/digital-marketing-patna-guide.jpg</image:loc>
+      <image:title><![CDATA[The Ultimate Guide to Digital Marketing in Patna]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/digital-marketing-transforming-patna</loc>
     <lastmod>2026-08-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/digital-marketing-transforming-patna.jpg</image:loc>
+      <image:title><![CDATA[How Digital Marketing is Transforming Businesses in Patna]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/ai-automation-scaling-agency</loc>
     <lastmod>2026-08-13</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/ai-automation-scaling-agency.jpg</image:loc>
+      <image:title><![CDATA[AI Automation: The Secret Weapon for Scaling Your Agency]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/sales-automation-closing-deals</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/sales-automation-closing-deals.jpg</image:loc>
+      <image:title><![CDATA[Sales Automation: Closing Deals While You Sleep]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/high-converting-content-creation</loc>
     <lastmod>2026-08-11</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/high-converting-content-creation.jpg</image:loc>
+      <image:title><![CDATA[The Anatomy of High-Converting Content Creation]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/professional-photography-shoot-patna</loc>
     <lastmod>2026-08-10</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/professional-photography-shoot-patna.jpg</image:loc>
+      <image:title><![CDATA[Professional Photography and Video Shoots in Patna]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/leads-automation-machine</loc>
     <lastmod>2026-08-09</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/leads-automation-machine.jpg</image:loc>
+      <image:title><![CDATA[Building an Unstoppable Leads Automation Machine]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/google-ranking-local-seo-mastery</loc>
     <lastmod>2026-08-08</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/google-ranking-local-seo-mastery.jpg</image:loc>
+      <image:title><![CDATA[Google Ranking 101: Mastering Local SEO]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/dominate-social-media-2026</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/dominate-social-media-2026.jpg</image:loc>
+      <image:title><![CDATA[How to Dominate Social Media in 2026]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/future-web-development-react-vite</loc>
     <lastmod>2026-08-06</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/future-web-development-react-vite.jpg</image:loc>
+      <image:title><![CDATA[The Future of Web Development: React and Vite in 2026]]></image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://www.brandmarksolutions.site/blog/maximizing-roi-meta-ads</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.brandmarksolutions.site/images/blogs/maximizing-roi-meta-ads.jpg</image:loc>
+      <image:title><![CDATA[Maximizing ROI with Targeted Meta Ads]]></image:title>
+    </image:image>
   </url>
 </urlset>

@@ -55,15 +55,19 @@ function generateSitemap() {
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
-    <loc>${BASE_URL}/sitemap-pages.xml</loc>
-    <lastmod>${today}</lastmod>
-  </sitemap>
-  <sitemap>
     <loc>${BASE_URL}/blog-sitemap.xml</loc>
     <lastmod>${today}</lastmod>
   </sitemap>
   <sitemap>
+    <loc>${BASE_URL}/sitemap-pages.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
+  <sitemap>
     <loc>${BASE_URL}/image-sitemap.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>${BASE_URL}/news-sitemap.xml</loc>
     <lastmod>${today}</lastmod>
   </sitemap>
 </sitemapindex>`;
@@ -80,16 +84,26 @@ function generateSitemap() {
   </url>`).join('')}
 </urlset>`;
 
-  // 3. BLOG SITEMAP
+  // 3. BLOG SITEMAP (With Rich Google Image Metadata for separate SERP indexing)
   const blogSitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  ${blogs.map(blog => `
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  ${blogs.map(blog => {
+    const slug = blog.slug || blog.id;
+    const coverUrl = blog.cover_image 
+      ? (blog.cover_image.startsWith('http') ? blog.cover_image : `${BASE_URL}${blog.cover_image}`)
+      : `${BASE_URL}/images/blogs/${slug}.jpg`;
+    return `
   <url>
-    <loc>${BASE_URL}/blog/${blog.slug || blog.id}</loc>
+    <loc>${BASE_URL}/blog/${slug}</loc>
     <lastmod>${(blog.date_modified || blog.date_published || blog.date || today).split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>`).join('')}
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>${coverUrl}</image:loc>
+      <image:title><![CDATA[${(blog.title || '').replace(/[<>&'"]/g, '')}]]></image:title>
+    </image:image>
+  </url>`;
+  }).join('')}
 </urlset>`;
 
   // 4. IMAGE SITEMAP (Simplified for all pages)
@@ -150,8 +164,10 @@ function generateSitemap() {
     fs.writeFileSync(path.join(dir, 'rss.xml'), rssXml);
   };
 
+  const ROOT_DIR = path.join(__dirname, '../..');
   writeFiles(PUBLIC_DIR);
   writeFiles(DIST_DIR);
+  writeFiles(ROOT_DIR);
 
   console.log(`Sitemaps & RSS successfully generated for ${allRoutes.length} total routes.`);
 }
