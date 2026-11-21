@@ -1,5 +1,5 @@
 ---
-cover_image: /images/blogs/brand-identity-overhaul-rebranding-without-traffic-loss.jpg
+cover_image: /images/blogs/brandmark-media-solutions-private-limited-incorporation.jpg
 title: 'BrandMark Solutions Officially Incorporates as BrandMark Media Solutions Private Limited'
 slug: brandmark-media-solutions-private-limited-incorporation
 category: Company News
