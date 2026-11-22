@@ -181,6 +181,14 @@ export const SEO = ({
       <meta name="keywords" content={finalKeywords} />
       <meta name="author" content="BrandMark Media Solutions Private Limited" />
       
+      {/* Universal Search Engine Crawler Directives */}
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      <meta name="bingbot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      <meta name="slurp" content="index, follow" />
+      <meta name="duckduckbot" content="index, follow" />
+      <meta name="yandex" content="index, follow" />
+      
       {/* Canonical URL */}
       {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
       

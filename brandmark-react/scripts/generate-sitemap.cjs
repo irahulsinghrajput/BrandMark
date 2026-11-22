@@ -162,6 +162,8 @@ function generateSitemap() {
     fs.writeFileSync(path.join(dir, 'image-sitemap.xml'), imageSitemapXml);
     fs.writeFileSync(path.join(dir, 'news-sitemap.xml'), newsSitemapXml);
     fs.writeFileSync(path.join(dir, 'rss.xml'), rssXml);
+    // IndexNow Key verification file for Bing & Yandex instant indexing
+    fs.writeFileSync(path.join(dir, '7f8a9b1c2d3e4f5a6b7c8d9e0f1a2b3c.txt'), '7f8a9b1c2d3e4f5a6b7c8d9e0f1a2b3c');
   };
 
   const ROOT_DIR = path.join(__dirname, '../..');

@@ -1,9 +1,36 @@
 User-agent: *
+Allow: /
 Disallow: /dashboard/
 Disallow: /student-login
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: Googlebot
+Allow: /
+Allow: /blog/
+Allow: /images/
+
+User-agent: Bingbot
+Allow: /
+Allow: /blog/
+Allow: /images/
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
 
 Sitemap: https://www.brandmarksolutions.site/sitemap.xml
 Sitemap: https://www.brandmarksolutions.site/blog-sitemap.xml
 Sitemap: https://www.brandmarksolutions.site/sitemap-pages.xml
+Sitemap: https://www.brandmarksolutions.site/image-sitemap.xml
 Sitemap: https://www.brandmarksolutions.site/news-sitemap.xml
 Sitemap: https://www.brandmarksolutions.site/rss.xml
