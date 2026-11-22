@@ -69,6 +69,14 @@ const SystemAdministration = lazy(() => import('./pages/SystemAdministration').t
 const SystemHealth = lazy(() => import('./pages/SystemHealth').then(module => ({ default: module.SystemHealth })));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy').then(module => ({ default: module.PrivacyPolicy })));
 const TermsOfService = lazy(() => import('./pages/TermsOfService').then(module => ({ default: module.TermsOfService })));
+// BrandMark Connect — consent-based lead marketplace
+const LeadsHome = lazy(() => import('./pages/marketplace/LeadsHome'));
+const PostRequirement = lazy(() => import('./pages/marketplace/PostRequirement'));
+const ManageRequirement = lazy(() => import('./pages/marketplace/ManageRequirement'));
+const BusinessSignup = lazy(() => import('./pages/marketplace/BusinessAuth').then(m => ({ default: m.BusinessSignup })));
+const BusinessLogin = lazy(() => import('./pages/marketplace/BusinessAuth').then(m => ({ default: m.BusinessLogin })));
+const BusinessDashboard = lazy(() => import('./pages/marketplace/BusinessDashboard'));
+const MarketplaceAdmin = lazy(() => import('./pages/marketplace/MarketplaceAdmin'));
 
 import { AdminRoute } from './components/AdminRoute';
 import { ClientRoute } from './components/ClientRoute';
@@ -238,6 +246,13 @@ function App() {
                 <Route path="/industries/:industryId" element={<IndustryPage />} />
                 <Route path="/case-studies" element={<CaseStudies />} />
                 <Route path="/locations/:city" element={<LocationPage />} />
+                <Route path="/leads" element={<LeadsHome />} />
+                <Route path="/leads/post" element={<PostRequirement />} />
+                <Route path="/leads/manage/:token" element={<ManageRequirement />} />
+                <Route path="/business/signup" element={<BusinessSignup />} />
+                <Route path="/business/login" element={<BusinessLogin />} />
+                <Route path="/business/leads" element={<BusinessDashboard />} />
+                <Route path="/admin/marketplace" element={<MarketplaceAdmin />} />
                 
                 {/* Protected Dashboard Route */}
                 <Route 

@@ -227,6 +227,10 @@ app.use('/api/audit', requireDb, require('./routes/audit'));
 console.log('✅ Audit routes loaded');
 app.use('/api/social', require('./routes/socialRoutes'));
 console.log('✅ Social automation routes loaded');
+// Consent-based lead marketplace (CSRF on every write)
+app.use('/api/marketplace', (req, res, next) => (req.method === 'GET' ? next() : validateCsrfToken(req, res, next)));
+app.use('/api/marketplace', requireDb, require('./routes/marketplace'));
+console.log('✅ Lead marketplace routes loaded');
 
 
 // Health Check
