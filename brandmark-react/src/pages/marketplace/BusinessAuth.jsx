@@ -75,7 +75,7 @@ export const BusinessAuth = ({ mode = 'login' }) => {
               </>
             )}
             <ErrorBox>{error}</ErrorBox>
-            <Button type="submit" disabled={busy || (isSignup && !form.acceptTerms)} className="w-full">
+            <Button type="submit" disabled={busy || (isSignup && (!form.acceptTerms || !opts))} className="w-full">
               {busy ? 'Please wait…' : isSignup ? 'Create business account' : 'Log in'}
             </Button>
             <p className="text-sm text-center text-brand-text-muted">

@@ -31,7 +31,20 @@ export async function mp(path, { method = 'GET', body, business = false } = {}) 
     throw new Error('Could not reach the BrandMark server. Please check your connection and try again.');
   }
   let data = {};
-  try { data = await res.json(); } catch { /* non-JSON */ }
+  const isJson = (res.headers.get('content-type') || '').includes('application/json');
+  if (!isJson) {
+    // e.g. the website answered instead of the API (VITE_API_URL not set on the host)
+    console.error(`[marketplace] ${BASE}${path} returned ${res.status} ${res.headers.get('content-type')} instead of JSON`);
+    const err = new Error('BrandMark Connect is temporarily unavailable. Please try again later.');
+    err.status = res.status;
+    throw err;
+  }
+  try { data = await res.json(); } catch { /* bad JSON */ }
+  if (res.status === 503) {
+    const err = new Error('BrandMark Connect is temporarily unavailable. Please try again later.');
+    err.status = 503;
+    throw err;
+  }
   if (!res.ok || data.success === false) {
     const err = new Error(data.message || `Request failed (${res.status})`);
     err.status = res.status;
