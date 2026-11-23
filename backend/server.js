@@ -114,28 +114,34 @@ app.use(xss()); // Prevent XSS attacks by sanitizing user input
 app.use(hpp()); // Prevent HTTP Parameter Pollution
 
 // ============= CSRF PROTECTION =============
-// Generate CSRF tokens for clients
-const csrfTokens = new Map();
+// Signed, stateless CSRF tokens: "<random>.<issuedAtMs>.<hmac>".
+// Stateless so they work on serverless hosts (Vercel), where the request that issues a token
+// and the request that uses it can run in different instances that share no memory.
+const CSRF_TTL_MS = 2 * 60 * 60 * 1000; // 2 hours
+const csrfSecret = () => process.env.CSRF_SECRET || process.env.JWT_SECRET || 'dev-only-csrf-secret';
+const csrfSign = (payload) => crypto.createHmac('sha256', csrfSecret()).update(payload).digest('hex');
 
 app.get('/api/csrf-token', (req, res) => {
-    const token = crypto.randomBytes(32).toString('hex');
-    csrfTokens.set(token, true);
-    res.json({ token });
+    const payload = `${crypto.randomBytes(16).toString('hex')}.${Date.now()}`;
+    res.json({ token: `${payload}.${csrfSign(payload)}` });
 });
 
 // Validate CSRF tokens
 function validateCsrfToken(req, res, next) {
-    const token = req.get('X-CSRF-Token') || req.body.csrf_token;
-    
-    if (!token || !csrfTokens.has(token)) {
-        return res.status(403).json({ 
-            success: false, 
-            message: 'CSRF token validation failed' 
+    const token = String(req.get('X-CSRF-Token') || (req.body && req.body.csrf_token) || '');
+    const [rand, issued, sig] = token.split('.');
+    const payload = `${rand}.${issued}`;
+    const expected = rand && issued ? csrfSign(payload) : '';
+    const fresh = Number(issued) > 0 && Date.now() - Number(issued) < CSRF_TTL_MS;
+    const valid = sig && expected && sig.length === expected.length &&
+        crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected)) && fresh;
+
+    if (!valid) {
+        return res.status(403).json({
+            success: false,
+            message: 'CSRF token validation failed'
         });
     }
-    
-    // Token is valid, remove it (single use)
-    csrfTokens.delete(token);
     next();
 }
 
