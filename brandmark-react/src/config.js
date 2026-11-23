@@ -1,4 +1,7 @@
-export const API_URL = import.meta.env.VITE_API_URL || '/api';
+// VITE_API_URL = backend server address WITHOUT /api, e.g. https://brandmark-backend.onrender.com
+// (empty = same origin, used by the local Vite proxy). A trailing /api is tolerated.
+export const API_ORIGIN = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '').replace(/\/api$/, '');
+export const API_URL = `${API_ORIGIN}/api`;
 
 /**
  * Universal, secure fetch wrapper that ensures:
@@ -9,7 +12,9 @@ export async function apiFetch(endpoint, options = {}) {
   // Normalize endpoint URL
   let url = endpoint;
   if (!url.startsWith('http')) {
-    if (!url.startsWith('/api') && !url.startsWith(API_URL)) {
+    if (url.startsWith('/api')) {
+      url = `${API_ORIGIN}${url}`;
+    } else {
       const cleanPath = url.startsWith('/') ? url : `/${url}`;
       url = `${API_URL}${cleanPath}`;
     }
@@ -21,7 +26,7 @@ export async function apiFetch(endpoint, options = {}) {
   let csrfToken = null;
   if (isMutation) {
     try {
-      const csrfRes = await fetch('/api/csrf-token');
+      const csrfRes = await fetch(`${API_URL}/csrf-token`);
       if (csrfRes.ok) {
         const csrfData = await csrfRes.json();
         csrfToken = csrfData.token;

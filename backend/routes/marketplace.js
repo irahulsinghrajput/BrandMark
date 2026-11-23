@@ -442,7 +442,27 @@ router.post('/business/unlocked/:unlockId/report', businessAuth, async (req, res
     res.json({ success: true, message: 'Thanks. BrandMark will review it and refund the credit if the lead was fake or unreachable.' });
 });
 
-// ───────────── admin (existing BrandMark admin login) ─────────────
+// ───────────── admin (existing BrandMark admin accounts) ─────────────
+// Token login so the admin panel works when the website and API are on different domains
+// (cookies set by the API domain are not sent cross-site). The shared `auth` middleware accepts Bearer tokens.
+router.post('/admin/login', authLimiter, async (req, res) => {
+    const Admin = require('../models/Admin');
+    const email = String((req.body || {}).email || '').trim().toLowerCase();
+    const found = email ? await Admin.findOne({ email }) : null;
+    if (!found || !found.isActive || !(await found.comparePassword(String((req.body || {}).password || '')))) {
+        return fail(res, 401, 'Wrong email or password.');
+    }
+    if (!['admin', 'superadmin'].includes(found.role)) return fail(res, 403, 'Admin access required.');
+    found.lastLogin = Date.now();
+    await found.save();
+    const token = jwt.sign(
+        { id: found._id, email: found.email, role: found.role },
+        process.env.JWT_SECRET || 'your-secret-key-change-in-production', // same fallback as middleware/auth.js
+        { expiresIn: '12h' }
+    );
+    res.json({ success: true, token, admin: { name: found.name, email: found.email, role: found.role } });
+});
+
 const admin = [auth, isAdmin];
 
 router.get('/admin/overview', admin, async (req, res) => {

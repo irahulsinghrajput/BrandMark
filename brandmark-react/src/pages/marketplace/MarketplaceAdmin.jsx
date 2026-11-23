@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { mp, adminLogin, fmtDate } from '../../lib/marketplaceApi';
+import { mp, adminLogin, adminToken, fmtDate } from '../../lib/marketplaceApi';
 import { Shell, Card, Input, Label, Button, ErrorBox, Pill } from './ui';
 
 const tone = { approved: 'green', pending: 'orange', suspended: 'red', live: 'green', pending_otp: 'orange', rejected: 'red', withdrawn: 'gray', deleted: 'gray' };
@@ -22,7 +22,7 @@ export const MarketplaceAdmin = () => {
       setRows(d.businesses || d.requirements || d.reports || d.consents || []);
       setAuthed(true);
     } catch (e) {
-      if (e.status === 401 || e.status === 403) setAuthed(false); else setError(e.message);
+      if (e.status === 401 || e.status === 403) { adminToken.clear(); setAuthed(false); } else setError(e.message);
     }
   }, [tab]);
 
@@ -54,13 +54,24 @@ export const MarketplaceAdmin = () => {
       </Shell>
     );
   }
-  if (authed === null) return <Shell><p className="text-brand-text-muted">Loading…</p></Shell>;
+  if (authed === null) {
+    return (
+      <Shell narrow>
+        {error
+          ? <div className="space-y-4"><ErrorBox>{error}</ErrorBox><Button variant="ghost" onClick={() => load(tab)}>Try again</Button></div>
+          : <p className="text-brand-text-muted">Loading…</p>}
+      </Shell>
+    );
+  }
 
   return (
     <>
       <Helmet><title>Marketplace Admin | BrandMark</title><meta name="robots" content="noindex, nofollow" /></Helmet>
       <Shell>
-        <h1 className="text-3xl font-extrabold text-brand-navy mb-6">Marketplace admin</h1>
+        <div className="flex items-center justify-between gap-4 mb-6">
+          <h1 className="text-3xl font-extrabold text-brand-navy">Marketplace admin</h1>
+          <Button variant="ghost" onClick={() => { adminToken.clear(); setAuthed(false); }}>Log out</Button>
+        </div>
         {stats && (
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 mb-6">
             {[['Live leads', stats.live], ['Awaiting OTP', stats.pending], ['Withdrawn/deleted', stats.withdrawn], ['Businesses', stats.businesses], ['To verify', stats.pendingBusinesses], ['Unlocks', stats.unlocks], ['Open reports', stats.openReports]].map(([l, v]) => (

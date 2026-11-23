@@ -1,30 +1,35 @@
 // Small client for the BrandMark Lead Marketplace API (/api/marketplace)
-const BASE = '/api/marketplace';
-const TOKEN_KEY = 'bm_business_token';
+// The backend can live on another domain (Render), so auth uses Bearer tokens, not cookies.
+import { API_URL } from '../config';
 
-export const businessToken = {
-  get: () => { try { return localStorage.getItem(TOKEN_KEY); } catch { return null; } },
-  set: (t) => { try { localStorage.setItem(TOKEN_KEY, t); } catch { /* ignore */ } },
-  clear: () => { try { localStorage.removeItem(TOKEN_KEY); } catch { /* ignore */ } }
-};
+const BASE = `${API_URL}/marketplace`;
+
+const store = (storage, key) => ({
+  get: () => { try { return storage().getItem(key); } catch { return null; } },
+  set: (t) => { try { storage().setItem(key, t); } catch { /* ignore */ } },
+  clear: () => { try { storage().removeItem(key); } catch { /* ignore */ } }
+});
+export const businessToken = store(() => localStorage, 'bm_business_token');
+export const adminToken = store(() => sessionStorage, 'bm_mp_admin_token');
 
 async function csrf() {
-  const res = await fetch('/api/csrf-token', { credentials: 'same-origin' });
-  if (!res.ok) throw new Error('Could not reach the server. Please try again.');
+  let res;
+  try { res = await fetch(`${API_URL}/csrf-token`); } catch { res = null; }
+  if (!res || !res.ok) throw new Error('Could not reach the BrandMark server. Please try again in a minute.');
   return (await res.json()).token;
 }
 
 export async function mp(path, { method = 'GET', body, business = false } = {}) {
   const headers = { 'Content-Type': 'application/json' };
   if (method !== 'GET') headers['X-CSRF-Token'] = await csrf();
-  if (business) {
-    const t = businessToken.get();
-    if (t) headers.Authorization = `Bearer ${t}`;
+  const token = business ? businessToken.get() : (path.startsWith('/admin') ? adminToken.get() : null);
+  if (token) headers.Authorization = `Bearer ${token}`;
+  let res;
+  try {
+    res = await fetch(`${BASE}${path}`, { method, headers, body: body ? JSON.stringify(body) : undefined });
+  } catch {
+    throw new Error('Could not reach the BrandMark server. Please check your connection and try again.');
   }
-  const res = await fetch(`${BASE}${path}`, {
-    method, headers, credentials: 'same-origin',
-    body: body ? JSON.stringify(body) : undefined
-  });
   let data = {};
   try { data = await res.json(); } catch { /* non-JSON */ }
   if (!res.ok || data.success === false) {
@@ -36,13 +41,8 @@ export async function mp(path, { method = 'GET', body, business = false } = {}) 
 }
 
 export async function adminLogin(email, password) {
-  const res = await fetch('/api/admin/login', {
-    method: 'POST', credentials: 'same-origin',
-    headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': await csrf() },
-    body: JSON.stringify({ email, password })
-  });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok || !data.success) throw new Error(data.message || 'Login failed');
+  const data = await mp('/admin/login', { method: 'POST', body: { email, password } });
+  adminToken.set(data.token);
   return data;
 }
 
