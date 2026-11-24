@@ -29,6 +29,348 @@
       ]
     }
   ],
+  "redirects": [
+    {
+      "source": "/brandmarkAboutUs",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/brandmarkAboutUs.html",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/brandmarkservices",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/brandmarkservices.html",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/brandmarkcareers",
+      "destination": "/careers",
+      "permanent": true
+    },
+    {
+      "source": "/brandmarkcareers.html",
+      "destination": "/careers",
+      "permanent": true
+    },
+    {
+      "source": "/brandmarkpersonalblogs",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/brandmarkpersonalblogs.html",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/BrandmarkSolutions",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/BrandmarkSolutions.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/internphotographercareers",
+      "destination": "/careers",
+      "permanent": true
+    },
+    {
+      "source": "/internphotographercareers.html",
+      "destination": "/careers",
+      "permanent": true
+    },
+    {
+      "source": "/internUIUXcareer",
+      "destination": "/careers",
+      "permanent": true
+    },
+    {
+      "source": "/internUIUXcareer.html",
+      "destination": "/careers",
+      "permanent": true
+    },
+    {
+      "source": "/internwebdesignercareers",
+      "destination": "/careers",
+      "permanent": true
+    },
+    {
+      "source": "/internwebdesignercareers.html",
+      "destination": "/careers",
+      "permanent": true
+    },
+    {
+      "source": "/Socialmediainterncareers",
+      "destination": "/careers",
+      "permanent": true
+    },
+    {
+      "source": "/Socialmediainterncareers.html",
+      "destination": "/careers",
+      "permanent": true
+    },
+    {
+      "source": "/career-application-form",
+      "destination": "/careers",
+      "permanent": true
+    },
+    {
+      "source": "/career-application-form.html",
+      "destination": "/careers",
+      "permanent": true
+    },
+    {
+      "source": "/DigitalMarketingservices",
+      "destination": "/services/digital-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/DigitalMarketingservices.html",
+      "destination": "/services/digital-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/SocialMediaManagementservices",
+      "destination": "/services/social-media",
+      "permanent": true
+    },
+    {
+      "source": "/SocialMediaManagementservices.html",
+      "destination": "/services/social-media",
+      "permanent": true
+    },
+    {
+      "source": "/Websitedevelopmentservice",
+      "destination": "/services/web-development",
+      "permanent": true
+    },
+    {
+      "source": "/Websitedevelopmentservice.html",
+      "destination": "/services/web-development",
+      "permanent": true
+    },
+    {
+      "source": "/brandidentitydesignservices",
+      "destination": "/services/brand-identity",
+      "permanent": true
+    },
+    {
+      "source": "/brandidentitydesignservices.html",
+      "destination": "/services/brand-identity",
+      "permanent": true
+    },
+    {
+      "source": "/contentstrategyservices",
+      "destination": "/services/social-media",
+      "permanent": true
+    },
+    {
+      "source": "/contentstrategyservices.html",
+      "destination": "/services/social-media",
+      "permanent": true
+    },
+    {
+      "source": "/marketstrategyservices",
+      "destination": "/services/digital-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/marketstrategyservices.html",
+      "destination": "/services/digital-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/blog-branding-tips",
+      "destination": "/blog/brand-identity-overhaul-rebranding-without-traffic-loss",
+      "permanent": true
+    },
+    {
+      "source": "/blog-branding-tips.html",
+      "destination": "/blog/brand-identity-overhaul-rebranding-without-traffic-loss",
+      "permanent": true
+    },
+    {
+      "source": "/blog-social-media-strategy",
+      "destination": "/blog/dominate-social-media-2026",
+      "permanent": true
+    },
+    {
+      "source": "/blog-social-media-strategy.html",
+      "destination": "/blog/dominate-social-media-2026",
+      "permanent": true
+    },
+    {
+      "source": "/blog-digital-marketing-roi",
+      "destination": "/blog/maximizing-roi-meta-ads",
+      "permanent": true
+    },
+    {
+      "source": "/blog-digital-marketing-roi.html",
+      "destination": "/blog/maximizing-roi-meta-ads",
+      "permanent": true
+    },
+    {
+      "source": "/blog-logo-design-guide",
+      "destination": "/services/brand-identity",
+      "permanent": true
+    },
+    {
+      "source": "/blog-logo-design-guide.html",
+      "destination": "/services/brand-identity",
+      "permanent": true
+    },
+    {
+      "source": "/blog-email-marketing",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog-email-marketing.html",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog-customer-retention",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog-customer-retention.html",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/quote-request",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/quote-request.html",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/resources-hub",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/resources-hub.html",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/download-guides",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/download-guides.html",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/digital-marketing-course",
+      "destination": "/enroll/digital-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/digital-marketing-course.html",
+      "destination": "/enroll/digital-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-course",
+      "destination": "/enroll/full-stack-dev",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-course.html",
+      "destination": "/enroll/full-stack-dev",
+      "permanent": true
+    },
+    {
+      "source": "/course-dashboard",
+      "destination": "/student-login",
+      "permanent": true
+    },
+    {
+      "source": "/course-dashboard.html",
+      "destination": "/student-login",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-dashboard",
+      "destination": "/student-login",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-dashboard.html",
+      "destination": "/student-login",
+      "permanent": true
+    },
+    {
+      "source": "/course-ai-tutor-free",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-ai-tutor-free.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-projects",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-projects.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-videos",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-videos.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-:n(d+)",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-:n(d+).html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-:n(d+)",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-:n(d+).html",
+      "destination": "/courses",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
