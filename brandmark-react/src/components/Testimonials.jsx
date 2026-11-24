@@ -38,6 +38,24 @@ export const REVIEWS_DATA = [
     isShort: true
   },
   {
+    id: 'video-sakshi',
+    type: 'video',
+    name: "Sakshi Shore",
+    handle: "@sakshialdistancing_",
+    role: "Content Creator & Influencer",
+    initials: "SS",
+    avatar: "https://i.ytimg.com/vi/qlo92jFAeVw/hqdefault.jpg",
+    thumbnail: "https://i.ytimg.com/vi/qlo92jFAeVw/maxresdefault.jpg",
+    videoUrl: "https://youtube.com/shorts/qlo92jFAeVw?si=it9Ia5rUVHtrw13B",
+    videoType: "youtube",
+    tag: "Influencer Shoot Review",
+    duration: "Shorts",
+    metric: "Creator Experience",
+    text: '"Had an amazing experience collaborating with BrandMark Solutions! Their team brought incredible creative direction, professionalism, and top-tier production quality to the shoot in Patna. Truly recommend BrandMark to creators and brands!"',
+    rating: 5,
+    isShort: true
+  },
+  {
     id: 'video-nisha',
     type: 'video',
     name: "Nisha",

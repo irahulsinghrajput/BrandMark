@@ -66,12 +66,16 @@ describe('Testimonials Component', () => {
     expect(screen.getByText(/Fast Execution/i)).toBeInTheDocument();
   });
 
-  it('renders Sanya Srivastava influencer review and text reviews', () => {
+  it('renders Sanya Srivastava, Sakshi Shore, and Nisha influencer reviews and text reviews', () => {
     render(<Testimonials />);
     // Check real influencer Sanya Srivastava
     expect(screen.getByText('Sanya Srivastava')).toBeInTheDocument();
     expect(screen.getByText('@sanyasriiii')).toBeInTheDocument();
     expect(screen.getAllByText('Influencer Shoot Review').length).toBeGreaterThanOrEqual(1);
+
+    // Check real influencer Sakshi Shore
+    expect(screen.getByText('Sakshi Shore')).toBeInTheDocument();
+    expect(screen.getByText('@sakshialdistancing_')).toBeInTheDocument();
 
     // Check real influencer Nisha
     expect(screen.getByText('Nisha')).toBeInTheDocument();
