@@ -351,22 +351,302 @@
       "permanent": true
     },
     {
-      "source": "/course-module-:n(d+)",
+      "source": "/course-module-1",
       "destination": "/courses",
       "permanent": true
     },
     {
-      "source": "/course-module-:n(d+).html",
+      "source": "/course-module-1.html",
       "destination": "/courses",
       "permanent": true
     },
     {
-      "source": "/fullstack-module-:n(d+)",
+      "source": "/course-module-2",
       "destination": "/courses",
       "permanent": true
     },
     {
-      "source": "/fullstack-module-:n(d+).html",
+      "source": "/course-module-2.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-3",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-3.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-4",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-4.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-5",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-5.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-6",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-6.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-7",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-7.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-8",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-8.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-9",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-9.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-10",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-10.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-11",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-11.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-12",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-12.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-13",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-13.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-14",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-14.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-15",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/course-module-15.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-1",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-1.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-2",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-2.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-3",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-3.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-4",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-4.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-5",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-5.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-6",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-6.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-7",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-7.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-8",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-8.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-9",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-9.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-10",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-10.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-11",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-11.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-12",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-12.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-13",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-13.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-14",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-14.html",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-15",
+      "destination": "/courses",
+      "permanent": true
+    },
+    {
+      "source": "/fullstack-module-15.html",
       "destination": "/courses",
       "permanent": true
     }

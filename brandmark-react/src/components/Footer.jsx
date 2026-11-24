@@ -34,7 +34,7 @@ const YoutubeIcon = ({ className }) => (
 export const Footer = () => {
   return (
     <footer className="bg-gradient-to-b from-[#0B2C4D] to-[#0B0F19] text-white font-outfit border-t border-[#0B2C4D]/50">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 pt-16 pb-8">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 pt-16 pb-28">
         
         {/* Main Grid Area */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
@@ -179,9 +179,11 @@ export const Footer = () => {
         
         {/* Bottom Bar */}
         <div className="border-t border-[#2A3B58] mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-[#94A3B8] text-xs text-center md:text-left">
-            © 2026 BrandMark Media Solutions Private Limited. All rights reserved.
-          </p>
+          <div className="text-[#94A3B8] text-xs text-center md:text-left leading-relaxed space-y-1">
+            <p>© 2026 BrandMark Media Solutions Private Limited. All rights reserved.</p>
+            <p>BrandMark Solutions is the trading name of BrandMark Media Solutions Private Limited. CIN: U62011BR2026PTC089491</p>
+            <p>Registered office: 400 pat, Gangotri Sadan, Buddha Colony, Patna G.P.O., Patna, Phulwari, Bihar, India, 800001</p>
+          </div>
           <div className="flex gap-6">
             <Link to="/privacy-policy" className="text-[#94A3B8] hover:text-white text-xs transition-colors">Privacy Policy</Link>
             <Link to="/terms-of-service" className="text-[#94A3B8] hover:text-white text-xs transition-colors">Terms of Service</Link>
