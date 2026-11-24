@@ -78,6 +78,8 @@ const BusinessLogin = lazy(() => import('./pages/marketplace/BusinessAuth').then
 const BusinessDashboard = lazy(() => import('./pages/marketplace/BusinessDashboard'));
 const MarketplaceAdmin = lazy(() => import('./pages/marketplace/MarketplaceAdmin'));
 
+const NotFound = lazy(() => import('./pages/NotFound'));
+import { PrerenderCleanup } from './components/PrerenderCleanup';
 import { AdminRoute } from './components/AdminRoute';
 import { ClientRoute } from './components/ClientRoute';
 
@@ -190,6 +192,7 @@ function App() {
           {!isDashboard && <ScrollToTopButton />}
           <AnimatePresence mode="wait" initial={false}>
             <Suspense fallback={<PageLoader />}>
+              <PrerenderCleanup />
               <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<AboutUs />} />
@@ -263,6 +266,7 @@ function App() {
                     </ProtectedRoute>
                   } 
                 />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
           </AnimatePresence>

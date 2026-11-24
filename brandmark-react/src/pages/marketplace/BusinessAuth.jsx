@@ -28,7 +28,7 @@ export const BusinessAuth = ({ mode = 'login' }) => {
 
   return (
     <>
-      <Helmet><title>{isSignup ? 'Register Your Business' : 'Business Login'} | BrandMark Connect</title><meta name="robots" content="noindex" /></Helmet>
+      <Helmet><title>{`${isSignup ? 'Register Your Business' : 'Business Login'} | BrandMark Connect`}</title><meta name="robots" content="noindex" /></Helmet>
       <Shell narrow>
         <h1 className="text-3xl font-extrabold text-brand-navy mb-2">{isSignup ? 'Register your business' : 'Business login'}</h1>
         <p className="text-brand-text-muted mb-8">

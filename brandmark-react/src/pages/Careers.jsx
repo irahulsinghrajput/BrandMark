@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import gsap from 'gsap';
 import { PageTransition } from '../components/PageTransition';
+import { SEO } from '../components/SEO';
 
 export const Careers = () => {
   useEffect(() => {
@@ -35,6 +36,11 @@ export const Careers = () => {
 
   return (
     <PageTransition>
+      <SEO
+        title="Careers & Internships in Patna | BrandMark Solutions"
+        description="Internships in social media, photography, web design and UI/UX at BrandMark Media Solutions Private Limited, Patna."
+        canonicalUrl="https://www.brandmarksolutions.site/careers"
+      />
       <div className="pt-32 pb-20 bg-brand-bg-light min-h-screen">
         <div className="max-w-7xl mx-auto px-6 careers-content">
           <div className="text-center mb-16">

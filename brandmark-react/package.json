@@ -7,7 +7,7 @@
     "dev": "node scripts/parse-content.cjs && vite",
     "prebuild": "node scripts/parse-content.cjs",
     "build": "vite build",
-    "postbuild": "node scripts/generate-sitemap.cjs && node scripts/prerender-seo.cjs && node scripts/submit-indexnow.cjs",
+    "postbuild": "vite build --ssr src/entry-prerender.jsx --outDir dist-ssr && node scripts/generate-sitemap.cjs && node scripts/prerender-seo.cjs && node scripts/submit-indexnow.cjs",
     "indexnow": "node scripts/submit-indexnow.cjs",
     "lint": "oxlint",
     "test": "vitest run",

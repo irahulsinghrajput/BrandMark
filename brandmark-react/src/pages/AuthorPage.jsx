@@ -54,6 +54,7 @@ export const AuthorPage = () => {
         <SEO 
           title={`${author.name} - ${author.role} | BrandMark Solutions`} 
           description={author.bio.substring(0, 150) + '...'}
+          canonicalUrl={`https://www.brandmarksolutions.site/authors/${author.id}`}
         />
         <Helmet>
           <script type="application/ld+json">

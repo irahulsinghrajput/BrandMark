@@ -1,6 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 
+const { pathToFileURL } = require('url');
+const { appRoutes } = require('./routes.cjs');
+
+const SSR_ENTRY = path.join(__dirname, '../dist-ssr/entry-prerender.js');
 const DIST_DIR = path.join(__dirname, '../dist');
 const DATA_DIR = path.join(__dirname, '../src/data');
 const BASE_URL = 'https://www.brandmarksolutions.site';
@@ -142,7 +146,7 @@ function buildHtmlPage(templateHtml, {
   return html;
 }
 
-function prerenderSeo() {
+async function prerenderSeo() {
   const indexHtmlPath = path.join(DIST_DIR, 'index.html');
   if (!fs.existsSync(indexHtmlPath)) {
     console.error(`Dist index.html not found at ${indexHtmlPath}. Run vite build first.`);
@@ -404,51 +408,59 @@ function prerenderSeo() {
   fs.writeFileSync(path.join(blogRoot, 'index.html'), blogIndexHtml, 'utf8');
 
   // ------------------------------------------------------------------------
-  // 3. PRERENDER CORPORATE INFO & CORE PAGES
+  // 3. RENDER EVERY OTHER PUBLIC PAGE FROM THE REACT APP
   // ------------------------------------------------------------------------
-  const staticPages = [
-    {
-      route: 'corporate-info',
-      title: 'Corporate Information | BrandMark Media Solutions Private Limited',
-      description: 'Official corporate credentials, MCA registration, CIN, registered office, and directors of BrandMark Media Solutions Private Limited in Patna, Bihar.'
-    },
-    {
-      route: 'about',
-      title: 'About Us | BrandMark Media Solutions Private Limited',
-      description: 'Learn about BrandMark Media Solutions Private Limited, our leadership team, our mission, and how we empower businesses across India with digital growth.'
-    },
-    {
-      route: 'services',
-      title: 'Our Services | Digital Marketing, Web Development & AI Automation',
-      description: 'Full-suite growth services by BrandMark Media Solutions Private Limited: performance marketing, custom web applications, commercial shoots, and AI workflows.'
-    },
-    {
-      route: 'portfolio',
-      title: 'Client Portfolio & Case Studies | BrandMark Solutions',
-      description: 'Explore featured client work, social media campaigns, brand designs, and marketing results delivered by BrandMark Solutions.'
-    },
-    {
-      route: 'contact',
-      title: 'Contact Us | BrandMark Media Solutions Private Limited',
-      description: 'Get in touch with BrandMark Media Solutions Private Limited. Request a free consultation or audit for your business.'
+  const { render } = await import(pathToFileURL(SSR_ENTRY).href);
+  const problems = [];
+
+  for (const route of appRoutes) {
+    const { html, errors } = await render(route);
+    const { head, body } = splitHead(html);
+    const title = /<title[^>]*>([^<]+)<\/title>/.test(head);
+    const canonical = head.includes(`href="${BASE_URL}${route === '/' ? '' : route}"`);
+    const words = body.replace(/<(script|style|svg)[\s\S]*?<\/\1>/g, ' ').replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+    if (errors.length || !title || !canonical || words < 100 || /noindex/.test(head)) {
+      problems.push(`${route}: title=${title} canonical=${canonical} words=${words} ${errors.map((e) => e.message).join('; ')}`);
     }
-  ];
+    const page = templateHtml
+      // the page brings its own title, description, canonical, etc. (exactly one of each)
+      .replace(/<title>[\s\S]*?<\/title>/i, '')
+      .replace(/\s*<meta name="(description|keywords)"[^>]*>/gi, '')
+      .replace(/\s*<link rel="canonical"[^>]*>/gi, '')
+      .replace('</head>', () => `${head}\n</head>`)
+      .replace('<div id="root"></div>', () => `<div id="root" hidden></div><div id="prerendered">${body}</div>`);
+    const dir = path.join(DIST_DIR, route);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, 'index.html'), page, 'utf8');
+  }
 
-  staticPages.forEach(({ route, title, description }) => {
-    const pageUrl = `${BASE_URL}/${route}`;
-    const pageHtml = buildHtmlPage(templateHtml, {
-      title,
-      description,
-      canonicalUrl: pageUrl,
-      ogType: 'website'
-    });
+  // Empty app page for private/unknown URLs (dashboards, login, wrong links): never indexed,
+  // and without the home page's canonical or content.
+  const shell = templateHtml
+    .replace(/\s*<link rel="canonical"[^>]*>/gi, '')
+    .replace(/\s*<meta name="(googlebot|bingbot)"[^>]*>/gi, '')
+    .replace(/<meta name="robots"[^>]*>/i, '<meta name="robots" content="noindex" />');
+  fs.mkdirSync(path.join(DIST_DIR, 'app-shell'), { recursive: true });
+  fs.writeFileSync(path.join(DIST_DIR, 'app-shell', 'index.html'), shell, 'utf8');
 
-    const routeDir = path.join(DIST_DIR, route);
-    fs.mkdirSync(routeDir, { recursive: true });
-    fs.writeFileSync(path.join(routeDir, 'index.html'), pageHtml, 'utf8');
-  });
-
-  console.log(`Successfully pre-rendered static HTML for ${blogs.length} blogs and ${staticPages.length + 1} static pages.`);
+  if (problems.length) {
+    throw new Error(`Prerender problems on ${problems.length} page(s):\n${problems.join('\n')}`);
+  }
+  console.log(`Pre-rendered ${appRoutes.length} app pages, ${blogs.length} blogs and the blog directory.`);
 }
 
-prerenderSeo();
+// React puts the page's title/meta/link tags at the very start of its output.
+function splitHead(html) {
+  const tags = [];
+  let rest = html;
+  let m;
+  while ((m = rest.match(/^\s*(<title[^>]*>[\s\S]*?<\/title>|<meta[^>]*>|<link[^>]*>)/))) {
+    if (!/rel="preload"/.test(m[1])) tags.push(m[1].replace(/^<(\w+)/, '<$1 data-prerender'));
+    rest = rest.slice(m[0].length);
+  }
+  // animation start states (opacity:0) would hide the content until JavaScript runs
+  const body = rest.replace(/opacity:0(?=[;"])/g, 'opacity:1');
+  return { head: tags.join('\n'), body };
+}
+
+prerenderSeo().then(() => process.exit(0)).catch((e) => { console.error(e); process.exit(1); });

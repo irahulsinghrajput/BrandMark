@@ -12,11 +12,20 @@ const apiOriginInCsp = (apiUrl) => ({
   }
 })
 
+// Search engine ownership tags, added only when the code is set in the hosting environment.
+const verificationTags = (env) => ({
+  name: 'search-verification-tags',
+  transformIndexHtml: () => [['msvalidate.01', env.VITE_BING_VERIFICATION], ['yandex-verification', env.VITE_YANDEX_VERIFICATION]]
+    .filter(([, content]) => content)
+    .map(([name, content]) => ({ tag: 'meta', attrs: { name, content }, injectTo: 'head' }))
+})
+
 // https://vite.dev/config/
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode, isSsrBuild }) => {
   const env = { ...loadEnv(mode, process.cwd(), 'VITE_'), ...process.env };
   return {
-    plugins: [react(), apiOriginInCsp(env.VITE_API_URL)],
+    plugins: [react(), apiOriginInCsp(env.VITE_API_URL), verificationTags(env)],
+    publicDir: isSsrBuild ? false : 'public', // the SSR bundle only renders pages at build time
     server: {
       port: 3000,
       strictPort: true, // Fail if port is already in use instead of trying the next available port

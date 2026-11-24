@@ -1,54 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 
-const locations = require('../src/data/locations.json');
-const industries = require('../src/data/industries.json');
+const { blogs, pageRoutes, allRoutes } = require('./routes.cjs');
 
 const DIST_DIR = path.join(__dirname, '../dist');
 const PUBLIC_DIR = path.join(__dirname, '../public');
-const DATA_DIR = path.join(__dirname, '../src/data');
 
 const BASE_URL = 'https://www.brandmarksolutions.site';
 
 function generateSitemap() {
-  // Load Blogs if available
-  let blogs = [];
-  try {
-    if (fs.existsSync(path.join(DATA_DIR, 'blogs.json'))) {
-      blogs = require(path.join(DATA_DIR, 'blogs.json'));
-    }
-  } catch (e) {
-    console.warn("Could not load blogs.json");
-  }
-
-  const staticRoutes = [
-    '/',
-    '/about',
-    '/services',
-    '/portfolio',
-    '/blog',
-    '/careers',
-    '/contact',
-    '/privacy-policy',
-    '/terms-of-service'
-  ];
-
-  const serviceRoutes = [
-    '/services/digital-marketing',
-    '/services/performance-marketing',
-    '/services/web-development',
-    '/services/brand-identity',
-    '/services/social-media',
-    '/services/photography',
-    '/services/videography',
-    '/services/influencer-marketing'
-  ];
-
-  const locationRoutes = Object.keys(locations).filter(k => k !== 'default').map(k => `/locations/${k}`);
-  const industryRoutes = Object.keys(industries).filter(k => k !== 'default').map(k => `/industries/${k}`);
-  const blogRoutes = blogs.map(b => `/blog/${b.slug || b.id}`);
-
-  const allRoutes = [...staticRoutes, ...serviceRoutes, ...locationRoutes, ...industryRoutes, ...blogRoutes];
   const today = new Date().toISOString().split('T')[0];
 
   // 1. MAIN SITEMAP
@@ -66,19 +26,14 @@ function generateSitemap() {
     <loc>${BASE_URL}/image-sitemap.xml</loc>
     <lastmod>${today}</lastmod>
   </sitemap>
-  <sitemap>
-    <loc>${BASE_URL}/news-sitemap.xml</loc>
-    <lastmod>${today}</lastmod>
-  </sitemap>
 </sitemapindex>`;
 
   // 2. PAGES SITEMAP
   const pagesSitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  ${[...staticRoutes, ...serviceRoutes, ...locationRoutes, ...industryRoutes].map(route => `
+  ${pageRoutes.map(route => `
   <url>
     <loc>${BASE_URL}${route}</loc>
-    <lastmod>${today}</lastmod>
     <changefreq>${route === '/' ? 'daily' : 'weekly'}</changefreq>
     <priority>${route === '/' ? '1.0' : (route.startsWith('/services') ? '0.9' : '0.8')}</priority>
   </url>`).join('')}
@@ -118,10 +73,12 @@ function generateSitemap() {
   </url>
 </urlset>`;
 
-  // 5. NEWS SITEMAP
+  // 5. NEWS SITEMAP (the news format only allows articles from the last 2 days)
+  const xml = (s) => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const recentBlogs = blogs.filter(b => { const age = Date.now() - new Date(b.date_published || b.date || 0).getTime(); return age >= 0 && age < 2 * 86400000; });
   const newsSitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
-  ${blogs.map(blog => `
+  ${recentBlogs.map(blog => `
   <url>
     <loc>${BASE_URL}/blog/${blog.slug || blog.id}</loc>
     <news:news>
@@ -130,7 +87,7 @@ function generateSitemap() {
         <news:language>en</news:language>
       </news:publication>
       <news:publication_date>${(blog.date_published || blog.date || today).split('T')[0]}</news:publication_date>
-      <news:title>${blog.title}</news:title>
+      <news:title>${xml(blog.title)}</news:title>
     </news:news>
   </url>`).join('')}
 </urlset>`;
@@ -163,7 +120,8 @@ function generateSitemap() {
     fs.writeFileSync(path.join(dir, 'news-sitemap.xml'), newsSitemapXml);
     fs.writeFileSync(path.join(dir, 'rss.xml'), rssXml);
     // IndexNow Key verification file for Bing & Yandex instant indexing
-    fs.writeFileSync(path.join(dir, '7f8a9b1c2d3e4f5a6b7c8d9e0f1a2b3c.txt'), '7f8a9b1c2d3e4f5a6b7c8d9e0f1a2b3c');
+    const keyFile = path.join(dir, '7f8a9b1c2d3e4f5a6b7c8d9e0f1a2b3c.txt');
+    if (!fs.existsSync(keyFile)) fs.writeFileSync(keyFile, '7f8a9b1c2d3e4f5a6b7c8d9e0f1a2b3c');
   };
 
   const ROOT_DIR = path.join(__dirname, '../..');

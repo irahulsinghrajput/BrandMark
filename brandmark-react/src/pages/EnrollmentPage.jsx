@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { PageTransition } from '../components/PageTransition';
+import { SEO } from '../components/SEO';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'react-hot-toast';
 import { trackEvent } from '../lib/analytics';
@@ -368,6 +369,11 @@ export const EnrollmentPage = () => {
 
   return (
     <PageTransition>
+      <SEO
+        title={`Enroll: ${course.title} | BrandMark Academy`}
+        description={`Enroll in ${course.title} at BrandMark Academy, Patna. Choose a Self-Paced, Pro or 1-on-1 VIP Mentorship plan.`}
+        canonicalUrl={`https://www.brandmarksolutions.site/enroll/${activeCourseId}`}
+      />
       <div className="min-h-screen pt-28 pb-20 bg-brand-bg-light relative overflow-hidden">
         {/* Background Gradients */}
         <div className="absolute top-1/4 -left-48 w-96 h-96 bg-brand-orange/15 rounded-full filter blur-[120px] pointer-events-none"></div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { PageTransition } from '../components/PageTransition';
+import { SEO } from '../components/SEO';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const Courses = () => {
@@ -52,6 +53,11 @@ export const Courses = () => {
 
   return (
     <PageTransition>
+      <SEO
+        title="Digital Marketing & Full Stack Courses | BrandMark Academy"
+        description="BrandMark Academy courses in digital marketing and full-stack web development, with Self-Paced, Pro and 1-on-1 VIP Mentorship plans."
+        canonicalUrl="https://www.brandmarksolutions.site/courses"
+      />
       <div className="pt-32 pb-20 bg-brand-bg-light min-h-screen relative overflow-hidden">
         
         <div className="max-w-6xl mx-auto px-6">
