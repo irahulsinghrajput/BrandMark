@@ -57,7 +57,7 @@ export const Hero = () => {
         
         <div className="overflow-hidden mb-12">
           <p className="reveal-text mt-4 max-w-2xl mx-auto text-xl md:text-2xl text-brand-text-body font-light">
-            Building brands and growth systems for global markets. 
+            A digital marketing, social media and website development agency in Patna, Bihar.
             We turn ambition into execution.
           </p>
         </div>

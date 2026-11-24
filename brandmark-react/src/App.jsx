@@ -11,7 +11,7 @@ import { TalkToMarkVapi } from './components/TalkToMarkVapi';
 import { RealtimeProvider } from './context/RealtimeProvider';
 
 import { ProtectedRoute } from './components/ProtectedRoute';
-import { HelmetProvider, Helmet } from 'react-helmet-async';
+import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
 import { WhatsAppButton } from './components/WhatsAppButton';
 import { ChatBotWidget } from './components/ChatBotWidget';
@@ -115,65 +115,11 @@ function App() {
   // Hide Navbar/Footer on dashboard route for immersive experience
   const isDashboard = location.pathname.startsWith('/dashboard');
 
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "Corporation"],
-    "name": "BrandMark Media Solutions Pvt Ltd",
-    "legalName": "BrandMark Media Solutions Private Limited",
-    "alternateName": [
-      "BrandMark Solutions Private Limited",
-      "BrandMark Media Solutions Private Limited",
-      "BrandMark Media Solutions Pvt Ltd",
-      "BrandMark Solutions"
-    ],
-    "image": "https://www.brandmarksolutions.site/brandmark-logo-new.png.webp",
-    "@id": "https://www.brandmarksolutions.site",
-    "url": "https://www.brandmarksolutions.site",
-    "telephone": "+917091863003",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "400 pat, Gangotri Sadan, Buddha Colony, Patna G.P.O., Phulwari",
-      "addressLocality": "Patna",
-      "addressRegion": "Bihar",
-      "postalCode": "800001",
-      "addressCountry": "IN"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 25.6186,
-      "longitude": 85.1278
-    },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "opens": "09:00",
-      "closes": "18:00"
-    },
-    "sameAs": [
-      "https://www.facebook.com/brandmarksolutions",
-      "https://www.instagram.com/brandmarksolutions/",
-      "https://www.linkedin.com/company/brandmarksolutions/",
-      "https://www.youtube.com/@BrandMarkSolutions"
-    ]
-  };
-
   return (
     <HelmetProvider>
       <RealtimeProvider>
         <ModalProvider>
           <Layout>
-          <Helmet>
-            <script type="application/ld+json">
-              {JSON.stringify(localBusinessSchema)}
-            </script>
-          </Helmet>
-          
           {!isDashboard && <Navbar />}
           <StrategyModal />
           <TalkToMarkVapi />

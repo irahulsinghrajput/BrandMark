@@ -7,7 +7,7 @@ const load = (f, fallback) => { try { return require(path.join(DATA, f)); } catc
 const blogs = load('blogs.json', []);
 const keys = (o) => Object.keys(o).filter((k) => k !== 'default');
 
-const staticRoutes = ['/', '/about', '/services', '/portfolio', '/case-studies', '/industries', '/careers',
+const staticRoutes = ['/', '/about', '/services', '/portfolio', '/industries', '/careers',
   '/courses', '/contact', '/leads', '/leads/post', '/privacy-policy', '/terms-of-service'];
 const serviceRoutes = ['digital-marketing', 'performance-marketing', 'web-development', 'brand-identity',
   'social-media', 'photography', 'videography', 'influencer-marketing'].map((s) => `/services/${s}`);

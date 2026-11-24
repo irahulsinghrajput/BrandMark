@@ -63,7 +63,7 @@ export const IndustryPage = () => {
                 ))}
               </ul>
               
-              <RelatedLinks currentType="industry" currentId={normalizedId} />
+              <RelatedLinks currentId={normalizedId} />
             </div>
             
             <div className="bg-brand-navy p-10 rounded-3xl shadow-xl text-white flex flex-col justify-center">

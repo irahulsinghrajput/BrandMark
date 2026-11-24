@@ -3,22 +3,19 @@ import { Link } from 'react-router-dom';
 import locations from '../data/locations.json';
 import industries from '../data/industries.json';
 
-export const RelatedLinks = ({ currentType, currentId }) => {
-  // Get a random selection of 2 locations and 2 industries to cross-link
-  const locationKeys = Object.keys(locations).filter(k => k !== 'default' && k !== currentId);
+export const RelatedLinks = ({ currentId }) => {
+  // Same links on every build: the main location pages first, then the next entries in the list
+  const locationKeys = ['patna', 'bihar', 'muzaffarpur', 'gaya'].filter(k => locations[k] && k !== currentId);
   const industryKeys = Object.keys(industries).filter(k => k !== 'default' && k !== currentId);
-  
-  // Shuffle helper
-  const shuffle = (array) => array.sort(() => 0.5 - Math.random());
-  
-  const selectedLocations = shuffle(locationKeys).slice(0, 2);
-  const selectedIndustries = shuffle(industryKeys).slice(0, 2);
+  const start = Math.max(0, Object.keys(industries).filter(k => k !== 'default').indexOf(currentId));
+  const selectedLocations = locationKeys.slice(0, 2);
+  const selectedIndustries = [0, 1].map(i => industryKeys[(start + i) % industryKeys.length]);
 
   const links = [
     ...selectedLocations.map(k => ({ title: `Digital Marketing in ${locations[k].name}`, url: `/locations/${k}` })),
     ...selectedIndustries.map(k => ({ title: `${industries[k].name} Marketing`, url: `/industries/${k}` })),
     { title: 'Our Core Services', url: '/services' },
-    { title: 'View Case Studies', url: '/case-studies' }
+    { title: 'See Our Work', url: '/portfolio' }
   ];
 
   return (

@@ -4,6 +4,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PageTransition } from '../components/PageTransition';
 import { ServicesList } from '../components/ServicesList';
 import { SEO } from '../components/SEO';
+import { Link } from 'react-router-dom';
+import { serviceNames } from '../data/serviceContent';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,8 +22,8 @@ export const ServicesHub = () => {
   return (
     <PageTransition>
       <SEO 
-        title="Our Services | Website Development & SEO Agency Patna | BrandMark"
-        description="From UI/UX design to Performance Marketing and Local SEO. BrandMark Solutions delivers comprehensive digital growth for businesses in Bihar and North India."
+        title="Digital Marketing, Web & Creative Services in Patna | BrandMark"
+        description="Digital marketing, SEO, social media, website development, branding, photography, video and influencer services in Patna and across Bihar."
         canonicalUrl="https://www.brandmarksolutions.site/services"
         schema={[
           {
@@ -30,7 +32,7 @@ export const ServicesHub = () => {
             "serviceType": "Digital Marketing and Web Development",
             "provider": {
               "@type": "Organization",
-              "name": "BrandMark Solutions Private Ltd.",
+              "name": "BrandMark Media Solutions Private Limited",
               "address": {
                 "@type": "PostalAddress",
                 "addressLocality": "Patna",
@@ -75,13 +77,26 @@ export const ServicesHub = () => {
               Our <span className="text-brand-orange">Services</span>
             </h1>
             <p className="services-hub-title mt-4 max-w-2xl mx-auto text-xl text-brand-text-muted font-light delay-100">
-              Comprehensive growth solutions tailored for local market dominance across Bihar and North India.
+              Digital marketing, websites, branding and creative production for businesses in Patna, across Bihar and beyond.
             </p>
           </div>
         </section>
 
         {/* Reusing the Services component which has the cards and GSAP logic */}
         <ServicesList />
+
+        <section className="bg-brand-bg-light py-20">
+          <div className="max-w-7xl mx-auto px-6">
+            <h2 className="text-3xl font-bold text-brand-navy mb-8">Explore each service</h2>
+            <ul className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {Object.entries(serviceNames).map(([id, name]) => (
+                <li key={id}>
+                  <Link to={`/services/${id}`} className="block h-full bg-white border border-brand-border-light rounded-2xl p-5 font-semibold text-brand-navy hover:border-brand-orange hover:text-brand-orange transition-colors">{name}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
         
       </div>
     </PageTransition>

@@ -37,9 +37,8 @@ export const Home = () => {
   return (
     <PageTransition>
       <SEO
-        title="BrandMark Solutions | BrandMark Media Solutions Private Limited"
-        description="Official site of BrandMark Media Solutions Private Limited (BrandMark Solutions). We engineer high-converting websites, ROI-driven digital marketing campaigns, and AI automation systems in Patna, Bihar & worldwide."
-        keywords="BrandMark Solutions Private Limited, BrandMark Media Solutions Private Limited, BrandMark Solutions, BrandMark Media Solutions, Brandmark Media Solutions Pvt Ltd, BrandMark Solutions Pvt Ltd, BrandMark Patna, best digital marketing company in patna, website development in bihar, Patna branding agency"
+        title="BrandMark Solutions | Digital Marketing & Web Agency in Patna, Bihar"
+        description="BrandMark Media Solutions Private Limited: digital marketing, social media, branding and website development agency in Buddha Colony, Patna, Bihar."
         canonicalUrl="https://www.brandmarksolutions.site"
         schema={[
           {

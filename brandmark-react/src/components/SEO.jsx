@@ -4,14 +4,11 @@ import { Helmet } from 'react-helmet-async';
 export const SEO = ({ 
   title, 
   description, 
-  keywords,
   canonicalUrl, 
   ogImage = "https://www.brandmarksolutions.site/brandmark-logo-new.png.webp",
   schema,
   type = "website" 
 }) => {
-  const defaultKeywords = "BrandMark Solutions Private Limited, BrandMark Media Solutions Private Limited, BrandMark Solutions, BrandMark Media Solutions, Brandmark Media Solutions Pvt Ltd, BrandMark Solutions Pvt Ltd, BrandMark Patna, digital marketing agency in patna, website development in bihar, commercial photography patna, cinematic videography bihar, influencer marketing agency patna, local seo patna";
-  const finalKeywords = keywords ? `${keywords}, ${defaultKeywords}` : defaultKeywords;
 
   const baseSchema = [
     {
@@ -25,12 +22,7 @@ export const SEO = ({
         "Brandmark Media Solutions Pvt Ltd",
         "BrandMark Solutions"
       ],
-      "url": "https://www.brandmarksolutions.site",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://www.brandmarksolutions.site/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
+      "url": "https://www.brandmarksolutions.site"
     },
     {
       "@context": "https://schema.org",
@@ -85,79 +77,26 @@ export const SEO = ({
         "India"
       ],
       "knowsAbout": [
-        "BrandMark Solutions Private Limited",
-        "BrandMark Media Solutions Private Limited",
-        "Best Digital Marketing Company in Patna",
-        "Website Development in Bihar",
-        "Commercial Photography in Patna",
-        "Cinematic Videography & Reels in Bihar",
-        "Influencer Marketing Agency in Patna",
-        "Local SEO & Google Maps Ranking Patna"
+        "Search engine optimisation",
+        "Local SEO",
+        "Google Ads",
+        "Meta Ads",
+        "Social media marketing",
+        "Website development",
+        "Brand identity design",
+        "Photography",
+        "Video production",
+        "Influencer marketing"
       ],
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "400 pat, Gangotri Sadan, Buddha Colony, Patna G.P.O., Phulwari",
+        "streetAddress": "Gangotri, Buddha Colony",
         "addressLocality": "Patna",
         "addressRegion": "Bihar",
         "postalCode": "800001",
         "addressCountry": "IN"
       }
     },
-    {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      "name": "BrandMark Solutions Navigation & Featured Case Studies",
-      "itemListElement": [
-        {
-          "@type": "SiteNavigationElement",
-          "position": 1,
-          "name": "Services",
-          "url": "https://www.brandmarksolutions.site/services"
-        },
-        {
-          "@type": "SiteNavigationElement",
-          "position": 2,
-          "name": "About Us",
-          "url": "https://www.brandmarksolutions.site/about"
-        },
-        {
-          "@type": "SiteNavigationElement",
-          "position": 3,
-          "name": "Portfolio & Case Studies",
-          "url": "https://www.brandmarksolutions.site/portfolio"
-        },
-        {
-          "@type": "SiteNavigationElement",
-          "position": 4,
-          "name": "Blog & Insights",
-          "url": "https://www.brandmarksolutions.site/blog"
-        },
-        {
-          "@type": "SiteNavigationElement",
-          "position": 5,
-          "name": "GovTech Bihar Portals Case Study",
-          "url": "https://www.brandmarksolutions.site/blog/digital-transformation-bihar-government-portals"
-        },
-        {
-          "@type": "SiteNavigationElement",
-          "position": 6,
-          "name": "School Admission Marketing Bihar (GIS Patna)",
-          "url": "https://www.brandmarksolutions.site/blog/school-admission-marketing-bihar"
-        },
-        {
-          "@type": "SiteNavigationElement",
-          "position": 7,
-          "name": "Hospital Marketing Patna",
-          "url": "https://www.brandmarksolutions.site/blog/healthcare-digital-marketing-hospitals-patna-bihar"
-        },
-        {
-          "@type": "SiteNavigationElement",
-          "position": 8,
-          "name": "Hotel & Banquet Marketing Bihar",
-          "url": "https://www.brandmarksolutions.site/blog/hotel-banquet-marketing-patna-bihar"
-        }
-      ]
-    }
   ];
 
   let finalSchema = baseSchema;
@@ -173,16 +112,12 @@ export const SEO = ({
     <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />
-      <meta name="keywords" content={finalKeywords} />
       <meta name="author" content="BrandMark Media Solutions Private Limited" />
       
       {/* Universal Search Engine Crawler Directives */}
       <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
       <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
       <meta name="bingbot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-      <meta name="slurp" content="index, follow" />
-      <meta name="duckduckbot" content="index, follow" />
-      <meta name="yandex" content="index, follow" />
       
       {/* Canonical URL */}
       {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}

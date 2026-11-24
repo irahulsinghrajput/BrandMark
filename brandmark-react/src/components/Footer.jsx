@@ -86,6 +86,9 @@ export const Footer = () => {
                 <Link to="/services/performance-marketing" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Performance Marketing</Link>
               </li>
               <li>
+                <Link to="/services/social-media" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Social Media Marketing</Link>
+              </li>
+              <li>
                 <Link to="/services/web-development" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Web Development</Link>
               </li>
               <li>
@@ -118,6 +121,9 @@ export const Footer = () => {
               </li>
               <li>
                 <Link to="/blog" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Blog Directory</Link>
+              </li>
+              <li>
+                <Link to="/locations/bihar" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm">Digital Marketing in Bihar</Link>
               </li>
               <li>
                 <Link to="/locations/patna" className="text-[#94A3B8] hover:text-white hover:translate-x-1 transition-all duration-300 inline-block text-sm text-brand-orange/90 font-medium">Patna HQ & Services</Link>
