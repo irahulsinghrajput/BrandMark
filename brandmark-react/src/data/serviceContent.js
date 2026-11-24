@@ -40,7 +40,7 @@ export const serviceContent = {
     title: 'Website Development',
     h1: 'Website Development Company in Patna, Bihar',
     seoTitle: 'Website Development Company in Patna, Bihar | BrandMark',
-    seoDescription: 'Website design and development in Patna and across Bihar: business sites, online stores, portals and dashboards built to load fast and be found on search.',
+    seoDescription: 'Website design and development in Patna and across Bihar, starting from ₹25,000: business sites, online stores, portals and dashboards built to load fast.',
     subtitle: 'Business websites, online stores, portals and dashboards built to load fast on mobile and be found on search.',
     intro: [
       'A website has three jobs: load quickly on a phone, explain what you do, and make it easy to contact you. Many sites in Bihar miss at least one of these, and lose enquiries they have already paid to attract.',
@@ -61,7 +61,7 @@ export const serviceContent = {
       { title: 'Launch & support', desc: 'Go live, set up Search Console and analytics, and agree ongoing maintenance.' }
     ],
     faqs: [
-      { q: 'How much does a website cost in Patna?', a: 'It depends on the number of pages, design, content, payments, logins and integrations. Share your requirement and we will send a written quote that lists what is included, so you can compare it fairly with others.' },
+      { q: 'How much does a website cost in Patna?', a: 'Website projects at BrandMark start from ₹25,000. The final price depends on the number of pages, design, content, payments, logins and integrations. Share your requirement and we will send a written quote that lists what is included.' },
       { q: 'How long does it take to build a website?', a: 'A small business website is usually quicker than a store or portal. The biggest factor is how soon content, photos and approvals are ready. We give you a schedule before starting.' },
       { q: 'Will my website show up on Google and Bing?', a: 'We build it so search engines can read it, and submit the sitemap. Ranking for competitive searches also needs content, reviews and links over time, which we offer as a separate SEO service.' },
       { q: 'Can you redesign my existing website?', a: 'Yes. We keep the addresses of useful pages, or redirect them properly, so you do not lose the search visibility you already have.' }

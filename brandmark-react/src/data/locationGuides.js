@@ -22,7 +22,7 @@ export const locationGuides = {
       { q: 'Which is the best digital marketing agency in Patna?', a: 'It depends on your goal, budget and industry, and there is no official ranking. Shortlist two or three agencies, check live work, make sure accounts stay in your name and compare written scopes. BrandMark Solutions in Buddha Colony is one option, and we are happy to be compared.' },
       { q: 'What services does BrandMark offer in Patna?', a: 'SEO and local SEO, Google and Meta ads, social media, website development, branding, photography, video production and influencer campaigns.' },
       { q: 'How much does digital marketing cost in Patna?', a: 'It depends on the services, the competition and how much content and advertising you need. Ad spend is paid to Google or Meta separately from agency fees. Ask for a written quote that shows both.' },
-      { q: 'Where is the BrandMark office?', a: 'Gangotri, Buddha Colony, Patna 800001. Call +91 70918 63003 or email contact@brandmarksolutions.site before you visit.' }
+      { q: 'Where is the BrandMark office?', a: 'Gangotri, Buddha Colony, Patna 800001. Call +91 70918 63003 or email contact@brandmarksolutions.site, 24×7. Please call before you visit.' }
     ]
   },
   bihar: {

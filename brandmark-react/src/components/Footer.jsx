@@ -163,7 +163,10 @@ export const Footer = () => {
               </li>
               <li className="flex items-start gap-4">
                 <Phone className="w-5 h-5 text-[#F97316] mt-0.5 flex-shrink-0" />
-                <a href="tel:+917091863003" className="text-[#94A3B8] hover:text-white transition-colors text-sm">+91 709 186 3003</a>
+                <div>
+                  <a href="tel:+917091863003" className="text-[#94A3B8] hover:text-white transition-colors text-sm">+91 709 186 3003</a>
+                  <p className="text-[#94A3B8] text-xs mt-1">Open 24×7</p>
+                </div>
               </li>
               <li className="flex items-start gap-4">
                 <MapPin className="w-5 h-5 text-[#F97316] mt-0.5 flex-shrink-0" />

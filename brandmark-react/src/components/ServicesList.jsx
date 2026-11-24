@@ -11,7 +11,7 @@ export const ServicesList = () => {
     {
       id: 'web-development',
       title: 'Website Development',
-      price: 'Starting from ₹1,50,000',
+      price: 'Starting from ₹25,000',
       tags: ['Custom UI/UX', 'MERN Stack', 'SEO Optimized'],
       desc: 'High-converting, lightning-fast websites built on modern tech stacks. We engineer scalable architectures that drive international market dominance and unmatched user experiences.'
     },

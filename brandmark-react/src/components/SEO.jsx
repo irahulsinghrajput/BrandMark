@@ -95,8 +95,14 @@ export const SEO = ({
         "addressRegion": "Bihar",
         "postalCode": "800001",
         "addressCountry": "IN"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "opens": "00:00",
+        "closes": "23:59"
       }
-    },
+    }
   ];
 
   let finalSchema = baseSchema;
