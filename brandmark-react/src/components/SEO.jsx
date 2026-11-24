@@ -101,11 +101,6 @@ export const SEO = ({
         "addressRegion": "Bihar",
         "postalCode": "800001",
         "addressCountry": "IN"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "reviewCount": "89"
       }
     },
     {
