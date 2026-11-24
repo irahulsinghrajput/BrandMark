@@ -183,6 +183,7 @@ export const Footer = () => {
             <p>© 2026 BrandMark Media Solutions Private Limited. All rights reserved.</p>
             <p>BrandMark Solutions is the trading name of BrandMark Media Solutions Private Limited. CIN: U62011BR2026PTC089491</p>
             <p>Registered office: 400 pat, Gangotri Sadan, Buddha Colony, Patna G.P.O., Patna, Phulwari, Bihar, India, 800001</p>
+            <p>Contact person: Rahul Kumar, Director · <a href="tel:+917091863003" className="hover:text-white">+91 709 186 3003</a> · <a href="mailto:contact@brandmarksolutions.site" className="hover:text-white">contact@brandmarksolutions.site</a></p>
           </div>
           <div className="flex gap-6">
             <Link to="/privacy-policy" className="text-[#94A3B8] hover:text-white text-xs transition-colors">Privacy Policy</Link>
