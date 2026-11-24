@@ -126,7 +126,7 @@ export const AboutUs = () => {
             
             <div className="flex flex-wrap justify-center gap-10">
               {[
-                { name: 'Rahul Singh Rajput', role: 'Chief Operational Officer', image: '/images/team/Rahul picture.jpeg' },
+                { name: 'Rahul Kumar (Rahul Singh Rajput)', role: 'Director & Chief Operational Officer', image: '/images/team/Rahul picture.jpeg' },
                 { name: 'Rajeshree Shekhar', role: 'Chief UI/UX Specialist', image: '/images/team/Rajeshree_new.jpg' },
                 { name: 'Lakshya', role: 'Director of Client Services', image: '/images/team/lakshya.png.png' },
                 { name: 'Amisha Singh', role: 'Graphic Designer Specialist', image: '/images/team/amisha.jpg.png' },

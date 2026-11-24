@@ -74,7 +74,7 @@ export const Portfolio = () => {
       category: 'Digital Presence & Luxury Branding', 
       filterCategory: 'Brand Identity',
       image: '/images/hotel-republic.jpg',
-      link: 'https://www.republichotel.in/',
+      link: 'https://hotelrepublic.in/',
       location: 'Patna, Bihar',
       badge: '600% ROI Delivered',
       description: 'Comprehensive digital presence management including Social Media, Digital Marketing, Profile Branding, BrandKit, Photography, and Videography. Delivered a 600% ROI.'
