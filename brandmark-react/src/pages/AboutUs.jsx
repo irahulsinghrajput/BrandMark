@@ -34,7 +34,7 @@ export const AboutUs = () => {
       <SEO 
         title="About Us | BrandMark Media Solutions Private Limited"
         description="Learn about BrandMark Media Solutions Private Limited (BrandMark Solutions). Meet our leadership team and discover our mission in Patna, Bihar."
-        keywords="BrandMark Solutions Private Limited, BrandMark Media Solutions Private Limited, BrandMark Solutions, BrandMark leadership, Rahul Kumar BrandMark, Rajeshree Shekhar BrandMark, BrandMark Patna"
+        keywords="BrandMark Solutions Private Limited, BrandMark Media Solutions Private Limited, BrandMark Solutions, BrandMark leadership, Rahul Singh Rajput BrandMark, Rajeshree Shekhar BrandMark, BrandMark Patna"
         canonicalUrl="https://www.brandmarksolutions.site/about"
         schema={[
           {
@@ -52,7 +52,7 @@ export const AboutUs = () => {
               "founder": [
                 {
                   "@type": "Person",
-                  "name": "Rahul Kumar",
+                  "name": "Rahul Singh Rajput",
                   "jobTitle": "Director & Promoter"
                 },
                 {
@@ -126,7 +126,7 @@ export const AboutUs = () => {
             
             <div className="flex flex-wrap justify-center gap-10">
               {[
-                { name: 'Rahul Kumar (Rahul Singh Rajput)', role: 'Director & Chief Operational Officer', image: '/images/team/Rahul picture.jpeg' },
+                { name: 'Rahul Singh Rajput', role: 'Director & Chief Operational Officer', image: '/images/team/Rahul picture.jpeg' },
                 { name: 'Rajeshree Shekhar', role: 'Chief UI/UX Specialist', image: '/images/team/Rajeshree_new.jpg' },
                 { name: 'Lakshya', role: 'Director of Client Services', image: '/images/team/lakshya.png.png' },
                 { name: 'Amisha Singh', role: 'Graphic Designer Specialist', image: '/images/team/amisha.jpg.png' },

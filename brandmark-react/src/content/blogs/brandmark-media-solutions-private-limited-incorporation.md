@@ -42,7 +42,7 @@ For our clients, banking partners, vendors, and stakeholders, here are our verif
 | **Class & Category** | Private Limited Company (Limited by Shares, Non-Government) |
 | **Registrar of Companies (ROC)** | ROC Patna (Eastern Region Directorate, RD Kolkata) |
 | **Company Status** | Active |
-| **Board of Directors** | Rajeshree Shekhar & Rahul Kumar |
+| **Board of Directors** | Rajeshree Shekhar & Rahul Singh Rajput |
 | **Registered Headquarters** | 400 pat, Gangotri Sadan, Buddha Colony, Patna G.P.O., Phulwari, Patna, Bihar - 800001 |
 
 You can independently verify our corporate status at any time on the [Ministry of Corporate Affairs portal](https://www.mca.gov.in) or learn more about our team on our [About Us page](/about).
@@ -66,7 +66,7 @@ Our integrated growth engine continues to scale across our core verticals:
 - **AI Automation & Autonomous Voice/Chat Agents**
 
 ### 3. Stronger Governance & Long-Term Continuity
-With a formal Board of Directors led by **Rajeshree Shekhar** and **Rahul Kumar**, BrandMark Media Solutions Private Limited is structured for institutional reliability, transparent accounting, and multi-year client partnerships.
+With a formal Board of Directors led by **Rajeshree Shekhar** and **Rahul Singh Rajput**, BrandMark Media Solutions Private Limited is structured for institutional reliability, transparent accounting, and multi-year client partnerships.
 
 ---
 
