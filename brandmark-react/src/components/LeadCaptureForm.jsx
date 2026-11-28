@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { apiFetch } from '../config';
+
+// Keep in sync with CONSENT_TEXT in backend/routes/leads.js
+const CONSENT_TEXT = 'I agree that BrandMark Solutions may store these details and contact me by email, phone or WhatsApp about my enquiry.';
 
 export const LeadCaptureForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -9,12 +13,14 @@ export const LeadCaptureForm = () => {
   const [formData, setFormData] = useState({
     contact_name: '',
     email: '',
+    phone: '',
     company_name: '',
     website: '',
     city: '',
     budget: '',
     services: [],
-    source: 'Organic Search' // default
+    consent: false,
+    source: 'Website contact page'
   });
 
   const servicesList = [
@@ -41,24 +47,25 @@ export const LeadCaptureForm = () => {
     setIsSubmitting(true);
 
     try {
-      // Pointing to the production n8n webhook (injected via Vite env)
-      const WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL;
-      
-      const response = await fetch(WEBHOOK_URL, {
+      // Saved on our own server first; the server hands it to the n8n automation.
+      const response = await apiFetch('/leads/strategy', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
+      let data = {};
+      try { data = await response.json(); } catch { /* non-JSON error page */ }
 
-      if (!response.ok) {
-        throw new Error('Webhook failed');
+      if (!response.ok || data.success === false) {
+        throw new Error(data.message || 'Sorry, we could not send your request. Please try again or call +91 709 186 3003.');
       }
 
       setIsSuccess(true);
-      toast.success("Thank you! Our AI intelligence is analyzing your request.");
+      toast.success('Thank you! A strategist will contact you within one working day.');
     } catch (error) {
       console.error(error);
-      toast.error("Something went wrong. Please ensure the automation server is running.");
+      toast.error(error.message && !/fetch/i.test(error.message)
+        ? error.message
+        : 'Could not reach our server. Please try again or call +91 709 186 3003.');
     } finally {
       setIsSubmitting(false);
     }
@@ -72,7 +79,7 @@ export const LeadCaptureForm = () => {
         </div>
         <h3 className="text-3xl font-extrabold text-brand-navy mb-4">Request Received!</h3>
         <p className="text-gray-600 text-lg mb-8">
-          Our systems are currently analyzing your request. A strategist will reach out shortly with a tailored approach.
+          We have your details. A strategist will contact you within one working day with a tailored approach.
         </p>
         <button 
           onClick={() => setIsSuccess(false)}
@@ -114,6 +121,21 @@ export const LeadCaptureForm = () => {
               onChange={(e) => setFormData({...formData, email: e.target.value})}
               className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-orange focus:border-brand-orange transition-all text-brand-navy placeholder:text-gray-400"
               placeholder="john@company.com"
+            />
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label htmlFor="lead-phone" className="text-sm font-bold text-gray-700">Phone / WhatsApp</label>
+            <input
+              id="lead-phone"
+              type="tel"
+              autoComplete="tel"
+              value={formData.phone}
+              onChange={(e) => setFormData({...formData, phone: e.target.value})}
+              className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-orange focus:border-brand-orange transition-all text-brand-navy placeholder:text-gray-400"
+              placeholder="+91 98765 43210"
             />
           </div>
         </div>
@@ -194,13 +216,25 @@ export const LeadCaptureForm = () => {
           </div>
         </div>
 
+        {/* Consent (required) */}
+        <label className="flex items-start gap-3 text-sm text-gray-700 cursor-pointer">
+          <input
+            type="checkbox"
+            required
+            checked={formData.consent}
+            onChange={(e) => setFormData({...formData, consent: e.target.checked})}
+            className="mt-1 h-5 w-5 rounded border-gray-300 accent-brand-orange"
+          />
+          <span>{CONSENT_TEXT} <a href="/privacy-policy" className="text-brand-orange font-semibold hover:underline">Privacy policy</a></span>
+        </label>
+
         {/* Submit */}
         <div className="pt-6 border-t border-gray-100 flex justify-end">
           <button
             type="submit"
-            disabled={isSubmitting || formData.services.length === 0}
+            disabled={isSubmitting || formData.services.length === 0 || !formData.consent}
             className={`inline-flex items-center justify-center px-10 py-5 rounded-full font-bold text-lg transition-all ${
-              isSubmitting || formData.services.length === 0
+              isSubmitting || formData.services.length === 0 || !formData.consent
                 ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                 : 'bg-brand-navy text-white hover:bg-brand-orange hover:-translate-y-1 hover:shadow-lg hover:shadow-brand-orange/30'
             }`}

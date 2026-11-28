@@ -156,6 +156,7 @@ app.use('/api/careers', validateCsrfToken);
 app.use('/api/newsletter', validateCsrfToken);
 app.use('/api/quotes', validateCsrfToken);
 app.use('/api/audit', validateCsrfToken);
+app.post('/api/leads/strategy', validateCsrfToken);
 
 
 // Apply CSRF protection to admin endpoints
@@ -237,6 +238,9 @@ console.log('✅ Social automation routes loaded');
 app.use('/api/marketplace', (req, res, next) => (req.method === 'GET' ? next() : validateCsrfToken(req, res, next)));
 app.use('/api/marketplace', requireDb, require('./routes/marketplace'));
 console.log('✅ Lead marketplace routes loaded');
+// "Request Strategy Outline" enquiries: saved first, then handed to the n8n lead-capture workflow
+app.use('/api/leads', requireDb, require('./routes/leads'));
+console.log('✅ Strategy request routes loaded');
 
 
 // Health Check
